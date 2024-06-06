@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class FontFamily
 {
   static const String kPoppinsFont= 'Poppins';
@@ -10,11 +12,11 @@ class FontFamily
 
 class FontSize
 {
-  static const double kSize12=12.0;
-  static const double kSize14=14.0;
-  static const double kSize16=16.0;
-  static const double kSize18=18.0;
-  static const double kSize20=20.0;
-  static const double kSize22=22.0;
+  static  double kSize12=12.0.sp;
+  static  double kSize14=14.0.sp;
+  static  double kSize16=16.0.sp;
+  static  double kSize18=18.0.sp;
+  static  double kSize20=20.0.sp;
+  static  double kSize22=22.0.sp;
 
 }
