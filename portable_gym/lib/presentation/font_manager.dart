@@ -12,11 +12,11 @@ class FontFamily
 
 class FontSize
 {
-  static  double kSize12=12.0.sp;
-  static  double kSize14=14.0.sp;
-  static  double kSize16=16.0.sp;
-  static  double kSize18=18.0.sp;
-  static  double kSize20=20.0.sp;
-  static  double kSize22=22.0.sp;
+  static  double s12=12.0.sp;
+  static  double s14=14.0.sp;
+  static  double s16=16.0.sp;
+  static  double s18=18.0.sp;
+  static  double s20=20.0.sp;
+  static  double s22=22.0.sp;
 
 }
