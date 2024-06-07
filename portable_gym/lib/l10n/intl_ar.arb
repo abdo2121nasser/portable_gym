@@ -1,0 +1,15 @@
+{
+  "loginWord": "تسجيل الدخول",
+  "loginWelcome": "اهلا",
+  "loginWelcomeDescrioption" :"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+  "loginUserNameOrPassword": "اسم المستخدم او البريد الاليكتروني",
+  "loginPassword": "كلمه السر",
+  "loginForgetPassword":"هل نسيت كلمه السر",
+  "loginOtherOptions": "او سجل عن طريق",
+  "loginSignUpOption": "ليس لديك حساب ؟",
+  "signUpWord": "انشئ حساب"
+
+
+
+
+}

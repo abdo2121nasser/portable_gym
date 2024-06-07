@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
@@ -7,19 +7,21 @@ import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../../generated/l10n.dart';
+
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
-        leading: Icon(
+        leading: const Icon(
           Icons.arrow_left,
           color: ColorManager.kLimeGreenColor,
         ),
         centerTitle: true,
         title: Text(
-          'Login',
+          S.of(context).loginWord,
           style: getBoldStyle(
               fontSize: FontSize.s20,
               color: ColorManager.kLimeGreenColor,
@@ -32,13 +34,13 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Welcome',
+          Text( S.of(context).loginWelcome,
               style: getBoldStyle(
                   fontSize: FontSize.s20,
                   color: ColorManager.kWhiteColor,
                   fontFamily: FontFamily.kPoppinsFont)),
           Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+          S.of(context).loginWelcomeDescription,
               style: getLightStyle(
                   fontSize: FontSize.s14,
                   color: ColorManager.kWhiteColor,
@@ -54,13 +56,13 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Username or email',
+                Text(S.of(context).loginUserNameOrPassword,
                     style: getSemiBoldStyle(
                         fontSize: FontSize.s16,
                         color: ColorManager.kBlackColor,
                         fontFamily: FontFamily.kPoppinsFont)),
                 GeneralTextFormField(),
-                Text('Password',
+                Text(S.of(context).loginPassword,
                     style: getSemiBoldStyle(
                         fontSize: FontSize.s16,
                         color: ColorManager.kBlackColor,
@@ -69,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forger Password ?',
+                    Text(S.of(context).loginForgetPassword,
                         style: getMeduimStyle(
                             fontSize: FontSize.s12,
                             color: ColorManager.kBlackColor,
@@ -82,14 +84,14 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           GeneralButtonBlock(
-            lable: 'Login',
+            lable: S.of(context).loginWord,
             width: AppHorizontalSize.s178,
             hight: AppVerticalSize.s44,
             function: () {},
             backgroundColor: ColorManager.kBlackColor,
             textStyle: getBoldStyle(fontSize:FontSize.s18, color: ColorManager.kWhiteColor, fontFamily: FontFamily.kPoppinsFont),
           ),
-          Text('or sign up with',
+          Text( S.of(context).loginOtherOptions,
               style: getLightStyle(
                   fontSize: FontSize.s12,
                   color: ColorManager.kWhiteColor,
@@ -97,12 +99,12 @@ class LoginScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Don’t have an account?',
+              Text(S.of(context).loginSignUpOption,
                   style: getLightStyle(
                       fontSize: FontSize.s12,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont)),
-              Text(' Sign Up',
+              Text(' ${S.of(context).signUpWord} ',
                   style: getLightStyle(
                       fontSize: FontSize.s12,
                       color: ColorManager.kLimeGreenColor,
