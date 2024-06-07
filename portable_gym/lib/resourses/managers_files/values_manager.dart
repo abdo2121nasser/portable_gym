@@ -28,8 +28,10 @@ class AppVerticalSize
   static double s18=18.0.h;
   static double s20=20.0.h;
   static double s22=22.0.h;
-  static double s253=253.0.h;
   static double s44=44.0.h;
+  static double s55=55.0.h;
+  static double s253=253.0.h;
+  static double s394=394.0.h;
 
 }
 class AppRadiusSize

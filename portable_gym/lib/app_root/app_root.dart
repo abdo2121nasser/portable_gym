@@ -8,6 +8,7 @@ import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
 
 import '../generated/l10n.dart';
+import '../screens/authentication_screens/sign_up_screen.dart';
 
 
 
@@ -33,7 +34,8 @@ class PortableGym extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
             theme: getAppTheme(),
-         home: LoginScreen(),
+       //  home: LoginScreen(),
+         home: SignUpScreen(),
             ),
         ),
       ),

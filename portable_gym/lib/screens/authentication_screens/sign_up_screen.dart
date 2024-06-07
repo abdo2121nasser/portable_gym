@@ -1,5 +1,7 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/resourses/blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
@@ -9,7 +11,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../generated/l10n.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,7 @@ class LoginScreen extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text(
-          S.of(context).login,
+          S.of(context).createAccount,
           style: getBoldStyle(
               fontSize: FontSize.s20,
               color: ColorManager.kLimeGreenColor,
@@ -34,28 +36,29 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text( S.of(context).welcome,
+          Text( S.of(context).letsStart,
               style: getBoldStyle(
                   fontSize: FontSize.s20,
                   color: ColorManager.kWhiteColor,
                   fontFamily: FontFamily.kPoppinsFont)),
-          Text(
-          S.of(context).welcomeDescription,
-              style: getLightStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-          textAlign: TextAlign.center,
-          ),
           Container(
             width: MediaQuery.of(context).size.width,
-         //   height: AppVerticalSize.s253,
+           // height: AppVerticalSize.s394,
             color: ColorManager.kLightPurpleColor,
             padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20,vertical: AppVerticalSize.s5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(S.of(context).fullName,
+                    style: getSemiBoldStyle(
+                        fontSize: FontSize.s16,
+                        color: ColorManager.kBlackColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+                GeneralTextFormField(),
+                SizedBox(
+                  height: AppVerticalSize.s14,
+                ),
                 Text(S.of(context).email,
                     style: getSemiBoldStyle(
                         fontSize: FontSize.s16,
@@ -76,23 +79,24 @@ class LoginScreen extends StatelessWidget {
                   height: AppVerticalSize.s14,
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(S.of(context).forgetPassword,
-                        style: getMeduimStyle(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.kBlackColor,
-                            fontFamily: FontFamily.kPoppinsFont)),
-                  ],
-                )
+                Text(S.of(context).confirmPassword,
+                    style: getSemiBoldStyle(
+                        fontSize: FontSize.s16,
+                        color: ColorManager.kBlackColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+                GeneralTextFormField(),
+                SizedBox(
+                  height: AppVerticalSize.s14,
+                ),
+
                 // Text('Welcome',
                 //     style: getBoldStyle(fontSize: FontSize.s20, color: ColorManager.kWhiteColor, fontFamily: FontFamily.kPoppinsFont)),
               ],
             ),
           ),
+
           GeneralButtonBlock(
-            lable: S.of(context).login,
+            lable: S.of(context).signUp,
             width: AppHorizontalSize.s178,
             hight: AppVerticalSize.s44,
             function: () {},
@@ -112,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                       fontSize: FontSize.s12,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont)),
-              Text(' ${S.of(context).signUp} ',
+              Text(' ${S.of(context).login} ',
                   style: getLightStyle(
                       fontSize: FontSize.s12,
                       color: ColorManager.kLimeGreenColor,

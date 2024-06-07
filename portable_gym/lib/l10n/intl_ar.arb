@@ -1,15 +1,19 @@
 {
-  "loginWord": "تسجيل الدخول",
-  "loginWelcome": "اهلا",
+  "login": "تسجيل الدخول",
+  "welcome": "اهلا",
   "loginWelcomeDescrioption" :"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-  "loginUserNameOrPassword": "اسم المستخدم او البريد الاليكتروني",
-  "loginPassword": "كلمه السر",
-  "loginForgetPassword":"هل نسيت كلمه السر",
+  "email": "البريد الاليكتروني",
+  "password": "كلمه السر",
+  "forgetPassword":"هل نسيت كلمه السر",
   "loginOtherOptions": "او سجل عن طريق",
   "loginSignUpOption": "ليس لديك حساب ؟",
-  "signUpWord": "انشئ حساب"
+  "signUp": "انشئ حساب",
 
-
+  "createAccount": "انشئ حساب",
+  "letsStart": "يلا نبدأ",
+  "fullName": "الاسم كامل",
+  "confirmPassword": "تأكيد كلمه المرور",
+  "alreadyHaveAnAccount?": "هل لديك حساب ؟"
 
 
 }
