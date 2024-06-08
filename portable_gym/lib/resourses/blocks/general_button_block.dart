@@ -9,8 +9,9 @@ final double width,hight/*,borderRadius*/;
  final TextStyle textStyle;
 
  GeneralButtonBlock({required this.lable,
-   required this.function, required this.width,
-   required this.hight,
+   required this.function,
+   this.width=0,
+    this.hight=0,
   // , required this.textColor,
    required this.backgroundColor,
    //required this.borderRadius
@@ -27,7 +28,7 @@ final double width,hight/*,borderRadius*/;
        //    //  borderRadius: BorderRadius.circular(borderRadius)
        //    ),
          backgroundColor: backgroundColor,
-      fixedSize: Size(width, hight),
+      fixedSize: width == 0 && hight==0?null: Size(width, hight),
          ),
         child:Text(lable,
         style:textStyle,)

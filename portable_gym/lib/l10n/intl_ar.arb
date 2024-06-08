@@ -13,7 +13,29 @@
   "letsStart": "يلا نبدأ",
   "fullName": "الاسم كامل",
   "confirmPassword": "تأكيد كلمه المرور",
-  "alreadyHaveAnAccount?": "هل لديك حساب ؟"
+  "alreadyHaveAnAccount?": "هل لديك حساب ؟",
+
+  "forgottenPassword": "نيسيت كلمه السر",
+  "enterYourEmail": "ادخل بريدك الاليكتروني",
+  "resetPassword": "غير كلمه السر",
+
+  "back": "رجوع",
+  "whatsYourGender": "ما هو جنسك",
+  "continued": "استمر",
+  "howOldAreYou": "ما هو عمرك؟",
+  "whatsYourWeight": "ما هو وزنك ؟",
+  "whatsYourHeight": "ما هو طولك?",
+  "kg": "KG",
+  "lb": "LB",
+  "enterYourWeight":"ادخل وزنك ب KG",
+  "enterYourHeight":"ادخل طولك ب CM",
+  "whatsYourGoal":"ما هو هدفك؟"
+
+
+
+
+
+
 
 
 }

@@ -13,6 +13,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
+
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         leading: const Icon(
@@ -44,7 +46,7 @@ class LoginScreen extends StatelessWidget {
               style: getLightStyle(
                   fontSize: FontSize.s14,
                   color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont),
+                  fontFamily: FontFamily.kLeagueSpartanFont),
           textAlign: TextAlign.center,
           ),
           Container(
