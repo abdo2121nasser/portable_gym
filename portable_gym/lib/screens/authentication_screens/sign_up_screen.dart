@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/resourses/blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
@@ -8,6 +9,7 @@ import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/screens/set_up_screens/gender_screen.dart';
 
 import '../../generated/l10n.dart';
 
@@ -19,9 +21,14 @@ class SignUpScreen extends StatelessWidget {
 
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_left,
-          color: ColorManager.kLimeGreenColor,
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_left,
+            color: ColorManager.kLimeGreenColor,
+          ),
         ),
         centerTitle: true,
         title: Text(
@@ -101,7 +108,9 @@ class SignUpScreen extends StatelessWidget {
             lable: S.of(context).signUp,
             width: AppHorizontalSize.s178,
             hight: AppVerticalSize.s44,
-            function: () {},
+            function: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GenderScreen(),));
+            },
             backgroundColor: ColorManager.kBlackColor,
             textStyle: getBoldStyle(fontSize:FontSize.s18, color: ColorManager.kWhiteColor, fontFamily: FontFamily.kPoppinsFont),
           ),
@@ -118,11 +127,16 @@ class SignUpScreen extends StatelessWidget {
                       fontSize: FontSize.s12,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont)),
-              Text(' ${S.of(context).login} ',
-                  style: getLightStyle(
-                      fontSize: FontSize.s12,
-                      color: ColorManager.kLimeGreenColor,
-                      fontFamily: FontFamily.kPoppinsFont)),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Text(' ${S.of(context).login} ',
+                    style: getLightStyle(
+                        fontSize: FontSize.s12,
+                        color: ColorManager.kLimeGreenColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+              ),
             ],
           ),
         ],

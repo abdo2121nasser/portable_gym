@@ -19,9 +19,14 @@ class ForgetPasswordScreen extends StatelessWidget {
       resizeToAvoidBottomInset : false,
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_left,
-          color: ColorManager.kLimeGreenColor,
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_left,
+            color: ColorManager.kLimeGreenColor,
+          ),
         ),
         centerTitle: true,
         title: Text(

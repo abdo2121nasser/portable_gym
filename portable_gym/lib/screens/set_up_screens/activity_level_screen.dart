@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/resourses/blocks/weight_ruler_block.dart';
+import 'package:portable_gym/screens/set_up_screens/fill_profile_screen.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/age_picker_block.dart';
@@ -24,20 +25,25 @@ class ActivityLevelScreen extends StatelessWidget {
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         leadingWidth: AppHorizontalSize.s100,
-        leading: Row(
-          children: [
-            const Icon(
-              Icons.arrow_left,
-              color: ColorManager.kLimeGreenColor,
-            ),
-            Text(
-              S.of(context).back,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kLimeGreenColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
-          ],
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_left,
+                color: ColorManager.kLimeGreenColor,
+              ),
+              Text(
+                S.of(context).back,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s14,
+                    color: ColorManager.kLimeGreenColor,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
+            ],
+          ),
         ),
         elevation: 0,
         backgroundColor: ColorManager.kBlackColor,
@@ -69,7 +75,10 @@ class ActivityLevelScreen extends StatelessWidget {
           ),
           GeneralButtonBlock(
             lable: S.of(context).continued,
-            function: () {},
+            function: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => FillProfileScreen(),));
+
+            },
             backgroundColor: ColorManager.kBlackColor,
             textStyle: getBoldStyle(
                 fontSize: FontSize.s18,

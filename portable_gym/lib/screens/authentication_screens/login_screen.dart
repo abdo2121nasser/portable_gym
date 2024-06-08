@@ -1,11 +1,15 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:portable_gym/resourses/blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/screens/authentication_screens/forget_password.dart';
+import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';
 
 import '../../generated/l10n.dart';
 
@@ -81,11 +85,16 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(S.of(context).forgetPassword,
-                        style: getMeduimStyle(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.kBlackColor,
-                            fontFamily: FontFamily.kPoppinsFont)),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
+                      },
+                      child: Text(S.of(context).forgetPassword,
+                          style: getMeduimStyle(
+                              fontSize: FontSize.s12,
+                              color: ColorManager.kBlackColor,
+                              fontFamily: FontFamily.kPoppinsFont)),
+                    ),
                   ],
                 )
                 // Text('Welcome',
@@ -114,11 +123,16 @@ class LoginScreen extends StatelessWidget {
                       fontSize: FontSize.s12,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont)),
-              Text(' ${S.of(context).signUp} ',
-                  style: getLightStyle(
-                      fontSize: FontSize.s12,
-                      color: ColorManager.kLimeGreenColor,
-                      fontFamily: FontFamily.kPoppinsFont)),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen(),));
+                },
+                child: Text(' ${S.of(context).signUp} ',
+                    style: getLightStyle(
+                        fontSize: FontSize.s12,
+                        color: ColorManager.kLimeGreenColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+              ),
             ],
           ),
         ],

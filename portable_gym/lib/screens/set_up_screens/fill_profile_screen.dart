@@ -27,20 +27,25 @@ class FillProfileScreen extends StatelessWidget {
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         leadingWidth: AppHorizontalSize.s100,
-        leading: Row(
-          children: [
-            const Icon(
-              Icons.arrow_left,
-              color: ColorManager.kLimeGreenColor,
-            ),
-            Text(
-              S.of(context).back,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kLimeGreenColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
-          ],
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_left,
+                color: ColorManager.kLimeGreenColor,
+              ),
+              Text(
+                S.of(context).back,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s14,
+                    color: ColorManager.kLimeGreenColor,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
+            ],
+          ),
         ),
         elevation: 0,
         backgroundColor: ColorManager.kBlackColor,
@@ -54,13 +59,16 @@ class FillProfileScreen extends StatelessWidget {
                   fontSize: FontSize.s24,
                   color: ColorManager.kWhiteColor,
                   fontFamily: FontFamily.kPoppinsFont)),
-          Text(
-            S.of(context).welcomeDescription,
-            style: getLightStyle(
-                fontSize: FontSize.s14,
-                color: ColorManager.kWhiteColor,
-                fontFamily: FontFamily.kLeagueSpartanFont),
-            textAlign: TextAlign.center,
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s18),
+            child: Text(
+              S.of(context).welcomeDescription,
+              style: getLightStyle(
+                  fontSize: FontSize.s14,
+                  color: ColorManager.kWhiteColor,
+                  fontFamily: FontFamily.kLeagueSpartanFont),
+              textAlign: TextAlign.center,
+            ),
           ),
           Container(
             alignment: Alignment.center,
@@ -70,14 +78,35 @@ class FillProfileScreen extends StatelessWidget {
             color: ColorManager.kLightPurpleColor,
             child: ProfilePhotoBlock(),
           ),
-          GeneralButtonBlock(
-            lable: S.of(context).start,
-            function: () {},
-            backgroundColor: ColorManager.kLimeGreenColor,
-            textStyle: getMeduimStyle(
-                fontSize: FontSize.s24,
-                color: ColorManager.kBlackColor,
-                fontFamily: FontFamily.kLeagueSpartanFont),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.3,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20,vertical: AppVerticalSize.s10),
+                itemBuilder: (context, index) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Text(S.of(context).fullName,
+                      style: getSemiBoldStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.kPurpleColor,
+                          fontFamily: FontFamily.kPoppinsFont)),
+                  SizedBox(height: AppVerticalSize.s5,),
+                  GeneralTextFormField(),
+                ],),
+                separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s10,),
+                itemCount: 4),
+          ),
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s14),
+            child: GeneralButtonBlock(
+              lable: S.of(context).start,
+              function: () {},
+              backgroundColor: ColorManager.kLimeGreenColor,
+              textStyle: getMeduimStyle(
+                  fontSize: FontSize.s24,
+                  color: ColorManager.kBlackColor,
+                  fontFamily: FontFamily.kLeagueSpartanFont),
+            ),
           ),
         ],
       ),

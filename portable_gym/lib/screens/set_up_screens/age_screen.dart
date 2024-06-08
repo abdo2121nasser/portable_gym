@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:horizontal_picker/horizontal_picker.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
+import 'package:portable_gym/screens/set_up_screens/weight_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/age_picker_block.dart';
@@ -21,21 +22,26 @@ class AgeScreen extends StatelessWidget {
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         leadingWidth: AppHorizontalSize.s100,
-        leading: Row(
-          children: [
-            const Icon(
-              Icons.arrow_left,
-              color: ColorManager.kLimeGreenColor,
-            ),
-            Text(
-              S.of(context).back,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kLimeGreenColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
+        leading: InkWell(
+          onTap: (){
+          Navigator.pop(context);
+        },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_left,
+                color: ColorManager.kLimeGreenColor,
+              ),
+              Text(
+                S.of(context).back,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s14,
+                    color: ColorManager.kLimeGreenColor,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
 
-          ],
+            ],
+          ),
         ),
         elevation: 0,
         backgroundColor: ColorManager.kBlackColor,
@@ -81,7 +87,9 @@ class AgeScreen extends StatelessWidget {
 
           GeneralButtonBlock(
             lable: S.of(context).continued,
-            function: () {},
+            function: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => WeightScreen(),));
+            },
             backgroundColor: ColorManager.kBlackColor,
             textStyle: getBoldStyle(
                 fontSize: FontSize.s18,

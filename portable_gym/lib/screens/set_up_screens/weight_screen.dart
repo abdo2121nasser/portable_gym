@@ -9,6 +9,7 @@ import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
 import '../../resourses/managers_files/style_manager.dart';
 import '../../resourses/managers_files/values_manager.dart';
+import 'height_screen.dart';
 
 
 
@@ -21,21 +22,26 @@ class WeightScreen extends StatelessWidget {
       //backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         leadingWidth: AppHorizontalSize.s100,
-        leading: Row(
-          children: [
-            const Icon(
-              Icons.arrow_left,
-              color: ColorManager.kLimeGreenColor,
-            ),
-            Text(
-              S.of(context).back,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kLimeGreenColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_left,
+                color: ColorManager.kLimeGreenColor,
+              ),
+              Text(
+                S.of(context).back,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s14,
+                    color: ColorManager.kLimeGreenColor,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
 
-          ],
+            ],
+          ),
         ),
         elevation: 0,
         backgroundColor: ColorManager.kBlackColor,
@@ -88,7 +94,10 @@ class WeightScreen extends StatelessWidget {
 
           GeneralButtonBlock(
             lable: S.of(context).continued,
-            function: () {},
+            function: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HeightScreen(),));
+
+            },
             backgroundColor: ColorManager.kBlackColor,
             textStyle: getBoldStyle(
                 fontSize: FontSize.s18,
