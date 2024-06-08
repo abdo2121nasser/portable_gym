@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portable_gym/resourses/blocks/gender_block.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 
 import '../../generated/l10n.dart';
@@ -71,23 +72,8 @@ class GenderScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30,vertical: AppVerticalSize.s30),
-            decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: AppHorizontalSize.s2,color: ColorManager.kWhiteColor)
-            ),
-            child: Image.asset(ImageManager.kMaleImage),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30,vertical: AppVerticalSize.s30),
-            decoration: BoxDecoration(
-              color: ColorManager.kLimeGreenColor,
-            shape: BoxShape.circle,
-            border: Border.all(width: AppHorizontalSize.s2,color: ColorManager.kLimeGreenColor)
-            ),
-            child: Image.asset(ImageManager.kFemaleImage,),
-          ),
+          GenderBlock(image: ImageManager.kMaleImage) ,
+          GenderBlock(image: ImageManager.kFemaleImage) ,
           GeneralButtonBlock(
             lable: S.of(context).continued,
             function: () {
