@@ -72,7 +72,7 @@ class AgeScreen extends StatelessWidget {
               Icon(
                 Icons.arrow_drop_up_rounded,
                 color: ColorManager.kLimeGreenColor,
-                size: AppVerticalSize.s100,
+                size: AppVerticalSize.s120,
               ),
             ],
           ),

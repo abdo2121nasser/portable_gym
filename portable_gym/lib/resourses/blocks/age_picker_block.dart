@@ -14,7 +14,7 @@ class AgePickerBlock extends StatelessWidget {
       minValue: 12,
       maxValue: 50,
       divisions:38,
-      height: AppVerticalSize.s100,
+      height: AppVerticalSize.s120,
       //suffix: " th",
 
       //showCursor: false,

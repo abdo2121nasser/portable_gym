@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/resourses/blocks/weight_ruler_block.dart';
+import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/age_picker_block.dart';
@@ -10,13 +12,14 @@ import '../../resourses/blocks/general_button_block.dart';
 import '../../resourses/blocks/general_text_form_field.dart';
 import '../../resourses/blocks/goal_choice_block.dart';
 import '../../resourses/blocks/levels_block.dart';
+import '../../resourses/blocks/profile_photo_block.dart';
 import '../../resourses/blocks/weight_type_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
 import '../../resourses/managers_files/style_manager.dart';
 import '../../resourses/managers_files/values_manager.dart';
 
-class ActivityLevelScreen extends StatelessWidget {
+class FillProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +49,7 @@ class ActivityLevelScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(S.of(context).physicalActivityLevel,
+          Text(S.of(context).fillYourProfile,
               style: getBoldStyle(
                   fontSize: FontSize.s24,
                   color: ColorManager.kWhiteColor,
@@ -59,22 +62,22 @@ class ActivityLevelScreen extends StatelessWidget {
                 fontFamily: FontFamily.kLeagueSpartanFont),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: AppVerticalSize.s253,
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20),
-                itemBuilder: (context, index) => LevelsBlock(),
-                separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s22,),
-                itemCount: 3),
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s8),
+            width: MediaQuery.of(context).size.width,
+            height: AppVerticalSize.s150,
+            color: ColorManager.kLightPurpleColor,
+            child: ProfilePhotoBlock(),
           ),
           GeneralButtonBlock(
-            lable: S.of(context).continued,
+            lable: S.of(context).start,
             function: () {},
-            backgroundColor: ColorManager.kBlackColor,
-            textStyle: getBoldStyle(
-                fontSize: FontSize.s18,
-                color: ColorManager.kWhiteColor,
-                fontFamily: FontFamily.kPoppinsFont),
+            backgroundColor: ColorManager.kLimeGreenColor,
+            textStyle: getMeduimStyle(
+                fontSize: FontSize.s24,
+                color: ColorManager.kBlackColor,
+                fontFamily: FontFamily.kLeagueSpartanFont),
           ),
         ],
       ),

@@ -14,6 +14,7 @@ import 'package:portable_gym/screens/set_up_screens/weight_screen.dart';
 import '../generated/l10n.dart';
 import '../screens/authentication_screens/sign_up_screen.dart';
 import '../screens/set_up_screens/activity_level_screen.dart';
+import '../screens/set_up_screens/fill_profile_screen.dart';
 import '../screens/set_up_screens/goal_screen.dart';
 import '../screens/set_up_screens/height_screen.dart';
 
@@ -41,7 +42,7 @@ class PortableGym extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
             theme: getAppTheme(),
-      home: ActivityLevelScreen(),
+      home: FillProfileScreen(),
       // home: ForgetPasswordScreen(),
        //  home: LoginScreen(),
        //  home: SignUpScreen(),
