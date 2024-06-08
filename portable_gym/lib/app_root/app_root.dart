@@ -10,6 +10,7 @@ import 'package:portable_gym/screens/set_up_screens/set_up_screen.dart';
 
 import '../cubits/set_up_cubit/set_up_cubit.dart';
 import '../generated/l10n.dart';
+import '../screens/set_up_screens/age_screen.dart';
 
 
 class PortableGym extends StatelessWidget {
@@ -43,7 +44,7 @@ class PortableGym extends StatelessWidget {
                       create: (context) => SetUpCubit(),
                       //todo fix this bloc brovider to its right place
                       child: SetUpScreen(),
-                     // child: GenderScreen(),
+                      //child: AgeScreen(),
                     ),
                     // home: ForgetPasswordScreen(),
                     //  home: LoginScreen(),
