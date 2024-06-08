@@ -65,8 +65,6 @@ class GoalScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
 
-          //  WeightTypeBlock(),
-          //WeightRulerBlock(),
           Container(
             width: MediaQuery.of(context).size.width,
                height: AppVerticalSize.s394,

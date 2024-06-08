@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
 import 'package:portable_gym/screens/set_up_screens/gender_screen.dart';
+import 'package:portable_gym/screens/set_up_screens/goal_screen.dart';
 import 'package:portable_gym/screens/set_up_screens/set_up_screen.dart';
 
 import '../cubits/set_up_cubit/set_up_cubit.dart';
@@ -45,7 +46,7 @@ class PortableGym extends StatelessWidget {
                       create: (context) => SetUpCubit(),
                       //todo fix this bloc brovider to its right place
                       child: SetUpScreen(),
-                     // child: WeightScreen(),
+                      //child: GoalScreen(),
                     ),
                     // home: ForgetPasswordScreen(),
                     //  home: LoginScreen(),

@@ -69,7 +69,7 @@ class SetUpScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
-       setCubit.pageBody[3],
+       setCubit.pageBody[4],
 
 
             GeneralButtonBlock(
