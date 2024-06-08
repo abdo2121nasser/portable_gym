@@ -29,7 +29,8 @@
   "lb": "LB",
   "enterYourWeight":"ادخل وزنك ب KG",
   "enterYourHeight":"ادخل طولك ب CM",
-  "whatsYourGoal":"ما هو هدفك؟"
+  "whatsYourGoal":"ما هو هدفك؟",
+  "physicalActivityLevel":"مستوي التدريب البدني"
 
 
 

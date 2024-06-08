@@ -24,7 +24,7 @@ class GoalChoiceBlock extends StatelessWidget {
         children: [
           Text(S.of(context).whatsYourGoal,
               style: getRegularStyle(
-                  fontSize: FontSize.s20,
+                  fontSize: FontSize.s18,
                   color: ColorManager.kBlackColor,
                   fontFamily: FontFamily.kLeagueSpartanFont)),
           RoundCheckBox(

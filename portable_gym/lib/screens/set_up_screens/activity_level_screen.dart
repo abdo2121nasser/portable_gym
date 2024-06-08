@@ -9,6 +9,7 @@ import '../../resourses/blocks/age_picker_block.dart';
 import '../../resourses/blocks/general_button_block.dart';
 import '../../resourses/blocks/general_text_form_field.dart';
 import '../../resourses/blocks/goal_choice_block.dart';
+import '../../resourses/blocks/levels_block.dart';
 import '../../resourses/blocks/weight_type_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
@@ -45,7 +46,7 @@ class ActivityLevelScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(S.of(context).whatsYourGoal,
+          Text(S.of(context).physicalActivityLevel,
               style: getBoldStyle(
                   fontSize: FontSize.s20,
                   color: ColorManager.kWhiteColor,
@@ -58,31 +59,14 @@ class ActivityLevelScreen extends StatelessWidget {
                 fontFamily: FontFamily.kLeagueSpartanFont),
             textAlign: TextAlign.center,
           ),
-
-          //  WeightTypeBlock(),
-          //WeightRulerBlock(),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: AppVerticalSize.s394,
-            color: ColorManager.kLightPurpleColor,
-            padding: EdgeInsets.symmetric(
-                horizontal: AppHorizontalSize.s20,
-                vertical: AppVerticalSize.s5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ListView.separated(
-                      padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                      itemBuilder: (context, index) => GoalChoiceBlock(),
-                      separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s16,),
-                      itemCount: 5),
-                )
-              ],
-            ),
+          SizedBox(
+            height: AppVerticalSize.s253,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20),
+                itemBuilder: (context, index) => LevelsBlock(),
+                separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s22,),
+                itemCount: 3),
           ),
-
           GeneralButtonBlock(
             lable: S.of(context).continued,
             function: () {},
