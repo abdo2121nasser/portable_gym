@@ -54,31 +54,22 @@ class SetUpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
-              child: Text(S.of(context).fillYourProfile,
-                  style: getBoldStyle(
-                      fontSize: FontSize.s24,
-                      color: ColorManager.kWhiteColor,
-                      fontFamily: FontFamily.kPoppinsFont)),
-            ),
-            //todo list of strings
-            Expanded(flex: 1,
-              child: Text(
-                S.of(context).welcomeDescription,
-                style: getLightStyle(
-                    fontSize: FontSize.s14,
+            Text(S.of(context).fillYourProfile,
+                style: getBoldStyle(
+                    fontSize: FontSize.s24,
                     color: ColorManager.kWhiteColor,
-                    fontFamily: FontFamily.kLeagueSpartanFont),
-                textAlign: TextAlign.center,
-              ),
+                    fontFamily: FontFamily.kPoppinsFont)),
+            //todo list of strings
+            Text(
+              S.of(context).welcomeDescription,
+              style: getLightStyle(
+                  fontSize: FontSize.s14,
+                  color: ColorManager.kWhiteColor,
+                  fontFamily: FontFamily.kLeagueSpartanFont),
+              textAlign: TextAlign.center,
             ),
-            Expanded(flex: 6,
-                child: PageView.builder(
-                  itemCount: setCubit.pageBody.length,
-                  itemBuilder: (context, index) => setCubit.pageBody[index],)),
 
-
+       setCubit.pageBody[0],
 
 
             GeneralButtonBlock(
@@ -90,7 +81,6 @@ class SetUpScreen extends StatelessWidget {
                   color: ColorManager.kBlackColor,
                   fontFamily: FontFamily.kLeagueSpartanFont),
             ),
-              Spacer(flex: 1,)
 
           ],
         ),
