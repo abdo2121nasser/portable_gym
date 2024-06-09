@@ -4,12 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
-import '../../generated/l10n.dart';
-import '../../resourses/blocks/general_button_block.dart';
-import '../../resourses/managers_files/color_manager.dart';
-import '../../resourses/managers_files/font_manager.dart';
-import '../../resourses/managers_files/style_manager.dart';
-import '../../resourses/managers_files/values_manager.dart';
+import '../generated/l10n.dart';
+import '../resourses/blocks/general_button_block.dart';
+import '../resourses/managers_files/color_manager.dart';
+import '../resourses/managers_files/font_manager.dart';
+import '../resourses/managers_files/style_manager.dart';
+import '../resourses/managers_files/values_manager.dart';
 
 
 
@@ -29,7 +29,7 @@ class SetUpScreen extends StatelessWidget {
           leadingWidth: AppHorizontalSize.s100,
           leading: InkWell(
             onTap: (){
-              Navigator.pop(context);
+            setCubit.setUpBackWardNavigation(context: context);
             },
             child: Row(
               children: [
@@ -54,7 +54,7 @@ class SetUpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(S.of(context).fillYourProfile,
+            Text(setCubit.getTitle(context: context),
                 style: getBoldStyle(
                     fontSize: FontSize.s24,
                     color: ColorManager.kWhiteColor,
@@ -69,16 +69,18 @@ class SetUpScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
 
-       setCubit.pageBody[6],
+       setCubit.pageBody[setCubit.currentPageBodyIndex],
 
 
             GeneralButtonBlock(
-              lable: S.of(context).start,
-              function: () {},
-              backgroundColor: ColorManager.kLimeGreenColor,
+              lable: setCubit.getButtonText(context: context),
+              function: () {
+               setCubit.setUpForwardNavigation(context: context);
+              },
+              backgroundColor: setCubit.getButtonColor(context: context),
               textStyle: getMeduimStyle(
                   fontSize: FontSize.s24,
-                  color: ColorManager.kBlackColor,
+                  color: setCubit.getTextColor(context: context),
                   fontFamily: FontFamily.kLeagueSpartanFont),
             ),
 
