@@ -12,6 +12,7 @@ import 'package:portable_gym/screens/authentication_screens/forget_password.dart
 import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/full_input_block.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -62,22 +63,13 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).email,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).email,color: ColorManager.kBlackColor,),
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
 
-                Text(S.of(context).password,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable:S.of(context).password,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),

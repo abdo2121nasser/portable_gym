@@ -13,6 +13,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/full_input_block.dart';
 import '../set_up_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -63,41 +64,25 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).fullName,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).fullName,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
-                Text(S.of(context).email,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).email,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
 
-                Text(S.of(context).password,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).password,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
 
-                Text(S.of(context).confirmPassword,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).confirmPassword,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),

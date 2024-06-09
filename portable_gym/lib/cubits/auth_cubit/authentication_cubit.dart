@@ -33,7 +33,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     {
       return 'the email field is empty!!';
     }
-    else if(email.contains('@')==false || email.contains('.com')==false || email.contains('gmail')==false)
+    else if(email.contains('@gmail.com')==false)
     {
       return 'email field pattern is wrong';
     }
@@ -43,11 +43,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   {
     if( !password.isNotEmpty)
     {
-      return 'the passsword field is empty!!';
+      return 'the password field is empty!!';
     }
     else if(password.length < 8)
     {
-      print(password.length);
+     // print(password.length);
       return 'password should be at least 8 numbers or characters';
     }
     else return 'true';

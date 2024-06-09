@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/full_input_block.dart';
 import '../../resourses/blocks/general_button_block.dart';
 import '../../resourses/blocks/general_text_form_field.dart';
 import '../../resourses/managers_files/color_manager.dart';
@@ -65,12 +66,8 @@ class ForgetPasswordScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).enterYourEmail,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralTextFormField(),
+                FullInputBlock(lable: S.of(context).enterYourEmail,color: ColorManager.kBlackColor,),
+
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),

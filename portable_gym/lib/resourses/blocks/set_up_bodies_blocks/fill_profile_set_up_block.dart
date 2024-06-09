@@ -6,6 +6,7 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/image_manager.dart';
 import '../../managers_files/style_manager.dart';
 import '../../managers_files/values_manager.dart';
+import '../full_input_block.dart';
 import '../gender_block.dart';
 import '../general_text_form_field.dart';
 import '../profile_photo_block.dart';
@@ -36,13 +37,8 @@ class FillProfileSetUpBlock extends StatelessWidget {
                    itemBuilder: (context, index) => Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       Text(S.of(context).fullName,
-                           style: getSemiBoldStyle(
-                               fontSize: FontSize.s16,
-                               color: ColorManager.kPurpleColor,
-                               fontFamily: FontFamily.kPoppinsFont)),
-                       SizedBox(height: AppVerticalSize.s5,),
-                       GeneralTextFormField(),
+                       FullInputBlock(lable: S.of(context).fullName,color: ColorManager.kPurpleColor,),
+
                      ],),
                    separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s10,),
                    itemCount: 4),
