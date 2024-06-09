@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
 
@@ -39,7 +40,11 @@ class PortableGym extends StatelessWidget {
                     supportedLocales: S.delegate.supportedLocales,
                     debugShowCheckedModeBanner: false,
                     theme: getAppTheme(),
-                    home: LoginScreen(),
+                    home: BlocProvider(
+                      create: (context) => AuthenticationCubit(),
+                      //todo put bloc provider in its right place
+                      child: LoginScreen(),
+                    ),
                     // home: ForgetPasswordScreen(),
                     //  home: LoginScreen(),
                     //  home: SignUpScreen(),

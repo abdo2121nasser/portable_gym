@@ -10,6 +10,7 @@ import '../age_picker_block.dart';
 import '../full_input_block.dart';
 import '../gender_block.dart';
 import '../general_text_form_field.dart';
+import '../weight_ruler_block.dart';
 
 class WeightSetUpBlock extends StatelessWidget {
   @override
@@ -17,14 +18,15 @@ class WeightSetUpBlock extends StatelessWidget {
     return   Container(
       width: MediaQuery.of(context).size.width,
       //   height: AppVerticalSize.s253,
-      color: ColorManager.kLightPurpleColor,
-      padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20,vertical: AppVerticalSize.s5),
+      //color: ColorManager.kLightPurpleColor,
+   //   padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s20,vertical: AppVerticalSize.s5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FullInputBlock(lable: S.of(context).enterYourWeight,color: ColorManager.kBlackColor,),
-
+       //   FullInputBlock(lable: S.of(context).enterYourWeight,color: ColorManager.kBlackColor,),
+          //todo make it only accept integera
+          WeightRulerBlock(),
           SizedBox(
             height: AppVerticalSize.s14,
           ),

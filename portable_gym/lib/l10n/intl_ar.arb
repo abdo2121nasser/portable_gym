@@ -32,7 +32,17 @@
   "whatsYourGoal":"ما هو هدفك؟",
   "physicalActivityLevel":"مستوي التدريب البدني",
   "fillYourProfile":"املاء صفحتك الشخصيه",
-  "start":"أبدء"
+  "start":"أبدء",
+
+  "theEmailFieldIsEmpty": "مجال البريد الاليكتروني فارغ!!",
+  "emailFieldPatternIsWrong" : "نمط البريد الاليكتروني خاطئ",
+  "thePasswordFieldIsEmpty" : "خانه كلمه السر فارغه",
+  "passwordShouldBeAtLeast8NumbersOrCharacters": "كلمه السر يجب ان تحتوي علي الاقل علي 8 احرف",
+
+  "theNameFieldIsEmpty" : "مكان الاسم فارغ!!",
+  "nameFieldShouldNotContainNumbers" : "يجب علي الاسم الا يحتوي علي ارقام",
+  "confirmPasswordIsNotEqualToPassword": "كلمه المرور لا تطابق تأكيد كلمه المور!!"
+
 
 
 

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
@@ -19,6 +21,12 @@ import '../set_up_screen.dart';
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var authCubit = AuthenticationCubit.get(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
@@ -64,29 +72,38 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FullInputBlock(lable: S.of(context).fullName,color: ColorManager.kBlackColor,),
-
+                FullInputBlock(
+                  lable: S.of(context).fullName,
+                  color: ColorManager.kBlackColor,
+                  controller: authCubit.registerName,
+                ),
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
-                FullInputBlock(lable: S.of(context).email,color: ColorManager.kBlackColor,),
-
+                FullInputBlock(
+                  lable: S.of(context).email,
+                  color: ColorManager.kBlackColor,
+                  controller: authCubit.registerEmail,
+                ),
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
-
-                FullInputBlock(lable: S.of(context).password,color: ColorManager.kBlackColor,),
-
+                FullInputBlock(
+                  lable: S.of(context).password,
+                  color: ColorManager.kBlackColor,
+                  controller: authCubit.registerPassword,
+                ),
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
-
-                FullInputBlock(lable: S.of(context).confirmPassword,color: ColorManager.kBlackColor,),
-
+                FullInputBlock(
+                  lable: S.of(context).confirmPassword,
+                  color: ColorManager.kBlackColor,
+                  controller: authCubit.registerConfirmPassword,
+                ),
                 SizedBox(
                   height: AppVerticalSize.s14,
                 ),
-
               ],
             ),
           ),
@@ -95,6 +112,7 @@ class SignUpScreen extends StatelessWidget {
             width: AppHorizontalSize.s178,
             hight: AppVerticalSize.s44,
             function: () {
+              // authCubit.registerPreprocess(context: context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -110,11 +128,11 @@ class SignUpScreen extends StatelessWidget {
                 color: ColorManager.kWhiteColor,
                 fontFamily: FontFamily.kPoppinsFont),
           ),
-          Text(S.of(context).loginOtherOptions,
-              style: getLightStyle(
-                  fontSize: FontSize.s12,
-                  color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont)),
+          // Text(S.of(context).loginOtherOptions,
+          //     style: getLightStyle(
+          //         fontSize: FontSize.s12,
+          //         color: ColorManager.kWhiteColor,
+          //         fontFamily: FontFamily.kPoppinsFont)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -138,5 +156,7 @@ class SignUpScreen extends StatelessWidget {
         ],
       ),
     );
+  },
+);
   }
 }

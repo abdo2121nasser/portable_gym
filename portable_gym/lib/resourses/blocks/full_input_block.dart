@@ -13,8 +13,9 @@ import 'general_text_form_field.dart';
 class FullInputBlock extends StatelessWidget {
       final String lable;
       final Color color;
-
-      FullInputBlock({required this.lable, required this.color});
+     final  TextEditingController? controller;
+      //todo fix it from null
+      FullInputBlock({required this.lable, required this.color,  this.controller=null});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class FullInputBlock extends StatelessWidget {
         SizedBox(
           height: AppVerticalSize.s5,
         ),
-        GeneralTextFormField(),
+        GeneralTextFormField(controller: controller,),
       ],
     );
   }

@@ -8,14 +8,17 @@ import '../managers_files/color_manager.dart';
 
 class GeneralTextFormField extends StatelessWidget {
    final  bool onlyInteger;
+   final TextEditingController? controller;
+   //todo fix it from null
 
-   GeneralTextFormField({this.onlyInteger=false});
+   GeneralTextFormField({this.onlyInteger=false, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: AppVerticalSize.s55,
       child: TextFormField(
+        controller: controller,
         inputFormatters: <TextInputFormatter>[
           if(onlyInteger)
             FilteringTextInputFormatter.digitsOnly,

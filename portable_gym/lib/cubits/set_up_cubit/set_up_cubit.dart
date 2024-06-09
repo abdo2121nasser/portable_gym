@@ -18,6 +18,15 @@ part 'set_up_state.dart';
 class SetUpCubit extends Cubit<SetUpState> {
   SetUpCubit() : super(SetUpInitial());
   static SetUpCubit get(context) => BlocProvider.of(context);
+
+  TextEditingController loginEmail = TextEditingController();
+  TextEditingController loginPassword = TextEditingController();
+  TextEditingController registerEmail = TextEditingController();
+  TextEditingController registerName = TextEditingController();
+  TextEditingController registerPassword = TextEditingController();
+  TextEditingController registerConfirmPassword = TextEditingController();
+  TextEditingController forgetPasswordEmail = TextEditingController();
+
   List<Widget> pageBody = [
     GenderSetUpBlock(),
     AgeSetUpBlock(),
