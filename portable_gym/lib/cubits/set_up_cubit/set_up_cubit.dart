@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
+import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/set_up_bodies_blocks/activity_level_set_up_block.dart';
@@ -12,6 +14,7 @@ import '../../resourses/blocks/set_up_bodies_blocks/gender_set_up_block.dart';
 import '../../resourses/blocks/set_up_bodies_blocks/goal_set_up_block.dart';
 import '../../resourses/blocks/set_up_bodies_blocks/height_set_up_block.dart';
 import '../../resourses/blocks/set_up_bodies_blocks/weight_set_up_block.dart';
+import '../../resourses/managers_files/enum_manager.dart';
 
 part 'set_up_state.dart';
 
@@ -19,13 +22,22 @@ class SetUpCubit extends Cubit<SetUpState> {
   SetUpCubit() : super(SetUpInitial());
   static SetUpCubit get(context) => BlocProvider.of(context);
 
-  TextEditingController loginEmail = TextEditingController();
-  TextEditingController loginPassword = TextEditingController();
-  TextEditingController registerEmail = TextEditingController();
-  TextEditingController registerName = TextEditingController();
-  TextEditingController registerPassword = TextEditingController();
-  TextEditingController registerConfirmPassword = TextEditingController();
-  TextEditingController forgetPasswordEmail = TextEditingController();
+  // TextEditingController loginEmail = TextEditingController();
+  // TextEditingController loginPassword = TextEditingController();
+  // TextEditingController registerEmail = TextEditingController();
+  // TextEditingController registerName = TextEditingController();
+  // TextEditingController registerPassword = TextEditingController();
+  // TextEditingController registerConfirmPassword = TextEditingController();
+  // TextEditingController forgetPasswordEmail = TextEditingController();
+         int age =30;
+  int weight = 60;
+  int height = 160;
+  Gender gender=Gender.male;
+   RulerPickerController WeightController = RulerPickerController(value: 60);
+  WeightSliderController  heightController = WeightSliderController(initialWeight: 160, minWeight: 0, interval: 1,maxWeight: 220);
+
+
+
 
   List<Widget> pageBody = [
     GenderSetUpBlock(),
@@ -110,6 +122,29 @@ class SetUpCubit extends Cubit<SetUpState> {
     } else {
       return ColorManager.kBlackColor;
     }
+  }
+
+  getAge({required int age})
+  {
+    this.age=age;
+    emit(GetAgeState());
+  }
+  getWeight({required int weight})
+  {
+    this.weight=weight;
+    emit(GetWeightState());
+
+  }
+  getHeight({required int height})
+  {
+    this.height=height;
+    emit(GetHeightState());
+  }
+  changeGender({required Gender gender})
+  {
+    this.gender=gender;
+    emit(ChangeGenderState());
+
   }
 
 }

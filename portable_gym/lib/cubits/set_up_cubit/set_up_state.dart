@@ -6,3 +6,7 @@ abstract class SetUpState {}
 class SetUpInitial extends SetUpState {}
 class IncrementPageBodyIndexState extends SetUpState {}
 class DecrementPageBodyIndexState extends SetUpState {}
+class GetAgeState extends SetUpState {}
+class GetWeightState extends SetUpState {}
+class GetHeightState extends SetUpState {}
+class ChangeGenderState extends SetUpState {}

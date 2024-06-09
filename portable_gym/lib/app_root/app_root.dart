@@ -44,6 +44,7 @@ class PortableGym extends StatelessWidget {
                       create: (context) => AuthenticationCubit(),
                       //todo put bloc provider in its right place
                       child: LoginScreen(),
+
                     ),
                     // home: ForgetPasswordScreen(),
                     //  home: LoginScreen(),
