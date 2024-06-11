@@ -13,9 +13,9 @@ import 'general_text_form_field.dart';
 class FullInputBlock extends StatelessWidget {
       final String lable;
       final Color color;
-     final  TextEditingController? controller;
+     final  TextEditingController controller;
       //todo fix it from null
-      FullInputBlock({required this.lable, required this.color,  this.controller=null});
+      FullInputBlock({required this.lable, required this.color, required this.controller});
 
   @override
   Widget build(BuildContext context) {

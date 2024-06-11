@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
@@ -20,6 +24,7 @@ part 'set_up_state.dart';
 
 class SetUpCubit extends Cubit<SetUpState> {
   SetUpCubit() : super(SetUpInitial());
+
   static SetUpCubit get(context) => BlocProvider.of(context);
 
   // TextEditingController loginEmail = TextEditingController();
@@ -29,16 +34,23 @@ class SetUpCubit extends Cubit<SetUpState> {
   // TextEditingController registerPassword = TextEditingController();
   // TextEditingController registerConfirmPassword = TextEditingController();
   // TextEditingController forgetPasswordEmail = TextEditingController();
-         int age =30;
+  //----------------------------------------------------------
+  RulerPickerController WeightController = RulerPickerController(value: 60);
+  WeightSliderController heightController = WeightSliderController(
+      initialWeight: 160, minWeight: 0, interval: 1, maxWeight: 220);
+
+  int age = 30;
   int weight = 60;
   int height = 160;
-  Gender gender=Gender.male;
-   RulerPickerController WeightController = RulerPickerController(value: 60);
-  WeightSliderController  heightController = WeightSliderController(initialWeight: 160, minWeight: 0, interval: 1,maxWeight: 220);
-
-
-
-
+  Gender gender = Gender.male;
+  TextEditingController nickName=TextEditingController();
+  TextEditingController phone=TextEditingController();
+  //-------------------------------------------------
+  //----------------------------------------------
+  var pickedFilename;
+  File? imageFile;
+  var imagePicker=ImagePicker();
+  //------------------------------------------
   List<Widget> pageBody = [
     GenderSetUpBlock(),
     AgeSetUpBlock(),
@@ -109,6 +121,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       return S.of(context).start;
     }
   }
+
   Color getButtonColor({required context}) {
     if (currentPageBodyIndex != 6) {
       return ColorManager.kBlackColor;
@@ -116,6 +129,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       return ColorManager.kLimeGreenColor;
     }
   }
+
   Color getTextColor({required context}) {
     if (currentPageBodyIndex != 6) {
       return ColorManager.kWhiteColor;
@@ -124,27 +138,62 @@ class SetUpCubit extends Cubit<SetUpState> {
     }
   }
 
-  getAge({required int age})
-  {
-    this.age=age;
+  getAge({required int age}) {
+    this.age = age;
     emit(GetAgeState());
   }
-  getWeight({required int weight})
-  {
-    this.weight=weight;
-    emit(GetWeightState());
 
+  getWeight({required int weight}) {
+    this.weight = weight;
+    emit(GetWeightState());
   }
-  getHeight({required int height})
-  {
-    this.height=height;
+
+  getHeight({required int height}) {
+    this.height = height;
     emit(GetHeightState());
   }
-  changeGender({required Gender gender})
-  {
-    this.gender=gender;
-    emit(ChangeGenderState());
 
+  changeGender({required Gender gender}) {
+    this.gender = gender;
+    emit(ChangeGenderState());
   }
 
+  getFillProfileInputsLables({required context,required int index}) {
+    List<String> lables = [
+      S.of(context).fullName,
+      S.of(context).nickName,
+      S.of(context).email,
+      S.of(context).phone,
+    ];
+    return lables[index];
+  }
+  getFillProfileInputControllers({required context,required int index}) {
+
+    List<TextEditingController> inputControllers = [
+      AuthenticationCubit.get(context).registerName,
+      nickName,
+      AuthenticationCubit.get(context).registerEmail,
+      phone
+    ];
+    return inputControllers[index];
+  }
+
+
+  Future<void> pickImage()
+  async {
+    emit(PickImageLoadingState());
+    final pickedFile=await imagePicker.pickImage(source: ImageSource.gallery);
+    if(pickedFile!=null)
+    {
+      pickedFilename=pickedFile.path.split('/').last;
+      imageFile=File(pickedFile.path);
+     emit(PickImageSuccessState());
+    }
+    else
+    {
+      print('no image selected');
+      emit(PickImageErrorState());
+    }
+
+  }
 }

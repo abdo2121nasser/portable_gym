@@ -117,9 +117,9 @@ class SignUpScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
-                      create: (context) => SetUpCubit(),
-                      child: SetUpScreen(),
-                    ),
+  create: (context) => SetUpCubit(),
+  child: SetUpScreen(),
+),
                   ));
             },
             backgroundColor: ColorManager.kBlackColor,

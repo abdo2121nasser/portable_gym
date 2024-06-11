@@ -106,14 +106,11 @@ class LoginScreen extends StatelessWidget {
                                   builder: (context) => ForgetPasswordScreen(),
                                 ));
                           },
-                          child: BlocProvider(
-                            create: (context) => AuthenticationCubit(),
-                            child: Text(S.of(context).forgetPassword,
-                                style: getMeduimStyle(
-                                    fontSize: FontSize.s12,
-                                    color: ColorManager.kBlackColor,
-                                    fontFamily: FontFamily.kPoppinsFont)),
-                          ),
+                          child: Text(S.of(context).forgetPassword,
+                              style: getMeduimStyle(
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.kBlackColor,
+                                  fontFamily: FontFamily.kPoppinsFont)),
                         ),
                       ],
                     )
@@ -154,10 +151,7 @@ class LoginScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) => AuthenticationCubit(),
-                              child: SignUpScreen(),
-                            ),
+                            builder: (context) => SignUpScreen(),
                           ));
                     },
                     child: Text(' ${S.of(context).signUp} ',

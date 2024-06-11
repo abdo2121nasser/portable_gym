@@ -41,10 +41,12 @@
 
   "theNameFieldIsEmpty" : "مكان الاسم فارغ!!",
   "nameFieldShouldNotContainNumbers" : "يجب علي الاسم الا يحتوي علي ارقام",
-  "confirmPasswordIsNotEqualToPassword": "كلمه المرور لا تطابق تأكيد كلمه المور!!"
+  "confirmPasswordIsNotEqualToPassword": "كلمه المرور لا تطابق تأكيد كلمه المور!!",
 
+  "nickName": "اللقب",
+  "phone": "رقم الهاتف",
 
-
+  "subTitle": "انه الوقت لتتحدي حدودك"
 
 
 

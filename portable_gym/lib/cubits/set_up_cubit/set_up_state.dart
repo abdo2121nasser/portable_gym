@@ -10,3 +10,6 @@ class GetAgeState extends SetUpState {}
 class GetWeightState extends SetUpState {}
 class GetHeightState extends SetUpState {}
 class ChangeGenderState extends SetUpState {}
+class PickImageLoadingState extends SetUpState {}
+class PickImageSuccessState extends SetUpState {}
+class PickImageErrorState extends SetUpState {}

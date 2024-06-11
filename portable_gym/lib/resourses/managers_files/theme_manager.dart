@@ -14,8 +14,13 @@ import 'font_manager.dart';
 ThemeData getAppTheme()
 {
   return ThemeData(
+    // appBarTheme: const AppBarTheme(
+    //   backgroundColor: ColorManager.kBlackColor,
+    //   elevation: 0,
+    //   actionsIconTheme: IconThemeData(color: ColorManager.kPurpleColor)
+    // ),
       scaffoldBackgroundColor: ColorManager.kBlackColor,
-    inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16, vertical:  AppVerticalSize.s5),
       hintStyle: getRegularStyle(fontSize: FontSize.s20, color: ColorManager.kBlackColor, fontFamily: FontFamily.kLeagueSpartanFont),
       labelStyle: getRegularStyle(fontSize: FontSize.s20, color: ColorManager.kBlackColor, fontFamily: FontFamily.kLeagueSpartanFont),
