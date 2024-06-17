@@ -53,7 +53,13 @@
     "logout": "تسجيل الخروج",
   "birthDate": "تاريخ الميلاد",
   "weight": "الوزن",
-  "height": "الطول"
+  "height": "الطول",
+  "progressTrack": "تتبع \n العمل",
+  "nutraitions": "التغذيه",
+  "seeAll": "المذيد",
+  "recommendations": "المقترحات"
+
+
 
 
 
