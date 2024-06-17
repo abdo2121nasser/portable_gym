@@ -1,34 +1,86 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
-import '../../resourses/blocks/profile_training_information_block.dart';
-import '../../resourses/blocks/profile_upper_block.dart';
+import '../../generated/l10n.dart';
+import '../../resourses/blocks/profile_blocks/profile_lower_Block.dart';
+import '../../resourses/blocks/profile_blocks/profile_option_list_block.dart';
+import '../../resourses/blocks/profile_blocks/profile_options_block.dart';
+import '../../resourses/blocks/profile_blocks/profile_training_information_block.dart';
+import '../../resourses/blocks/profile_blocks/profile_upper_block.dart';
+import '../../resourses/managers_files/color_manager.dart';
+import '../../resourses/managers_files/font_manager.dart';
+import '../../resourses/managers_files/style_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ProfileCubit(),
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var profCubit=ProfileCubit.get(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              ProfileUpperBlock(),
-            ],
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: ColorManager.kLightPurpleColor,
+          elevation: 0,
+          title: InkWell(
+            onTap: (){
+              profCubit.profileScreenNavigation(index: 0,isAppBar: true,context: context);
+            },
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.arrow_left,
+                  color: ColorManager.kLimeGreenColor,
+                ),
+                Text(
+                  S.of(context).myProfile,
+                  style: getBoldStyle(
+                      fontSize: FontSize.s20,
+                      color: ColorManager.kWhiteColor,
+                      fontFamily: FontFamily.kPoppinsFont),
+                ),
+              ],
+            ),
           ),
-          Positioned(
-              top: MediaQuery.of(context).size.height * 0.34,
-              bottom: MediaQuery.of(context).size.height * 0.44,
-              left: AppHorizontalSize.s22,
-              right: AppHorizontalSize.s22,
-
-              // left: MediaQuery.of(context).size.width*0.5,
-              child: ProfileTrainingInformationBlock())
-        ],
-      ),
+        ),
+        body: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ProfileUpperBlock(),
+                SizedBox(
+                  height: AppVerticalSize.s80,
+                ),
+                profCubit.isProfileLowerBlock?
+                ProfileLowerBlock():
+                ProfileOptionListBlock()
+                
+              ],
+            ),
+            Positioned(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.35,
+                left: AppHorizontalSize.s22,
+                right: AppHorizontalSize.s22,
+                child: ProfileTrainingInformationBlock())
+          ],
+        ),
+      );
+  },
+),
     );
   }
 }

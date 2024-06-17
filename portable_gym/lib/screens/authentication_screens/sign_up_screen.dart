@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_button_block.dart';
-import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
@@ -15,7 +14,8 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/full_input_block.dart';
+import '../../resourses/blocks/general_blocks/full_input_block.dart';
+import '../../resourses/blocks/general_blocks/general_button_block.dart';
 import '../set_up_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -23,7 +23,6 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
     var authCubit = AuthenticationCubit.get(context);

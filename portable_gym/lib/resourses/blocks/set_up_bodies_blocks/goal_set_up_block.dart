@@ -5,9 +5,9 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/image_manager.dart';
 import '../../managers_files/style_manager.dart';
 import '../../managers_files/values_manager.dart';
-import '../age_picker_block.dart';
-import '../gender_block.dart';
-import '../goal_choice_block.dart';
+import '../set_up_blocks/age_picker_block.dart';
+import '../set_up_blocks/gender_block.dart';
+import '../set_up_blocks/goal_choice_block.dart';
 
 class GoalSetUpBlock extends StatelessWidget {
   @override

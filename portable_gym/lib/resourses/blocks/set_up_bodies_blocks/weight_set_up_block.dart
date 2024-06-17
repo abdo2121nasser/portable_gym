@@ -7,7 +7,7 @@ import '../../managers_files/color_manager.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
 import '../../managers_files/values_manager.dart';
-import '../weight_ruler_block.dart';
+import '../set_up_blocks/weight_ruler_block.dart';
 
 class WeightSetUpBlock extends StatelessWidget {
   @override

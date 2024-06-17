@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../managers_files/image_manager.dart';
 import '../../managers_files/values_manager.dart';
-import '../gender_block.dart';
-import '../levels_block.dart';
+import '../set_up_blocks/gender_block.dart';
+import '../set_up_blocks/levels_block.dart';
 
 
 

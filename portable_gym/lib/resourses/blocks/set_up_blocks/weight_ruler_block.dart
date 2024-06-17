@@ -4,7 +4,7 @@ import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
-import '../../cubits/set_up_cubit/set_up_cubit.dart';
+import '../../../cubits/set_up_cubit/set_up_cubit.dart';
 
 class WeightRulerBlock extends StatelessWidget {
 

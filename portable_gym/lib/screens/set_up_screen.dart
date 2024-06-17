@@ -6,7 +6,7 @@ import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
 import '../generated/l10n.dart';
-import '../resourses/blocks/general_button_block.dart';
+import '../resourses/blocks/general_blocks/general_button_block.dart';
 import '../resourses/managers_files/color_manager.dart';
 import '../resourses/managers_files/font_manager.dart';
 import '../resourses/managers_files/style_manager.dart';

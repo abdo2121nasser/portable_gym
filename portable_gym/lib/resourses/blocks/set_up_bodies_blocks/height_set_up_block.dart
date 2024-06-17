@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
-import 'package:portable_gym/resourses/blocks/height_ruler_block.dart';
+import 'package:portable_gym/resourses/blocks/set_up_blocks/height_ruler_block.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/color_manager.dart';
@@ -10,17 +10,16 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/image_manager.dart';
 import '../../managers_files/style_manager.dart';
 import '../../managers_files/values_manager.dart';
-import '../age_picker_block.dart';
-import '../full_input_block.dart';
-import '../gender_block.dart';
-import '../general_text_form_field.dart';
+import '../set_up_blocks/age_picker_block.dart';
+import '../general_blocks/full_input_block.dart';
+import '../set_up_blocks/gender_block.dart';
+import '../general_blocks/general_text_form_field.dart';
 
 class HeightSetUpBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SetUpCubit, SetUpState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
     var setCubit = SetUpCubit.get(context);

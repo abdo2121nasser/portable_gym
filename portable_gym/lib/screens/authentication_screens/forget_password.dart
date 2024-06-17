@@ -4,9 +4,9 @@ import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/full_input_block.dart';
-import '../../resourses/blocks/general_button_block.dart';
-import '../../resourses/blocks/general_text_form_field.dart';
+import '../../resourses/blocks/general_blocks/full_input_block.dart';
+import '../../resourses/blocks/general_blocks/general_button_block.dart';
+import '../../resourses/blocks/general_blocks/general_text_form_field.dart';
 import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
 import '../../resourses/managers_files/style_manager.dart';
@@ -17,7 +17,6 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
   listener: (context, state) {
-    // TODO: implement listener
   },
   builder: (context, state) {
     var authCubit = AuthenticationCubit.get(context);

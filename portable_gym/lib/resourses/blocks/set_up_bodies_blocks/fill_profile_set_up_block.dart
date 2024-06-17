@@ -11,17 +11,16 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/image_manager.dart';
 import '../../managers_files/style_manager.dart';
 import '../../managers_files/values_manager.dart';
-import '../full_input_block.dart';
-import '../gender_block.dart';
-import '../general_text_form_field.dart';
-import '../profile_photo_block.dart';
+import '../general_blocks/full_input_block.dart';
+import '../set_up_blocks/gender_block.dart';
+import '../general_blocks/general_text_form_field.dart';
+import '../profile_blocks/profile_photo_block.dart';
 
 class FillProfileSetUpBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SetUpCubit, SetUpState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         var setCubit = SetUpCubit.get(context);

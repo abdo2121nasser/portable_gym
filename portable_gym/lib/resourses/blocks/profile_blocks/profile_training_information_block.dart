@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
-import '../managers_files/font_manager.dart';
-import '../managers_files/style_manager.dart';
+import '../../managers_files/font_manager.dart';
+import '../../managers_files/style_manager.dart';
 
 
 
@@ -14,6 +14,7 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s12),
     width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: ColorManager.kPurpleColor,

@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_button_block.dart';
-import 'package:portable_gym/resourses/blocks/general_text_form_field.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
@@ -17,14 +16,14 @@ import 'package:portable_gym/screens/authentication_screens/forget_password.dart
 import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';
 
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/full_input_block.dart';
+import '../../resourses/blocks/general_blocks/full_input_block.dart';
+import '../../resourses/blocks/general_blocks/general_button_block.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         var authCubit = AuthenticationCubit.get(context);
