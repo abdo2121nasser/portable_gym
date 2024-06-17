@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: ColorManager.kLightPurpleColor,
           elevation: 0,
-          title: InkWell(
+          leading: InkWell(
             onTap: (){
               profCubit.profileScreenNavigation(index: 0,isAppBar: true,context: context);
             },
@@ -52,6 +52,7 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+          leadingWidth: AppHorizontalSize.s220,
         ),
         body: Stack(
           children: [
