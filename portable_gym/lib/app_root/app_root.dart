@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
@@ -37,7 +38,7 @@ class PortableGym extends StatelessWidget {
                   //    BlocProvider(create: (context) => SetUpCubit()),
 
                     ],
-                    child: MaterialApp(
+                    child: GetMaterialApp(
                       locale: const Locale('en'),
                       localizationsDelegates: const [
                         S.delegate,

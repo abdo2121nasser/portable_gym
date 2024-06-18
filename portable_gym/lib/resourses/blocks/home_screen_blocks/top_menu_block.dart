@@ -15,25 +15,28 @@ class TopMenuBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     var homeCubit=HomeCubit.get(context);
     return  SizedBox(
-   //   height: AppVerticalSize.s120,
       height: MediaQuery.of(context).size.height*0.13,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: ListView.separated(
-              // physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.symmetric(
                     vertical: AppVerticalSize.s12,
                     horizontal: AppHorizontalSize.s22),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) =>
-                    TopMenuElementBlock(
-                      lable: homeCubit.getTopMenuLables(
-                          context: context, index: index),
-                      image:
-                      homeCubit.getTopMenuImages(index: index),
+                    InkWell(
+                      onTap: (){
+                        homeCubit.navigateToTopMenuScreens(index: index);
+                      },
+                      child: TopMenuElementBlock(
+                        lable: homeCubit.getTopMenuLables(
+                            context: context, index: index),
+                        image:
+                        homeCubit.getTopMenuImages(index: index),
+                      ),
                     ),
                 separatorBuilder: (context, index) => Padding(
                   padding: EdgeInsets.symmetric(
