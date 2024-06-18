@@ -80,7 +80,7 @@ class WeeklyChallangesBlock extends StatelessWidget {
             LayoutBuilder(builder: (context, constrain) {
               return ClipRRect(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(AppRadiusSize.s5),
+                  Radius.circular(AppRadiusSize.s12),
                 ),
                 child: Image.asset(
                   ImageManager.kSmileManImage,

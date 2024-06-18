@@ -59,10 +59,13 @@
   "nutraitions": "التغذيه",
   "seeAll": "المذيد",
   "recommendations": "المقترحات",
-  "weeklyChallenge": "تحدي الاسبوع"
+  "weeklyChallenge": "تحدي الاسبوع",
 
+  "beginner": "مبدء",
+  "intermediate": "متوسط",
+  "advanced": "متقدم",
 
-
+  "trainingOfDay": "تمرين اليوم"
 
 
 

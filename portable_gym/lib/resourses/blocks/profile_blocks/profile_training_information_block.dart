@@ -18,7 +18,7 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
     width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: ColorManager.kPurpleColor,
-        borderRadius: BorderRadius.circular(AppRadiusSize.s10)
+        borderRadius: BorderRadius.circular(AppRadiusSize.s12)
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

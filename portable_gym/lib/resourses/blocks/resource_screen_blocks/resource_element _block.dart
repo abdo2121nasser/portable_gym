@@ -38,8 +38,8 @@ class ResourceElementBlock extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(AppRadiusSize.s5),
-                      topRight: Radius.circular(AppRadiusSize.s5)),
+                      topLeft: Radius.circular(AppRadiusSize.s12),
+                      topRight: Radius.circular(AppRadiusSize.s12)),
                   child: Image.asset(
                     ImageManager.kSmileManImage,
                     height: constrain.maxHeight * 0.57,
@@ -77,12 +77,12 @@ class ResourceElementBlock extends StatelessWidget {
                        SizedBox(
                            width: constrain.maxWidth * 0.45,
                            height: constrain.maxHeight*0.15,
-                           child: const RecordedUnitBlock()),
+                           child:  RecordedUnitBlock()),
                        SizedBox(
                            width: constrain.maxWidth * 0.45,
                            height: constrain.maxHeight*0.15,
 
-                           child: const RecordedUnitBlock()),
+                           child:  RecordedUnitBlock()),
                      ],
                    )
                  ],

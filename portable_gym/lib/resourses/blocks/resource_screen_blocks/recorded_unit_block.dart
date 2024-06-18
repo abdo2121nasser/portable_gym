@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +11,10 @@ import '../../managers_files/style_manager.dart';
 
 
 class RecordedUnitBlock extends StatelessWidget {
-  const RecordedUnitBlock({super.key});
+  final Color iconColor,textColor;
+
+
+  RecordedUnitBlock({this.iconColor=ColorManager.kPurpleColor,this.textColor=ColorManager.kWhiteColor});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +22,14 @@ class RecordedUnitBlock extends StatelessWidget {
       children: [
         Padding(
           padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
-          child: Icon(Icons.timer,color: ColorManager.kPurpleColor,size: FontSize.s12,),
+          child: Icon(Icons.timer,color: iconColor,size: FontSize.s12,),
         ),
         Expanded(
           child: Text(
             '12 Minites' ,
             style: getLightStyle(
                 fontSize: FontSize.s12,
-                color: ColorManager.kWhiteColor,
+                color: textColor,
                 fontFamily: FontFamily.kLeagueSpartanFont),
           ),
         ),

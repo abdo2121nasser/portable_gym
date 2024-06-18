@@ -86,7 +86,8 @@ class MainNavigationBarScreen extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              onTap: (newIndex) => navCubit.changeCurrentScreen(index: newIndex),
+              onTap: (newIndex) =>
+                  navCubit.changeCurrentScreen(index: newIndex),
               currentIndex: navCubit.currentIndex,
               backgroundColor: ColorManager.kLightPurpleColor,
               showSelectedLabels: false,
