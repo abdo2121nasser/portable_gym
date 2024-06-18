@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
+import 'package:portable_gym/cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
@@ -18,11 +19,11 @@ class MainNavigationBarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
+      create: (context) => MainNavigationBarCubit(),
+      child: BlocConsumer<MainNavigationBarCubit, MainNavigationBarState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var homeCubit = HomeCubit.get(context);
+          var navCubit = MainNavigationBarCubit.get(context);
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorManager.kBlackColor,
@@ -46,8 +47,13 @@ class MainNavigationBarScreen extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder:  (context) => ProfileScreen(),));
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
                         },
                         child: const Icon(
                           Icons.person,
@@ -79,12 +85,17 @@ class MainNavigationBarScreen extends StatelessWidget {
                 ],
               ),
             ),
-            body: Column(
-              children: [
-                const TopMenuBlock(),
-                SectionTitleBlock(sectionLable: S.of(context).recommendations,)
-              ],
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (newIndex) => navCubit.changeCurrentScreen(index: newIndex),
+              currentIndex: navCubit.currentIndex,
+              backgroundColor: ColorManager.kLightPurpleColor,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              type: BottomNavigationBarType.fixed, // Fixed
+
+              items: navCubit.items,
             ),
+            body: navCubit.screens[navCubit.currentIndex],
           );
         },
       ),

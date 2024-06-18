@@ -19,6 +19,7 @@ ThemeData getAppTheme()
     //   elevation: 0,
     //   actionsIconTheme: IconThemeData(color: ColorManager.kPurpleColor)
     // ),
+   // bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: ColorManager.kLightPurpleColor,),
       scaffoldBackgroundColor: ColorManager.kBlackColor,
       inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16, vertical:  AppVerticalSize.s5),

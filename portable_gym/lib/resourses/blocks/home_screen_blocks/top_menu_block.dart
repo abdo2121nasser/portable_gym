@@ -15,7 +15,8 @@ class TopMenuBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     var homeCubit=HomeCubit.get(context);
     return  SizedBox(
-      height: AppVerticalSize.s120,
+   //   height: AppVerticalSize.s120,
+      height: MediaQuery.of(context).size.height*0.13,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -36,7 +37,7 @@ class TopMenuBlock extends StatelessWidget {
                     ),
                 separatorBuilder: (context, index) => Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: AppHorizontalSize.s22),
+                      horizontal: MediaQuery.of(context).size.width*0.045),
                   child: VerticalDivider(
                     color: ColorManager.kLightPurpleColor,
                     thickness: AppHorizontalSize.s1_5,

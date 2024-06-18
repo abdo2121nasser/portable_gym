@@ -45,6 +45,7 @@ class AppVerticalSize
   static double s120=120.0.h;
   static double s150=150.0.h;
   static double s160=160.0.h;
+  static double s190=190.0.h;
   static double s253=253.0.h;
   static double s394=394.0.h;
 
