@@ -5,6 +5,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
+import 'exercise_detail_block.dart';
 import 'exercise_video_block.dart';
 
 
@@ -41,8 +42,10 @@ class ExerciseScreen extends StatelessWidget {
         ),
       ),
          body: Column(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [
-             ExerciseVideoBlock()
+             ExerciseVideoBlock(),
+             ExerciseDetailBlock()
            ],
          ),
     );
