@@ -65,7 +65,11 @@
   "intermediate": "متوسط",
   "advanced": "متقدم",
 
-  "trainingOfDay": "تمرين اليوم"
+  "trainingOfDay": "تمرين اليوم",
+  "round": "جوله ",
+  "reputation": "التكرار "
+
+
 
 
 

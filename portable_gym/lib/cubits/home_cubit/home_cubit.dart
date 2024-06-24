@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutraition_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/progress_tracking_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/work_out_screen.dart';
 
 import '../../generated/l10n.dart';
 
