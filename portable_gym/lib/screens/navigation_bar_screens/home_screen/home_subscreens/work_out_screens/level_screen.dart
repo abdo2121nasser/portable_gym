@@ -4,6 +4,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../../../../generated/l10n.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/rounds_block.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
@@ -52,6 +53,8 @@ class LevelScreen extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButtonBlock(),
+
     );
   }
 }

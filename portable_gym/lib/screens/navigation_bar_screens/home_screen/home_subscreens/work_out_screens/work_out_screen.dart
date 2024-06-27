@@ -8,6 +8,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/category_element_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/category_list_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/training_of_day_block.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
