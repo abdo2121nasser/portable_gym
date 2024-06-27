@@ -21,91 +21,88 @@ class WorkOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WorkOutCubit(),
-      child: BlocConsumer<WorkOutCubit, WorkOutState>(
-        listener: (context, state) {
-        },
-        builder: (context, state) {
-          var workCubit=WorkOutCubit.get(context);
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
+    return BlocConsumer<WorkOutCubit, WorkOutState>(
+      listener: (context, state) {
+      },
+      builder: (context, state) {
+        var workCubit=WorkOutCubit.get(context);
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorManager.kBlackColor,
+          appBar: AppBar(
             backgroundColor: ColorManager.kBlackColor,
-            appBar: AppBar(
-              backgroundColor: ColorManager.kBlackColor,
-              leadingWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.3,
-              leading: InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.arrow_left,
-                      color: ColorManager.kLimeGreenColor,
-                    ),
-                    Expanded(
-                      child: Text(
-                        S
-                            .of(context)
-                            .workOut,
-                        style: getBoldStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kPurpleColor,
-                            fontFamily: FontFamily.kPoppinsFont),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CategoryListBlock(),
-                Padding(
-                  padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                  child: TrainingOfDayBlock(trainingName:  'functional trainnig',),
-                ),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Let's go begginer",
-                      textAlign: TextAlign.start,
-                      style: getMeduimStyle(
+            leadingWidth: MediaQuery
+                .of(context)
+                .size
+                .width * 0.3,
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.arrow_left,
+                    color: ColorManager.kLimeGreenColor,
+                  ),
+                  Expanded(
+                    child: Text(
+                      S
+                          .of(context)
+                          .workOut,
+                      style: getBoldStyle(
                           fontSize: FontSize.s20,
-                          color: ColorManager
-                              .kLimeGreenColor,
-                          fontFamily:
-                          FontFamily.kPoppinsFont),
+                          color: ColorManager.kPurpleColor,
+                          fontFamily: FontFamily.kPoppinsFont),
                     ),
-                    Text(
-                      "Explore Different Workout Styles",
-                      textAlign: TextAlign.start,
-                      style: getRegularStyle(
-                          fontSize: FontSize.s12,
-                          color: ColorManager
-                              .kWhiteColor,
-                          fontFamily:
-                          FontFamily.kPoppinsFont),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-                ListBodyPartBlock(),
-
-              ],
             ),
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CategoryListBlock(),
+              Padding(
+                padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
+                child: TrainingOfDayBlock(trainingName:  'functional trainnig',),
+              ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Let's go begginer",
+                    textAlign: TextAlign.start,
+                    style: getMeduimStyle(
+                        fontSize: FontSize.s20,
+                        color: ColorManager
+                            .kLimeGreenColor,
+                        fontFamily:
+                        FontFamily.kPoppinsFont),
+                  ),
+                  Text(
+                    "Explore Different Workout Styles",
+                    textAlign: TextAlign.start,
+                    style: getRegularStyle(
+                        fontSize: FontSize.s12,
+                        color: ColorManager
+                            .kWhiteColor,
+                        fontFamily:
+                        FontFamily.kPoppinsFont),
+                  ),
+                ],
+              ),
+            ),
+              ListBodyPartBlock(),
 
-          );
-        },
-      ),
+            ],
+          ),
+
+        );
+      },
     );
   }
 }

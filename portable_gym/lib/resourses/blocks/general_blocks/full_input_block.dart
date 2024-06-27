@@ -14,22 +14,29 @@ class FullInputBlock extends StatelessWidget {
       final String lable;
       final Color color;
      final  TextEditingController controller;
-      FullInputBlock({required this.lable, required this.color, required this.controller});
+     final bool enableBorder;
+     final bool isAtEnd;
+      FullInputBlock({required this.lable, required this.color, required this.controller,this.enableBorder=false,this.isAtEnd=false});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(lable,
-            style: getSemiBoldStyle(
-                fontSize: FontSize.s16,
-                color: color,
-                fontFamily: FontFamily.kPoppinsFont)),
+        Row(
+          mainAxisAlignment: !isAtEnd?MainAxisAlignment.start:MainAxisAlignment.end,
+          children: [
+            Text(lable,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s16,
+                    color: color,
+                    fontFamily: FontFamily.kPoppinsFont),),
+          ],
+        ),
         SizedBox(
           height: AppVerticalSize.s5,
         ),
-        GeneralTextFormField(controller: controller,),
+        GeneralTextFormField(controller: controller,enableBorder: enableBorder,),
       ],
     );
   }

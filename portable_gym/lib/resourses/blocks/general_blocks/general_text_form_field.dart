@@ -9,8 +9,9 @@ import '../../managers_files/color_manager.dart';
 class GeneralTextFormField extends StatelessWidget {
    final  bool onlyInteger;
    final TextEditingController? controller;
-
-   GeneralTextFormField({this.onlyInteger=false, required this.controller});
+   final bool enableBorder;
+   final bool multiLine;
+   GeneralTextFormField({this.onlyInteger=false, required this.controller,this.enableBorder=false,this.multiLine=false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +19,24 @@ class GeneralTextFormField extends StatelessWidget {
       height: AppVerticalSize.s55,
       child: TextFormField(
         controller: controller,
+        minLines: multiLine?1:null,
+        maxLines: multiLine?2:null,
+        keyboardType: multiLine?TextInputType.multiline:null,
         inputFormatters: <TextInputFormatter>[
           if(onlyInteger)
             FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
             fillColor: ColorManager.kWhiteColor,
-            filled: true
+            filled: true,
+          enabledBorder: enableBorder? OutlineInputBorder(
+              borderRadius:  BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+              borderSide:
+              BorderSide(width: AppHorizontalSize.s1_5,color: ColorManager.kBlackColor)):null,
+        focusedBorder: enableBorder? OutlineInputBorder(
+        borderRadius:  BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+        borderSide:
+        BorderSide(width: AppHorizontalSize.s1_5,color: ColorManager.kBlackColor)):null,
         ),
       ),
     );
