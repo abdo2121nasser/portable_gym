@@ -21,8 +21,8 @@ class ArabicTabBarViewBlock extends StatelessWidget {
             Expanded(
                 child: TrainingBaisicInformationBlock(
                     trainingLables: workCubit.trainingArabicLables,
-                    trainingControllers: workCubit.getTrainingEnglishControllers(),
-                  isLableAtEnd: true,
+                    trainingControllers: workCubit.getTrainingArabicControllers(),
+                  isArabicTabView: true,
                 )
             ),
           ],

@@ -63,7 +63,7 @@ class GoogleDriveSevice {
     fileToUpload.name = path.basename(file.path);
 
     var media = drive.Media(file.openRead(), file.lengthSync());
-
+   print('*////////////////////////////////');
     try {
       var response = await driveApi.files.create(
         fileToUpload,

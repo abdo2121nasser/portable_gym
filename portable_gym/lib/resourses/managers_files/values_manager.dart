@@ -22,6 +22,7 @@ class AppHorizontalSize
   static double s178=178.56.w;
   static double s191=191.44.w;
   static double s220=220.0.w;
+  static double s250=250.0.w;
 
 }
 
@@ -49,6 +50,7 @@ class AppVerticalSize
   static double s190=190.0.h;
   static double s253=253.0.h;
   static double s394=394.0.h;
+  static double s850=850.0.h;
 
 }
 class AppRadiusSize

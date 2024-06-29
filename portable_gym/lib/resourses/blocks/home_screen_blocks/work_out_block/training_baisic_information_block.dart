@@ -7,23 +7,25 @@ import '../../general_blocks/full_input_block.dart';
 class TrainingBaisicInformationBlock extends StatelessWidget {
   List<String> trainingLables;
   List<TextEditingController> trainingControllers;
-  final bool isLableAtEnd;
+  final bool isArabicTabView;
   TrainingBaisicInformationBlock(
-      {required this.trainingLables, required this.trainingControllers,this.isLableAtEnd=false});
+      {required this.trainingLables, required this.trainingControllers,this.isArabicTabView=false});
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: AppVerticalSize.s55),shrinkWrap: true,
+     // padding: EdgeInsets.only(bottom: AppVerticalSize.s10),
+        shrinkWrap: true,
         itemBuilder: (context, index) => FullInputBlock(
               lable: trainingLables[index],
               color: ColorManager.kBlackColor,
               controller: trainingControllers[index],
               enableBorder: true,
-        isAtEnd: isLableAtEnd,),
+        onlyInteger: index==3 || index==2?true:false,
+        isArabicTabView: isArabicTabView,),
         separatorBuilder: (context, index) => SizedBox(
               height: AppVerticalSize.s5,
             ),
-        itemCount: 5);
+        itemCount: trainingControllers.length);
   }
 }

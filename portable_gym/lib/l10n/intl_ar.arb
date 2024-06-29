@@ -67,10 +67,17 @@
 
   "trainingOfDay": "تمرين اليوم",
   "round": "جوله ",
-  "reputation": "التكرار "
+  "reputation": "التكرار ",
 
+  "hour": "ث",
+  "minute": "د",
+  "second": "س",
+  "englishWord":"اجليش",
+  "arabicWord": "عربي",
 
-
+  "trainingTime": "وقت التدريب",
+  "pickVideo": "اختر فيديو",
+  "uploadTraining": "تحميل التمرين"
 
 
 
