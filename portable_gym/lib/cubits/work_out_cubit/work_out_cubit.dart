@@ -25,7 +25,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   GoogleDriveSevice googleDriveSevice = GoogleDriveSevice();
   DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
   //--------------------------------------------------------------------------------------
-  TabBarView tabBarView =
+  TabBarView TrainingTabBarView =
       TabBarView(children: [EnglishTabBarViewBlock(), ArabicTabBarViewBlock()]);
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,

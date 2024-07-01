@@ -9,35 +9,19 @@ import 'package:portable_gym/resourses/services/google_drive_service/google_driv
 import '../../../../generated/l10n.dart';
 
 class FloatingActionButtonBlock extends StatelessWidget {
+    final VoidCallback function;
+    FloatingActionButtonBlock({required this.function});
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    final TabBar trainingTabBar = TabBar(
-      tabs: [
-        Tab(text: S.of(context).englishWord),
-        Tab(text: S.of(context).arabicWord)
-      ],
-      indicatorColor: Colors.blue,
-      labelColor: Colors.blue,
-      unselectedLabelColor: Colors.grey,
-    );
+
     return BlocConsumer<WorkOutCubit, WorkOutState>(
       listener: (context, state) {
       },
       builder: (context, state) {
         var workCubit = WorkOutCubit.get(context);
         return FloatingActionButton(
-          onPressed: () async {
-            showAlertBox(
-                context: context,
-                tabBar: trainingTabBar,
-                tabBarView: workCubit.tabBarView,
-                trainingPeriod: workCubit.trainingPeriod,
-              processOfAddingTraining: workCubit.processOfAddingTraining
-            );
-            // await pickImage();
-            //await google.uploadFileToGoogleDrive(imageFile!);
-          },
+          onPressed: function,
           child: Icon(
             Icons.add,
           ),
@@ -45,4 +29,6 @@ class FloatingActionButtonBlock extends StatelessWidget {
       },
     );
   }
+
+
 }
