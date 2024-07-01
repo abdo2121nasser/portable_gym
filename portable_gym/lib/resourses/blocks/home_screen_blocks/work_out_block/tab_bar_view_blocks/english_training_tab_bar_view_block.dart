@@ -5,10 +5,11 @@ import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/training_baisic_information_block.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
-import '../../../managers_files/color_manager.dart';
-import '../../general_blocks/full_input_block.dart';
+import '../../../../managers_files/color_manager.dart';
+import '../../../general_blocks/full_input_block.dart';
 
-class ArabicTabBarViewBlock extends StatelessWidget {
+class EnglishTrainingTabBarViewBlock extends StatelessWidget {
+  const EnglishTrainingTabBarViewBlock({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,8 @@ class ArabicTabBarViewBlock extends StatelessWidget {
           children: [
             Expanded(
                 child: TrainingBaisicInformationBlock(
-                    trainingLables: workCubit.trainingArabicLables,
-                    trainingControllers: workCubit.getTrainingArabicControllers(),
-                  isArabicTabView: true,
+                    trainingLables: workCubit.trainingEnglishLables,
+                    trainingControllers: workCubit.getTrainingEnglishControllers()
                 )
             ),
           ],

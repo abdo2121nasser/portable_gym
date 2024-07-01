@@ -11,6 +11,7 @@ import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/catego
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/training_of_day_block.dart';
+import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
@@ -21,6 +22,15 @@ class WorkOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TabBar bodyCategoryTabBar = TabBar(
+      tabs: [
+        Tab(text: S.of(context).englishWord),
+        Tab(text: S.of(context).arabicWord)
+      ],
+      indicatorColor: Colors.blue,
+      labelColor: Colors.blue,
+      unselectedLabelColor: Colors.grey,
+    );
     return BlocConsumer<WorkOutCubit, WorkOutState>(
       listener: (context, state) {
       },
@@ -100,7 +110,9 @@ class WorkOutScreen extends StatelessWidget {
 
             ],
           ),
-
+          floatingActionButton: FloatingActionButtonBlock(function: (){
+            showAlertBodyCategoryBox(context: context,tabBar: bodyCategoryTabBar,tabBarView: workCubit.BodyCategoryTabBarView);
+          },),
         );
       },
     );

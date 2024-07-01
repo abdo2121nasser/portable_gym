@@ -4,6 +4,7 @@ class StringManager
   static const String falseWord='false';
   static const String gmailPattern='@gmail.com';
   static const String nameExpression=r'[0-9]';
+
   static const String trainingEnglishLableName='Name';
   static const String trainingEnglishLablePeriod='Period';
   static const String trainingEnglishLableNumberOfRepetation='Number of Reputation';
@@ -18,6 +19,18 @@ class StringManager
   static const String trainingArabicLableRoundNumber='رقم الجوله';
   static const String trainingArabicLableInstruction='الارشادات';
   static const String trainingArabicLableVideoLink='رابط الفديو';
+
+  static const String bodyCategoryEnglishLableTitle='title';
+  static const String bodyCategoryEnglishLableKcalories='calories';
+  static const String bodyCategoryEnglishLableNumberOfExercises='number of exercises';
+  static const String bodyCategoryEnglishLableImageLink='image link';
+//  static const String bodyCategoryEnglishLableTotalTime='total time';
+  static const String bodyCategoryArabicLableTitle='العنوان';
+  static const String bodyCategoryArabicLableKcalories='الكالوريز';
+  static const String bodyCategoryArabicLableNumberOfExercises='عدد التمارين';
+  static const String bodyCategoryArabicLableImageLink='رابط الصوره';
+//  static const String bodyCategoryArabicLableTotalTime='الوقت الكامل';
+
 
   static const String CollectionTrainings='training collection';
 

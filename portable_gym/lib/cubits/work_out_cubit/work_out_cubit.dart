@@ -8,13 +8,15 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/english_tab_bar_view_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_body_category_tab_bar_view_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_training_tab_bar_view_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/services/google_drive_service/google_drive_sevice.dart';
 
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/home_screen_blocks/work_out_block/arabic_tab_bar_view_block.dart';
+import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_body_category_tab_bar_view_block.dart';
+import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_training_tab_bar_view_block.dart';
 import '../../resourses/managers_files/toast_messege_manager.dart';
 
 part 'work_out_state.dart';
@@ -24,9 +26,12 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   static WorkOutCubit get(context) => BlocProvider.of(context);
   GoogleDriveSevice googleDriveSevice = GoogleDriveSevice();
   DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+  DateTime bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
   //--------------------------------------------------------------------------------------
   TabBarView TrainingTabBarView =
-      TabBarView(children: [EnglishTabBarViewBlock(), ArabicTabBarViewBlock()]);
+      TabBarView(children: [EnglishTrainingTabBarViewBlock(), ArabicTrainingTabBarViewBlock()]);
+  TabBarView BodyCategoryTabBarView =
+      TabBarView(children: [EnglishBodyCategoryTabBarViewBlock(), ArabicBodyCategoryTabBarViewBlock()]);
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
     StringManager.trainingEnglishLableLevel,
@@ -42,6 +47,18 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     StringManager.trainingArabicLableRoundNumber,
     StringManager.trainingArabicLableInstruction,
     StringManager.trainingArabicLableVideoLink,
+  ];
+  List<String> bodyCategoryEnglishLables = [
+    StringManager.bodyCategoryEnglishLableTitle,
+    StringManager.bodyCategoryEnglishLableKcalories,
+    StringManager.bodyCategoryEnglishLableNumberOfExercises,
+    StringManager.bodyCategoryEnglishLableImageLink,
+  ];
+  List<String> bodyCategoryArabicLables = [
+    StringManager.bodyCategoryArabicLableTitle,
+    StringManager.bodyCategoryArabicLableKcalories,
+    StringManager.bodyCategoryArabicLableNumberOfExercises,
+    StringManager.bodyCategoryArabicLableImageLink,
   ];
   TextEditingController trainingEnglishNameController = TextEditingController();
   TextEditingController trainingEnglishLevelController =
@@ -63,11 +80,19 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
 
   TextEditingController trainingVideoLinkController = TextEditingController();
+  //-----------------------------------------------------------------------------
+  TextEditingController bodyCategoryEnglishTitleController = TextEditingController();
+  TextEditingController bodyCategoryEnglishNumberOfExercisesController = TextEditingController();
+  TextEditingController bodyCategoryEnglishCaloriesController = TextEditingController();
+  TextEditingController bodyCategoryEnglishImageLinkController = TextEditingController();
+  TextEditingController bodyCategoryArabicTitleController = TextEditingController();
+  TextEditingController bodyCategoryArabicNumberOfExercisesController = TextEditingController();
+  TextEditingController bodyCategoryArabicCaloriesController = TextEditingController();
+  TextEditingController bodyCategoryArabicImageLinkController = TextEditingController();
+
 
 //---------------------------------------------------------------------------------------------------
-  var videoFilename;
-  File? videoFile;
-  var imagePicker = ImagePicker();
+
   getCategoryLabels({required int index, required context}) {
     List<String> lables = [
       S.of(context).beginner,
@@ -100,10 +125,35 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ];
     return controllers;
   }
+  getEnglishBodyCategoryControllers({required int index})
+  {
+    List<TextEditingController> controllers=[
+    bodyCategoryEnglishTitleController,
+     bodyCategoryEnglishNumberOfExercisesController,
+     bodyCategoryEnglishCaloriesController ,
+     bodyCategoryEnglishImageLinkController,
+    ];
+    return controllers[index];
+  }
+  getArabicBodyCategoryControllers({required int index})
+  {
+    List<TextEditingController> controllers=[
+      bodyCategoryArabicTitleController,
+      bodyCategoryArabicNumberOfExercisesController,
+      bodyCategoryArabicCaloriesController ,
+      bodyCategoryArabicImageLinkController,
+    ];
+    return controllers[index];
+  }
   setTrainingPeriod({required DateTime date})
   {
     trainingPeriod=date;
     emit(SetTrainingPeriod());
+  }
+  setBodyCategoryTotalTime({required DateTime date})
+  {
+    bodyCategoryTotalTime=date;
+    emit(SetBodyCategoryTotalTime());
   }
 
   bool validateAddTraining() {
@@ -219,28 +269,5 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
 
 
-  // Future<void> pickVideo()
-  // async {
-  //   emit(PickVideoLoadingState());
-  //   final pickedFile=await imagePicker.pickVideo(source: ImageSource.gallery);
-  //   if(pickedFile!=null)
-  //   {
-  //     videoFilename=pickedFile.path.split('/').last;
-  //     videoFile=File(pickedFile.path);
-  //     emit(PickVideoSuccessState());
-  //   }
-  //   else
-  //   {
-  //     print('no video selected');
-  //     emit(PickVideoErrorState());
-  //   }
-  //
-  // }
-  // uploadFileToDrive() async {
-  // await  googleDriveSevice.initSignIn();
-  //   // if(videoFile!=null) {
-  //   //   await googleDriveSevice.uploadFileToGoogleDrive(videoFile!);
-  //   //   emit(UploadFileToDriveState());
-  //   // }
-  // }
+
 }

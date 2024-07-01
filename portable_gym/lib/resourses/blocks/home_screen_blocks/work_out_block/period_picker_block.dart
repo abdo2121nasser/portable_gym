@@ -16,7 +16,9 @@ import '../../../../generated/l10n.dart';
 
 class PeriodPickerBlock extends StatelessWidget {
 
+    final bool isTrainingDate;
 
+    PeriodPickerBlock({this.isTrainingDate=true});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class PeriodPickerBlock extends StatelessWidget {
               TimePickerSpinner(
                 alignment: Alignment.center,
                 locale: Localizations.localeOf(context),
-                time: workCubit.trainingPeriod,
+                time: isTrainingDate? workCubit.trainingPeriod:workCubit.bodyCategoryTotalTime,
                 isShowSeconds: true,
                 itemHeight: AppVerticalSize.s30,
                 normalTextStyle:  TextStyle(
@@ -61,7 +63,12 @@ class PeriodPickerBlock extends StatelessWidget {
                  TextStyle(fontSize: FontSize.s22, color: Colors.blue),
                 isForce2Digits: true,
                 onTimeChange: (time) {
-                 workCubit.setTrainingPeriod(date: time);
+                 if(isTrainingDate) {
+                   workCubit.setTrainingPeriod(date: time);
+                 } else
+                   {
+                     workCubit.setBodyCategoryTotalTime(date: time);
+                   }
                 },
               ),
             ],

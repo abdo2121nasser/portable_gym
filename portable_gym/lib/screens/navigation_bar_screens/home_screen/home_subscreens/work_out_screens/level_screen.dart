@@ -78,7 +78,7 @@ class LevelScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButtonBlock(function: ()  {
-        showAlertBox(
+        showAlertTrainingBox(
             context: context,
             tabBar: trainingTabBar,
             tabBarView: workCubit.TrainingTabBarView,

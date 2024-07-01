@@ -16,7 +16,7 @@ import '../../generated/l10n.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/video_show_block.dart';
 
-showAlertBox(
+showAlertTrainingBox(
     {required context,
     required TabBar tabBar,
     required TabBarView tabBarView,
@@ -65,6 +65,68 @@ showAlertBox(
                     GeneralButtonBlock(
                         lable: S.of(context).uploadTraining,
                         function: processOfAddingTraining,
+                        backgroundColor: ColorManager.kLightPurpleColor,
+                        textStyle: getSemiBoldStyle(
+                            fontSize: FontSize.s20,
+                            color: ColorManager.kBlackColor,
+                            fontFamily: FontFamily.kLeagueSpartanFont))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+showAlertBodyCategoryBox(
+    {required context,
+      required TabBar tabBar,
+      required TabBarView tabBarView,
+      //required File? videoFile
+    }
+
+    ) {
+  return showDialog(
+    context: context,
+    builder: (context) => DefaultTabController(
+      length: 2,
+      child: AlertDialog(
+        insetPadding: EdgeInsets.symmetric(
+            horizontal: AppHorizontalSize.s22, vertical: AppVerticalSize.s55),
+        backgroundColor: Colors.white,
+        //titlePadding:const EdgeInsets.only(top: ,left: 80,bottom: 10),
+        title: Text(
+          'add new body category',
+          style: getBoldStyle(
+              fontSize: FontSize.s20,
+              color: ColorManager.kBlackColor,
+              fontFamily: FontFamily.kLeagueSpartanFont),
+          textAlign: TextAlign.center,
+        ),
+        alignment: Alignment.center,
+        scrollable: true,
+        content: Container(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              tabBar,
+              SizedBox(
+                height: AppVerticalSize.s600,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: AppVerticalSize.s10,
+                    ),
+                    Expanded(child: tabBarView),
+                    PeriodPickerBlock(isTrainingDate: false,),
+                    GeneralButtonBlock(
+                        lable: S.of(context).uploadTraining,
+                        function: (){},
                         backgroundColor: ColorManager.kLightPurpleColor,
                         textStyle: getSemiBoldStyle(
                             fontSize: FontSize.s20,

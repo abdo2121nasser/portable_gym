@@ -5,6 +5,7 @@ abstract class WorkOutState {}
 
 class WorkOutInitial extends WorkOutState {}
 class SetTrainingPeriod extends WorkOutState {}
+class SetBodyCategoryTotalTime extends WorkOutState {}
 class UploadFileToDriveState extends WorkOutState {}
 
 class PickVideoLoadingState extends WorkOutState {}
