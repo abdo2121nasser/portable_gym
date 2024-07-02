@@ -17,9 +17,7 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
-
 class WorkOutScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final TabBar bodyCategoryTabBar = TabBar(
@@ -32,19 +30,15 @@ class WorkOutScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocConsumer<WorkOutCubit, WorkOutState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        var workCubit=WorkOutCubit.get(context);
+        var workCubit = WorkOutCubit.get(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: ColorManager.kBlackColor,
           appBar: AppBar(
             backgroundColor: ColorManager.kBlackColor,
-            leadingWidth: MediaQuery
-                .of(context)
-                .size
-                .width * 0.3,
+            leadingWidth: MediaQuery.of(context).size.width * 0.3,
             leading: InkWell(
               onTap: () {
                 Get.back();
@@ -57,9 +51,7 @@ class WorkOutScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      S
-                          .of(context)
-                          .workOut,
+                      S.of(context).workOut,
                       style: getBoldStyle(
                           fontSize: FontSize.s20,
                           color: ColorManager.kPurpleColor,
@@ -75,44 +67,49 @@ class WorkOutScreen extends StatelessWidget {
             children: [
               CategoryListBlock(),
               Padding(
-                padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                child: TrainingOfDayBlock(trainingName:  'functional trainnig',),
+                padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
+                child: TrainingOfDayBlock(
+                  trainingName: 'functional trainnig',
+                ),
               ),
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Let's go begginer",
-                    textAlign: TextAlign.start,
-                    style: getMeduimStyle(
-                        fontSize: FontSize.s20,
-                        color: ColorManager
-                            .kLimeGreenColor,
-                        fontFamily:
-                        FontFamily.kPoppinsFont),
-                  ),
-                  Text(
-                    "Explore Different Workout Styles",
-                    textAlign: TextAlign.start,
-                    style: getRegularStyle(
-                        fontSize: FontSize.s12,
-                        color: ColorManager
-                            .kWhiteColor,
-                        fontFamily:
-                        FontFamily.kPoppinsFont),
-                  ),
-                ],
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Let's go begginer",
+                      textAlign: TextAlign.start,
+                      style: getMeduimStyle(
+                          fontSize: FontSize.s20,
+                          color: ColorManager.kLimeGreenColor,
+                          fontFamily: FontFamily.kPoppinsFont),
+                    ),
+                    Text(
+                      "Explore Different Workout Styles",
+                      textAlign: TextAlign.start,
+                      style: getRegularStyle(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.kWhiteColor,
+                          fontFamily: FontFamily.kPoppinsFont),
+                    ),
+                  ],
+                ),
               ),
-            ),
               ListBodyPartBlock(),
-
             ],
           ),
-          floatingActionButton: FloatingActionButtonBlock(function: (){
-            showAlertBodyCategoryBox(context: context,tabBar: bodyCategoryTabBar,tabBarView: workCubit.BodyCategoryTabBarView);
-          },),
+          floatingActionButton: FloatingActionButtonBlock(
+            function: () {
+              showAlertBodyCategoryBox(
+                  context: context,
+                  tabBar: bodyCategoryTabBar,
+                  tabBarView: workCubit.BodyCategoryTabBarView,
+              function: workCubit.processOfAddingBodyCategory
+              );
+            },
+          ),
         );
       },
     );

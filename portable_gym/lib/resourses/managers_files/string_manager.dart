@@ -23,16 +23,15 @@ class StringManager
   static const String bodyCategoryEnglishLableTitle='title';
   static const String bodyCategoryEnglishLableKcalories='calories';
   static const String bodyCategoryEnglishLableNumberOfExercises='number of exercises';
-  static const String bodyCategoryEnglishLableImageLink='image link';
+  static const String bodyCategoryLableImageLink='image link';
 //  static const String bodyCategoryEnglishLableTotalTime='total time';
   static const String bodyCategoryArabicLableTitle='العنوان';
-  static const String bodyCategoryArabicLableKcalories='الكالوريز';
+  static const String bodyCategoryArabicLableCalories='الكالوريز';
   static const String bodyCategoryArabicLableNumberOfExercises='عدد التمارين';
-  static const String bodyCategoryArabicLableImageLink='رابط الصوره';
 //  static const String bodyCategoryArabicLableTotalTime='الوقت الكامل';
 
 
-  static const String CollectionTrainings='training collection';
+  static const String collectionTrainings='training collection';
 
   static const String trainingEnglishName='training english name';
   static const String trainingEnglishLevel='training english level';
@@ -50,6 +49,22 @@ class StringManager
   static const String trainingHourPeriod='training hour period';
   static const String trainingMinutePeriod='training minute period';
   static const String trainingSecondPeriod='training second period';
+
+  static const String collectionBodyCategory='body category';
+
+  static const String bodyCategoryEnglishTitle='english title';
+  static const String bodyCategoryEnglishCalories='english calories';
+  static const String bodyCategoryEnglishNumberOfExercises='english number of exercises';
+  static const String bodyCategoryImageLink='image link';
+  static const String bodyCategoryLevel='level';
+  static const String bodyCategoryArabicTitle='arabic title';
+  static const String bodyCategoryArabicCalories='arabic calories';
+  static const String bodyCategoryArabicNumberOfExercises='arabic number of exercises';
+
+  static const String bodyCategoryTotalTimeHour='hour';
+  static const String bodyCategoryTotalTimeMinute='minute';
+  static const String bodyCategoryTotalTimeSecond='second';
+
 
 
 

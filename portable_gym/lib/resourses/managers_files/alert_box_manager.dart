@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
@@ -86,6 +88,7 @@ showAlertBodyCategoryBox(
     {required context,
       required TabBar tabBar,
       required TabBarView tabBarView,
+      required VoidCallback function
       //required File? videoFile
     }
 
@@ -125,8 +128,8 @@ showAlertBodyCategoryBox(
                     Expanded(child: tabBarView),
                     PeriodPickerBlock(isTrainingDate: false,),
                     GeneralButtonBlock(
-                        lable: S.of(context).uploadTraining,
-                        function: (){},
+                        lable: S.of(context).uploadBodyCategory,
+                        function: function,
                         backgroundColor: ColorManager.kLightPurpleColor,
                         textStyle: getSemiBoldStyle(
                             fontSize: FontSize.s20,

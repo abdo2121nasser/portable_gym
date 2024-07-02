@@ -23,15 +23,23 @@ part 'work_out_state.dart';
 
 class WorkOutCubit extends Cubit<WorkOutState> {
   WorkOutCubit() : super(WorkOutInitial());
+
   static WorkOutCubit get(context) => BlocProvider.of(context);
   GoogleDriveSevice googleDriveSevice = GoogleDriveSevice();
   DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
   DateTime bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
+
   //--------------------------------------------------------------------------------------
   TabBarView TrainingTabBarView =
-      TabBarView(children: [EnglishTrainingTabBarViewBlock(), ArabicTrainingTabBarViewBlock()]);
+  TabBarView(children: [
+    EnglishTrainingTabBarViewBlock(),
+    ArabicTrainingTabBarViewBlock()
+  ]);
   TabBarView BodyCategoryTabBarView =
-      TabBarView(children: [EnglishBodyCategoryTabBarViewBlock(), ArabicBodyCategoryTabBarViewBlock()]);
+  TabBarView(children: [
+    EnglishBodyCategoryTabBarViewBlock(),
+    ArabicBodyCategoryTabBarViewBlock()
+  ]);
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
     StringManager.trainingEnglishLableLevel,
@@ -52,52 +60,57 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     StringManager.bodyCategoryEnglishLableTitle,
     StringManager.bodyCategoryEnglishLableKcalories,
     StringManager.bodyCategoryEnglishLableNumberOfExercises,
-    StringManager.bodyCategoryEnglishLableImageLink,
+    StringManager.bodyCategoryLableImageLink
   ];
   List<String> bodyCategoryArabicLables = [
     StringManager.bodyCategoryArabicLableTitle,
-    StringManager.bodyCategoryArabicLableKcalories,
+    StringManager.bodyCategoryArabicLableCalories,
     StringManager.bodyCategoryArabicLableNumberOfExercises,
-    StringManager.bodyCategoryArabicLableImageLink,
   ];
   TextEditingController trainingEnglishNameController = TextEditingController();
   TextEditingController trainingEnglishLevelController =
-      TextEditingController();
+  TextEditingController();
   TextEditingController trainingEnglishNumberOfRepetationController =
-      TextEditingController();
+  TextEditingController();
   TextEditingController trainingEnglishRoundNumberController =
-      TextEditingController();
+  TextEditingController();
   TextEditingController trainingEnglishInstructionController =
-      TextEditingController();
+  TextEditingController();
 
   TextEditingController trainingArabicNameController = TextEditingController();
   TextEditingController trainingArabicLevelController = TextEditingController();
   TextEditingController trainingArabicNumberOfRepetationController =
-      TextEditingController();
+  TextEditingController();
   TextEditingController trainingArabicRoundNumberController =
-      TextEditingController();
+  TextEditingController();
   TextEditingController trainingArabicInstructionController =
-      TextEditingController();
+  TextEditingController();
 
   TextEditingController trainingVideoLinkController = TextEditingController();
+
   //-----------------------------------------------------------------------------
   TextEditingController bodyCategoryEnglishTitleController = TextEditingController();
   TextEditingController bodyCategoryEnglishNumberOfExercisesController = TextEditingController();
   TextEditingController bodyCategoryEnglishCaloriesController = TextEditingController();
-  TextEditingController bodyCategoryEnglishImageLinkController = TextEditingController();
+  TextEditingController bodyCategoryImageLinkController = TextEditingController();
   TextEditingController bodyCategoryArabicTitleController = TextEditingController();
   TextEditingController bodyCategoryArabicNumberOfExercisesController = TextEditingController();
   TextEditingController bodyCategoryArabicCaloriesController = TextEditingController();
-  TextEditingController bodyCategoryArabicImageLinkController = TextEditingController();
 
 
 //---------------------------------------------------------------------------------------------------
 
   getCategoryLabels({required int index, required context}) {
     List<String> lables = [
-      S.of(context).beginner,
-      S.of(context).intermediate,
-      S.of(context).advanced,
+      S
+          .of(context)
+          .beginner,
+      S
+          .of(context)
+          .intermediate,
+      S
+          .of(context)
+          .advanced,
     ];
     return lables[index];
   }
@@ -125,34 +138,33 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ];
     return controllers;
   }
-  getEnglishBodyCategoryControllers({required int index})
-  {
-    List<TextEditingController> controllers=[
-    bodyCategoryEnglishTitleController,
-     bodyCategoryEnglishNumberOfExercisesController,
-     bodyCategoryEnglishCaloriesController ,
-     bodyCategoryEnglishImageLinkController,
+
+  getEnglishBodyCategoryControllers({required int index}) {
+    List<TextEditingController> controllers = [
+      bodyCategoryEnglishTitleController,
+      bodyCategoryEnglishNumberOfExercisesController,
+      bodyCategoryEnglishCaloriesController,
+      bodyCategoryImageLinkController,
     ];
     return controllers[index];
   }
-  getArabicBodyCategoryControllers({required int index})
-  {
-    List<TextEditingController> controllers=[
+
+  getArabicBodyCategoryControllers({required int index}) {
+    List<TextEditingController> controllers = [
       bodyCategoryArabicTitleController,
       bodyCategoryArabicNumberOfExercisesController,
-      bodyCategoryArabicCaloriesController ,
-      bodyCategoryArabicImageLinkController,
+      bodyCategoryArabicCaloriesController,
     ];
     return controllers[index];
   }
-  setTrainingPeriod({required DateTime date})
-  {
-    trainingPeriod=date;
+
+  setTrainingPeriod({required DateTime date}) {
+    trainingPeriod = date;
     emit(SetTrainingPeriod());
   }
-  setBodyCategoryTotalTime({required DateTime date})
-  {
-    bodyCategoryTotalTime=date;
+
+  setBodyCategoryTotalTime({required DateTime date}) {
+    bodyCategoryTotalTime = date;
     emit(SetBodyCategoryTotalTime());
   }
 
@@ -224,50 +236,140 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     }
   }
 
-  addNewTraining()
-  {
+  addNewTraining() {
+    emit(AddNewTrainingLoadingState());
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        StringManager.collectionTrainings);
+    data.add({
+      StringManager.trainingEnglishName: trainingEnglishNameController.text,
+      StringManager.trainingEnglishLevel: trainingEnglishLevelController.text,
+      StringManager
+          .trainingEnglishNumberOfReputation: trainingEnglishNumberOfRepetationController
+          .text,
+      StringManager
+          .trainingEnglishRoundNumber: trainingEnglishRoundNumberController
+          .text,
+      StringManager
+          .trainingEnglishInstruction: trainingEnglishInstructionController
+          .text,
 
-      emit(AddNewTrainingLoadingState());
-      CollectionReference data = FirebaseFirestore.instance.collection(StringManager.CollectionTrainings);
- data.add({
-        StringManager.trainingEnglishName:trainingEnglishNameController.text,
-        StringManager.trainingEnglishLevel:trainingEnglishLevelController.text,
-        StringManager.trainingEnglishNumberOfReputation:trainingEnglishNumberOfRepetationController.text,
-        StringManager.trainingEnglishRoundNumber:trainingEnglishRoundNumberController.text,
-        StringManager.trainingEnglishInstruction:trainingEnglishInstructionController.text,
+      StringManager.trainingArabicName: trainingArabicNameController.text,
+      StringManager.trainingArabicLevel: trainingArabicLevelController.text,
+      StringManager
+          .trainingArabicNumberOfReputation: trainingArabicNumberOfRepetationController
+          .text,
+      StringManager
+          .trainingArabicRoundNumber: trainingArabicRoundNumberController.text,
+      StringManager
+          .trainingArabicInstruction: trainingArabicInstructionController.text,
 
-        StringManager.trainingArabicName:trainingArabicNameController.text,
-        StringManager.trainingArabicLevel:trainingArabicLevelController.text,
-        StringManager.trainingArabicNumberOfReputation:trainingArabicNumberOfRepetationController.text,
-        StringManager.trainingArabicRoundNumber:trainingArabicRoundNumberController.text,
-        StringManager.trainingArabicInstruction:trainingArabicInstructionController.text,
-
-        StringManager.trainingVideoLink:trainingVideoLinkController.text,
-        StringManager.trainingHourPeriod:trainingPeriod.hour,
-        StringManager.trainingMinutePeriod:trainingPeriod.minute,
-        StringManager.trainingSecondPeriod:trainingPeriod.second,
-      }).then((value){
-        emit(AddNewTrainingSuccessState());
- }).catchError((error){
-   emit(AddNewTrainingErrorState());
-   getToastMessage(
-     message: 'a problem has happened',
-   );
-   print(error);
- });
-
-
+      StringManager.trainingVideoLink: trainingVideoLinkController.text,
+      StringManager.trainingHourPeriod: trainingPeriod.hour,
+      StringManager.trainingMinutePeriod: trainingPeriod.minute,
+      StringManager.trainingSecondPeriod: trainingPeriod.second,
+    }).then((value) {
+      emit(AddNewTrainingSuccessState());
+    }).catchError((error) {
+      emit(AddNewTrainingErrorState());
+      getToastMessage(
+        message: 'a problem has happened',
+      );
+      print(error);
+    });
   }
 
-  processOfAddingTraining()
-  {
-    if(validateAddTraining())
-      {
-        addNewTraining();
-      }
+  processOfAddingTraining() {
+    if (validateAddTraining()) {
+      addNewTraining();
+    }
   }
 
+  bool validateAddBodyCategory() {
+    if (bodyCategoryEnglishTitleController.text.isEmpty) {
+      getToastMessage(
+        message: 'the English title field is empty',
+      );
+      return false;
+    } else if (bodyCategoryEnglishCaloriesController.text.isEmpty) {
+      getToastMessage(
+        message: 'the english calories field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryImageLinkController.text.isEmpty) {
+      getToastMessage(
+        message: 'the image link field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryEnglishNumberOfExercisesController.text.isEmpty) {
+      getToastMessage(
+        message: 'the english number of exercises field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryArabicTitleController.text.isEmpty) {
+      getToastMessage(
+        message: 'the arabic title field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryArabicCaloriesController.text.isEmpty) {
+      getToastMessage(
+        message: 'the arabic calories field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryArabicNumberOfExercisesController.text.isEmpty) {
+      getToastMessage(
+        message: 'the arabic number of exercises field is empty',
+      );
+      return false;
+    }
+    else if (bodyCategoryTotalTime.second == 0 &&
+             bodyCategoryTotalTime.minute == 0 &&
+             bodyCategoryTotalTime.hour == 0) {
+      getToastMessage(
+        message: 'the total time is not set time',
+      );
+      return false;
+    }
+    else
+      return true;
+  }
 
+  addNewBodyCategory() {
+    emit(AddNewBodyCategoryLoadingState());
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        StringManager.collectionBodyCategory);
+    data.add({
+      StringManager.bodyCategoryEnglishTitle:bodyCategoryEnglishTitleController.text,
+      StringManager.bodyCategoryEnglishCalories:bodyCategoryEnglishCaloriesController.text,
+      StringManager.bodyCategoryEnglishNumberOfExercises:bodyCategoryEnglishNumberOfExercisesController.text,
+
+      StringManager.bodyCategoryArabicTitle:bodyCategoryArabicTitleController.text,
+      StringManager.bodyCategoryArabicCalories:bodyCategoryArabicCaloriesController.text,
+      StringManager.bodyCategoryArabicNumberOfExercises:bodyCategoryArabicNumberOfExercisesController.text,
+
+      StringManager.bodyCategoryImageLink:bodyCategoryImageLinkController.text,
+      StringManager.bodyCategoryLevel:'beginner',
+      StringManager.bodyCategoryTotalTimeHour:bodyCategoryTotalTime.hour,
+      StringManager.bodyCategoryTotalTimeMinute:bodyCategoryTotalTime.minute,
+      StringManager.bodyCategoryTotalTimeSecond:bodyCategoryTotalTime.second,
+
+    }).then((value){
+      emit(AddNewBodyCategorySuccessState());
+    }).catchError((error){
+      emit(AddNewBodyCategoryErrorState());
+      print(error.toString());
+    });
+  }
+processOfAddingBodyCategory() {
+  if(validateAddBodyCategory())
+    {
+      addNewBodyCategory();
+    }
+}
 
 
 }

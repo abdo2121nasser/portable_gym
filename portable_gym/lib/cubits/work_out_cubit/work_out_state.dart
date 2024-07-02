@@ -15,3 +15,7 @@ class PickVideoErrorState extends WorkOutState {}
 class AddNewTrainingLoadingState extends WorkOutState {}
 class AddNewTrainingSuccessState extends WorkOutState {}
 class AddNewTrainingErrorState extends WorkOutState {}
+
+class AddNewBodyCategoryLoadingState extends WorkOutState {}
+class AddNewBodyCategorySuccessState extends WorkOutState {}
+class AddNewBodyCategoryErrorState extends WorkOutState {}
