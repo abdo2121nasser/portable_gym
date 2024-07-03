@@ -328,6 +328,17 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       return true;
   }
 
+  clearBodyCategoryAttributes() {
+    bodyCategoryEnglishTitleController.clear();
+    bodyCategoryEnglishNumberOfExercisesController.clear();
+    bodyCategoryEnglishCaloriesController.clear();
+    bodyCategoryImageLinkController.clear();
+    bodyCategoryArabicTitleController.clear();
+    bodyCategoryArabicNumberOfExercisesController.clear();
+    bodyCategoryArabicCaloriesController.clear();
+    bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
+  }
+
   addNewBodyCategory() async {
     emit(AddNewBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance
@@ -371,6 +382,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
       addNewBodyCategory();
+      clearBodyCategoryAttributes();
     }
   }
 
