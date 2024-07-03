@@ -29,7 +29,9 @@ class WorkOutScreen extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocConsumer<WorkOutCubit, WorkOutState>(
+    return BlocProvider.value(
+      value: WorkOutCubit.get(context)..getBodyCategories(),
+  child: BlocConsumer<WorkOutCubit, WorkOutState>(
       listener: (context, state) {},
       builder: (context, state) {
         var workCubit = WorkOutCubit.get(context);
@@ -66,10 +68,11 @@ class WorkOutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CategoryListBlock(),
+
               Padding(
                 padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
                 child: TrainingOfDayBlock(
-                  trainingName: 'functional trainnig',
+                  trainingName: 'functional training',
                 ),
               ),
               Padding(
@@ -97,7 +100,13 @@ class WorkOutScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ListBodyPartBlock(),
+              workCubit.bodyCategoryModel.isEmpty?
+              Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(color:ColorManager.kBlue,)),
+              ):
+              ListBodyPartBlock(bodyCategoryModel: workCubit.bodyCategoryModel,),
             ],
           ),
           floatingActionButton: FloatingActionButtonBlock(
@@ -112,6 +121,7 @@ class WorkOutScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ),
+);
   }
 }

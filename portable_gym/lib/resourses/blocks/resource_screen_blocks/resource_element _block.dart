@@ -77,12 +77,16 @@ class ResourceElementBlock extends StatelessWidget {
                        SizedBox(
                            width: constrain.maxWidth * 0.45,
                            height: constrain.maxHeight*0.15,
-                           child:  RecordedUnitBlock()),
+                           child:  RecordedUnitBlock(  icon: Icons.timer,
+                             mesuaringUnit: 'minute',
+                             unitValue: '45',)),
                        SizedBox(
                            width: constrain.maxWidth * 0.45,
                            height: constrain.maxHeight*0.15,
 
-                           child:  RecordedUnitBlock()),
+                           child:  RecordedUnitBlock(  icon: Icons.timer,
+                             mesuaringUnit: 'minute',
+                             unitValue: '45',)),
                      ],
                    )
                  ],

@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
+
 class ColorManager
 {
   static const Color kWhiteColor = Color(0xffFFFFFF);
@@ -8,6 +11,7 @@ class ColorManager
   static const Color kPurpleColor = Color(0xff896CFE);
   static const Color kLightPurpleColor = Color(0xffB3A0FF);
   static const Color kTransparantBlackColor =Color(0xdd212020);
+  static var  kBlue =Colors.blue;
 
 
 }

@@ -101,7 +101,9 @@ class TrainingOfDayBlock extends StatelessWidget {
                                 itemBuilder: (context, index) => SizedBox(
                                     width: constrain.maxWidth * 0.24,
                                     height: constrain.maxHeight*0.12,
-                                    child: RecordedUnitBlock(),),
+                                    child: RecordedUnitBlock(  icon: Icons.timer,
+                                      mesuaringUnit: 'minute',
+                                      unitValue: '45',),),
                               separatorBuilder: (context, index) => SizedBox(width: AppHorizontalSize.s5,),
                               itemCount: 3,),
                             )

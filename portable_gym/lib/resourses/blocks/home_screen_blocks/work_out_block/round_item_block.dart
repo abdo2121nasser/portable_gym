@@ -56,7 +56,11 @@ class RoundItemBlock extends StatelessWidget {
                   SizedBox(height: AppVerticalSize.s5,),
                   SizedBox(
                       width: MediaQuery.of(context).size.width*0.19,
-                      child: RecordedUnitBlock(textColor: ColorManager.kLightPurpleColor,iconColor: ColorManager.kLightPurpleColor,)),
+                      child: RecordedUnitBlock(
+                        icon: Icons.timer,
+                        mesuaringUnit: 'minute',
+                        unitValue: '45',
+                        textColor: ColorManager.kLightPurpleColor,iconColor: ColorManager.kLightPurpleColor,)),
 
                 ],
               ),

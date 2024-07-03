@@ -19,3 +19,7 @@ class AddNewTrainingErrorState extends WorkOutState {}
 class AddNewBodyCategoryLoadingState extends WorkOutState {}
 class AddNewBodyCategorySuccessState extends WorkOutState {}
 class AddNewBodyCategoryErrorState extends WorkOutState {}
+
+class GetBodyCategoryLoadingState extends WorkOutState {}
+class GetBodyCategorySuccessState extends WorkOutState {}
+class GetBodyCategoryErrorState extends WorkOutState {}
