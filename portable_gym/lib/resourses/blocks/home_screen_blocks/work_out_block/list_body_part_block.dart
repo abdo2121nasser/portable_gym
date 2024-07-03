@@ -18,7 +18,7 @@ class ListBodyPartBlock extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s16),
           itemBuilder: (context, index) => InkWell(
               onTap: (){
-                Get.to(LevelScreen());
+                Get.to(LevelScreen(bodyCategory: bodyCategoryModel[index].english!.title!,));
               },
               child: BodyPartBlock(bodyCategoryModel: bodyCategoryModel[index],)),
           separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s22,),

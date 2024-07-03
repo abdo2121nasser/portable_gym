@@ -54,7 +54,7 @@ showAlertTrainingBox(
             children: <Widget>[
               tabBar,
               SizedBox(
-                height: AppVerticalSize.s850,
+                height: AppVerticalSize.s650,
                 child: Column(
                   children: [
                     SizedBox(
@@ -119,7 +119,7 @@ showAlertBodyCategoryBox(
             children: <Widget>[
               tabBar,
               SizedBox(
-                height: AppVerticalSize.s600,
+                height: AppVerticalSize.s650,
                 child: Column(
                   children: [
                     SizedBox(

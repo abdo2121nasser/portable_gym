@@ -13,6 +13,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
+import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 import 'package:portable_gym/resourses/services/google_drive_service/google_drive_sevice.dart';
 
 import '../../generated/l10n.dart';
@@ -28,6 +29,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   static WorkOutCubit get(context) => BlocProvider.of(context);
 
   List<BodyCategoryModel> bodyCategoryModel = [];
+  List<TrainingModel> trainingModel = [];
 
   DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
   DateTime bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
@@ -43,20 +45,17 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   ]);
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
-    StringManager.trainingEnglishLableLevel,
     StringManager.trainingEnglishLableNumberOfRepetation,
-    StringManager.trainingEnglishLableRoundNumber,
     StringManager.trainingEnglishLableInstruction,
     StringManager.trainingEnglishLableVideoLink,
   ];
   List<String> trainingArabicLables = [
     StringManager.trainingArabicLableName,
-    StringManager.trainingArabicLableLevel,
     StringManager.trainingArabicLableNumberOfRepetation,
-    StringManager.trainingArabicLableRoundNumber,
     StringManager.trainingArabicLableInstruction,
     StringManager.trainingArabicLableVideoLink,
   ];
+  //---------------------------------------
   List<String> bodyCategoryEnglishLables = [
     StringManager.bodyCategoryEnglishLableTitle,
     StringManager.bodyCategoryEnglishLableKcalories,
@@ -69,21 +68,16 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     StringManager.bodyCategoryArabicLableNumberOfExercises,
   ];
   TextEditingController trainingEnglishNameController = TextEditingController();
-  TextEditingController trainingEnglishLevelController =
+  TextEditingController trainingEnglishNumberOfReputationController =
       TextEditingController();
-  TextEditingController trainingEnglishNumberOfRepetationController =
-      TextEditingController();
-  TextEditingController trainingEnglishRoundNumberController =
-      TextEditingController();
+
   TextEditingController trainingEnglishInstructionController =
       TextEditingController();
 
   TextEditingController trainingArabicNameController = TextEditingController();
-  TextEditingController trainingArabicLevelController = TextEditingController();
-  TextEditingController trainingArabicNumberOfRepetationController =
+  TextEditingController trainingArabicNumberOfReputationController =
       TextEditingController();
-  TextEditingController trainingArabicRoundNumberController =
-      TextEditingController();
+
   TextEditingController trainingArabicInstructionController =
       TextEditingController();
 
@@ -119,9 +113,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<TextEditingController> getTrainingEnglishControllers() {
     List<TextEditingController> controllers = [
       trainingEnglishNameController,
-      trainingEnglishLevelController,
-      trainingEnglishNumberOfRepetationController,
-      trainingEnglishRoundNumberController,
+      trainingEnglishNumberOfReputationController,
       trainingEnglishInstructionController,
       trainingVideoLinkController
     ];
@@ -131,9 +123,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<TextEditingController> getTrainingArabicControllers() {
     List<TextEditingController> controllers = [
       trainingArabicNameController,
-      trainingArabicLevelController,
-      trainingArabicNumberOfRepetationController,
-      trainingArabicRoundNumberController,
+      trainingArabicNumberOfReputationController,
       trainingArabicInstructionController,
       trainingVideoLinkController
     ];
@@ -181,34 +171,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the arabic name field is empty',
       );
       return false;
-    } else if (trainingEnglishLevelController.text.isEmpty) {
-      getToastMessage(
-        message: 'the english level field is empty',
-      );
-      return false;
-    } else if (trainingArabicLevelController.text.isEmpty) {
-      getToastMessage(
-        message: 'the arabic level field is empty',
-      );
-      return false;
-    } else if (trainingEnglishNumberOfRepetationController.text.isEmpty) {
+    } else if (trainingEnglishNumberOfReputationController.text.isEmpty) {
       getToastMessage(
         message: 'the english number of reputation field is empty',
       );
       return false;
-    } else if (trainingArabicNumberOfRepetationController.text.isEmpty) {
+    } else if (trainingArabicNumberOfReputationController.text.isEmpty) {
       getToastMessage(
         message: 'the arabic number of reputation field is empty',
-      );
-      return false;
-    } else if (trainingEnglishRoundNumberController.text.isEmpty) {
-      getToastMessage(
-        message: 'the english round number field is empty',
-      );
-      return false;
-    } else if (trainingArabicRoundNumberController.text.isEmpty) {
-      getToastMessage(
-        message: 'the arabic round number field is empty',
       );
       return false;
     } else if (trainingEnglishInstructionController.text.isEmpty) {
@@ -238,33 +208,33 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     }
   }
 
-  addNewTraining() async {
+  addNewTraining({required String bodyCategory}) async {
     emit(AddNewTrainingLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionTrainings);
     await data.add({
       StringManager.trainingEnglishName: trainingEnglishNameController.text,
-      StringManager.trainingEnglishLevel: trainingEnglishLevelController.text,
       StringManager.trainingEnglishNumberOfReputation:
-          trainingEnglishNumberOfRepetationController.text,
-      StringManager.trainingEnglishRoundNumber:
-          trainingEnglishRoundNumberController.text,
+          trainingEnglishNumberOfReputationController.text,
       StringManager.trainingEnglishInstruction:
           trainingEnglishInstructionController.text,
       StringManager.trainingArabicName: trainingArabicNameController.text,
-      StringManager.trainingArabicLevel: trainingArabicLevelController.text,
       StringManager.trainingArabicNumberOfReputation:
-          trainingArabicNumberOfRepetationController.text,
-      StringManager.trainingArabicRoundNumber:
-          trainingArabicRoundNumberController.text,
+          trainingArabicNumberOfReputationController.text,
       StringManager.trainingArabicInstruction:
           trainingArabicInstructionController.text,
       StringManager.trainingVideoLink: trainingVideoLinkController.text,
+      StringManager.trainingLevel: 'beginner',
+      //todo fix this to the filtered levels
+      StringManager.trainingBodyCategory: bodyCategory,
       StringManager.trainingHourPeriod: trainingPeriod.hour,
       StringManager.trainingMinutePeriod: trainingPeriod.minute,
       StringManager.trainingSecondPeriod: trainingPeriod.second,
     }).then((value) {
       emit(AddNewTrainingSuccessState());
+      getToastMessage(
+        message: 'added successfully',
+      );
     }).catchError((error) {
       emit(AddNewTrainingErrorState());
       getToastMessage(
@@ -272,11 +242,12 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       );
       print(error);
     });
+    Get.back();
   }
 
-  processOfAddingTraining() {
+  processOfAddingTraining({required String bodyCategory}) {
     if (validateAddTraining()) {
-      addNewTraining();
+      addNewTraining(bodyCategory: bodyCategory);
     }
   }
 

@@ -17,7 +17,11 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 import 'exercise_screen.dart';
 
 class LevelScreen extends StatelessWidget {
-  @override
+ final  String bodyCategory;
+
+ LevelScreen({required this.bodyCategory});
+
+ @override
   Widget build(BuildContext context) {
     final TabBar trainingTabBar = TabBar(
       tabs: [
@@ -83,7 +87,7 @@ class LevelScreen extends StatelessWidget {
             tabBar: trainingTabBar,
             tabBarView: workCubit.TrainingTabBarView,
             trainingPeriod: workCubit.trainingPeriod,
-            processOfAddingTraining: workCubit.processOfAddingTraining
+            processOfAddingTraining: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory);}
         );
         // await pickImage();
         //await google.uploadFileToGoogleDrive(imageFile!);
