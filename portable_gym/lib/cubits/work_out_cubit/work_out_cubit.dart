@@ -33,6 +33,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
   DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
   DateTime bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
+  int currentLevel = 0;
 
   //--------------------------------------------------------------------------------------
   TabBarView TrainingTabBarView = TabBarView(children: [
@@ -103,13 +104,18 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
 //---------------------------------------------------------------------------------------------------
 
-  getCategoryLabels({required int index, required context}) {
+  getLevelLabels({required int index, required context}) {
     List<String> lables = [
       S.of(context).beginner,
       S.of(context).intermediate,
       S.of(context).advanced,
     ];
     return lables[index];
+  }
+
+  changeCurrentLevel({required int newLevel}) {
+    currentLevel = newLevel;
+    emit(ChangeCurrentLevelState());
   }
 
   List<TextEditingController> getTrainingEnglishControllers() {
@@ -228,10 +234,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       StringManager.trainingArabicInstruction:
           trainingArabicInstructionController.text,
       StringManager.trainingVideoLink: trainingVideoLinkController.text,
-      StringManager.trainingLevel: 'beginner',
-      //todo fix this to the filtered levels
+      StringManager.trainingLevel:
+          getBodyCategoryLevelString(currentLevelIndex: currentLevel),
       StringManager.trainingBodyCategory: bodyCategory,
-      StringManager.trainingPriority:int.parse(trainingPriorityController.text),
+      StringManager.trainingPriority:
+          int.parse(trainingPriorityController.text),
       StringManager.trainingHourPeriod: trainingPeriod.hour,
       StringManager.trainingMinutePeriod: trainingPeriod.minute,
       StringManager.trainingSecondPeriod: trainingPeriod.second,
@@ -256,20 +263,19 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     }
   }
 
-  getTraining({required String bodyCategory})
-  async {
+  getTraining({required String bodyCategory}) async {
     trainingModel.clear();
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionTrainings).where(StringManager.trainingBodyCategory, isEqualTo: bodyCategory)
+        .collection(StringManager.collectionTrainings)
+        .where(StringManager.trainingBodyCategory, isEqualTo: bodyCategory)
         .orderBy(StringManager.trainingPriority);
     emit(GetTrainingLoadingState());
-   await data.get().then((value){
+    await data.get().then((value) {
       value.docs.forEach((element) {
-       trainingModel.add(TrainingModel.fromJson(json: element.data()));
+        trainingModel.add(TrainingModel.fromJson(json: element.data(),docId: element.id));
       });
       emit(GetTrainingSuccessState());
-
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetTrainingErrorState());
       print(error);
     });
@@ -322,7 +328,6 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     } else
       return true;
   }
-
   clearBodyCategoryAttributes() {
     bodyCategoryEnglishTitleController.clear();
     bodyCategoryEnglishNumberOfExercisesController.clear();
@@ -332,6 +337,27 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryArabicNumberOfExercisesController.clear();
     bodyCategoryArabicCaloriesController.clear();
     bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
+  }
+  getBodyCategoryLevelString({required int currentLevelIndex}) {
+    List<String> levels = [
+      StringManager.bodyCategoryLevelBeginner,
+      StringManager.bodyCategoryLevelBeginner,
+      StringManager.bodyCategoryLevelBeginner,
+    ];
+    return levels[currentLevelIndex];
+  }
+  setBodyCategoryAttributes({required BodyCategoryModel model}) {
+
+    bodyCategoryEnglishTitleController.text=model.english!.title!;
+    bodyCategoryEnglishNumberOfExercisesController.text=model.english!.numberOfExercises!;
+    bodyCategoryEnglishCaloriesController.text=model.english!.calories!;
+    bodyCategoryImageLinkController.text=model.imageLink!;
+    bodyCategoryArabicTitleController.text=model.arabic!.title!;
+    bodyCategoryArabicNumberOfExercisesController.text=model.arabic!.numberOfExercises!;
+    bodyCategoryArabicCaloriesController.text=model.arabic!.calories!;
+    bodyCategoryTotalTime=DateTime(0,0,0,model.hour!,model.minute!,model.second!,);
+    emit(SetBodyCategoryControllersState());
+
   }
 
   addNewBodyCategory() async {
@@ -345,17 +371,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
           bodyCategoryEnglishCaloriesController.text,
       StringManager.bodyCategoryEnglishNumberOfExercises:
           bodyCategoryEnglishNumberOfExercisesController.text,
-
       StringManager.bodyCategoryArabicTitle:
           bodyCategoryArabicTitleController.text,
       StringManager.bodyCategoryArabicCalories:
           bodyCategoryArabicCaloriesController.text,
       StringManager.bodyCategoryArabicNumberOfExercises:
           bodyCategoryArabicNumberOfExercisesController.text,
-
       StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
-      StringManager.bodyCategoryLevel: 'beginner',
-      //todo fix this to the filter of levels
+      StringManager.bodyCategoryLevel:
+          getBodyCategoryLevelString(currentLevelIndex: currentLevel),
       StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
       StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
       StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
@@ -373,6 +397,45 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     });
     Get.back();
   }
+editBodyCategory({required String docId})
+{
+  emit(EditBodyCategoryLoadingState());
+  CollectionReference data = FirebaseFirestore.instance
+      .collection(StringManager.collectionBodyCategory);
+  data.doc(docId).update({
+    StringManager.bodyCategoryEnglishTitle:
+    bodyCategoryEnglishTitleController.text,
+    StringManager.bodyCategoryEnglishCalories:
+    bodyCategoryEnglishCaloriesController.text,
+    StringManager.bodyCategoryEnglishNumberOfExercises:
+    bodyCategoryEnglishNumberOfExercisesController.text,
+    StringManager.bodyCategoryArabicTitle:
+    bodyCategoryArabicTitleController.text,
+    StringManager.bodyCategoryArabicCalories:
+    bodyCategoryArabicCaloriesController.text,
+    StringManager.bodyCategoryArabicNumberOfExercises:
+    bodyCategoryArabicNumberOfExercisesController.text,
+    StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
+    StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
+    StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
+    StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
+  }).then((value){
+    emit(EditBodyCategorySuccessState());
+    getToastMessage(
+      message: 'the category has been edited',
+    );
+    getBodyCategories();
+
+
+  }).catchError((error){
+    emit(EditBodyCategoryErrorState());
+    print(error.toString());
+    getToastMessage(
+      message: 'a problem has happened',
+    );
+
+  });
+}
 
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
@@ -389,7 +452,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(GetBodyCategoryLoadingState());
     data.get().then((value) {
       value.docs.forEach((element) {
-        bodyCategoryModel.add(BodyCategoryModel.fromJson(json: element.data()));
+        bodyCategoryModel.add(BodyCategoryModel.fromJson(json: element.data(),docId: element.id));
       });
       emit(GetBodyCategorySuccessState());
     }).catchError((error) {

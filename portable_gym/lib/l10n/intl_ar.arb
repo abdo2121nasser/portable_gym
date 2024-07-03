@@ -79,6 +79,8 @@
   "pickVideo": "اختر فيديو",
   "uploadTraining": "تحميل التمرين",
   "uploadBodyCategory": "تحميل تصنيف التمرين",
+  "editBodyCategory": "تعديل تصنيف التمرين",
+  "addBodyCategory": "اضف تصنيف التمرين",
   "minuteWord":"دقيقه",
   "kCal":"كالوري",
   "exercises":"تمارين"

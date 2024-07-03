@@ -6,8 +6,8 @@ import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/category_element_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/category_list_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_element_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_list_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/training_of_day_block.dart';
@@ -67,7 +67,7 @@ class WorkOutScreen extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CategoryListBlock(),
+              LevelListBlock(),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
@@ -113,6 +113,8 @@ class WorkOutScreen extends StatelessWidget {
             function: () {
               showAlertBodyCategoryBox(
                   context: context,
+                  title: S.of(context).addBodyCategory,
+                  buttonLable: S.of(context).uploadBodyCategory,
                   tabBar: bodyCategoryTabBar,
                   tabBarView: workCubit.BodyCategoryTabBarView,
               function: workCubit.processOfAddingBodyCategory

@@ -5,6 +5,11 @@ class StringManager
   static const String gmailPattern='@gmail.com';
   static const String nameExpression=r'[0-9]';
 
+  static const String bodyCategoryLevelBeginner='beginner';
+  static const String bodyCategoryLevelIntermediate='intermediate';
+  static const String bodyCategoryLevelAdvanced='advanced';
+
+
   static const String trainingEnglishLableName='Name';
   static const String trainingEnglishLablePeriod='Period';
   static const String trainingEnglishLableNumberOfRepetation='Number of Reputation';
@@ -22,11 +27,9 @@ class StringManager
   static const String bodyCategoryEnglishLableKcalories='calories';
   static const String bodyCategoryEnglishLableNumberOfExercises='number of exercises';
   static const String bodyCategoryLableImageLink='image link';
-//  static const String bodyCategoryEnglishLableTotalTime='total time';
   static const String bodyCategoryArabicLableTitle='العنوان';
   static const String bodyCategoryArabicLableCalories='الكالوريز';
   static const String bodyCategoryArabicLableNumberOfExercises='عدد التمارين';
-//  static const String bodyCategoryArabicLableTotalTime='الوقت الكامل';
 
 
   static const String collectionTrainings='training collection';

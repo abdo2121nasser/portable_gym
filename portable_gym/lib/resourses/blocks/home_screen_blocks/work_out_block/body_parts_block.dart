@@ -11,9 +11,9 @@ import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/body_category_model.dart';
 import '../../resource_screen_blocks/recorded_unit_block.dart';
 
-class BodyPartBlock extends StatelessWidget {
+class BodyPartItemBlock extends StatelessWidget {
   final BodyCategoryModel bodyCategoryModel;
-  BodyPartBlock({
+  BodyPartItemBlock({
     required this.bodyCategoryModel,
   });
 

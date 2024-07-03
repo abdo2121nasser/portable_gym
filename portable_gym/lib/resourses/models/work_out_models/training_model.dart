@@ -10,6 +10,7 @@ class TrainingModel {
   final int? hour;
   final int? minute;
   final int? second;
+  final String? docId;
 
   TrainingModel({
     required this.english,
@@ -20,9 +21,10 @@ class TrainingModel {
     required this.hour,
     required this.minute,
     required this.second,
+    required this.docId
   });
 
-  factory TrainingModel.fromJson({required Map<String, dynamic> json}) {
+  factory TrainingModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return TrainingModel(
       level: json[StringManager.trainingLevel],
       videoLink: json[StringManager.trainingVideoLink],
@@ -32,6 +34,8 @@ class TrainingModel {
       second: json[StringManager.trainingSecondPeriod],
       english: English.fromJson(json: json),
       arabic: Arabic.fromJson(json: json),
+        docId: docId
+
     );
   }
 

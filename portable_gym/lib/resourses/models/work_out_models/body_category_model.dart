@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
@@ -9,6 +10,7 @@ class BodyCategoryModel {
   final int? hour;
   final int? minute;
   final int? second;
+  final String? docId;
 
   BodyCategoryModel({
     required this.english,
@@ -18,9 +20,10 @@ class BodyCategoryModel {
     required this.hour,
     required this.minute,
     required this.second,
+    required this.docId
   });
 
-  factory BodyCategoryModel.fromJson({required Map<String, dynamic> json}) {
+  factory BodyCategoryModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return BodyCategoryModel(
       level: json[StringManager.bodyCategoryLevel],
       imageLink: json[StringManager.bodyCategoryImageLink],
@@ -29,6 +32,7 @@ class BodyCategoryModel {
       second: json[StringManager.bodyCategoryTotalTimeSecond],
       english: English.fromJson(json: json),
       arabic: Arabic.fromJson(json: json),
+      docId: docId
     );
   }
 
