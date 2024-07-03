@@ -8,11 +8,13 @@ class StringManager
   static const String trainingEnglishLableName='Name';
   static const String trainingEnglishLablePeriod='Period';
   static const String trainingEnglishLableNumberOfRepetation='Number of Reputation';
+  static const String trainingEnglishLablePriority='Priority';
   static const String trainingEnglishLableInstruction='Instructions';
   static const String trainingEnglishLableVideoLink='video link';
   static const String trainingArabicLableName='الاسم';
   static const String trainingArabicLablePeriod='المده';
   static const String trainingArabicLableNumberOfRepetation='عدد التكرار';
+  static const String trainingArabicLablePriority='الاولويه';
   static const String trainingArabicLableInstruction='الارشادات';
   static const String trainingArabicLableVideoLink='رابط الفديو';
 
@@ -39,6 +41,7 @@ class StringManager
 
   static const String trainingVideoLink='training video link';
   static const String trainingLevel='level';
+  static const String trainingPriority='priority';
   static const String trainingBodyCategory='body category';
   static const String trainingHourPeriod='training hour period';
   static const String trainingMinutePeriod='training minute period';

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:googleapis/admob/v1.dart';
 import 'package:portable_gym/resourses/blocks/resource_screen_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../../../generated/l10n.dart';
@@ -10,10 +12,13 @@ import '../../../managers_files/style_manager.dart';
 
 
 class RoundItemBlock extends StatelessWidget {
-  const RoundItemBlock({super.key});
+   final TrainingModel trainingModel;
 
-  @override
+   RoundItemBlock({required this.trainingModel});
+
+   @override
   Widget build(BuildContext context) {
+     var languageModel=trainingModel.getLanguageClass(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s10,horizontal: AppHorizontalSize.s16),
       decoration: BoxDecoration(
@@ -32,22 +37,25 @@ class RoundItemBlock extends StatelessWidget {
                 ),
                 child: Icon(Icons.play_arrow_rounded,color: ColorManager.kWhiteColor,size: AppVerticalSize.s55,),
               ),
-              SizedBox(width: AppHorizontalSize.s5,),
+              SizedBox(width: AppHorizontalSize.s10,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height:AppVerticalSize.s16 ,
-                    width: AppHorizontalSize.s178,
+                    width: AppHorizontalSize.s100,
                     child: Row(
                       children: [
                         Expanded(
-                          child: Text(
-                            'Dumbbell Rows',
-                            style: getMeduimStyle(
-                                fontSize: FontSize.s12,
-                                color: ColorManager.kBlackColor,
-                                fontFamily: FontFamily.kPoppinsFont),
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
+                            child: Text(
+                              languageModel.name.toString(),
+                              style: getMeduimStyle(
+                                  fontSize: FontSize.s12,
+                                  color: ColorManager.kBlackColor,
+                                  fontFamily: FontFamily.kPoppinsFont),
+                            ),
                           ),
                         ),
                       ],
@@ -55,11 +63,11 @@ class RoundItemBlock extends StatelessWidget {
                   ),
                   SizedBox(height: AppVerticalSize.s5,),
                   SizedBox(
-                      width: MediaQuery.of(context).size.width*0.19,
+                      width: AppHorizontalSize.s100,
                       child: RecordedUnitBlock(
                         icon: Icons.timer,
-                        mesuaringUnit: 'minute',
-                        unitValue: '45',
+                        mesuaringUnit: S.of(context).minuteWord,
+                        unitValue: trainingModel.minute.toString()+":"+trainingModel.second.toString(),
                         textColor: ColorManager.kLightPurpleColor,iconColor: ColorManager.kLightPurpleColor,)),
 
                 ],
@@ -68,7 +76,7 @@ class RoundItemBlock extends StatelessWidget {
             ],
           ),
           Text(
-            S.of(context).reputation+'3x',
+            S.of(context).reputation+languageModel.numberOfReputation.toString()+'x',
             style: getMeduimStyle(
                 fontSize: FontSize.s12,
                 color: ColorManager.kBlackColor,

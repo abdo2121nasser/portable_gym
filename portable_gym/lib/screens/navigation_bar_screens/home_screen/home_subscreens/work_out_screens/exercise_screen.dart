@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
-import 'exercise_detail_block.dart';
-import 'exercise_video_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/exercise_detail_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/exercise_video_block.dart';
 
 
 
 class ExerciseScreen extends StatelessWidget {
+  final TrainingModel trainingModel;
+
+
+  ExerciseScreen({required this.trainingModel});
 
   @override
   Widget build(BuildContext context) {
+    var languageModel=trainingModel.getLanguageClass(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       appBar: AppBar(
         backgroundColor: ColorManager.kBlackColor,
         leadingWidth: MediaQuery.of(context).size.width * 0.35,
@@ -30,7 +39,7 @@ class ExerciseScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  S.of(context).beginner,
+                  languageModel.name.toString(),
                   style: getBoldStyle(
                       fontSize: FontSize.s20,
                       color: ColorManager.kPurpleColor,
@@ -44,8 +53,8 @@ class ExerciseScreen extends StatelessWidget {
          body: Column(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [
-             ExerciseVideoBlock(),
-             ExerciseDetailBlock()
+             ExerciseVideoBlock(videoUrl:trainingModel.videoLink.toString(),),
+             ExerciseDetailBlock(trainingModel: trainingModel,)
            ],
          ),
     );

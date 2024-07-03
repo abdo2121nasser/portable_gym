@@ -46,12 +46,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
     StringManager.trainingEnglishLableNumberOfRepetation,
+    StringManager.trainingEnglishLablePriority,
     StringManager.trainingEnglishLableInstruction,
     StringManager.trainingEnglishLableVideoLink,
   ];
   List<String> trainingArabicLables = [
     StringManager.trainingArabicLableName,
     StringManager.trainingArabicLableNumberOfRepetation,
+    StringManager.trainingArabicLablePriority,
     StringManager.trainingArabicLableInstruction,
     StringManager.trainingArabicLableVideoLink,
   ];
@@ -70,7 +72,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   TextEditingController trainingEnglishNameController = TextEditingController();
   TextEditingController trainingEnglishNumberOfReputationController =
       TextEditingController();
-
+  TextEditingController trainingPriorityController = TextEditingController();
   TextEditingController trainingEnglishInstructionController =
       TextEditingController();
 
@@ -114,6 +116,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     List<TextEditingController> controllers = [
       trainingEnglishNameController,
       trainingEnglishNumberOfReputationController,
+      trainingPriorityController,
       trainingEnglishInstructionController,
       trainingVideoLinkController
     ];
@@ -124,6 +127,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     List<TextEditingController> controllers = [
       trainingArabicNameController,
       trainingArabicNumberOfReputationController,
+      trainingPriorityController,
       trainingArabicInstructionController,
       trainingVideoLinkController
     ];
@@ -227,6 +231,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       StringManager.trainingLevel: 'beginner',
       //todo fix this to the filtered levels
       StringManager.trainingBodyCategory: bodyCategory,
+      StringManager.trainingPriority:int.parse(trainingPriorityController.text),
       StringManager.trainingHourPeriod: trainingPeriod.hour,
       StringManager.trainingMinutePeriod: trainingPeriod.minute,
       StringManager.trainingSecondPeriod: trainingPeriod.second,
@@ -249,6 +254,25 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     if (validateAddTraining()) {
       addNewTraining(bodyCategory: bodyCategory);
     }
+  }
+
+  getTraining({required String bodyCategory})
+  async {
+    trainingModel.clear();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionTrainings).where(StringManager.trainingBodyCategory, isEqualTo: bodyCategory)
+        .orderBy(StringManager.trainingPriority);
+    emit(GetTrainingLoadingState());
+   await data.get().then((value){
+      value.docs.forEach((element) {
+       trainingModel.add(TrainingModel.fromJson(json: element.data()));
+      });
+      emit(GetTrainingSuccessState());
+
+    }).catchError((error){
+      emit(GetTrainingErrorState());
+      print(error);
+    });
   }
 
 //------------------------------------------------------------------------------

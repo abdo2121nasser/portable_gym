@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 
-import '../../../../../resourses/blocks/resource_screen_blocks/recorded_unit_block.dart';
-import '../../../../../resourses/managers_files/font_manager.dart';
-import '../../../../../resourses/managers_files/style_manager.dart';
+import '../../../../generated/l10n.dart';
+import '../../resource_screen_blocks/recorded_unit_block.dart';
+import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/style_manager.dart';
 
 class ExerciseDetailBlock extends StatelessWidget {
-  const ExerciseDetailBlock({super.key});
+        final TrainingModel trainingModel;
+
+        ExerciseDetailBlock({required this.trainingModel});
 
   @override
   Widget build(BuildContext context) {
+    var languageModel=trainingModel.getLanguageClass(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
       padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
@@ -25,7 +30,7 @@ class ExerciseDetailBlock extends StatelessWidget {
           SizedBox(
             height: AppVerticalSize.s30,
             child: Text(
-              'squats',
+              languageModel.name.toString(),
               style: getMeduimStyle(
                   fontSize: FontSize.s20,
                   color: ColorManager.kBlackColor,
@@ -39,13 +44,15 @@ class ExerciseDetailBlock extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus libero eget.',
-                    style: getMeduimStyle(
-                        fontSize: FontSize.s12,
-                        color: ColorManager.kBlackColor,
-                        fontFamily: FontFamily.kPoppinsFont),
-                    textAlign: TextAlign.center,
+                  child: SingleChildScrollView(
+                    child: Text(
+                      languageModel.instructions.toString(),
+                      style: getMeduimStyle(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.kBlackColor,
+                          fontFamily: FontFamily.kPoppinsFont),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],
@@ -63,32 +70,21 @@ class ExerciseDetailBlock extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.2,
                     child: RecordedUnitBlock(
                       icon: Icons.timer,
-                      mesuaringUnit: 'minute',
-                      unitValue: '45',
+                      mesuaringUnit: S.of(context).minute,
+                      unitValue: "${trainingModel.minute}:${trainingModel.second}",
                       textColor: ColorManager.kBlackColor,
                       iconColor: ColorManager.kBlackColor,
                     )),
                 SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.27,
                     child: RecordedUnitBlock(
-                      icon: Icons.timer,
-                      mesuaringUnit: 'minute',
-                      unitValue: '45',
+                      icon: Icons.local_fire_department_outlined,
+                      mesuaringUnit: S.of(context).reputation,
+                      unitValue: languageModel.numberOfReputation.toString(),
                       textColor: ColorManager.kBlackColor,
                       iconColor: ColorManager.kBlackColor,
-                    )),
-                SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: RecordedUnitBlock(
-                      icon: Icons.timer,
-                      mesuaringUnit: 'minute',
-                      unitValue: '45',
-                      textColor: ColorManager.kBlackColor,
-                      iconColor: ColorManager.kBlackColor,
-                    )),
-              ],
+                    )),],
             ),
           )
         ],
