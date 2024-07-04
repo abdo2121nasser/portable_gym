@@ -12,6 +12,7 @@ class ColorManager
   static const Color kLightPurpleColor = Color(0xffB3A0FF);
   static const Color kTransparantBlackColor =Color(0xdd212020);
   static var  kBlue =Colors.blue;
+  static var  kRed =Colors.red;
 
 
 }

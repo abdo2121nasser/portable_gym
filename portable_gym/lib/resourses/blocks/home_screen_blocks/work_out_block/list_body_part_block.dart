@@ -54,7 +54,9 @@ class ListBodyPartBlock extends StatelessWidget {
 
                 );
               },
-              child: BodyPartItemBlock(bodyCategoryModel: bodyCategoryModel[index],)),
+              child: BodyPartItemBlock(bodyCategoryModel: bodyCategoryModel[index],deleteFunction: (){
+                workCubit.deleteBodyCategory(docId: bodyCategoryModel[index].docId!);
+              },)),
           separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s22,),
           itemCount: bodyCategoryModel.length),
     );

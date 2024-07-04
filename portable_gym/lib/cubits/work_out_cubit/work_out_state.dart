@@ -33,6 +33,10 @@ class EditBodyCategoryLoadingState extends WorkOutState {}
 class EditBodyCategorySuccessState extends WorkOutState {}
 class EditBodyCategoryErrorState extends WorkOutState {}
 
+class deleteBodyCategoryLoadingState extends WorkOutState {}
+class deleteBodyCategorySuccessState extends WorkOutState {}
+class deleteBodyCategoryErrorState extends WorkOutState {}
+
 class GetBodyCategoryLoadingState extends WorkOutState {}
 class GetBodyCategorySuccessState extends WorkOutState {}
 class GetBodyCategoryErrorState extends WorkOutState {}

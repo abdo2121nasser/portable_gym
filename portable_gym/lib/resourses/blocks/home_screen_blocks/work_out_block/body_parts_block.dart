@@ -13,8 +13,10 @@ import '../../resource_screen_blocks/recorded_unit_block.dart';
 
 class BodyPartItemBlock extends StatelessWidget {
   final BodyCategoryModel bodyCategoryModel;
+  final VoidCallback deleteFunction;
   BodyPartItemBlock({
     required this.bodyCategoryModel,
+    required this.deleteFunction
   });
 
   @override
@@ -104,12 +106,26 @@ class BodyPartItemBlock extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(AppRadiusSize.s16),
-                  child: Icon(
-                    Icons.star_rounded,
-                    color: ColorManager.kWhiteColor,
-                  ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(AppRadiusSize.s16),
+                      child: Icon(
+                        Icons.star_border,
+                      //  color: ColorManager.kWhiteColor,
+                      ),
+                    )             ,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
+                      child: InkWell(
+                        onTap:deleteFunction,
+                        child: Icon(
+                          Icons.delete,
+                          color: ColorManager.kRed,
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             );

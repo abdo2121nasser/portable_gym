@@ -17,7 +17,14 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
-class WorkOutScreen extends StatelessWidget {
+class WorkOutScreen extends StatefulWidget {
+  @override
+  State<WorkOutScreen> createState() => _WorkOutScreenState();
+}
+
+class _WorkOutScreenState extends State<WorkOutScreen> {
+  bool isLoadingBodyCategory=false;
+
   @override
   Widget build(BuildContext context) {
     final TabBar bodyCategoryTabBar = TabBar(
@@ -32,7 +39,9 @@ class WorkOutScreen extends StatelessWidget {
     return BlocProvider.value(
       value: WorkOutCubit.get(context)..getBodyCategories(),
   child: BlocConsumer<WorkOutCubit, WorkOutState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+
+      },
       builder: (context, state) {
         var workCubit = WorkOutCubit.get(context);
         return Scaffold(
@@ -44,6 +53,7 @@ class WorkOutScreen extends StatelessWidget {
             leading: InkWell(
               onTap: () {
                 Get.back();
+
               },
               child: Row(
                 children: [
@@ -100,7 +110,7 @@ class WorkOutScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              workCubit.bodyCategoryModel.isEmpty?
+              state is GetBodyCategoryLoadingState?
               Expanded(
                 child: Align(
                     alignment: Alignment.center,

@@ -116,6 +116,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   changeCurrentLevel({required int newLevel}) {
     currentLevel = newLevel;
     emit(ChangeCurrentLevelState());
+    getBodyCategories();
   }
 
   List<TextEditingController> getTrainingEnglishControllers() {
@@ -280,11 +281,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     Get.back();
   }
   editTraining({required String docId,required String bodyCategory})
-  {
+  async {
     emit(EditTrainingLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionTrainings);
-    data.doc(docId).update({
+   await data.doc(docId).update({
       StringManager.trainingEnglishName: trainingEnglishNameController.text,
       StringManager.trainingEnglishNumberOfReputation:
       trainingEnglishNumberOfReputationController.text,
@@ -396,8 +397,8 @@ print(error.toString());
   getBodyCategoryLevelString({required int currentLevelIndex}) {
     List<String> levels = [
       StringManager.bodyCategoryLevelBeginner,
-      StringManager.bodyCategoryLevelBeginner,
-      StringManager.bodyCategoryLevelBeginner,
+      StringManager.bodyCategoryLevelIntermediate,
+      StringManager.bodyCategoryLevelAdvanced,
     ];
     return levels[currentLevelIndex];
   }
@@ -487,21 +488,35 @@ editBodyCategory({required String docId}) {
   });
   Get.back();
 }
-// todo on changing the title change the category for all inner training
+deleteBodyCategory({required String docId})
+async {
+    emit(deleteBodyCategoryLoadingState());
+  CollectionReference data = FirebaseFirestore.instance
+      .collection(StringManager.collectionBodyCategory);
+  await data.doc(docId).delete().then((value){
+    emit(deleteBodyCategorySuccessState());
+    getToastMessage(message: 'the category has been deleted');
+    getBodyCategories();
+  }).catchError((error){
+    emit(deleteBodyCategoryErrorState());
 
+    print(error);
+    getToastMessage(message: 'an error has happened');
+  });
+}
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
       addNewBodyCategory();
     }
   }
 
-  getBodyCategories() {
+  getBodyCategories() async {
     bodyCategoryModel.clear();
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionBodyCategory)
+        .collection(StringManager.collectionBodyCategory).where(StringManager.bodyCategoryLevel, isEqualTo: getBodyCategoryLevelString(currentLevelIndex: currentLevel))
         .orderBy(StringManager.bodyCategoryEnglishTitle);
     emit(GetBodyCategoryLoadingState());
-    data.get().then((value) {
+  await  data.get().then((value) {
       value.docs.forEach((element) {
         bodyCategoryModel.add(BodyCategoryModel.fromJson(json: element.data(),docId: element.id));
       });
