@@ -67,7 +67,7 @@ class LevelScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TrainingOfDayBlock(trainingName: 'functional trainnning'),
-          workCubit.trainingModel.isEmpty?
+          state is GetTrainingLoadingState?
           Expanded(
             child: Align(
                 alignment: Alignment.center,

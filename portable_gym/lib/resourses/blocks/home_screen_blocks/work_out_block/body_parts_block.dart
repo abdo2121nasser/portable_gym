@@ -100,7 +100,22 @@ class BodyPartItemBlock extends StatelessWidget {
                     Radius.circular(AppRadiusSize.s36),
                   ),
                   child: Image.network(
-                    bodyCategoryModel.imageLink!,
+                    convertGoogleDriveLinkToStreamable(
+                    bodyCategoryModel.imageLink!),
+                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return
+                          Center(
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30),
+                            child: CircularProgressIndicator(color: ColorManager.kBlue,),
+                          ),
+                        );
+                      }
+                    },
+
                     height: constrain.maxHeight,
                     width: MediaQuery.of(context).size.width * 0.4,
                     fit: BoxFit.cover,
@@ -134,4 +149,15 @@ class BodyPartItemBlock extends StatelessWidget {
       ),
     );
   }
+  String convertGoogleDriveLinkToStreamable(String originalLink) {
+    final RegExp regExp = RegExp(r'd/([a-zA-Z0-9_-]+)/');
+    final match = regExp.firstMatch(originalLink);
+    if (match != null) {
+      final fileId = match.group(1);
+      return 'https://drive.google.com/uc?export=download&id=$fileId';
+    } else {
+      throw FormatException('Invalid Google Drive link');
+    }
+  }
+
 }

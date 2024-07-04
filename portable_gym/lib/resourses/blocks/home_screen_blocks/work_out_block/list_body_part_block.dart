@@ -28,39 +28,49 @@ class ListBodyPartBlock extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocConsumer<WorkOutCubit, WorkOutState>(
-  listener: (context, state) {
-  },
-  builder: (context, state) {
-    var workCubit=WorkOutCubit.get(context);
-    return Expanded(
-      child: ListView.separated(
-        padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s16),
-          itemBuilder: (context, index) => InkWell(
-              onTap: (){
-                Get.to(LevelScreen(bodyCategory: bodyCategoryModel[index].english!.title!,));
-              },
-              onLongPress: (){
-                workCubit.clearBodyCategoryAttributes();
-                workCubit.setBodyCategoryAttributes(model: bodyCategoryModel[index]);
-                showAlertBodyCategoryBox(
-                    context: context,
-                    title: S.of(context).editBodyCategory,
-                    buttonLable: S.of(context).uploadBodyCategory,
-                    tabBar: bodyCategoryTabBar,
-                    tabBarView: workCubit.BodyCategoryTabBarView,
-                    buttonFunction: (){
-                      workCubit.editBodyCategory(docId: bodyCategoryModel[index].docId!);
+      listener: (context, state) {},
+      builder: (context, state) {
+        var workCubit = WorkOutCubit.get(context);
+        return Expanded(
+          child: ListView.separated(
+              padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s16),
+              itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    Get.to(LevelScreen(
+                      bodyCategory: bodyCategoryModel[index].english!.title!,
+                    ));
+                  },
+                  onLongPress: () {
+                    workCubit.clearBodyCategoryAttributes();
+                    workCubit.setBodyCategoryAttributes(
+                        model: bodyCategoryModel[index]);
+                    showAlertBodyCategoryBox(
+                      context: context,
+                      title: S.of(context).editBodyCategory,
+                      buttonLable: S.of(context).uploadBodyCategory,
+                      tabBar: bodyCategoryTabBar,
+                      tabBarView: workCubit.BodyCategoryTabBarView,
+                      buttonFunction: () {
+                        workCubit.editBodyCategory(
+                            docId: bodyCategoryModel[index].docId!);
+                      },
+                    );
+                  },
+                  child: BodyPartItemBlock(
+                    bodyCategoryModel: bodyCategoryModel[index],
+                    deleteFunction: () {
+                      workCubit.processOfDeletingBodyCategory(
+                          docId: bodyCategoryModel[index].docId!,
+                          bodyCategory:
+                              bodyCategoryModel[index].english!.title!);
                     },
-
-                );
-              },
-              child: BodyPartItemBlock(bodyCategoryModel: bodyCategoryModel[index],deleteFunction: (){
-                workCubit.deleteBodyCategory(docId: bodyCategoryModel[index].docId!);
-              },)),
-          separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s22,),
-          itemCount: bodyCategoryModel.length),
+                  )),
+              separatorBuilder: (context, index) => SizedBox(
+                    height: AppVerticalSize.s22,
+                  ),
+              itemCount: bodyCategoryModel.length),
+        );
+      },
     );
-  },
-);
   }
 }

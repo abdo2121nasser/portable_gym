@@ -36,8 +36,8 @@ class _ExerciseVideoBlockState extends State<ExerciseVideoBlock> {
                   borderRadius: BorderRadius.circular(AppRadiusSize.s20),
                   child: AspectRatio(
                     aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  ),  // Replace with your ImageManager.kSmileManImage
+                    child: VideoPlayer(_controller,),
+                  ),
                 ),
               ),
               Padding(

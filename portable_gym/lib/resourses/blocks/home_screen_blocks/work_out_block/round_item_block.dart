@@ -13,8 +13,9 @@ import '../../../managers_files/style_manager.dart';
 
 class RoundItemBlock extends StatelessWidget {
    final TrainingModel trainingModel;
+   final VoidCallback deleteFunction;
 
-   RoundItemBlock({required this.trainingModel});
+   RoundItemBlock({required this.trainingModel,required this.deleteFunction});
 
    @override
   Widget build(BuildContext context) {
@@ -82,7 +83,9 @@ class RoundItemBlock extends StatelessWidget {
                 color: ColorManager.kBlackColor,
                 fontFamily: FontFamily.kPoppinsFont),
           ),
-
+        InkWell(
+            onTap: deleteFunction,
+            child: Icon(Icons.delete,color: ColorManager.kRed,))
         ],
       ),
     );

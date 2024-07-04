@@ -218,28 +218,34 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       return true;
     }
   }
-  clearTrainingAttributes() {
-   trainingEnglishNameController.clear();
-   trainingEnglishNumberOfReputationController.clear();
-   trainingEnglishInstructionController.clear();
-   trainingArabicNameController.clear();
-   trainingArabicNumberOfReputationController.clear();
-   trainingArabicInstructionController.clear();
-   trainingPriorityController.clear();
-   trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
-   emit(ClearTrainingControllersState());
-  }
-  setTrainingAttributes({required TrainingModel model}) {
 
-   trainingEnglishNameController.text=model.english!.name!;
-   trainingEnglishNumberOfReputationController.text=model.english!.numberOfReputation!;
-   trainingEnglishInstructionController.text=model.english!.instructions!;
-   trainingArabicNameController.text=model.arabic!.name!;
-   trainingArabicNumberOfReputationController.text=model.arabic!.numberOfReputation!;
-   trainingArabicInstructionController.text=model.arabic!.instructions!;
-   trainingPriorityController.text=model.priority.toString();
-   trainingPeriod = DateTime(0, 0, 0, model.hour!, model.minute!, model.second!);
-   emit(SetTrainingControllersState());
+  clearTrainingAttributes() {
+    trainingEnglishNameController.clear();
+    trainingEnglishNumberOfReputationController.clear();
+    trainingEnglishInstructionController.clear();
+    trainingArabicNameController.clear();
+    trainingArabicNumberOfReputationController.clear();
+    trainingArabicInstructionController.clear();
+    trainingPriorityController.clear();
+    trainingVideoLinkController.clear();
+    trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+    emit(ClearTrainingControllersState());
+  }
+
+  setTrainingAttributes({required TrainingModel model}) {
+    trainingEnglishNameController.text = model.english!.name!;
+    trainingEnglishNumberOfReputationController.text =
+        model.english!.numberOfReputation!;
+    trainingEnglishInstructionController.text = model.english!.instructions!;
+    trainingArabicNameController.text = model.arabic!.name!;
+    trainingArabicNumberOfReputationController.text =
+        model.arabic!.numberOfReputation!;
+    trainingArabicInstructionController.text = model.arabic!.instructions!;
+    trainingPriorityController.text = model.priority.toString();
+    trainingVideoLinkController.text = model.videoLink!;
+    trainingPeriod =
+        DateTime(0, 0, 0, model.hour!, model.minute!, model.second!);
+    emit(SetTrainingControllersState());
   }
 
   addNewTraining({required String bodyCategory}) async {
@@ -278,37 +284,57 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       );
       print(error);
     });
-    Get.back();
+    getTraining(bodyCategory: bodyCategory);
+    // Get.back();
   }
-  editTraining({required String docId,required String bodyCategory})
-  async {
+
+  editTraining({required String docId, required String bodyCategory}) async {
     emit(EditTrainingLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionTrainings);
-   await data.doc(docId).update({
+    await data.doc(docId).update({
       StringManager.trainingEnglishName: trainingEnglishNameController.text,
       StringManager.trainingEnglishNumberOfReputation:
-      trainingEnglishNumberOfReputationController.text,
+          trainingEnglishNumberOfReputationController.text,
       StringManager.trainingEnglishInstruction:
-      trainingEnglishInstructionController.text,
+          trainingEnglishInstructionController.text,
       StringManager.trainingArabicName: trainingArabicNameController.text,
       StringManager.trainingArabicNumberOfReputation:
-      trainingArabicNumberOfReputationController.text,
+          trainingArabicNumberOfReputationController.text,
       StringManager.trainingArabicInstruction:
-      trainingArabicInstructionController.text,
+          trainingArabicInstructionController.text,
       StringManager.trainingVideoLink: trainingVideoLinkController.text,
       StringManager.trainingPriority:
-      int.parse(trainingPriorityController.text),
+          int.parse(trainingPriorityController.text),
       StringManager.trainingHourPeriod: trainingPeriod.hour,
       StringManager.trainingMinutePeriod: trainingPeriod.minute,
       StringManager.trainingSecondPeriod: trainingPeriod.second,
-    }).then((value){
+    }).then((value) {
       emit(EditTrainingSuccessState());
 
       getTraining(bodyCategory: bodyCategory);
-    }).catchError((error){
+    }).catchError((error) {
       emit(EditTrainingErrorState());
-print(error.toString());
+      print(error.toString());
+    });
+  }
+
+  deleteTraining({required String docId, required String bodyCategory}) async {
+    emit(DeleteTrainingLoadingState());
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionTrainings);
+    await data.doc(docId).delete().then((value) {
+      emit(DeleteTrainingSuccessState());
+      getToastMessage(
+        message: 'deleted successfully',
+      );
+      getTraining(bodyCategory: bodyCategory);
+    }).catchError((error) {
+      emit(DeleteTrainingErrorState());
+      print(error);
+      getToastMessage(
+        message: 'a problem has happened',
+      );
     });
   }
 
@@ -322,12 +348,19 @@ print(error.toString());
     trainingModel.clear();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionTrainings)
-        .where(StringManager.trainingBodyCategory, isEqualTo: bodyCategory)
+        .where(
+          StringManager.trainingBodyCategory,
+          isEqualTo: bodyCategory,
+        )
+        .where(StringManager.bodyCategoryLevel,
+            isEqualTo:
+                getBodyCategoryLevelString(currentLevelIndex: currentLevel))
         .orderBy(StringManager.trainingPriority);
     emit(GetTrainingLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
-        trainingModel.add(TrainingModel.fromJson(json: element.data(),docId: element.id));
+        trainingModel.add(
+            TrainingModel.fromJson(json: element.data(), docId: element.id));
       });
       emit(GetTrainingSuccessState());
     }).catchError((error) {
@@ -383,6 +416,7 @@ print(error.toString());
     } else
       return true;
   }
+
   clearBodyCategoryAttributes() {
     bodyCategoryEnglishTitleController.clear();
     bodyCategoryEnglishNumberOfExercisesController.clear();
@@ -394,6 +428,7 @@ print(error.toString());
     bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
     emit(ClearBodyCategoryControllersState());
   }
+
   getBodyCategoryLevelString({required int currentLevelIndex}) {
     List<String> levels = [
       StringManager.bodyCategoryLevelBeginner,
@@ -402,18 +437,26 @@ print(error.toString());
     ];
     return levels[currentLevelIndex];
   }
+
   setBodyCategoryAttributes({required BodyCategoryModel model}) {
-
-    bodyCategoryEnglishTitleController.text=model.english!.title!;
-    bodyCategoryEnglishNumberOfExercisesController.text=model.english!.numberOfExercises!;
-    bodyCategoryEnglishCaloriesController.text=model.english!.calories!;
-    bodyCategoryImageLinkController.text=model.imageLink!;
-    bodyCategoryArabicTitleController.text=model.arabic!.title!;
-    bodyCategoryArabicNumberOfExercisesController.text=model.arabic!.numberOfExercises!;
-    bodyCategoryArabicCaloriesController.text=model.arabic!.calories!;
-    bodyCategoryTotalTime=DateTime(0,0,0,model.hour!,model.minute!,model.second!,);
+    bodyCategoryEnglishTitleController.text = model.english!.title!;
+    bodyCategoryEnglishNumberOfExercisesController.text =
+        model.english!.numberOfExercises!;
+    bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
+    bodyCategoryImageLinkController.text = model.imageLink!;
+    bodyCategoryArabicTitleController.text = model.arabic!.title!;
+    bodyCategoryArabicNumberOfExercisesController.text =
+        model.arabic!.numberOfExercises!;
+    bodyCategoryArabicCaloriesController.text = model.arabic!.calories!;
+    bodyCategoryTotalTime = DateTime(
+      0,
+      0,
+      0,
+      model.hour!,
+      model.minute!,
+      model.second!,
+    );
     emit(SetBodyCategoryControllersState());
-
   }
 
   addNewBodyCategory() async {
@@ -453,72 +496,86 @@ print(error.toString());
     });
     Get.back();
   }
-editBodyCategory({required String docId}) {
-  emit(EditBodyCategoryLoadingState());
-  CollectionReference data = FirebaseFirestore.instance
-      .collection(StringManager.collectionBodyCategory);
-  data.doc(docId).update({
-    StringManager.bodyCategoryEnglishCalories:
-    bodyCategoryEnglishCaloriesController.text,
-    StringManager.bodyCategoryEnglishNumberOfExercises:
-    bodyCategoryEnglishNumberOfExercisesController.text,
-    StringManager.bodyCategoryArabicCalories:
-    bodyCategoryArabicCaloriesController.text,
-    StringManager.bodyCategoryArabicNumberOfExercises:
-    bodyCategoryArabicNumberOfExercisesController.text,
-    StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
-    StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
-    StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
-    StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
-  }).then((value){
-    emit(EditBodyCategorySuccessState());
-    getToastMessage(
-      message: 'the category has been edited',
-    );
-    getBodyCategories();
 
+  editBodyCategory({required String docId}) {
+    emit(EditBodyCategoryLoadingState());
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionBodyCategory);
+    data.doc(docId).update({
+      StringManager.bodyCategoryEnglishCalories:
+          bodyCategoryEnglishCaloriesController.text,
+      StringManager.bodyCategoryEnglishNumberOfExercises:
+          bodyCategoryEnglishNumberOfExercisesController.text,
+      StringManager.bodyCategoryArabicCalories:
+          bodyCategoryArabicCaloriesController.text,
+      StringManager.bodyCategoryArabicNumberOfExercises:
+          bodyCategoryArabicNumberOfExercisesController.text,
+      StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
+      StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
+      StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
+      StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
+    }).then((value) {
+      emit(EditBodyCategorySuccessState());
+      getToastMessage(
+        message: 'the category has been edited',
+      );
+      getBodyCategories();
+    }).catchError((error) {
+      emit(EditBodyCategoryErrorState());
+      print(error.toString());
+      getToastMessage(
+        message: 'a problem has happened',
+      );
+    });
+    Get.back();
+  }
 
-  }).catchError((error){
-    emit(EditBodyCategoryErrorState());
-    print(error.toString());
-    getToastMessage(
-      message: 'a problem has happened',
-    );
-
-  });
-  Get.back();
-}
-deleteBodyCategory({required String docId})
-async {
+  deleteBodyCategory({required String docId}) async {
     emit(deleteBodyCategoryLoadingState());
-  CollectionReference data = FirebaseFirestore.instance
-      .collection(StringManager.collectionBodyCategory);
-  await data.doc(docId).delete().then((value){
-    emit(deleteBodyCategorySuccessState());
-    getToastMessage(message: 'the category has been deleted');
-    getBodyCategories();
-  }).catchError((error){
-    emit(deleteBodyCategoryErrorState());
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionBodyCategory);
+    await data.doc(docId).delete().then((value) {
+      emit(deleteBodyCategorySuccessState());
+      getToastMessage(message: 'the category has been deleted');
+    }).catchError((error) {
+      emit(deleteBodyCategoryErrorState());
 
-    print(error);
-    getToastMessage(message: 'an error has happened');
-  });
-}
+      print(error);
+      getToastMessage(message: 'an error has happened');
+    });
+  }
+
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
       addNewBodyCategory();
+      getBodyCategories();
     }
+  }
+
+  processOfDeletingBodyCategory(
+      {required String docId, required String bodyCategory}) async {
+   await getTraining(bodyCategory: bodyCategory);
+    trainingModel.forEach((element) async {
+     await  deleteTraining(docId: element.docId!, bodyCategory: bodyCategory);
+    });
+    print(trainingModel.length);
+   await deleteBodyCategory(docId: docId);
+  await  getBodyCategories();
   }
 
   getBodyCategories() async {
     bodyCategoryModel.clear();
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionBodyCategory).where(StringManager.bodyCategoryLevel, isEqualTo: getBodyCategoryLevelString(currentLevelIndex: currentLevel))
+        .collection(StringManager.collectionBodyCategory)
+        .where(StringManager.bodyCategoryLevel,
+            isEqualTo:
+                getBodyCategoryLevelString(currentLevelIndex: currentLevel))
         .orderBy(StringManager.bodyCategoryEnglishTitle);
     emit(GetBodyCategoryLoadingState());
-  await  data.get().then((value) {
+    await data.get().then((value) {
       value.docs.forEach((element) {
-        bodyCategoryModel.add(BodyCategoryModel.fromJson(json: element.data(),docId: element.id));
+        bodyCategoryModel.add(BodyCategoryModel.fromJson(
+            json: element.data(), docId: element.id));
       });
       emit(GetBodyCategorySuccessState());
     }).catchError((error) {

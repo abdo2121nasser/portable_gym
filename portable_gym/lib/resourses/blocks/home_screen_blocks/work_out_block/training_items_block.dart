@@ -46,9 +46,10 @@ class TrainingItemsBlock extends StatelessWidget {
                   onLongPress: () {
                     workCubit.clearTrainingAttributes();
 
-                    workCubit.setTrainingAttributes(model: trainingModel[index]);
+                    workCubit.setTrainingAttributes(
+                        model: trainingModel[index]);
 
-                  showAlertTrainingBox(
+                    showAlertTrainingBox(
                         context: context,
                         title: S.of(context).editTraining,
                         buttonLable: S.of(context).uploadTraining,
@@ -63,6 +64,11 @@ class TrainingItemsBlock extends StatelessWidget {
                   },
                   child: RoundItemBlock(
                     trainingModel: trainingModel[index],
+                    deleteFunction: () {
+                      workCubit.deleteTraining(
+                          docId: trainingModel[index].docId!,
+                          bodyCategory: bodyCategory);
+                    },
                   )),
               separatorBuilder: (context, index) => SizedBox(
                     height: AppVerticalSize.s5,

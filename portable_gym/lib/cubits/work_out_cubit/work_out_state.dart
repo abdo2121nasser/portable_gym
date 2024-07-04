@@ -25,6 +25,10 @@ class EditTrainingLoadingState extends WorkOutState {}
 class EditTrainingSuccessState extends WorkOutState {}
 class EditTrainingErrorState extends WorkOutState {}
 
+class DeleteTrainingLoadingState extends WorkOutState {}
+class DeleteTrainingSuccessState extends WorkOutState {}
+class DeleteTrainingErrorState extends WorkOutState {}
+
 class AddNewBodyCategoryLoadingState extends WorkOutState {}
 class AddNewBodyCategorySuccessState extends WorkOutState {}
 class AddNewBodyCategoryErrorState extends WorkOutState {}

@@ -26,7 +26,7 @@ class ExerciseScreen extends StatelessWidget {
 
       appBar: AppBar(
         backgroundColor: ColorManager.kBlackColor,
-        leadingWidth: MediaQuery.of(context).size.width * 0.35,
+        leadingWidth: MediaQuery.of(context).size.width ,
         leading: InkWell(
           onTap: () {
             Get.back();
