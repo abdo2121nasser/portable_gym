@@ -73,17 +73,20 @@ class LevelScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: CircularProgressIndicator(color:ColorManager.kBlue,)),
           ):
-          TrainingItemsBlock(trainingModel: workCubit.trainingModel,),
+          TrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
         ],
       ),
       floatingActionButton: FloatingActionButtonBlock(function: ()  {
         showAlertTrainingBox(
             context: context,
+            title: S.of(context).addNewTraining,
+            buttonLable: S.of(context).uploadTraining,
             tabBar: trainingTabBar,
             tabBarView: workCubit.TrainingTabBarView,
             trainingPeriod: workCubit.trainingPeriod,
-            processOfAddingTraining: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory);}
+            buttonFunction: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory);}
         );
+        workCubit.clearTrainingAttributes();
         // await pickImage();
         //await google.uploadFileToGoogleDrive(imageFile!);
       },),

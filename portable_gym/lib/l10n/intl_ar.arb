@@ -81,6 +81,8 @@
   "uploadBodyCategory": "تحميل تصنيف التمرين",
   "editBodyCategory": "تعديل تصنيف التمرين",
   "addBodyCategory": "اضف تصنيف التمرين",
+  "addNewTraining": "اضف تمرين جديد",
+  "editTraining": "تعديل تمرين ",
   "minuteWord":"دقيقه",
   "kCal":"كالوري",
   "exercises":"تمارين"

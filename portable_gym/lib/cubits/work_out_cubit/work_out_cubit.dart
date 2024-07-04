@@ -217,6 +217,29 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       return true;
     }
   }
+  clearTrainingAttributes() {
+   trainingEnglishNameController.clear();
+   trainingEnglishNumberOfReputationController.clear();
+   trainingEnglishInstructionController.clear();
+   trainingArabicNameController.clear();
+   trainingArabicNumberOfReputationController.clear();
+   trainingArabicInstructionController.clear();
+   trainingPriorityController.clear();
+   trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+   emit(ClearTrainingControllersState());
+  }
+  setTrainingAttributes({required TrainingModel model}) {
+
+   trainingEnglishNameController.text=model.english!.name!;
+   trainingEnglishNumberOfReputationController.text=model.english!.numberOfReputation!;
+   trainingEnglishInstructionController.text=model.english!.instructions!;
+   trainingArabicNameController.text=model.arabic!.name!;
+   trainingArabicNumberOfReputationController.text=model.arabic!.numberOfReputation!;
+   trainingArabicInstructionController.text=model.arabic!.instructions!;
+   trainingPriorityController.text=model.priority.toString();
+   trainingPeriod = DateTime(0, 0, 0, model.hour!, model.minute!, model.second!);
+   emit(SetTrainingControllersState());
+  }
 
   addNewTraining({required String bodyCategory}) async {
     emit(AddNewTrainingLoadingState());
@@ -255,6 +278,37 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       print(error);
     });
     Get.back();
+  }
+  editTraining({required String docId,required String bodyCategory})
+  {
+    emit(EditTrainingLoadingState());
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionTrainings);
+    data.doc(docId).update({
+      StringManager.trainingEnglishName: trainingEnglishNameController.text,
+      StringManager.trainingEnglishNumberOfReputation:
+      trainingEnglishNumberOfReputationController.text,
+      StringManager.trainingEnglishInstruction:
+      trainingEnglishInstructionController.text,
+      StringManager.trainingArabicName: trainingArabicNameController.text,
+      StringManager.trainingArabicNumberOfReputation:
+      trainingArabicNumberOfReputationController.text,
+      StringManager.trainingArabicInstruction:
+      trainingArabicInstructionController.text,
+      StringManager.trainingVideoLink: trainingVideoLinkController.text,
+      StringManager.trainingPriority:
+      int.parse(trainingPriorityController.text),
+      StringManager.trainingHourPeriod: trainingPeriod.hour,
+      StringManager.trainingMinutePeriod: trainingPeriod.minute,
+      StringManager.trainingSecondPeriod: trainingPeriod.second,
+    }).then((value){
+      emit(EditTrainingSuccessState());
+
+      getTraining(bodyCategory: bodyCategory);
+    }).catchError((error){
+      emit(EditTrainingErrorState());
+print(error.toString());
+    });
   }
 
   processOfAddingTraining({required String bodyCategory}) {
@@ -337,6 +391,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryArabicNumberOfExercisesController.clear();
     bodyCategoryArabicCaloriesController.clear();
     bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
+    emit(ClearBodyCategoryControllersState());
   }
   getBodyCategoryLevelString({required int currentLevelIndex}) {
     List<String> levels = [
@@ -397,20 +452,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     });
     Get.back();
   }
-editBodyCategory({required String docId})
-{
+editBodyCategory({required String docId}) {
   emit(EditBodyCategoryLoadingState());
   CollectionReference data = FirebaseFirestore.instance
       .collection(StringManager.collectionBodyCategory);
   data.doc(docId).update({
-    StringManager.bodyCategoryEnglishTitle:
-    bodyCategoryEnglishTitleController.text,
     StringManager.bodyCategoryEnglishCalories:
     bodyCategoryEnglishCaloriesController.text,
     StringManager.bodyCategoryEnglishNumberOfExercises:
     bodyCategoryEnglishNumberOfExercisesController.text,
-    StringManager.bodyCategoryArabicTitle:
-    bodyCategoryArabicTitleController.text,
     StringManager.bodyCategoryArabicCalories:
     bodyCategoryArabicCaloriesController.text,
     StringManager.bodyCategoryArabicNumberOfExercises:
@@ -435,12 +485,13 @@ editBodyCategory({required String docId})
     );
 
   });
+  Get.back();
 }
+// todo on changing the title change the category for all inner training
 
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
       addNewBodyCategory();
-      clearBodyCategoryAttributes();
     }
   }
 

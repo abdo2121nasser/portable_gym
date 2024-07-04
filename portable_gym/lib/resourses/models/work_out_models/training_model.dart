@@ -10,6 +10,7 @@ class TrainingModel {
   final int? hour;
   final int? minute;
   final int? second;
+  final int? priority;
   final String? docId;
 
   TrainingModel({
@@ -21,6 +22,7 @@ class TrainingModel {
     required this.hour,
     required this.minute,
     required this.second,
+    required this.priority,
     required this.docId
   });
 
@@ -32,6 +34,7 @@ class TrainingModel {
       hour: json[StringManager.trainingHourPeriod],
       minute: json[StringManager.trainingMinutePeriod],
       second: json[StringManager.trainingSecondPeriod],
+      priority: json[StringManager.trainingPriority],
       english: English.fromJson(json: json),
       arabic: Arabic.fromJson(json: json),
         docId: docId

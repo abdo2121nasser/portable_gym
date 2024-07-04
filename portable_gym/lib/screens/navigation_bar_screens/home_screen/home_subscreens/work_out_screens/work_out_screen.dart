@@ -111,13 +111,15 @@ class WorkOutScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButtonBlock(
             function: () {
+              workCubit.clearBodyCategoryAttributes();
+
               showAlertBodyCategoryBox(
                   context: context,
                   title: S.of(context).addBodyCategory,
                   buttonLable: S.of(context).uploadBodyCategory,
                   tabBar: bodyCategoryTabBar,
                   tabBarView: workCubit.BodyCategoryTabBarView,
-              function: workCubit.processOfAddingBodyCategory
+              buttonFunction: workCubit.processOfAddingBodyCategory
               );
             },
           ),

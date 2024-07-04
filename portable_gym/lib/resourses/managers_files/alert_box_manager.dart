@@ -24,7 +24,7 @@ showAlertBodyCategoryBox(
     {required context,
       required TabBar tabBar,
       required TabBarView tabBarView,
-      required VoidCallback function,
+      required VoidCallback buttonFunction,
       required String title,
       required String buttonLable,
     }
@@ -66,7 +66,7 @@ showAlertBodyCategoryBox(
                     PeriodPickerBlock(isTrainingDate: false,),
                     GeneralButtonBlock(
                         lable: buttonLable,
-                        function: function,
+                        function: buttonFunction,
                         backgroundColor: ColorManager.kLightPurpleColor,
                         textStyle: getSemiBoldStyle(
                             fontSize: FontSize.s20,
@@ -90,7 +90,9 @@ showAlertTrainingBox(
     required TabBar tabBar,
     required TabBarView tabBarView,
     required DateTime trainingPeriod,
-      required VoidCallback processOfAddingTraining
+      required VoidCallback buttonFunction,
+      required String title,
+      required String buttonLable,
     }
 
     ) {
@@ -104,7 +106,7 @@ showAlertTrainingBox(
         backgroundColor: Colors.white,
         //titlePadding:const EdgeInsets.only(top: ,left: 80,bottom: 10),
         title: Text(
-          'add new tainning',
+          title,
           style: getBoldStyle(
               fontSize: FontSize.s20,
               color: ColorManager.kBlackColor,
@@ -129,8 +131,8 @@ showAlertTrainingBox(
                     Expanded(child: tabBarView),
                     PeriodPickerBlock(),
                     GeneralButtonBlock(
-                        lable: S.of(context).uploadTraining,
-                        function: processOfAddingTraining,
+                        lable:buttonLable,
+                        function: buttonFunction,
                         backgroundColor: ColorManager.kLightPurpleColor,
                         textStyle: getSemiBoldStyle(
                             fontSize: FontSize.s20,

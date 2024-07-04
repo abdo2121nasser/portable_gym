@@ -8,6 +8,9 @@ class ChangeCurrentLevelState extends WorkOutState {}
 class SetTrainingPeriod extends WorkOutState {}
 class SetBodyCategoryTotalTime extends WorkOutState {}
 class SetBodyCategoryControllersState extends WorkOutState {}
+class ClearBodyCategoryControllersState extends WorkOutState {}
+class ClearTrainingControllersState extends WorkOutState {}
+class SetTrainingControllersState extends WorkOutState {}
 class UploadFileToDriveState extends WorkOutState {}
 
 class PickVideoLoadingState extends WorkOutState {}
@@ -17,6 +20,10 @@ class PickVideoErrorState extends WorkOutState {}
 class AddNewTrainingLoadingState extends WorkOutState {}
 class AddNewTrainingSuccessState extends WorkOutState {}
 class AddNewTrainingErrorState extends WorkOutState {}
+
+class EditTrainingLoadingState extends WorkOutState {}
+class EditTrainingSuccessState extends WorkOutState {}
+class EditTrainingErrorState extends WorkOutState {}
 
 class AddNewBodyCategoryLoadingState extends WorkOutState {}
 class AddNewBodyCategorySuccessState extends WorkOutState {}
