@@ -24,7 +24,7 @@ class StringManager
   static const String trainingArabicLableVideoLink='رابط الفديو';
 
   static const String bodyCategoryEnglishLableTitle='title';
-  static const String bodyCategoryEnglishLableKcalories='calories';
+  static const String bodyCategoryEnglishLableCalories='calories';
   static const String bodyCategoryEnglishLableNumberOfExercises='number of exercises';
   static const String bodyCategoryLableImageLink='image link';
   static const String bodyCategoryArabicLableTitle='العنوان';

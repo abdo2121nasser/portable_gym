@@ -61,7 +61,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   //---------------------------------------
   List<String> bodyCategoryEnglishLables = [
     StringManager.bodyCategoryEnglishLableTitle,
-    StringManager.bodyCategoryEnglishLableKcalories,
+    StringManager.bodyCategoryEnglishLableCalories,
     StringManager.bodyCategoryEnglishLableNumberOfExercises,
     StringManager.bodyCategoryLableImageLink
   ];
@@ -144,8 +144,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   getEnglishBodyCategoryControllers({required int index}) {
     List<TextEditingController> controllers = [
       bodyCategoryEnglishTitleController,
-      bodyCategoryEnglishNumberOfExercisesController,
       bodyCategoryEnglishCaloriesController,
+      bodyCategoryEnglishNumberOfExercisesController,
       bodyCategoryImageLinkController,
     ];
     return controllers[index];
@@ -154,8 +154,9 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   getArabicBodyCategoryControllers({required int index}) {
     List<TextEditingController> controllers = [
       bodyCategoryArabicTitleController,
-      bodyCategoryArabicNumberOfExercisesController,
       bodyCategoryArabicCaloriesController,
+      bodyCategoryArabicNumberOfExercisesController,
+
     ];
     return controllers[index];
   }
@@ -429,13 +430,21 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(ClearBodyCategoryControllersState());
   }
 
-  getBodyCategoryLevelString({required int currentLevelIndex}) {
+  getBodyCategoryLevelString({required int currentLevelIndex,bool isLable=false,context}) {
     List<String> levels = [
       StringManager.bodyCategoryLevelBeginner,
       StringManager.bodyCategoryLevelIntermediate,
       StringManager.bodyCategoryLevelAdvanced,
     ];
-    return levels[currentLevelIndex];
+
+    if(isLable) {
+      List<String> lableLevels = [
+        S.of(context).beginner,
+        S.of(context).intermediate,
+        S.of(context).advanced,
+      ];
+      return lableLevels[currentLevelIndex];
+    } else return levels[currentLevelIndex];
   }
 
   setBodyCategoryAttributes({required BodyCategoryModel model}) {
@@ -558,7 +567,6 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingModel.forEach((element) async {
      await  deleteTraining(docId: element.docId!, bodyCategory: bodyCategory);
     });
-    print(trainingModel.length);
    await deleteBodyCategory(docId: docId);
   await  getBodyCategories();
   }

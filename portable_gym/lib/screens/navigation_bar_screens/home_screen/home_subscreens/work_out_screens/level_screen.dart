@@ -6,7 +6,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/training_items_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_training_items_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
@@ -66,14 +66,14 @@ class LevelScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TrainingOfDayBlock(trainingName: 'functional trainnning'),
+       //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
           state is GetTrainingLoadingState?
           Expanded(
             child: Align(
                 alignment: Alignment.center,
                 child: CircularProgressIndicator(color:ColorManager.kBlue,)),
           ):
-          TrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
+          ListTrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
         ],
       ),
       floatingActionButton: FloatingActionButtonBlock(function: ()  {

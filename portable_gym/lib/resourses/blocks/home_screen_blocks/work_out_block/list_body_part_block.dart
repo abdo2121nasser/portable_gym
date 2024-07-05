@@ -9,7 +9,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_sub
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/alert_box_manager.dart';
-import 'body_parts_block.dart';
+import 'body_parts__itemblock.dart';
 
 class ListBodyPartBlock extends StatelessWidget {
   final List<BodyCategoryModel> bodyCategoryModel;

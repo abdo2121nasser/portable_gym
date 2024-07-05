@@ -85,8 +85,9 @@
   "editTraining": "تعديل تمرين ",
   "minuteWord":"دقيقه",
   "kCal":"كالوري",
-  "exercises":"تمارين"
-
+  "exercises":"تمارين",
+  "letsGo": "لنبدء ",
+  "exploreDifferentWorkoutStyles": "استكشف العديد من اساليب التمرين"
 
 
 }

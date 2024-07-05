@@ -11,17 +11,18 @@ import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/body_category_model.dart';
 import '../../resource_screen_blocks/recorded_unit_block.dart';
 
+import 'package:intl/intl.dart';
 class BodyPartItemBlock extends StatelessWidget {
   final BodyCategoryModel bodyCategoryModel;
   final VoidCallback deleteFunction;
-  BodyPartItemBlock({
-    required this.bodyCategoryModel,
-    required this.deleteFunction
-  });
+  BodyPartItemBlock(
+      {required this.bodyCategoryModel, required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
     var languageModel = bodyCategoryModel.getLanguageClass(context);
+    DateTime dateTime=DateTime(0,0,0,bodyCategoryModel.hour!,bodyCategoryModel.minute!,bodyCategoryModel.second!,);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.15,
@@ -62,7 +63,7 @@ class BodyPartItemBlock extends StatelessWidget {
                         child: RecordedUnitBlock(
                           icon: Icons.timer,
                           mesuaringUnit: S.of(context).minuteWord,
-                          unitValue: bodyCategoryModel.minute.toString(),
+                          unitValue:DateFormat('HH:mm:ss').format(DateTime(0,0,0,bodyCategoryModel.hour!,bodyCategoryModel.minute!,bodyCategoryModel.second!,)),
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
                         )),
@@ -81,7 +82,7 @@ class BodyPartItemBlock extends StatelessWidget {
                         height: AppVerticalSize.s22,
                         child: RecordedUnitBlock(
                           icon: Icons.directions_run_outlined,
-                          mesuaringUnit:  S.of(context).exercises,
+                          mesuaringUnit: S.of(context).exercises,
                           unitValue: languageModel.numberOfExercises!,
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
@@ -101,46 +102,50 @@ class BodyPartItemBlock extends StatelessWidget {
                   ),
                   child: Image.network(
                     convertGoogleDriveLinkToStreamable(
-                    bodyCategoryModel.imageLink!),
-                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        bodyCategoryModel.imageLink!),
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
                         return child;
                       } else {
-                        return
-                          Center(
+                        return Center(
                           child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30),
-                            child: CircularProgressIndicator(color: ColorManager.kBlue,),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppHorizontalSize.s30),
+                            child: CircularProgressIndicator(
+                              color: ColorManager.kBlue,
+                            ),
                           ),
                         );
                       }
                     },
-
                     height: constrain.maxHeight,
                     width: MediaQuery.of(context).size.width * 0.4,
                     fit: BoxFit.cover,
                   ),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(AppRadiusSize.s16),
-                      child: Icon(
+                SizedBox(
+                  height: AppVerticalSize.s30,
+                  width: AppHorizontalSize.s100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
                         Icons.star_border,
-                      //  color: ColorManager.kWhiteColor,
                       ),
-                    )             ,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
-                      child: InkWell(
-                        onTap:deleteFunction,
-                        child: Icon(
-                          Icons.delete,
-                          color: ColorManager.kRed,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppHorizontalSize.s10),
+                        child: InkWell(
+                          onTap: deleteFunction,
+                          child: Icon(
+                            Icons.delete,
+                            color: ColorManager.kRed,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             );
@@ -149,6 +154,7 @@ class BodyPartItemBlock extends StatelessWidget {
       ),
     );
   }
+
   String convertGoogleDriveLinkToStreamable(String originalLink) {
     final RegExp regExp = RegExp(r'd/([a-zA-Z0-9_-]+)/');
     final match = regExp.firstMatch(originalLink);
@@ -159,5 +165,4 @@ class BodyPartItemBlock extends StatelessWidget {
       throw FormatException('Invalid Google Drive link');
     }
   }
-
 }

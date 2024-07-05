@@ -11,11 +11,11 @@ import '../../../managers_files/alert_box_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/training_model.dart';
 
-class TrainingItemsBlock extends StatelessWidget {
+class ListTrainingItemsBlock extends StatelessWidget {
   final List<TrainingModel> trainingModel;
   final String bodyCategory;
 
-  TrainingItemsBlock({required this.trainingModel, required this.bodyCategory});
+  ListTrainingItemsBlock({required this.trainingModel, required this.bodyCategory});
 
   @override
   Widget build(BuildContext context) {

@@ -99,7 +99,7 @@ class TrainingOfDayBlock extends StatelessWidget {
                                 scrollDirection:Axis.horizontal,
 
                                 itemBuilder: (context, index) => SizedBox(
-                                    width: constrain.maxWidth * 0.24,
+                                    width: constrain.maxWidth * 0.23,
                                     height: constrain.maxHeight*0.12,
                                     child: RecordedUnitBlock(  icon: Icons.timer,
                                       mesuaringUnit: 'minute',

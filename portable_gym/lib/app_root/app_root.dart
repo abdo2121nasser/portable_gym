@@ -41,7 +41,7 @@ class PortableGym extends StatelessWidget {
 
                     ],
                     child: GetMaterialApp(
-                      locale: const Locale('en'),
+                      locale: const Locale('ثى'),
                       localizationsDelegates: const [
                         S.delegate,
                         GlobalMaterialLocalizations.delegate,

@@ -54,6 +54,7 @@ class FullInputBlock extends StatelessWidget {
           controller: controller,
           enableBorder: enableBorder,
            onlyInteger: onlyInteger,
+          isArabic: isArabicTabView,
         ),
       ],
     );

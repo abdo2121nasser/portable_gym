@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts__itemblock.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_element_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_list_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
@@ -81,8 +81,12 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                child: TrainingOfDayBlock(
-                  trainingName: 'functional training',
+                child: InkWell(
+                  onTap: (){},
+                  onLongPress: (){},
+                  child: TrainingOfDayBlock(
+                    trainingName: 'functional training',
+                  ),
                 ),
               ),
               Padding(
@@ -92,7 +96,7 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Let's go begginer",
+                      S.of(context).letsGo+'${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel,isLable: true,context: context)}',
                       textAlign: TextAlign.start,
                       style: getMeduimStyle(
                           fontSize: FontSize.s20,
@@ -100,7 +104,7 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
                           fontFamily: FontFamily.kPoppinsFont),
                     ),
                     Text(
-                      "Explore Different Workout Styles",
+                      S.of(context).exploreDifferentWorkoutStyles,
                       textAlign: TextAlign.start,
                       style: getRegularStyle(
                           fontSize: FontSize.s12,
