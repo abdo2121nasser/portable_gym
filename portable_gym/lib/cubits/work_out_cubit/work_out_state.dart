@@ -6,6 +6,7 @@ abstract class WorkOutState {}
 class WorkOutInitial extends WorkOutState {}
 class ChangeCurrentLevelState extends WorkOutState {}
 class SetTrainingPeriod extends WorkOutState {}
+class SetTrainingIsPaid extends WorkOutState {}
 class SetBodyCategoryTotalTime extends WorkOutState {}
 class SetBodyCategoryControllersState extends WorkOutState {}
 class ClearBodyCategoryControllersState extends WorkOutState {}
@@ -44,6 +45,10 @@ class deleteBodyCategoryErrorState extends WorkOutState {}
 class GetBodyCategoryLoadingState extends WorkOutState {}
 class GetBodyCategorySuccessState extends WorkOutState {}
 class GetBodyCategoryErrorState extends WorkOutState {}
+
+class GetDailyBodyCategoryLoadingState extends WorkOutState {}
+class GetDailyBodyCategorySuccessState extends WorkOutState {}
+class GetDailyBodyCategoryErrorState extends WorkOutState {}
 
 class GetTrainingLoadingState extends WorkOutState {}
 class GetTrainingSuccessState extends WorkOutState {}

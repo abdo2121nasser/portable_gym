@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/level_screen.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts__itemblock.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_item_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_element_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/level_list_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
@@ -37,7 +40,7 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: WorkOutCubit.get(context)..getBodyCategories(),
+      value: WorkOutCubit.get(context)..getBodyCategories()..getDailyBodyCategory(),
   child: BlocConsumer<WorkOutCubit, WorkOutState>(
       listener: (context, state) {
 
@@ -78,14 +81,36 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               LevelListBlock(),
-
+              workCubit.dailyDodyCategoryModel==null?
+              Expanded(
+                child: Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(color:ColorManager.kBlue,)),
+              ):
               Padding(
                 padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
                 child: InkWell(
-                  onTap: (){},
-                  onLongPress: (){},
+                  onTap: (){
+                    Get.to(LevelScreen(bodyCategory: '',isDailyCategory: true,));
+                  },
+                  onLongPress: (){
+                    workCubit.clearBodyCategoryAttributes();
+                    workCubit.setBodyCategoryAttributes(
+                        model: workCubit.dailyDodyCategoryModel!);
+                    showAlertBodyCategoryBox(
+                      context: context,
+                      title: S.of(context).editBodyCategory,
+                      buttonLable: S.of(context).uploadBodyCategory,
+                      tabBar: bodyCategoryTabBar,
+                      tabBarView: workCubit.BodyCategoryTabBarView,
+                      buttonFunction: () {
+                        workCubit.editBodyCategory(
+                            docId: workCubit.dailyDodyCategoryModel!.docId!,isDailyCategory: true);
+                      },
+                    );
+                  },
                   child: TrainingOfDayBlock(
-                    trainingName: 'functional training',
+                    bodyCategoryModel: workCubit.dailyDodyCategoryModel!,
                   ),
                 ),
               ),

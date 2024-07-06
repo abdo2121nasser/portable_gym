@@ -15,6 +15,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../generated/l10n.dart';
+import '../blocks/general_blocks/check_box_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/video_show_block.dart';
 
@@ -139,6 +140,8 @@ class AlertTrainingBox extends StatelessWidget {
                         height: AppVerticalSize.s10,
                       ),
                       Expanded(child: tabBarView),
+
+
                       PeriodPickerBlock(),
                       GeneralButtonBlock(
                           lable: buttonLable,

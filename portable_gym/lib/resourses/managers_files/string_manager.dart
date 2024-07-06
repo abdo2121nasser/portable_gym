@@ -16,12 +16,19 @@ class StringManager
   static const String trainingEnglishLablePriority='Priority';
   static const String trainingEnglishLableInstruction='Instructions';
   static const String trainingEnglishLableVideoLink='video link';
+  static const String trainingEnglishLableIsPaid='Paid';
   static const String trainingArabicLableName='الاسم';
   static const String trainingArabicLablePeriod='المده';
   static const String trainingArabicLableNumberOfRepetation='عدد التكرار';
   static const String trainingArabicLablePriority='الاولويه';
   static const String trainingArabicLableInstruction='الارشادات';
   static const String trainingArabicLableVideoLink='رابط الفديو';
+  static const String trainingArabicLableIsPaid='بفلوس';
+
+
+  static const String isDailyTraining ='is daily trainings';
+  static const String isDailyCategory='is daily category';
+
 
   static const String bodyCategoryEnglishLableTitle='title';
   static const String bodyCategoryEnglishLableCalories='calories';
@@ -46,6 +53,7 @@ class StringManager
   static const String trainingLevel='level';
   static const String trainingPriority='priority';
   static const String trainingBodyCategory='body category';
+  static const String trainingIsPaid='is paid';
   static const String trainingHourPeriod='training hour period';
   static const String trainingMinutePeriod='training minute period';
   static const String trainingSecondPeriod='training second period';

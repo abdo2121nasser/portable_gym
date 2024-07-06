@@ -14,8 +14,9 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 
 class LevelScreen extends StatelessWidget {
  final  String bodyCategory;
+ final bool isDailyCategory;
 
- LevelScreen({required this.bodyCategory});
+ LevelScreen({required this.bodyCategory,this.isDailyCategory=false});
 
  @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class LevelScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: WorkOutCubit.get(context)..getTraining(bodyCategory: bodyCategory),
+      value: WorkOutCubit.get(context)..getTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory),
   child: BlocConsumer<WorkOutCubit, WorkOutState>(
   listener: (context, state) {
   },
@@ -73,7 +74,7 @@ class LevelScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: CircularProgressIndicator(color:ColorManager.kBlue,)),
           ):
-          ListTrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
+         ListTrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
         ],
       ),
       floatingActionButton: FloatingActionButtonBlock(function: ()  {
@@ -84,8 +85,9 @@ class LevelScreen extends StatelessWidget {
             tabBar: trainingTabBar,
             tabBarView: workCubit.TrainingTabBarView,
             trainingPeriod: workCubit.trainingPeriod,
-            buttonFunction: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory);}
+            buttonFunction: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory);}
         );
+        print('level screen $isDailyCategory');
         workCubit.clearTrainingAttributes();
         // await pickImage();
         //await google.uploadFileToGoogleDrive(imageFile!);

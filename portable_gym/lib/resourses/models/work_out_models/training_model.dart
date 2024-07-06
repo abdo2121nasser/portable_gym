@@ -7,6 +7,7 @@ class TrainingModel {
   final String? level;
   final String? videoLink;
   final String? bodyCategory;
+  final bool?  isPaid;
   final int? hour;
   final int? minute;
   final int? second;
@@ -19,6 +20,7 @@ class TrainingModel {
     required this.level,
     required this.videoLink,
     required this.bodyCategory,
+    required this.isPaid,
     required this.hour,
     required this.minute,
     required this.second,
@@ -31,6 +33,7 @@ class TrainingModel {
       level: json[StringManager.trainingLevel],
       videoLink: json[StringManager.trainingVideoLink],
       bodyCategory: json[StringManager.trainingBodyCategory],
+      isPaid: json[StringManager.trainingIsPaid],
       hour: json[StringManager.trainingHourPeriod],
       minute: json[StringManager.trainingMinutePeriod],
       second: json[StringManager.trainingSecondPeriod],

@@ -8,15 +8,18 @@ import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/image_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
+import '../../../models/work_out_models/body_category_model.dart';
 import '../../resource_screen_blocks/recorded_unit_block.dart';
+import 'package:intl/intl.dart';
 
 class TrainingOfDayBlock extends StatelessWidget {
-  final String trainingName;
+  final BodyCategoryModel bodyCategoryModel;
 
-  TrainingOfDayBlock({required this.trainingName});
+  TrainingOfDayBlock({required this.bodyCategoryModel});
 
   @override
   Widget build(BuildContext context) {
+    var languageModel=bodyCategoryModel.getLanguageClass(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.33,
@@ -78,7 +81,7 @@ class TrainingOfDayBlock extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                     trainingName,
+                                     languageModel.title.toString(),
                                       textAlign: TextAlign.start,
                                       style: getMeduimStyle(
                                           fontSize: FontSize.s14,
@@ -92,20 +95,48 @@ class TrainingOfDayBlock extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: constrain.maxWidth * 0.7,
+                              width: constrain.maxWidth * 0.8,
                               height: constrain.maxHeight*0.12,
-                              child: ListView.separated(
-
-                                scrollDirection:Axis.horizontal,
-
-                                itemBuilder: (context, index) => SizedBox(
-                                    width: constrain.maxWidth * 0.23,
-                                    height: constrain.maxHeight*0.12,
-                                    child: RecordedUnitBlock(  icon: Icons.timer,
-                                      mesuaringUnit: 'minute',
-                                      unitValue: '45',),),
-                              separatorBuilder: (context, index) => SizedBox(width: AppHorizontalSize.s5,),
-                              itemCount: 3,),
+                              // child: ListView.separated(
+                              //
+                              //   scrollDirection:Axis.horizontal,
+                              //
+                              //   itemBuilder: (context, index) => SizedBox(
+                              //       width: constrain.maxWidth * 0.23,
+                              //       height: constrain.maxHeight*0.12,
+                              //       child: RecordedUnitBlock(  icon: Icons.timer,
+                              //         mesuaringUnit: 'minute',
+                              //         unitValue: '45',),),
+                              // separatorBuilder: (context, index) => SizedBox(width: AppHorizontalSize.s5,),
+                              // itemCount: 3,),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                      width: AppHorizontalSize.s90,
+                                      height: AppVerticalSize.s22,
+                                      child: RecordedUnitBlock(
+                                        icon: Icons.timer,
+                                        mesuaringUnit: S.of(context).minuteWord,
+                                        unitValue:DateFormat('HH:mm:ss').format(DateTime(0,0,0,bodyCategoryModel.hour!,bodyCategoryModel.minute!,bodyCategoryModel.second!,)),
+                                      )),
+                                  SizedBox(
+                                      width: AppHorizontalSize.s90,
+                                      height: AppVerticalSize.s22,
+                                      child: RecordedUnitBlock(
+                                        icon: Icons.local_fire_department,
+                                        mesuaringUnit: S.of(context).kCal,
+                                        unitValue: languageModel.calories!,
+                                      )),
+                                  SizedBox(
+                                      width: AppHorizontalSize.s90,
+                                      height: AppVerticalSize.s22,
+                                      child: RecordedUnitBlock(
+                                        icon: Icons.directions_run_outlined,
+                                        mesuaringUnit: S.of(context).exercises,
+                                        unitValue: languageModel.numberOfExercises!,
+                                      )),
+                                ],
+                              ),
                             )
                           ],
                         ),

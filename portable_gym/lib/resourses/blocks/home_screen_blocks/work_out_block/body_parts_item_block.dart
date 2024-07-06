@@ -10,7 +10,6 @@ import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/body_category_model.dart';
 import '../../resource_screen_blocks/recorded_unit_block.dart';
-
 import 'package:intl/intl.dart';
 class BodyPartItemBlock extends StatelessWidget {
   final BodyCategoryModel bodyCategoryModel;
@@ -126,7 +125,7 @@ class BodyPartItemBlock extends StatelessWidget {
                 ),
                 SizedBox(
                   height: AppVerticalSize.s30,
-                  width: AppHorizontalSize.s100,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

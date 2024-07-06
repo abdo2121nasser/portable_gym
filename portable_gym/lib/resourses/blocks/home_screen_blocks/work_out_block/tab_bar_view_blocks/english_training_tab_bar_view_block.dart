@@ -22,7 +22,13 @@ class EnglishTrainingTabBarViewBlock extends StatelessWidget {
             Expanded(
                 child: TrainingBaisicInformationBlock(
                     trainingLables: workCubit.trainingEnglishLables,
-                    trainingControllers: workCubit.getTrainingEnglishControllers()
+                    trainingControllers: workCubit.getTrainingEnglishControllers(),
+                isPaidValue: workCubit.trainingIsPaid,
+                  isPaidSetter: (bool? value) {
+                    if (value != null) {
+                      workCubit.setTrainingIsPaid(value: value);
+                    }
+                  },
                 )
             ),
           ],

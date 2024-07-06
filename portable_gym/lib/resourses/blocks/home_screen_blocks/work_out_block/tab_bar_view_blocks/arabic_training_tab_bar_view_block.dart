@@ -23,7 +23,12 @@ class ArabicTrainingTabBarViewBlock extends StatelessWidget {
                     trainingLables: workCubit.trainingArabicLables,
                     trainingControllers: workCubit.getTrainingArabicControllers(),
                   isArabicTabView: true,
-                )
+                  isPaidValue: workCubit.trainingIsPaid,
+                  isPaidSetter: (bool? value) {
+                    if (value != null)
+                      workCubit.setTrainingIsPaid(value: value);
+                  }
+                ),
             ),
           ],
         );
