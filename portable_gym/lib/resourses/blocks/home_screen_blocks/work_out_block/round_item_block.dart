@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:googleapis/admob/v1.dart';
 import 'package:portable_gym/resourses/blocks/resource_screen_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
+import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
@@ -9,6 +9,7 @@ import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
+import 'package:intl/intl.dart';
 
 
 class RoundItemBlock extends StatelessWidget {
@@ -67,8 +68,8 @@ class RoundItemBlock extends StatelessWidget {
                       width: AppHorizontalSize.s100,
                       child: RecordedUnitBlock(
                         icon: Icons.timer,
-                        mesuaringUnit: S.of(context).minuteWord,
-                        unitValue: trainingModel.minute.toString()+":"+trainingModel.second.toString(),
+                        mesuaringUnit:'',
+                        unitValue: DateFormat('HH:mm:ss').format(DateTime(0,0,0,trainingModel.hour!,trainingModel.minute!,trainingModel.second!,)),
                         textColor: ColorManager.kLightPurpleColor,iconColor: ColorManager.kLightPurpleColor,)),
 
                 ],
@@ -85,8 +86,12 @@ class RoundItemBlock extends StatelessWidget {
           ),
         InkWell(
             onTap: deleteFunction,
-            child: Icon(Icons.delete,color: ColorManager.kRed,))
-        ],
+            child: Icon(Icons.delete,color: ColorManager.kRed,)),
+          trainingModel.isPaid!?
+          SizedBox(
+              width: AppHorizontalSize.s22,
+              height: AppVerticalSize.s22,
+              child: Image.asset(ImageManager.kCrownImage)):SizedBox(),        ],
       ),
     );
   }
