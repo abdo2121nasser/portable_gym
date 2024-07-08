@@ -18,14 +18,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Widget> topMenuScreens = [
     WorkOutScreen(),
+    NutritionScreen(),
     ProgressTrackingScreen(),
-    NutraitionScreen()
   ];
   getTopMenuImages({required int index}) {
     List<String> images = [
       ImageManager.kWeightImage,
-      ImageManager.kProgressTrackingImage,
       ImageManager.kNutraitionImage,
+      ImageManager.kProgressTrackingImage,
       ImageManager.kWeightImage,
     ];
     return images[index];
@@ -34,8 +34,8 @@ class HomeCubit extends Cubit<HomeState> {
   getTopMenuLables({required context, required int index}) {
     List<String> lables = [
       S.of(context).workOut,
-      S.of(context).progressTrack,
       S.of(context).nutraitions,
+      S.of(context).progressTrack,
       S.of(context).weight,
     ];
     return lables[index];
@@ -48,11 +48,12 @@ class HomeCubit extends Cubit<HomeState> {
         Get.to(WorkOutScreen());
         break;
       case 1:
-        Get.to(ProgressTrackingScreen());
+        Get.to(NutritionScreen());
         break;
       case 2:
-        Get.to(NutraitionScreen());
+        Get.to(ProgressTrackingScreen());
         break;
+
       default:
 
 

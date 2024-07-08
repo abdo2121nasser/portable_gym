@@ -7,17 +7,17 @@ import '../../../managers_files/style_manager.dart';
 
 
 
-class LevelElementBlock extends StatelessWidget {
+class ElementCategoryBlock extends StatelessWidget {
       final String lable;
       final Color color;
 
 
-      LevelElementBlock({required this.lable,required this.color});
+      ElementCategoryBlock({required this.lable,required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppRadiusSize.s12),
+      padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s12,vertical: AppVerticalSize.s14),
       decoration: BoxDecoration(
         borderRadius:  BorderRadius.circular(AppRadiusSize.s22),
          color:color

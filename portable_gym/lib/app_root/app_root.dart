@@ -5,16 +5,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutraition_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 
 import 'package:portable_gym/screens/set_up_screen.dart';
 
 import '../cubits/set_up_cubit/set_up_cubit.dart';
 import '../generated/l10n.dart';
-import '../screens/floating_menu_screens/profile_screen.dart';
 
 
 class PortableGym extends StatelessWidget {
@@ -37,6 +38,7 @@ class PortableGym extends StatelessWidget {
                     providers: [
                       BlocProvider(create: (context) => AuthenticationCubit()),
                       BlocProvider(create: (context) => WorkOutCubit()),
+                      BlocProvider(create: (context) => NutritionCubit()),
                   //    BlocProvider(create: (context) => SetUpCubit()),
 
                     ],

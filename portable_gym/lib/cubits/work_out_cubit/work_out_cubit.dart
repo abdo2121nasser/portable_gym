@@ -106,13 +106,13 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
 //---------------------------------------------------------------------------------------------------
 
-  getLevelLabels({required int index, required context}) {
+  getLevelLabels({ required context}) {
     List<String> lables = [
       S.of(context).beginner,
       S.of(context).intermediate,
       S.of(context).advanced,
     ];
-    return lables[index];
+    return lables;
   }
 
   changeCurrentLevel({required int newLevel}) {
