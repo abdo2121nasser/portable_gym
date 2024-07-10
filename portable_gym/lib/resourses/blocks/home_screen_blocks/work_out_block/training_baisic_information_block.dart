@@ -27,26 +27,12 @@ class TrainingBaisicInformationBlock extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) =>index== trainingControllers.length?
             //handling the is paid condition lable
-        Row(
-          mainAxisAlignment:isArabicTabView? MainAxisAlignment.end:MainAxisAlignment.start,
-          children: [
-            isArabicTabView?CheckBoxBlock(value: isPaidValue,function: isPaidSetter,):SizedBox(),
-            //handling the arrangement of the check box and the text in arabic tabview
-            Text(
-             isArabicTabView?
-              StringManager.trainingArabicLableIsPaid:
-              StringManager.trainingEnglishLableIsPaid,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s16,
-                  color: ColorManager.kBlackColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-              textAlign: isArabicTabView?TextAlign.end:TextAlign.start,
-            ),
-            //handling the arrangement of the check box and the text in english tabview
-            isArabicTabView?SizedBox():
-            CheckBoxBlock(value: isPaidValue,function: isPaidSetter,),
-          ],
-        ):
+      CheckBoxBlock(value: isPaidValue,function: isPaidSetter,
+      lable: isArabicTabView?
+      StringManager.trainingArabicLableIsPaid:
+      StringManager.trainingEnglishLableIsPaid,
+      isArabic: isArabicTabView,
+      ):
         FullInputBlock(
               lable: trainingLables[index],
               color: ColorManager.kBlackColor,

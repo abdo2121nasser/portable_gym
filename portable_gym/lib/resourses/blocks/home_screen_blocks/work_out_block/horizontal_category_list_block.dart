@@ -30,7 +30,7 @@ class HorizontalCategoryListBlock extends StatelessWidget {
                 color: currentLevel==index?ColorManager.kLimeGreenColor: ColorManager.kWhiteColor,),
               ),
               separatorBuilder: (context, index) => SizedBox(
-                    width: AppHorizontalSize.s5,
+                    width: AppHorizontalSize.s10,
                   ),
               itemCount:numberOfLevels),
         );

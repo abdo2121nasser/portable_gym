@@ -75,5 +75,49 @@ class StringManager
 
 
 
+  static const String englishRecipeNameLable='name';
+  static const String englishRecipeCaloriesLable='calories';
+  static const String englishRecipeProteinLable='protein';
+  static const String englishRecipeCarbohydratesLable='carbohydrates';
+  static const String englishRecipeAdvantageLable='advantage';
+  static const String englishRecipeImageLinkLable='image link';
+
+  static const String arabicRecipeNameLable='الاسم';
+  static const String arabicRecipeCaloriesLable='الكالوريز';
+  static const String arabicRecipeProteinLable='البروتين';
+  static const String arabicRecipeCarbohydratesLable='الكاربوهايدرات';
+  static const String arabicRecipeAdvantageLable='المومبزات';
+  static const String arabicRecipeImageLinkLable='لينك الصوره';
+
+  static const String englishBreakFastLable='breakfast';
+  static const String englishLunchLable='lunch';
+  static const String englishDinnerLable='dinner';
+  static const String englishSnackesLable='snacks';
+  static const String arabicBreakFastLable='الفطار';
+  static const String arabicLunchLable='الغداء';
+  static const String arabicDinnerLable='العشاء';
+  static const String arabicSnackesLable='وجبات خفيفه';
+
+  static const String collectionRecipes='recipes collections';
+
+  static const String recipesEnglishName='english name';
+  static const String recipesEnglishCalories='english calories';
+  static const String recipesEnglishProtein='english protein';
+  static const String recipesEnglishCarbohydrates='english carbohydrates';
+  static const String recipesEnglishAdvantage='english advantage';
+
+  static const String recipesArabicName='arabic name';
+  static const String recipesArabicCalories='arabic calories';
+  static const String recipesArabicProtein='arabic protein';
+  static const String recipesArabicCarbohydrates='arabic carbohydrates';
+  static const String recipesArabicAdvantage='arabic advantage';
+
+  static const String recipesImageLink='image link';
+
+
+
+
+
+
 
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/resource_screen_blocks/recorded_unit_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';

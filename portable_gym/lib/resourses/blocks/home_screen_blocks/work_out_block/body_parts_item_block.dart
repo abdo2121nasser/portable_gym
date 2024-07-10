@@ -5,11 +5,12 @@ import 'package:flutter/widgets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/google_drive_function_manager.dart';
 import '../../../managers_files/image_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/body_category_model.dart';
-import '../../resource_screen_blocks/recorded_unit_block.dart';
+import '../../general_blocks/recorded_unit_block.dart';
 import 'package:intl/intl.dart';
 class BodyPartItemBlock extends StatelessWidget {
   final BodyCategoryModel bodyCategoryModel;
@@ -154,14 +155,4 @@ class BodyPartItemBlock extends StatelessWidget {
     );
   }
 
-  String convertGoogleDriveLinkToStreamable(String originalLink) {
-    final RegExp regExp = RegExp(r'd/([a-zA-Z0-9_-]+)/');
-    final match = regExp.firstMatch(originalLink);
-    if (match != null) {
-      final fileId = match.group(1);
-      return 'https://drive.google.com/uc?export=download&id=$fileId';
-    } else {
-      throw FormatException('Invalid Google Drive link');
-    }
-  }
 }

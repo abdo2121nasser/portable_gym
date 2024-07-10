@@ -19,6 +19,8 @@ class AppHorizontalSize
   static double s70=70.0.w;
   static double s90=90.0.w;
   static double s100=100.0.w;
+  static double s140=140.0.w;
+  static double s150=150.0.w;
   static double s178=178.56.w;
   static double s191=191.44.w;
   static double s220=220.0.w;

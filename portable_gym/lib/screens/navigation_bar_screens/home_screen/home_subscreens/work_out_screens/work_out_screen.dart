@@ -13,7 +13,7 @@ import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/elemen
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/training_of_day_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/daily_activity_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
@@ -52,7 +52,7 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
             backgroundColor: ColorManager.kBlackColor,
             appBar: AppBar(
               backgroundColor: ColorManager.kBlackColor,
-              leadingWidth: MediaQuery.of(context).size.width * 0.3,
+              leadingWidth: AppHorizontalSize.s150,
               leading: InkWell(
                 onTap: () {
                   Get.back();
@@ -83,9 +83,9 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
                   currentLevel: workCubit.currentLevel,
                   numberOfLevels: 3,
                   lables: workCubit.getLevelLabels(context: context),
-                  changeLevel:(index){
+                  changeLevel: (index) {
                     workCubit.changeCurrentLevel(newLevel: index);
-                  } ,
+                  },
                 ),
                 workCubit.dailyDodyCategoryModel == null
                     ? Expanded(
@@ -123,9 +123,10 @@ class _WorkOutScreenState extends State<WorkOutScreen> {
                               },
                             );
                           },
-                          child: TrainingOfDayBlock(
+                          child: DailyActivityBlock(
                             bodyCategoryModel:
                                 workCubit.dailyDodyCategoryModel!,
+                            title: S.of(context).trainingOfDay,
                           ),
                         ),
                       ),

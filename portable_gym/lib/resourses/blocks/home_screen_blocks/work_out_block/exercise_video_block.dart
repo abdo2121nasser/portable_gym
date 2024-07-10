@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/google_drive_function_manager.dart';
 import '../../../managers_files/values_manager.dart';
 
 class ExerciseVideoBlock extends StatefulWidget {
@@ -77,15 +78,6 @@ class _ExerciseVideoBlockState extends State<ExerciseVideoBlock> {
       }
     });
   }
-  String convertGoogleDriveLinkToStreamable(String originalLink) {
-    final RegExp regExp = RegExp(r'd/([a-zA-Z0-9_-]+)/');
-    final match = regExp.firstMatch(originalLink);
-    if (match != null) {
-      final fileId = match.group(1);
-      return 'https://drive.google.com/uc?export=download&id=$fileId';
-    } else {
-      throw FormatException('Invalid Google Drive link');
-    }
-  }
+
 
 }

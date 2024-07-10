@@ -90,5 +90,14 @@
   "exploreDifferentWorkoutStyles": "استكشف العديد من اساليب التمرين",
 
   "mealPlan": "خطط للوجبات",
-  "mealIdea": "افكار للوجبات"
+  "mealIdea": "افكار للوجبات",
+  "recipeOfDay": "وصفه اليوم",
+  "breakfast": "الفطار",
+  "lunch": "الغداء",
+  "dinner": "العشاء",
+  "snacks": "وجبه خفيفه",
+  "recipe": "وصفه",
+  "addRecipe": "اضف وصفه"
+
+
 }
