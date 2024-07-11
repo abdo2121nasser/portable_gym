@@ -35,7 +35,8 @@ class HomeScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.23,
                 child: Row(
                   children: [
-                    HorizontalSquareBlock(),
+                    //HorizontalSquareBlock(),
+                    //todo uncommint it
                   ],
                 ),
               ),

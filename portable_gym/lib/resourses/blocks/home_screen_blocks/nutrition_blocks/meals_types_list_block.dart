@@ -30,7 +30,8 @@ class MealsTypesListBlock extends StatelessWidget {
                       height: AppVerticalSize.s160,
                       child: Row(
                         children: [
-                          HorizontalSquareBlock(),
+                          //HorizontalSquareBlock(),
+                         //todo uncomment it when it ready to read payed recipes
                         ],
                       )),
                 ],

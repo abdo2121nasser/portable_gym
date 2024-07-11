@@ -13,24 +13,20 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import '../../../generated/l10n.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
+import '../../models/nutrition_models/recipe_model.dart';
 
 class SquareElementBlock extends StatelessWidget {
-  final String? image;
-  final String? recordUnit1;
-  //final String? recordUnit2;
-  final String? title;
-  // final video;
+final RecipeModel recipeModel;
+final Function(String) deleteFunction;
 
   SquareElementBlock({
-    this.image,
-    this.recordUnit1,
-    // this.recordUnit2,
-    this.title,
-    //  this.video
+     required  this.recipeModel,
+   required this.deleteFunction
   });
 
   @override
   Widget build(BuildContext context) {
+    var languageModel=recipeModel!.getLanguageClass(context);
     return Container(
       width: AppHorizontalSize.s178,
       decoration: BoxDecoration(
@@ -50,6 +46,7 @@ class SquareElementBlock extends StatelessWidget {
                       topRight: Radius.circular(AppRadiusSize.s12)),
                   child: Image.asset(
                     ImageManager.kSmileManImage,
+                    //todo change it to read the image
                     height: constrain.maxHeight * 0.57,
                     width: constrain.maxWidth,
                     fit: BoxFit.fill,
@@ -69,7 +66,7 @@ class SquareElementBlock extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'squat Exercise',
+                                  languageModel.name,
                                   style: getRegularStyle(
                                       fontSize: FontSize.s16,
                                       color: ColorManager.kLimeGreenColor,
@@ -96,7 +93,7 @@ class SquareElementBlock extends StatelessWidget {
                               child: RecordedUnitBlock(
                                 icon: Icons.local_fire_department_outlined,
                                 mesuaringUnit: S.of(context).kCal,
-                                unitValue: '45',
+                                unitValue: languageModel.calories,
                               )),
                         ],
                       )
@@ -112,9 +109,29 @@ class SquareElementBlock extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.star_border,
-                      color: ColorManager.kBlackColor,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+
+                      children: [
+                        const Icon(
+                          Icons.star_border,
+                          color: ColorManager.kBlackColor,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: AppHorizontalSize.s5),
+                          child: InkWell(
+
+                            onTap: (){
+                              deleteFunction(recipeModel.docId);
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              color: ColorManager.kRed,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     // SizedBox(
                     //   height: constrain.maxHeight * 0.28,

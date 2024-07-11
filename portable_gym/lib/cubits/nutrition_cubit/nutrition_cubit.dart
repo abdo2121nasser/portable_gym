@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_plane_body_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_recipe_tab_bar_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
@@ -18,6 +20,10 @@ part 'nutrition_state.dart';
 class NutritionCubit extends Cubit<NutritionState> {
   NutritionCubit() : super(NutritionInitial());
   static NutritionCubit get(context) => BlocProvider.of(context);
+
+  List<RecipeModel> recipeModel=[];
+
+
   TabBarView recipeTabBarViews = TabBarView(
       children: [EnglishRecipeTabBarBlock(), ArabicRecipeTabBarBlock()]);
 
@@ -72,6 +78,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   changeCurrentMealType({required int index}) {
     currentMealType = index;
     emit(ChangeCurrentMealTypeState());
+    getFilteredRecipes();
   }
 
   List<TextEditingController> getEnglishRecipeControllers() {
@@ -141,6 +148,21 @@ class NutritionCubit extends Cubit<NutritionState> {
     ];
   }
 //---------------------------------------------------------------------------
+ String getFilterKey()
+  {
+    switch (currentMealType)
+        {
+      case 0:
+        return StringManager.englishBreakFastLable;
+        case 1:
+        return StringManager.englishLunchLable;
+        case 2:
+        return StringManager.englishDinnerLable;
+            default:
+        return StringManager.englishSnackesLable;
+
+    }
+  }
   bool isValidRecipe() {
     if (englishNameController.text.isEmpty) {
       getToastMessage(
@@ -207,8 +229,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       return true;
     }
   }
-  clearAttributes()
-  {
+  clearRecipeAttributes() {
     englishNameController.clear();
     englishCaloriesController.clear();
     englishProteinController.clear();
@@ -223,9 +244,28 @@ class NutritionCubit extends Cubit<NutritionState> {
     mealTypeCheckBoxes.fillRange(0, mealTypeCheckBoxes.length-1,false);
     
   }
+  setRecipeAttributes({required RecipeModel model}) {
+    englishNameController.text=model.english.name;
+    englishCaloriesController.text=model.english.calories;
+    englishProteinController.text=model.english.protein;
+    englishCarbohydratesController.text=model.english.carbohydrates;
+    englishAdvantageController.text=model.english.advantage;
+    arabicNameController.text=model.arabic.name;
+    arabicCaloriesController.text=model.arabic.calories;
+    arabicProteinController.text=model.arabic.protein;
+    arabicCarbohydratesController.text=model.arabic.carbohydrates;
+    arabicAdvantageController.text=model.arabic.advantage;
+    imageLinkController.text=model.imageLink;
+    mealTypeCheckBoxes[0]=model.isBreakfast;
+    mealTypeCheckBoxes[1]=model.isLunch;
+    mealTypeCheckBoxes[2]=model.isDinner;
+    mealTypeCheckBoxes[3]=model.isSnacks;
+    emit(SetRecipeAttributes());
+
+  }
 
   addNewRecipe() async {
-    clearAttributes();
+    clearRecipeAttributes();
     CollectionReference data =
     FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
      emit(AddNewRecipeLoadingState());
@@ -257,9 +297,83 @@ class NutritionCubit extends Cubit<NutritionState> {
       getToastMessage(
         message: 'a problem has happened',
       );
-      print(error);
+      debugPrint(error);
     });
     Get.back();
+  }
+  editRecipe({required String docId}) async {
+    var data =
+    FirebaseFirestore.instance.collection(StringManager.collectionRecipes).doc(docId);
+     emit(EditRecipeLoadingState());
+    await data.update({
+      StringManager.recipesEnglishName: englishNameController.text,
+      StringManager.recipesEnglishCalories: englishCaloriesController.text,
+      StringManager.recipesEnglishProtein: englishProteinController.text,
+      StringManager.recipesEnglishCarbohydrates:
+          englishCarbohydratesController.text,
+      StringManager.recipesEnglishAdvantage: englishAdvantageController.text,
+      StringManager.recipesArabicName: arabicNameController.text,
+      StringManager.recipesArabicCalories: arabicCaloriesController.text,
+      StringManager.recipesArabicProtein: arabicProteinController.text,
+      StringManager.recipesArabicCarbohydrates:
+          arabicCarbohydratesController.text,
+      StringManager.recipesArabicAdvantage: arabicAdvantageController.text,
+      StringManager.recipesImageLink: imageLinkController.text,
+      StringManager.englishBreakFastLable: mealTypeCheckBoxes[0],
+      StringManager.englishLunchLable: mealTypeCheckBoxes[1],
+      StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
+      StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
+    }).then((value) {
+       emit(EditRecipeSuccessState());
+      getToastMessage(
+        message: 'edited successfully',
+      );
+       getFilteredRecipes();
+    }).catchError((error) {
+        emit(EditRecipeErrorState());
+      getToastMessage(
+        message: 'a problem has happened',
+      );
+      debugPrint(error);
+    });
+    Get.back();
+  }
+  deleteRecipe({required String docId,}) async {
+    emit(DeleteRecipeLoadingState());
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionRecipes);
+    await data.doc(docId).delete().then((value) {
+     emit(DeleteRecipeSuccessState());
+      getFilteredRecipes();
+
+      getToastMessage(
+        message: 'deleted successfully',
+      );
+    }).catchError((error) {
+      emit(DeleteRecipeErrorState());
+      print(error);
+      getToastMessage(
+        message: 'a problem has happened',
+      );
+    });
+  }
+
+  getFilteredRecipes() async {
+    recipeModel.clear();
+    var data =
+    FirebaseFirestore.instance.collection(StringManager.collectionRecipes).where(getFilterKey(),isEqualTo: true);
+    emit(GetFilteredRecipesLoadingState());
+    await data.get().then((value) {
+     value.docs.forEach((element){
+       recipeModel.add(RecipeModel.fromJson(json: element.data(),docId: element.id));
+     });
+
+      emit(GetFilteredRecipesSuccessState());
+
+    }).catchError((error) {
+      emit(GetFilteredRecipesErrorState());
+      debugPrint(error);
+    });
   }
   processOfAddRecipes() {
     if(isValidRecipe())

@@ -97,7 +97,9 @@
   "dinner": "العشاء",
   "snacks": "وجبه خفيفه",
   "recipe": "وصفه",
-  "addRecipe": "اضف وصفه"
+  "addRecipe": "اضف وصفه",
+  "editRecipe": "عدل الوصفه"
+
 
 
 }
