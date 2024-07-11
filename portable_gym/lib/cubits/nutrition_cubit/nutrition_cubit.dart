@@ -265,7 +265,6 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
   addNewRecipe() async {
-    clearRecipeAttributes();
     CollectionReference data =
     FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
      emit(AddNewRecipeLoadingState());
@@ -299,6 +298,8 @@ class NutritionCubit extends Cubit<NutritionState> {
       );
       debugPrint(error);
     });
+    getFilteredRecipes();
+    clearRecipeAttributes();
     Get.back();
   }
   editRecipe({required String docId}) async {

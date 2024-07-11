@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/food_element_model.dart';
 
@@ -28,7 +29,7 @@ class RecipeModel {
       english: English.fromJson(json: json),
       arabic: Arabic.fromJson(json: json),
       docId: docId,
-      imageLink: json[StringManager.recipesImageLink],
+      imageLink: convertGoogleDriveLinkToStreamable( json[StringManager.recipesImageLink]),
       isBreakfast: json[StringManager.englishBreakFastLable],
       isLunch: json[StringManager.englishLunchLable],
       isDinner: json[StringManager.englishDinnerLable],

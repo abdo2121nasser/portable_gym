@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
+import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
@@ -44,9 +45,24 @@ final Function(String) deleteFunction;
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(AppRadiusSize.s12),
                       topRight: Radius.circular(AppRadiusSize.s12)),
-                  child: Image.asset(
-                    ImageManager.kSmileManImage,
-                    //todo change it to read the image
+                  child: Image.network(
+                    recipeModel.imageLink,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: AppHorizontalSize.s30),
+                            child: CircularProgressIndicator(
+                              color: ColorManager.kBlue,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                     height: constrain.maxHeight * 0.57,
                     width: constrain.maxWidth,
                     fit: BoxFit.fill,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/square_element%20_block.dart';
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -37,11 +39,13 @@ class GridSquareBlock extends StatelessWidget {
             horizontal: AppHorizontalSize.s22, vertical: AppVerticalSize.s14),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            // mainAxisExtent: 140,
             crossAxisSpacing: 10,
             childAspectRatio: (1 / .8),
             mainAxisSpacing: 15),
         itemBuilder: (context, index) => InkWell(
+          onTap: (){
+            Get.to(RecipeDetailsScreen(recipeModel: recipeModel[index]));
+          },
             onLongPress: () {
               setAttributes(recipeModel[index]);
               showAlertRecipeBox(

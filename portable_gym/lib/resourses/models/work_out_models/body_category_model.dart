@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class BodyCategoryModel {
@@ -26,7 +27,7 @@ class BodyCategoryModel {
   factory BodyCategoryModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return BodyCategoryModel(
       level: json[StringManager.bodyCategoryLevel],
-      imageLink: json[StringManager.bodyCategoryImageLink],
+      imageLink:convertGoogleDriveLinkToStreamable( json[StringManager.bodyCategoryImageLink]),
       hour: json[StringManager.bodyCategoryTotalTimeHour],
       minute: json[StringManager.bodyCategoryTotalTimeMinute],
       second: json[StringManager.bodyCategoryTotalTimeSecond],

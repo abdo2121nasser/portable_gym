@@ -101,8 +101,7 @@ class BodyPartItemBlock extends StatelessWidget {
                     Radius.circular(AppRadiusSize.s36),
                   ),
                   child: Image.network(
-                    convertGoogleDriveLinkToStreamable(
-                        bodyCategoryModel.imageLink!),
+                        bodyCategoryModel.imageLink!,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {

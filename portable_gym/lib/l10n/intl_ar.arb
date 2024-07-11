@@ -98,8 +98,10 @@
   "snacks": "وجبه خفيفه",
   "recipe": "وصفه",
   "addRecipe": "اضف وصفه",
-  "editRecipe": "عدل الوصفه"
-
+  "editRecipe": "عدل الوصفه",
+  "protein": "بروتين",
+  "carbohydrate": "كاربوهايدريت",
+  "advantage": "المميزات"
 
 
 }

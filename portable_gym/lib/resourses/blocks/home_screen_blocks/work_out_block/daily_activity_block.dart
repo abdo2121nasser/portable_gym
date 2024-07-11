@@ -44,8 +44,8 @@ class DailyActivityBlock extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppRadiusSize.s20),
                 image: DecorationImage(
                     image: isDailyTraining
-                        ? Image.network(convertGoogleDriveLinkToStreamable(
-                                bodyCategoryModel!.imageLink!))
+                        ? Image.network(
+                                bodyCategoryModel!.imageLink!)
                             .image
                         : Image.asset(ImageManager.kSmileManImage).image,
                     fit: BoxFit.fill)),

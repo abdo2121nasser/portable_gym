@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class TrainingModel {
@@ -31,7 +32,7 @@ class TrainingModel {
   factory TrainingModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return TrainingModel(
       level: json[StringManager.trainingLevel],
-      videoLink: json[StringManager.trainingVideoLink],
+      videoLink:convertGoogleDriveLinkToStreamable( json[StringManager.trainingVideoLink]),
       bodyCategory: json[StringManager.trainingBodyCategory],
       isPaid: json[StringManager.trainingIsPaid],
       hour: json[StringManager.trainingHourPeriod],

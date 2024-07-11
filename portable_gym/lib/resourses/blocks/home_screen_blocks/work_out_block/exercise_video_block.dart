@@ -54,7 +54,7 @@ class _ExerciseVideoBlockState extends State<ExerciseVideoBlock> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(convertGoogleDriveLinkToStreamable(widget.videoUrl))
+    _controller = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
         setState(() {});  // Ensure the first frame is shown after the video is initialized
       });
