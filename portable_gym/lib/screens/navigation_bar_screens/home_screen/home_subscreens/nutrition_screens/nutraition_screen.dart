@@ -7,7 +7,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/element_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/food_main_element_screen.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/meals_types_list_block.dart';
@@ -66,7 +66,7 @@ class NutritionScreen extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
                 child: InkWell(
                     onTap: () {
-                      Get.to(ElementScreen());
+                      Get.to(FoodMainElementScreen());
                     },
                     child: Icon(
                       Icons.psychology_rounded,

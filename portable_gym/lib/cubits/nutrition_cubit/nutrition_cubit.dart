@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,9 @@ import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
+import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_food_main_element_tab_bar_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_recipe_tab_bar_block.dart';
+import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_food_main_element_tab_bar_block.dart';
 import '../../resourses/managers_files/toast_messege_manager.dart';
 
 part 'nutrition_state.dart';
@@ -21,11 +22,14 @@ class NutritionCubit extends Cubit<NutritionState> {
   NutritionCubit() : super(NutritionInitial());
   static NutritionCubit get(context) => BlocProvider.of(context);
 
-  List<RecipeModel> recipeModel=[];
-
+  List<RecipeModel> recipeModel = [];
 
   TabBarView recipeTabBarViews = TabBarView(
       children: [EnglishRecipeTabBarBlock(), ArabicRecipeTabBarBlock()]);
+  TabBarView foodMainElementTabBarViews = TabBarView(children: [
+    EnglishFoodMainElementTabBarBlock(),
+    ArabicFoodMainElementTabBarBlock()
+  ]);
 
   List<Widget> planBodies = [MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
@@ -52,6 +56,13 @@ class NutritionCubit extends Cubit<NutritionState> {
   TextEditingController arabicAdvantageController = TextEditingController();
 
   TextEditingController imageLinkController = TextEditingController();
+  //-----------------------------------------------------------------------------
+  TextEditingController englishMainElementTitleController = TextEditingController();
+  TextEditingController englishMainElementDescriptionController = TextEditingController();
+  TextEditingController arabicMainElementTitleController = TextEditingController();
+  TextEditingController arabicMainElementDescriptionController = TextEditingController();
+
+
 
   getMealPlaneLabel({context}) {
     List<String> lables = [
@@ -147,22 +158,21 @@ class NutritionCubit extends Cubit<NutritionState> {
       StringManager.arabicSnackesLable,
     ];
   }
+
 //---------------------------------------------------------------------------
- String getFilterKey()
-  {
-    switch (currentMealType)
-        {
+  String getFilterKey() {
+    switch (currentMealType) {
       case 0:
         return StringManager.englishBreakFastLable;
-        case 1:
+      case 1:
         return StringManager.englishLunchLable;
-        case 2:
+      case 2:
         return StringManager.englishDinnerLable;
-            default:
+      default:
         return StringManager.englishSnackesLable;
-
     }
   }
+
   bool isValidRecipe() {
     if (englishNameController.text.isEmpty) {
       getToastMessage(
@@ -224,11 +234,11 @@ class NutritionCubit extends Cubit<NutritionState> {
         message: 'you should choose at least on type of meal',
       );
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   }
+
   clearRecipeAttributes() {
     englishNameController.clear();
     englishCaloriesController.clear();
@@ -241,33 +251,32 @@ class NutritionCubit extends Cubit<NutritionState> {
     arabicCarbohydratesController.clear();
     arabicAdvantageController.clear();
     imageLinkController.clear();
-    mealTypeCheckBoxes.fillRange(0, mealTypeCheckBoxes.length-1,false);
-    
+    mealTypeCheckBoxes.fillRange(0, mealTypeCheckBoxes.length - 1, false);
   }
-  setRecipeAttributes({required RecipeModel model}) {
-    englishNameController.text=model.english.name;
-    englishCaloriesController.text=model.english.calories;
-    englishProteinController.text=model.english.protein;
-    englishCarbohydratesController.text=model.english.carbohydrates;
-    englishAdvantageController.text=model.english.advantage;
-    arabicNameController.text=model.arabic.name;
-    arabicCaloriesController.text=model.arabic.calories;
-    arabicProteinController.text=model.arabic.protein;
-    arabicCarbohydratesController.text=model.arabic.carbohydrates;
-    arabicAdvantageController.text=model.arabic.advantage;
-    imageLinkController.text=model.imageLink;
-    mealTypeCheckBoxes[0]=model.isBreakfast;
-    mealTypeCheckBoxes[1]=model.isLunch;
-    mealTypeCheckBoxes[2]=model.isDinner;
-    mealTypeCheckBoxes[3]=model.isSnacks;
-    emit(SetRecipeAttributes());
 
+  setRecipeAttributes({required RecipeModel model}) {
+    englishNameController.text = model.english.name;
+    englishCaloriesController.text = model.english.calories;
+    englishProteinController.text = model.english.protein;
+    englishCarbohydratesController.text = model.english.carbohydrates;
+    englishAdvantageController.text = model.english.advantage;
+    arabicNameController.text = model.arabic.name;
+    arabicCaloriesController.text = model.arabic.calories;
+    arabicProteinController.text = model.arabic.protein;
+    arabicCarbohydratesController.text = model.arabic.carbohydrates;
+    arabicAdvantageController.text = model.arabic.advantage;
+    imageLinkController.text = model.imageLink;
+    mealTypeCheckBoxes[0] = model.isBreakfast;
+    mealTypeCheckBoxes[1] = model.isLunch;
+    mealTypeCheckBoxes[2] = model.isDinner;
+    mealTypeCheckBoxes[3] = model.isSnacks;
+    emit(SetRecipeAttributes());
   }
 
   addNewRecipe() async {
     CollectionReference data =
-    FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
-     emit(AddNewRecipeLoadingState());
+        FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
+    emit(AddNewRecipeLoadingState());
     await data.add({
       StringManager.recipesEnglishName: englishNameController.text,
       StringManager.recipesEnglishCalories: englishCaloriesController.text,
@@ -287,12 +296,12 @@ class NutritionCubit extends Cubit<NutritionState> {
       StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
       StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
     }).then((value) {
-       emit(AddNewRecipeSuccessState());
+      emit(AddNewRecipeSuccessState());
       getToastMessage(
         message: 'added successfully',
       );
     }).catchError((error) {
-        emit(AddNewRecipeErrorState());
+      emit(AddNewRecipeErrorState());
       getToastMessage(
         message: 'a problem has happened',
       );
@@ -302,10 +311,12 @@ class NutritionCubit extends Cubit<NutritionState> {
     clearRecipeAttributes();
     Get.back();
   }
+
   editRecipe({required String docId}) async {
-    var data =
-    FirebaseFirestore.instance.collection(StringManager.collectionRecipes).doc(docId);
-     emit(EditRecipeLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionRecipes)
+        .doc(docId);
+    emit(EditRecipeLoadingState());
     await data.update({
       StringManager.recipesEnglishName: englishNameController.text,
       StringManager.recipesEnglishCalories: englishCaloriesController.text,
@@ -325,13 +336,13 @@ class NutritionCubit extends Cubit<NutritionState> {
       StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
       StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
     }).then((value) {
-       emit(EditRecipeSuccessState());
+      emit(EditRecipeSuccessState());
       getToastMessage(
         message: 'edited successfully',
       );
-       getFilteredRecipes();
+      getFilteredRecipes();
     }).catchError((error) {
-        emit(EditRecipeErrorState());
+      emit(EditRecipeErrorState());
       getToastMessage(
         message: 'a problem has happened',
       );
@@ -339,12 +350,15 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
     Get.back();
   }
-  deleteRecipe({required String docId,}) async {
+
+  deleteRecipe({
+    required String docId,
+  }) async {
     emit(DeleteRecipeLoadingState());
-    CollectionReference data = FirebaseFirestore.instance
-        .collection(StringManager.collectionRecipes);
+    CollectionReference data =
+        FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
     await data.doc(docId).delete().then((value) {
-     emit(DeleteRecipeSuccessState());
+      emit(DeleteRecipeSuccessState());
       getFilteredRecipes();
 
       getToastMessage(
@@ -361,27 +375,27 @@ class NutritionCubit extends Cubit<NutritionState> {
 
   getFilteredRecipes() async {
     recipeModel.clear();
-    var data =
-    FirebaseFirestore.instance.collection(StringManager.collectionRecipes).where(getFilterKey(),isEqualTo: true);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionRecipes)
+        .where(getFilterKey(), isEqualTo: true);
     emit(GetFilteredRecipesLoadingState());
     await data.get().then((value) {
-     value.docs.forEach((element){
-       recipeModel.add(RecipeModel.fromJson(json: element.data(),docId: element.id));
-     });
+      value.docs.forEach((element) {
+        recipeModel
+            .add(RecipeModel.fromJson(json: element.data(), docId: element.id));
+      });
 
       emit(GetFilteredRecipesSuccessState());
-
     }).catchError((error) {
       emit(GetFilteredRecipesErrorState());
       debugPrint(error);
     });
   }
-  processOfAddRecipes() {
-    if(isValidRecipe())
-      {
-        addNewRecipe();
-      }
 
+  processOfAddRecipes() {
+    if (isValidRecipe()) {
+      addNewRecipe();
+    }
   }
 //---------------------------------------------------------------------------
 }

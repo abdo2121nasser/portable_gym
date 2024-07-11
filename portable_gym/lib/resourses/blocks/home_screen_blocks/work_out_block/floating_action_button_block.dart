@@ -15,19 +15,12 @@ class FloatingActionButtonBlock extends StatelessWidget {
     @override
   Widget build(BuildContext context) {
 
-    return BlocConsumer<WorkOutCubit, WorkOutState>(
-      listener: (context, state) {
-      },
-      builder: (context, state) {
-        var workCubit = WorkOutCubit.get(context);
-        return FloatingActionButton(
+    return FloatingActionButton(
           onPressed: function,
           child: Icon(
             Icons.add,
           ),
         );
-      },
-    );
   }
 
 

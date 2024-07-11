@@ -228,6 +228,74 @@ class AlertRecipeBox extends StatelessWidget {
   }
 }
 
+class AlertFoodMainElementBox extends StatelessWidget {
+  final TabBar tabBar;
+  final TabBarView tabBarView;
+  final VoidCallback buttonFunction;
+  final String title;
+  final String buttonLable;
+  AlertFoodMainElementBox({
+    required context,
+    required this.tabBar,
+    required this.tabBarView,
+    required this.buttonFunction,
+    required this.title,
+    required this.buttonLable,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: DefaultTabController(
+        length: 2,
+        child: AlertDialog(
+          insetPadding: EdgeInsets.symmetric(
+              horizontal: AppHorizontalSize.s22, vertical: AppVerticalSize.s55),
+          backgroundColor: Colors.white,
+          //titlePadding:const EdgeInsets.only(top: ,left: 80,bottom: 10),
+          title: Text(
+            title,
+            style: getBoldStyle(
+                fontSize: FontSize.s20,
+                color: ColorManager.kBlackColor,
+                fontFamily: FontFamily.kLeagueSpartanFont),
+            textAlign: TextAlign.center,
+          ),
+          alignment: Alignment.center,
+          scrollable: true,
+          content: Container(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                tabBar,
+                SizedBox(
+                  height: AppVerticalSize.s253,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: AppVerticalSize.s10,
+                      ),
+                      Expanded(child: tabBarView),
+                      GeneralButtonBlock(
+                          lable: buttonLable,
+                          function: buttonFunction,
+                          backgroundColor: ColorManager.kLightPurpleColor,
+                          textStyle: getSemiBoldStyle(
+                              fontSize: FontSize.s20,
+                              color: ColorManager.kBlackColor,
+                              fontFamily: FontFamily.kLeagueSpartanFont))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 showAlertBodyCategoryBox({
   required context,
   required TabBar tabBar,
@@ -282,6 +350,25 @@ showAlertRecipeBox({
   return showDialog(
     context: context,
     builder: (context) => AlertRecipeBox(
+        context: context,
+        tabBar: tabBar,
+        tabBarView: tabBarView,
+        buttonFunction: buttonFunction,
+        title: title,
+        buttonLable: buttonLable),
+  );
+}
+showAlertFoodMainElementBox({
+  required context,
+  required TabBar tabBar,
+  required TabBarView tabBarView,
+  required VoidCallback buttonFunction,
+  required String title,
+  required String buttonLable,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertFoodMainElementBox(
         context: context,
         tabBar: tabBar,
         tabBarView: tabBarView,

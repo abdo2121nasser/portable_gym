@@ -13,7 +13,7 @@
   "letsStart": "يلا نبدأ",
   "fullName": "الاسم كامل",
   "confirmPassword": "تأكيد كلمه المرور",
-  "alreadyHaveAnAccount?": "هل لديك حساب ؟",
+  "alreadyHaveAnAccount": "هل لديك حساب ؟",
 
   "forgottenPassword": "نيسيت كلمه السر",
   "enterYourEmail": "ادخل بريدك الاليكتروني",
@@ -84,7 +84,7 @@
   "addNewTraining": "اضف تمرين جديد",
   "editTraining": "تعديل تمرين ",
   "minuteWord":"دقيقه",
-  "kCal":"كالوري",
+  "kCal":"سعرات",
   "exercises":"تمارين",
   "letsGo": "لنبدء ",
   "exploreDifferentWorkoutStyles": "استكشف العديد من اساليب التمرين",
@@ -101,7 +101,9 @@
   "editRecipe": "عدل الوصفه",
   "protein": "بروتين",
   "carbohydrate": "كاربوهايدريت",
-  "advantage": "المميزات"
+  "advantage": "المميزات",
+  "foodMainElement": "العناصر الاساسيه في الطعام",
+  "add": "اضف"
 
 
 }

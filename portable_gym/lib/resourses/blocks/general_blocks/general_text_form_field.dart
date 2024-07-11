@@ -16,7 +16,7 @@ class GeneralTextFormField extends StatelessWidget {
       required this.controller,
       this.enableBorder = false,
       this.multiLine = false,
-      this.isArabic=false});
+      this.isArabic = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +27,15 @@ class GeneralTextFormField extends StatelessWidget {
         minLines: multiLine ? 1 : null,
         maxLines: multiLine ? 2 : null,
         keyboardType: multiLine ? TextInputType.multiline : null,
-        textAlign: isArabic?TextAlign.end:TextAlign.start,
+        textAlign: isArabic ? TextAlign.end : TextAlign.start,
         inputFormatters: <TextInputFormatter>[
           //if (onlyInteger) FilteringTextInputFormatter.digitsOnly,
           if (onlyInteger)
-          FilteringTextInputFormatter.allow(
-            RegExp(r'^[\u0660-\u0669\d]+$'),
-          ),
+            FilteringTextInputFormatter.allow(
+                // RegExp(r'^[\u0660-\u0669\d]+$'),
+
+                RegExp(
+                    r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$')),
         ],
         decoration: InputDecoration(
           fillColor: ColorManager.kWhiteColor,
