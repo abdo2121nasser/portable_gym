@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
@@ -38,7 +39,7 @@ class RecipeDetailsScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  languageModel.name,
+                  languageModel.name!,
                   style: getBoldStyle(
                       fontSize: FontSize.s20,
                       color: ColorManager.kPurpleColor,
@@ -77,13 +78,16 @@ class RecipeDetailsScreen extends StatelessWidget {
                       fontFamily: FontFamily.kPoppinsFont),
                 ),
                 Expanded(
-                  child: Text(
-                    languageModel.advantage,
-                    style: getLightStyle(
-                        fontSize: FontSize.s16,
-                        color: ColorManager.kWhiteColor,
-                        fontFamily: FontFamily.kLeagueSpartanFont),
-                    textAlign: TextAlign.start,
+                  child: ListView.builder(itemBuilder: (context, index) =>
+                 Text(
+                      languageModel.advantage!,
+                      style: getLightStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.kWhiteColor,
+                          fontFamily: FontFamily.kLeagueSpartanFont),
+                      textAlign: TextAlign.start,
+                    ),
+                    itemCount: 1,
                   ),
                 )
               ],

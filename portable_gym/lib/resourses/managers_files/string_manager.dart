@@ -83,10 +83,10 @@ class StringManager
   static const String englishRecipeImageLinkLable='image link';
 
   static const String arabicRecipeNameLable='الاسم';
-  static const String arabicRecipeCaloriesLable='الكالوريز';
+  static const String arabicRecipeCaloriesLable='السعرات الحراريه';
   static const String arabicRecipeProteinLable='البروتين';
-  static const String arabicRecipeCarbohydratesLable='الكاربوهايدرات';
-  static const String arabicRecipeAdvantageLable='المومبزات';
+  static const String arabicRecipeCarbohydratesLable='الكربوهيدرات';
+  static const String arabicRecipeAdvantageLable='الفوائد';
   static const String arabicRecipeImageLinkLable='لينك الصوره';
 
   static const String englishBreakFastLable='breakfast';
@@ -113,6 +113,15 @@ class StringManager
   static const String recipesArabicAdvantage='arabic advantage';
 
   static const String recipesImageLink='image link';
+
+  static const String collectionFoodMainElement='food main element collection';
+
+  static const String englishFoodMainElementTitle='title';
+  static const String englishFoodMainElementDescription='description';
+  static const String arabicFoodMainElementTitle='العنوان';
+  static const String arabicFoodMainElementDescription='الوصف';
+
+
 
 
 

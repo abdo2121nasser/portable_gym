@@ -26,9 +26,9 @@ class GridRecipeMeasurementsBlock extends StatelessWidget {
 
     ];
     List<String> values=[
-    languageModel.calories,
-    languageModel.protein,
-    languageModel.carbohydrates,
+    languageModel.calories!,
+    languageModel.protein!,
+    languageModel.carbohydrates!,
     ];
     return SizedBox(
       height: AppVerticalSize.s120,

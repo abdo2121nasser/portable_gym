@@ -6,6 +6,7 @@ import 'package:portable_gym/resourses/blocks/general_blocks/square_element%20_b
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
+import '../../../../managers_files/color_manager.dart';
 import '../../../general_blocks/grid_square_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 
@@ -32,8 +33,17 @@ class MealIdeaBodyBlock extends StatelessWidget {
                         nutCubit.changeCurrentMealType(index: index);
                       }),
                 ),
+                state is GetFilteredRecipesLoadingState
+                    ? Expanded(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.kBlue,
+                      )),
+                )
+                    :
                 GridSquareBlock(
-                  recipeModel: nutCubit.recipeModel,
+                  recipeModel: nutCubit.recipeModels,
                   editFunction: (docId) {
                     nutCubit.editRecipe(docId: docId);
                   },

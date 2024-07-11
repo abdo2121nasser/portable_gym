@@ -29,7 +29,7 @@ class RecipeModel {
       english: English.fromJson(json: json),
       arabic: Arabic.fromJson(json: json),
       docId: docId,
-      imageLink: convertGoogleDriveLinkToStreamable( json[StringManager.recipesImageLink]),
+      imageLink:convertGoogleDriveLinkToStreamable( json[StringManager.recipesImageLink]),
       isBreakfast: json[StringManager.englishBreakFastLable],
       isLunch: json[StringManager.englishLunchLable],
       isDinner: json[StringManager.englishDinnerLable],
@@ -42,11 +42,11 @@ class RecipeModel {
 }
 
 abstract class LanguageClass {
-  final String name;
-  final String protein;
-  final String calories;
-  final String carbohydrates;
-  final String advantage;
+  final String? name;
+  final String? protein;
+  final String? calories;
+  final String? carbohydrates;
+  final String? advantage;
 
   LanguageClass({
     required this.name,

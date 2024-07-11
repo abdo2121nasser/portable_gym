@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
+import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 import '../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
 import '../../../../managers_files/color_manager.dart';
@@ -18,10 +19,10 @@ class EnglishFoodMainElementTabBarBlock extends StatelessWidget {
         var nutCubit = NutritionCubit.get(context);
         return Column(
           children: [
-          FullInputBlock(lable: 'title', color: ColorManager.kBlackColor,
+          FullInputBlock(lable: StringManager.englishFoodMainElementTitle, color: ColorManager.kBlackColor,
                enableBorder: true,
                controller: nutCubit.englishMainElementTitleController) ,
-            FullInputBlock(lable: 'description', color: ColorManager.kBlackColor,
+            FullInputBlock(lable: StringManager.englishFoodMainElementDescription, color: ColorManager.kBlackColor,
                enableBorder: true,
                controller: nutCubit.englishMainElementDescriptionController) ,
           ],

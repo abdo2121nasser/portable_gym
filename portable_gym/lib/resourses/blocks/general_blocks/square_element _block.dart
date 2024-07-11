@@ -82,7 +82,7 @@ final Function(String) deleteFunction;
                             children: [
                               Expanded(
                                 child: Text(
-                                  languageModel.name,
+                                  languageModel.name!,
                                   style: getRegularStyle(
                                       fontSize: FontSize.s16,
                                       color: ColorManager.kLimeGreenColor,
@@ -109,7 +109,7 @@ final Function(String) deleteFunction;
                               child: RecordedUnitBlock(
                                 icon: Icons.local_fire_department_outlined,
                                 mesuaringUnit: S.of(context).kCal,
-                                unitValue: languageModel.calories,
+                                unitValue: languageModel.calories!,
                               )),
                         ],
                       )
