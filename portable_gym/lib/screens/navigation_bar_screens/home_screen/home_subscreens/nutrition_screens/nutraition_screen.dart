@@ -28,9 +28,7 @@ class NutritionScreen extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocProvider(
-      create: (context) => NutritionCubit(),
-      child: BlocConsumer<NutritionCubit, NutritionState>(
+    return BlocConsumer<NutritionCubit, NutritionState>(
       listener: (context, state) {},
       builder: (context, state) {
         var nutCubit = NutritionCubit.get(context);
@@ -68,7 +66,7 @@ class NutritionScreen extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
                 child: InkWell(
                     onTap: () {
-                      Get.to(FoodMainElementScreen(nutritionCubit: nutCubit,));
+                      Get.to(FoodMainElementScreen());
                     },
                     child: Icon(
                       Icons.psychology_rounded,
@@ -102,7 +100,6 @@ class NutritionScreen extends StatelessWidget {
           ):null,
         );
       },
-    ),
-);
+    );
   }
 }

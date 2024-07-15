@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 
-import '../../../../../cubits/work_out_cubit/work_out_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
