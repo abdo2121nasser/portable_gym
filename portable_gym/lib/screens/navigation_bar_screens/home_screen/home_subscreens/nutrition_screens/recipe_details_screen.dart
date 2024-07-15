@@ -26,12 +26,15 @@ class RecipeDetailsScreen extends StatelessWidget {
       backgroundColor: ColorManager.kBlackColor,
       appBar: AppBar(
         backgroundColor: ColorManager.kBlackColor,
-        leadingWidth: AppHorizontalSize.s150,
-        leading: InkWell(
+       leadingWidth: 0,
+       // leadingWidth: AppHorizontalSize.s150,
+        title: InkWell(
           onTap: () {
             Get.back();
           },
           child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Icon(
                 Icons.arrow_left,

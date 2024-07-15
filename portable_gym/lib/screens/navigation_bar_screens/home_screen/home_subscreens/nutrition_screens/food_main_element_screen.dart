@@ -64,7 +64,7 @@ class FoodMainElementScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                state is GetFilteredRecipesLoadingState
+                state is GetFoodMainElementLoadingState
                     ? Expanded(
                   child: Align(
                       alignment: Alignment.center,
@@ -83,9 +83,32 @@ class FoodMainElementScreen extends StatelessWidget {
                         crossAxisCount: 2,
                         // mainAxisExtent: 140,
                         crossAxisSpacing: AppHorizontalSize.s22,
-                        childAspectRatio: (1.5 / 0.9),
+                        childAspectRatio: (3 / 1),
                         mainAxisSpacing: AppVerticalSize.s14),
                     itemBuilder: (context, index) => InkWell(
+                      onTap: (){
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            insetPadding: EdgeInsets.symmetric(
+                                horizontal: AppHorizontalSize.s22, vertical: AppVerticalSize.s55),
+                            backgroundColor: Colors.white,
+                            alignment: Alignment.center,
+                            title: Text(
+                              nutCubit.foodElementModels[index]
+                                  .getLanguageClass(context)
+                                  .title!,
+                              textAlign: TextAlign.center,
+                            ),
+                            content:  Text(nutCubit.foodElementModels[index]
+                                .getLanguageClass(context)
+                                .description!,
+            textAlign: TextAlign.center,
+            ),
+                          ),
+                        );
+
+                      },
                         onLongPress: () {
                           nutCubit.setFoodMainElementAttributes(model:nutCubit.foodElementModels[index] );
                             showAlertFoodMainElementBox(

@@ -20,66 +20,36 @@ class FoodMainElementBlock extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s14,
+          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s18,
           vertical: AppVerticalSize.s10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppRadiusSize.s22),
             border: Border.all(width: AppHorizontalSize.s1_5,color: ColorManager.kWhiteColor)
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: AppVerticalSize.s30,
-                width: AppHorizontalSize.s150,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                       title,
-                        style: getSemiBoldStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kLimeGreenColor,
-                            fontFamily: FontFamily.kPoppinsFont),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+              Expanded(
+                child: Text(
+                 title,
+                  style: getSemiBoldStyle(
+                      fontSize: FontSize.s20,
+                      color: ColorManager.kLimeGreenColor,
+                      fontFamily: FontFamily.kPoppinsFont),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: AppVerticalSize.s10,),
-          SizedBox(
-            height: AppVerticalSize.s44,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Text(
-                     content,
-                      style: getMeduimStyle(
-                          fontSize: FontSize.s12,
-                          color: ColorManager.kWhiteColor,
-                          fontFamily: FontFamily.kPoppinsFont),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
             ],
           ),
         ),
-        Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s10,vertical: AppVerticalSize.s10),
-              child: InkWell(
-                  onTap: deleteFunction,
-                  child: Icon(Icons.delete,color: ColorManager.kRed,)),
-            ))
+Align(
+    alignment: Alignment.topRight,
+    child: Padding(
+      padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5,vertical: AppVerticalSize.s10),
+      child: InkWell(
+          onTap: deleteFunction,
+          child: Icon(Icons.delete,color: ColorManager.kRed,)),
+    ))
       ],
     );
   }

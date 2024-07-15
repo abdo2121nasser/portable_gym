@@ -23,11 +23,11 @@ class ArabicFoodMainElementTabBarBlock extends StatelessWidget {
             FullInputBlock(lable: StringManager.arabicFoodMainElementTitle, color: ColorManager.kBlackColor,
                 enableBorder: true,
                 isArabicTabView: true,
-                controller: nutCubit.englishMainElementTitleController) ,
+                controller: nutCubit.arabicMainElementTitleController) ,
             FullInputBlock(lable:  StringManager.arabicFoodMainElementDescription, color: ColorManager.kBlackColor,
                 enableBorder: true,
                 isArabicTabView: true,
-                controller: nutCubit.englishMainElementDescriptionController) ,
+                controller: nutCubit.arabicMainElementDescriptionController) ,
           ],
         );
       },

@@ -52,12 +52,15 @@ final Function(String) deleteFunction;
                       if (loadingProgress == null) {
                         return child;
                       } else {
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AppHorizontalSize.s30),
-                            child: CircularProgressIndicator(
-                              color: ColorManager.kBlue,
+                        return SizedBox(
+                          height: AppVerticalSize.s80,
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: AppHorizontalSize.s30),
+                              child: CircularProgressIndicator(
+                                color: ColorManager.kBlue,
+                              ),
                             ),
                           ),
                         );

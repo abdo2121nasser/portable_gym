@@ -63,7 +63,7 @@ class BodyPartItemBlock extends StatelessWidget {
                         child: RecordedUnitBlock(
                           icon: Icons.timer,
                           mesuaringUnit: S.of(context).minuteWord,
-                          unitValue:DateFormat('HH:mm:ss').format(DateTime(0,0,0,bodyCategoryModel.hour!,bodyCategoryModel.minute!,bodyCategoryModel.second!,)),
+                          unitValue:DateFormat('HH:mm:ss').format(dateTime),
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
                         )),

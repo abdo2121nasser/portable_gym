@@ -7,6 +7,7 @@ import '../../../../generated/l10n.dart';
 import '../../general_blocks/recorded_unit_block.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
+import 'package:intl/intl.dart';
 
 class ExerciseDetailBlock extends StatelessWidget {
         final TrainingModel trainingModel;
@@ -16,6 +17,7 @@ class ExerciseDetailBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var languageModel=trainingModel.getLanguageClass(context);
+    DateTime dateTime=DateTime(0,0,0,trainingModel.hour!,trainingModel.minute!,trainingModel.second!,);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
       padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
@@ -70,8 +72,8 @@ class ExerciseDetailBlock extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.2,
                     child: RecordedUnitBlock(
                       icon: Icons.timer,
-                      mesuaringUnit: S.of(context).minute,
-                      unitValue: "${trainingModel.minute}:${trainingModel.second}",
+                      mesuaringUnit:'',
+                      unitValue:DateFormat('HH:mm:ss').format(dateTime),
                       textColor: ColorManager.kBlackColor,
                       iconColor: ColorManager.kBlackColor,
                     )),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/daily_activity_block.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
@@ -87,7 +86,6 @@ class LevelScreen extends StatelessWidget {
             trainingPeriod: workCubit.trainingPeriod,
             buttonFunction: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory);}
         );
-        print('level screen $isDailyCategory');
         workCubit.clearTrainingAttributes();
         // await pickImage();
         //await google.uploadFileToGoogleDrive(imageFile!);
