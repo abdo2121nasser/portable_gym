@@ -14,8 +14,10 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 class LevelScreen extends StatelessWidget {
  final  String bodyCategory;
  final bool isDailyCategory;
+ final WorkOutCubit workCubit;
 
- LevelScreen({required this.bodyCategory,this.isDailyCategory=false});
+
+  LevelScreen({required this.bodyCategory,required this.workCubit ,this.isDailyCategory=false});
 
  @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class LevelScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: WorkOutCubit.get(context)..getTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory),
+      value:workCubit..getTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory),
   child: BlocConsumer<WorkOutCubit, WorkOutState>(
   listener: (context, state) {
   },

@@ -37,6 +37,7 @@ class ListBodyPartBlock extends StatelessWidget {
               itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     Get.to(LevelScreen(
+                      workCubit: workCubit,
                       bodyCategory: bodyCategoryModel[index].english!.title!,
                     ));
                   },
