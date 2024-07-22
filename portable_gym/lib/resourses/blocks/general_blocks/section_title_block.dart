@@ -23,7 +23,7 @@ class SectionTitleBlock extends StatelessWidget {
         children: [
            Text(
             sectionLable ,
-            style: getMeduimStyle(
+            style: getMediumStyle(
                 fontSize: FontSize.s16,
                 color: ColorManager.kLimeGreenColor,
                 fontFamily: FontFamily.kPoppinsFont),
@@ -34,7 +34,7 @@ class SectionTitleBlock extends StatelessWidget {
               children: [
                 Text(
                   S.of(context).seeAll,
-                  style: getMeduimStyle(
+                  style: getMediumStyle(
                       fontSize: FontSize.s12,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont),

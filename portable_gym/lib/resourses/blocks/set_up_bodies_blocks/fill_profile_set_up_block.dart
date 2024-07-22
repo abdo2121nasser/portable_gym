@@ -14,7 +14,7 @@ import '../../managers_files/values_manager.dart';
 import '../general_blocks/full_input_block.dart';
 import '../set_up_blocks/gender_block.dart';
 import '../general_blocks/general_text_form_field.dart';
-import '../profile_blocks/profile_photo_block.dart';
+import '../general_blocks/profile_photo_block.dart';
 
 class FillProfileSetUpBlock extends StatelessWidget {
   @override

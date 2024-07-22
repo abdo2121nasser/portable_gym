@@ -46,7 +46,7 @@ class BodyPartItemBlock extends StatelessWidget {
                         child: Text(
                           languageModel.title!,
                           textAlign: TextAlign.center,
-                          style: getMeduimStyle(
+                          style: getMediumStyle(
                               fontSize: FontSize.s18,
                               color: ColorManager.kBlackColor,
                               fontFamily: FontFamily.kPoppinsFont),

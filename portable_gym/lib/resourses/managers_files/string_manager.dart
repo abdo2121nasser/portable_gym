@@ -121,6 +121,8 @@ class StringManager
   static const String arabicFoodMainElementTitle='العنوان';
   static const String arabicFoodMainElementDescription='الوصف';
 
+  static const String collectionDailyRecipe='daily recipe';
+
 
 
 

@@ -21,9 +21,10 @@ class ProfilePhotoBlock extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
+            color: Colors.red,
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image:image
+                  image:image,
               )),
         ),
     isEditable?    Positioned(

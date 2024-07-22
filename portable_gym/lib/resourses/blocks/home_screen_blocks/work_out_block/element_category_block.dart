@@ -25,7 +25,7 @@ class ElementCategoryBlock extends StatelessWidget {
       child:  Text(
          lable,
         textAlign: TextAlign.center,
-        style: getMeduimStyle(
+        style: getMediumStyle(
             fontSize: FontSize.s16,
             color: ColorManager.kBlackColor,
             fontFamily: FontFamily.kLeagueSpartanFont),

@@ -317,6 +317,44 @@ class NutritionCubit extends Cubit<NutritionState> {
     clearRecipeAttributes();
     Get.back();
   }
+  addDailyRecipe()async {
+    CollectionReference data =
+    FirebaseFirestore.instance.collection(StringManager.collectionDailyRecipe);
+    emit(AddDailyRecipeLoadingState());
+    await data.add({
+      StringManager.recipesEnglishName: englishNameController.text,
+      StringManager.recipesEnglishCalories: englishCaloriesController.text,
+      StringManager.recipesEnglishProtein: englishProteinController.text,
+      StringManager.recipesEnglishCarbohydrates:
+      englishCarbohydratesController.text,
+      StringManager.recipesEnglishAdvantage: englishAdvantageController.text,
+      StringManager.recipesArabicName: arabicNameController.text,
+      StringManager.recipesArabicCalories: arabicCaloriesController.text,
+      StringManager.recipesArabicProtein: arabicProteinController.text,
+      StringManager.recipesArabicCarbohydrates:
+      arabicCarbohydratesController.text,
+      StringManager.recipesArabicAdvantage: arabicAdvantageController.text,
+      StringManager.recipesImageLink: imageLinkController.text,
+      StringManager.englishBreakFastLable: mealTypeCheckBoxes[0],
+      StringManager.englishLunchLable: mealTypeCheckBoxes[1],
+      StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
+      StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
+    }).then((value) {
+      emit(AddDailyRecipeSuccessState());
+      getToastMessage(
+        message: 'added successfully',
+      );
+    }).catchError((error) {
+      emit(AddDailyRecipeErrorState());
+      getToastMessage(
+        message: 'a problem has happened',
+      );
+      debugPrint(error);
+    });
+    getFilteredRecipes();
+    clearRecipeAttributes();
+    Get.back();
+  }
 
   editRecipe({required String docId}) async {
     var data = FirebaseFirestore.instance
@@ -395,8 +433,32 @@ class NutritionCubit extends Cubit<NutritionState> {
       debugPrint(error.toString());
     });
   }
+  getDailyRecipeCategory(){}
+  getDailyRecipes() async {
+    recipeModels.clear();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionDailyRecipe)
+        .where(getFilterKey(), isEqualTo: true);
+    emit(GetDailyRecipesLoadingState());
+    await data.get().then((value) {
+      value.docs.forEach((element) {
+        recipeModels
+            .add(RecipeModel.fromJson(json: element.data(), docId: element.id));
+      });
+
+      emit(GetDailyRecipesSuccessState());
+    }).catchError((error) {
+      emit(GetDailyRecipesErrorState());
+      debugPrint(error.toString());
+    });
+  }
 
   processOfAddRecipes() {
+    if (isValidRecipe()) {
+      addNewRecipe();
+    }
+  }
+  processOfAddDailyRecipes() {
     if (isValidRecipe()) {
       addNewRecipe();
     }

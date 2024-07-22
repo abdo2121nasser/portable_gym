@@ -43,3 +43,12 @@ class GetFoodMainElementErrorState extends NutritionState {}
 class DeleteFoodMainElementLoadingState extends NutritionState {}
 class DeleteFoodMainElementSuccessState extends NutritionState {}
 class DeleteFoodMainElementErrorState extends NutritionState {}
+
+class AddDailyRecipeLoadingState extends NutritionState {}
+class AddDailyRecipeSuccessState extends NutritionState {}
+class AddDailyRecipeErrorState extends NutritionState {}
+
+class GetDailyRecipesLoadingState extends NutritionState {}
+class GetDailyRecipesSuccessState extends NutritionState {}
+class GetDailyRecipesErrorState extends NutritionState {}
+

@@ -5,7 +5,7 @@ import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../managers_files/values_manager.dart';
-import '../../work_out_block/daily_activity_block.dart';
+import '../../../general_blocks/daily_activity_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 import '../meals_types_list_block.dart';
 

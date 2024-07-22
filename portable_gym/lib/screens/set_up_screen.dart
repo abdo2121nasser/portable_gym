@@ -81,7 +81,7 @@ class SetUpScreen extends StatelessWidget {
                   setCubit.setUpForwardNavigation(context: context);
                 },
                 backgroundColor: setCubit.getButtonColor(context: context),
-                textStyle: getMeduimStyle(
+                textStyle: getMediumStyle(
                     fontSize: FontSize.s24,
                     color: setCubit.getTextColor(context: context),
                     fontFamily: FontFamily.kLeagueSpartanFont),

@@ -47,7 +47,7 @@ class WeeklyChallangesBlock extends StatelessWidget {
                           child: Text(
                             title,
                             textAlign: TextAlign.center,
-                            style: getMeduimStyle(
+                            style: getMediumStyle(
                                 fontSize: FontSize.s24,
                                 color: ColorManager.kLimeGreenColor,
                                 fontFamily: FontFamily.kPoppinsFont),
@@ -65,7 +65,7 @@ class WeeklyChallangesBlock extends StatelessWidget {
                           child: Text(
                             lable,
                             textAlign: TextAlign.center,
-                            style: getMeduimStyle(
+                            style: getMediumStyle(
                                 fontSize: FontSize.s12,
                                 color: ColorManager.kWhiteColor,
                                 fontFamily: FontFamily.kPoppinsFont),

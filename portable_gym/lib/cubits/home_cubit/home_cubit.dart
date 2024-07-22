@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/nutraition_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/progress_tracking_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/progress_tracking_screens/progress_tracking_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/work_out_screen.dart';
 
 import '../../generated/l10n.dart';
@@ -34,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
   getTopMenuLables({required context, required int index}) {
     List<String> lables = [
       S.of(context).workOut,
-      S.of(context).nutraitions,
+      S.of(context).nutrition,
       S.of(context).progressTrack,
       S.of(context).weight,
     ];

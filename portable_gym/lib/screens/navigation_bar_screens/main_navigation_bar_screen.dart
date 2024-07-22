@@ -74,7 +74,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           S.of(context).subTitle,
-                          style: getMeduimStyle(
+                          style: getMediumStyle(
                               fontSize: FontSize.s14,
                               color: ColorManager.kWhiteColor,
                               fontFamily: FontFamily.kLeagueSpartanFont),

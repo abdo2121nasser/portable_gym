@@ -33,7 +33,7 @@ class ExerciseDetailBlock extends StatelessWidget {
             height: AppVerticalSize.s30,
             child: Text(
               languageModel.name.toString(),
-              style: getMeduimStyle(
+              style: getMediumStyle(
                   fontSize: FontSize.s20,
                   color: ColorManager.kBlackColor,
                   fontFamily: FontFamily.kPoppinsFont),
@@ -49,7 +49,7 @@ class ExerciseDetailBlock extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Text(
                       languageModel.instructions.toString(),
-                      style: getMeduimStyle(
+                      style: getMediumStyle(
                           fontSize: FontSize.s12,
                           color: ColorManager.kBlackColor,
                           fontFamily: FontFamily.kPoppinsFont),

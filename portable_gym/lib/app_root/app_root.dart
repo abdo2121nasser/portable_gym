@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
@@ -39,6 +40,7 @@ class PortableGym extends StatelessWidget {
                       BlocProvider(create: (context) => AuthenticationCubit()),
                       BlocProvider(create: (context) => WorkOutCubit()),
                       BlocProvider(create: (context) => NutritionCubit()),
+                      BlocProvider(create: (context) => ProgressTrackingCubit()),
                   //    BlocProvider(create: (context) => SetUpCubit()),
 
                     ],

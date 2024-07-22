@@ -106,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                                 ));
                           },
                           child: Text(S.of(context).forgetPassword,
-                              style: getMeduimStyle(
+                              style: getMediumStyle(
                                   fontSize: FontSize.s12,
                                   color: ColorManager.kBlackColor,
                                   fontFamily: FontFamily.kPoppinsFont)),

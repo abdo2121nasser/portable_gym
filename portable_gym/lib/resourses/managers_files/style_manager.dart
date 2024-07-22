@@ -44,7 +44,7 @@ TextStyle getThinStyle(
 }
 
 // medium font
-TextStyle getMeduimStyle(
+TextStyle getMediumStyle(
     {required double fontSize,
     required Color color,
     required String fontFamily}) {

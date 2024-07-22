@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/blocks/profile_blocks/personal_information_block.dart';
-import 'package:portable_gym/resourses/blocks/profile_blocks/profile_photo_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/profile_photo_block.dart';
 import 'package:portable_gym/resourses/blocks/profile_blocks/profile_training_information_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
@@ -28,14 +28,14 @@ class ProfileUpperBlock extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          // SizedBox(
-          //   height: AppVerticalSize.s10,
-          // ),
+
           SizedBox(
-              height: AppVerticalSize.s160,
+              height: MediaQuery.of(context).size.height*0.2,
               child: ProfilePhotoBlock(image: Image.asset(ImageManager.kSmileManImage).image,isEditable: false,)),
           const PersonalInformationBlock(),
-
+SizedBox(
+            height: AppVerticalSize.s10,
+          ),
         ],
       ),
     );

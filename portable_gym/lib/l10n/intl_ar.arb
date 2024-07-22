@@ -55,8 +55,8 @@
   "weight": "الوزن",
   "height": "الطول",
   "workOut": "العمل",
-  "progressTrack": "تتبع \n العمل",
-  "nutraitions": "التغذيه",
+  "progressTrack": "تتبع  العمل",
+  "nutrition": "التغذيه",
   "seeAll": "المذيد",
   "recommendations": "المقترحات",
   "weeklyChallenge": "تحدي الاسبوع",
@@ -104,8 +104,12 @@
   "advantage": "المميزات",
   "foodMainElement": "العناصر الاساسيه في الطعام",
   "add": "اضف",
-  "edit": "عدل"
+  "edit": "عدل",
 
+  "workoutLog": "سجل التمارين",
+  "charts": "المخططات",
+  "chooseDate": "اختر تاريخ",
+  "activities": "الانشطه"
 
 
 }

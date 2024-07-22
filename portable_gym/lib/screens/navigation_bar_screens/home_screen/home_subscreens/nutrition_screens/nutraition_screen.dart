@@ -11,7 +11,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_sub
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/meals_types_list_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/daily_activity_block.dart';
+import '../../../../../resourses/blocks/general_blocks/daily_activity_block.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
@@ -50,7 +50,7 @@ class NutritionScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      S.of(context).nutraitions,
+                      S.of(context).nutrition,
                       style: getBoldStyle(
                           fontSize: FontSize.s20,
                           color: ColorManager.kPurpleColor,

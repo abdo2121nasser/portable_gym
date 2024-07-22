@@ -23,7 +23,7 @@ class LevelsBlock extends StatelessWidget {
       ),
       child: Text(
         S.of(context).enterYourWeight,
-        style: getMeduimStyle(
+        style: getMediumStyle(
             fontSize: FontSize.s22,
             color: ColorManager.kPurpleColor,
             fontFamily: FontFamily.kLeagueSpartanFont),

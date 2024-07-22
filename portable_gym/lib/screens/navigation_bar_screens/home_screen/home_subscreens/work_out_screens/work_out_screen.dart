@@ -13,7 +13,7 @@ import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/elemen
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/daily_activity_block.dart';
+import '../../../../../resourses/blocks/general_blocks/daily_activity_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
@@ -21,7 +21,6 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
 class WorkOutScreen extends StatelessWidget {
-  bool isLoadingBodyCategory = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +134,7 @@ class WorkOutScreen extends StatelessWidget {
                         S.of(context).letsGo +
                             '${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel, isLable: true, context: context)}',
                         textAlign: TextAlign.start,
-                        style: getMeduimStyle(
+                        style: getMediumStyle(
                             fontSize: FontSize.s20,
                             color: ColorManager.kLimeGreenColor,
                             fontFamily: FontFamily.kPoppinsFont),

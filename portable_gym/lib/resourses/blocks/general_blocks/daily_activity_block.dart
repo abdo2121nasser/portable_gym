@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../generated/l10n.dart';
-import '../../../managers_files/color_manager.dart';
-import '../../../managers_files/font_manager.dart';
-import '../../../managers_files/google_drive_function_manager.dart';
-import '../../../managers_files/image_manager.dart';
-import '../../../managers_files/style_manager.dart';
-import '../../../managers_files/values_manager.dart';
-import '../../../models/work_out_models/body_category_model.dart';
-import '../../general_blocks/recorded_unit_block.dart';
+import '../../../generated/l10n.dart';
+import '../../managers_files/color_manager.dart';
+import '../../managers_files/font_manager.dart';
+import '../../managers_files/google_drive_function_manager.dart';
+import '../../managers_files/image_manager.dart';
+import '../../managers_files/style_manager.dart';
+import '../../managers_files/values_manager.dart';
+import '../../models/work_out_models/body_category_model.dart';
+import 'recorded_unit_block.dart';
 import 'package:intl/intl.dart';
 
 class DailyActivityBlock extends StatelessWidget {
@@ -64,7 +64,7 @@ class DailyActivityBlock extends StatelessWidget {
                         child: Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: getMeduimStyle(
+                          style: getMediumStyle(
                               fontSize: FontSize.s12,
                               color: ColorManager.kBlackColor,
                               fontFamily: FontFamily.kLeagueSpartanFont),
@@ -97,7 +97,7 @@ class DailyActivityBlock extends StatelessWidget {
                                           ? languageModel.title.toString()
                                           : "egg",
                                       textAlign: TextAlign.start,
-                                      style: getMeduimStyle(
+                                      style: getMediumStyle(
                                           fontSize: FontSize.s14,
                                           color: ColorManager.kLimeGreenColor,
                                           fontFamily: FontFamily.kPoppinsFont),
