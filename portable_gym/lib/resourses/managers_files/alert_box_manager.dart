@@ -19,6 +19,7 @@ import '../blocks/general_blocks/check_box_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 
 class AlertBodyCategoryBox extends StatelessWidget {
+  final WorkOutCubit workOutCubit;
   final TabBar tabBar;
   final TabBarView tabBarView;
   final VoidCallback buttonFunction;
@@ -26,6 +27,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
   final String buttonLable;
   AlertBodyCategoryBox({
     required context,
+    required this.workOutCubit,
     required this.tabBar,
     required this.tabBarView,
     required this.buttonFunction,
@@ -68,6 +70,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
                       Expanded(child: tabBarView),
                       PeriodPickerBlock(
                         isTrainingDate: false,
+                        workCubit: WorkOutCubit(),
                       ),
                       GeneralButtonBlock(
                           lable: buttonLable,
@@ -90,6 +93,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
 }
 
 class AlertTrainingBox extends StatelessWidget {
+  final WorkOutCubit workOutCubit;
   final TabBar tabBar;
   final TabBarView tabBarView;
   final DateTime trainingPeriod;
@@ -98,6 +102,7 @@ class AlertTrainingBox extends StatelessWidget {
   final String buttonLable;
   AlertTrainingBox({
     required context,
+    required this.workOutCubit,
     required this.tabBar,
     required this.tabBarView,
     required this.trainingPeriod,
@@ -139,7 +144,7 @@ class AlertTrainingBox extends StatelessWidget {
                         height: AppVerticalSize.s10,
                       ),
                       Expanded(child: tabBarView),
-                      PeriodPickerBlock(),
+                      PeriodPickerBlock(workCubit: workOutCubit),
                       GeneralButtonBlock(
                           lable: buttonLable,
                           function: buttonFunction,
@@ -300,6 +305,7 @@ class AlertFoodMainElementBox extends StatelessWidget {
 
 showAlertBodyCategoryBox({
   required context,
+  required WorkOutCubit workOutCubit,
   required TabBar tabBar,
   required TabBarView tabBarView,
   required VoidCallback buttonFunction,
@@ -310,6 +316,7 @@ showAlertBodyCategoryBox({
       context: context,
       builder: (context) => AlertBodyCategoryBox(
             context: context,
+            workOutCubit: workOutCubit,
             tabBar: tabBar,
             tabBarView: tabBarView,
             buttonFunction: buttonFunction,
@@ -320,6 +327,7 @@ showAlertBodyCategoryBox({
 
 showAlertTrainingBox({
   required context,
+  required WorkOutCubit workOutCubit,
   required TabBar tabBar,
   required TabBarView tabBarView,
   required DateTime trainingPeriod,
@@ -331,6 +339,7 @@ showAlertTrainingBox({
     context: context,
     builder: (context) => AlertTrainingBox(
       context: context,
+      workOutCubit: workOutCubit,
       tabBar: tabBar,
       tabBarView: tabBarView,
       buttonFunction: buttonFunction,

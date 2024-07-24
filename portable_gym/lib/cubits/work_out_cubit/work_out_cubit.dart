@@ -5,21 +5,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_body_category_tab_bar_view_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_training_tab_bar_view_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
-import 'package:portable_gym/resourses/services/google_drive_service/google_drive_sevice.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_body_category_tab_bar_view_block.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_training_tab_bar_view_block.dart';
-import '../../resourses/managers_files/toast_messege_manager.dart';
+import '../../resourses/managers_files/toast_massage_manager.dart';
 
 part 'work_out_state.dart';
 
@@ -37,14 +33,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   int currentLevel = 0;
 
   //--------------------------------------------------------------------------------------
-  TabBarView TrainingTabBarView = TabBarView(children: [
-    EnglishTrainingTabBarViewBlock(),
-    ArabicTrainingTabBarViewBlock()
-  ]);
-  TabBarView BodyCategoryTabBarView = TabBarView(children: [
-    EnglishBodyCategoryTabBarViewBlock(),
-    ArabicBodyCategoryTabBarViewBlock()
-  ]);
+  // TabBarView trainingTabBarView = TabBarView(children: [
+  //   EnglishTrainingTabBarViewBlock(),
+  //   ArabicTrainingTabBarViewBlock()
+  // ]);
+  // TabBarView bodyCategoryTabBarView = TabBarView(children: [
+  //   EnglishBodyCategoryTabBarViewBlock(),
+  //   ArabicBodyCategoryTabBarViewBlock()
+  // ]);
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
     StringManager.trainingEnglishLableNumberOfRepetation,
@@ -105,6 +101,19 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
 
 //---------------------------------------------------------------------------------------------------
+
+ TabBarView getTrainingTabBarView({required WorkOutCubit workOutCubit}){
+    return TabBarView(children: [
+      EnglishTrainingTabBarViewBlock(workCubit: workOutCubit),
+      ArabicTrainingTabBarViewBlock(workCubit: workOutCubit,)
+    ]);
+  }
+  TabBarView getBodyCategoryTabBarView({required WorkOutCubit workOutCubit}){
+   return TabBarView(children: [
+     EnglishBodyCategoryTabBarViewBlock(workCubit: workOutCubit),
+     ArabicBodyCategoryTabBarViewBlock(workCubit: workOutCubit,)
+   ]);
+  }
 
   getLevelLabels({ required context}) {
     List<String> lables = [

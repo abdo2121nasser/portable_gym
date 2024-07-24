@@ -17,7 +17,7 @@ import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/me
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_food_main_element_tab_bar_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_recipe_tab_bar_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_food_main_element_tab_bar_block.dart';
-import '../../resourses/managers_files/toast_messege_manager.dart';
+import '../../resourses/managers_files/toast_massage_manager.dart';
 import '../../resourses/models/nutrition_models/food_element_model.dart';
 
 part 'nutrition_state.dart';

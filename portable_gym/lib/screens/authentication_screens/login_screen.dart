@@ -11,7 +11,7 @@ import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_f
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
-import 'package:portable_gym/resourses/managers_files/toast_messege_manager.dart';
+import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password.dart';
 import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';

@@ -34,8 +34,8 @@ class WorkOutScreen extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocProvider.value(
-      value: WorkOutCubit.get(context)
+    return BlocProvider(
+      create: (context) => WorkOutCubit()
         ..getBodyCategories()
         ..getDailyBodyCategory(),
       child: BlocConsumer<WorkOutCubit, WorkOutState>(
@@ -73,6 +73,7 @@ class WorkOutScreen extends StatelessWidget {
                             Get.to(LevelScreen(
                               bodyCategory: '',
                               isDailyCategory: true,
+                              workCubit: workCubit,
                             ));
                           },
                           onLongPress: () {
@@ -81,10 +82,11 @@ class WorkOutScreen extends StatelessWidget {
                                 model: workCubit.dailyDodyCategoryModel!);
                             showAlertBodyCategoryBox(
                               context: context,
+                              workOutCubit: workCubit,
                               title: S.of(context).editBodyCategory,
                               buttonLable: S.of(context).uploadBodyCategory,
                               tabBar: bodyCategoryTabBar,
-                              tabBarView: workCubit.BodyCategoryTabBarView,
+                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit),
                               buttonFunction: () {
                                 workCubit.editBodyCategory(
                                     docId: workCubit
@@ -145,10 +147,11 @@ class WorkOutScreen extends StatelessWidget {
 
                 showAlertBodyCategoryBox(
                     context: context,
+                    workOutCubit: workCubit,
                     title: S.of(context).addBodyCategory,
                     buttonLable: S.of(context).uploadBodyCategory,
                     tabBar: bodyCategoryTabBar,
-                    tabBarView: workCubit.BodyCategoryTabBarView,
+                    tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit),
                     buttonFunction: workCubit.processOfAddingBodyCategory);
               },
             ),

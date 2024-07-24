@@ -51,10 +51,11 @@ class ListTrainingItemsBlock extends StatelessWidget {
 
                     showAlertTrainingBox(
                         context: context,
+                        workOutCubit: workCubit,
                         title: S.of(context).editTraining,
                         buttonLable: S.of(context).uploadTraining,
                         tabBar: trainingTabBar,
-                        tabBarView: workCubit.TrainingTabBarView,
+                        tabBarView: workCubit.getTrainingTabBarView(workOutCubit: workCubit),
                         trainingPeriod: workCubit.trainingPeriod,
                         buttonFunction: () {
                           workCubit.editTraining(

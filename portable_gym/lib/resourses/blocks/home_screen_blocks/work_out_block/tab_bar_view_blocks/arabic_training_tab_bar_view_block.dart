@@ -9,30 +9,37 @@ import '../../../../managers_files/color_manager.dart';
 import '../../../general_blocks/full_input_block.dart';
 
 class ArabicTrainingTabBarViewBlock extends StatelessWidget {
+  final WorkOutCubit workCubit;
+
+  ArabicTrainingTabBarViewBlock({required this.workCubit});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WorkOutCubit, WorkOutState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var workCubit = WorkOutCubit.get(context);
-        return Column(
-          children: [
-            Expanded(
+    return BlocProvider.value(
+      value: workCubit,
+      child: BlocConsumer<WorkOutCubit, WorkOutState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+         // var workCubit = WorkOutCubit.get(context);
+          return Column(
+            children: [
+              Expanded(
                 child: TrainingBaisicInformationBlock(
                     trainingLables: workCubit.trainingArabicLables,
-                    trainingControllers: workCubit.getTrainingArabicControllers(),
-                  isArabicTabView: true,
-                  isPaidValue: workCubit.trainingIsPaid,
-                  isPaidSetter: (bool? value) {
-                    if (value != null)
-                      workCubit.setTrainingIsPaid(value: value);
-                  }
+                    trainingControllers: workCubit
+                        .getTrainingArabicControllers(),
+                    isArabicTabView: true,
+                    isPaidValue: workCubit.trainingIsPaid,
+                    isPaidSetter: (bool? value) {
+                      if (value != null)
+                        workCubit.setTrainingIsPaid(value: value);
+                    }
                 ),
-            ),
-          ],
-        );
-      },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

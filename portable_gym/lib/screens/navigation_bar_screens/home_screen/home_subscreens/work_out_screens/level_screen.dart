@@ -13,12 +13,16 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 
 class LevelScreen extends StatelessWidget {
- final  String bodyCategory;
- final bool isDailyCategory;
+  final String bodyCategory;
+  final bool isDailyCategory;
+  final WorkOutCubit workCubit;
 
- LevelScreen({required this.bodyCategory,this.isDailyCategory=false});
+  LevelScreen(
+      {required this.bodyCategory,
+      required this.workCubit,
+      this.isDailyCategory = false});
 
- @override
+  @override
   Widget build(BuildContext context) {
     final TabBar trainingTabBar = TabBar(
       tabs: [
@@ -30,46 +34,60 @@ class LevelScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: WorkOutCubit.get(context)..getTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory),
-  child: BlocConsumer<WorkOutCubit, WorkOutState>(
-  listener: (context, state) {
-  },
-  builder: (context, state) {
-    var workCubit=WorkOutCubit.get(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: GeneralAppBarBlock(title: bodyCategory,),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-       //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
-          state is GetTrainingLoadingState?
-          Expanded(
-            child: Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(color:ColorManager.kBlue,)),
-          ):
-         ListTrainingItemsBlock(trainingModel: workCubit.trainingModel,bodyCategory: bodyCategory,),
-        ],
+      value: workCubit
+        ..getTraining(
+            bodyCategory: bodyCategory, isDailyCategory: isDailyCategory),
+      child: BlocConsumer<WorkOutCubit, WorkOutState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          // var workCubit=WorkOutCubit.get(context);
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: GeneralAppBarBlock(
+              title: bodyCategory,
+            ),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
+                state is GetTrainingLoadingState
+                    ? Expanded(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator(
+                              color: ColorManager.kBlue,
+                            )),
+                      )
+                    : ListTrainingItemsBlock(
+                        trainingModel: workCubit.trainingModel,
+                        bodyCategory: bodyCategory,
+                      ),
+              ],
+            ),
+            floatingActionButton: FloatingActionButtonBlock(
+              function: () {
+                showAlertTrainingBox(
+                    context: context,
+                    workOutCubit: workCubit,
+                    title: S.of(context).addNewTraining,
+                    buttonLable: S.of(context).uploadTraining,
+                    tabBar: trainingTabBar,
+                    tabBarView: workCubit.getTrainingTabBarView(
+                        workOutCubit: workCubit),
+                    trainingPeriod: workCubit.trainingPeriod,
+                    buttonFunction: () {
+                      workCubit.processOfAddingTraining(
+                          bodyCategory: bodyCategory,
+                          isDailyCategory: isDailyCategory);
+                    });
+                workCubit.clearTrainingAttributes();
+                // await pickImage();
+                //await google.uploadFileToGoogleDrive(imageFile!);
+              },
+            ),
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButtonBlock(function: ()  {
-        showAlertTrainingBox(
-            context: context,
-            title: S.of(context).addNewTraining,
-            buttonLable: S.of(context).uploadTraining,
-            tabBar: trainingTabBar,
-            tabBarView: workCubit.TrainingTabBarView,
-            trainingPeriod: workCubit.trainingPeriod,
-            buttonFunction: (){workCubit.processOfAddingTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory);}
-        );
-        workCubit.clearTrainingAttributes();
-        // await pickImage();
-        //await google.uploadFileToGoogleDrive(imageFile!);
-      },),
-
     );
-  },
-),
-);
   }
 }

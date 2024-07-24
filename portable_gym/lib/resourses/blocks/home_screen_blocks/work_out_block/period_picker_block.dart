@@ -17,16 +17,19 @@ import '../../../../generated/l10n.dart';
 class PeriodPickerBlock extends StatelessWidget {
 
     final bool isTrainingDate;
+    final WorkOutCubit workCubit;
 
-    PeriodPickerBlock({this.isTrainingDate=true});
+    PeriodPickerBlock({required this.workCubit,this.isTrainingDate=true});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WorkOutCubit, WorkOutState>(
+    return BlocProvider.value(
+      value: workCubit,
+  child: BlocConsumer<WorkOutCubit, WorkOutState>(
   listener: (context, state) {
   },
   builder: (context, state) {
-    var workCubit=WorkOutCubit.get(context);
+    //var workCubit=WorkOutCubit.get(context);
     return Column(
       children: [
         Text(S.of(context).trainingTime,style: getSemiBoldStyle(fontSize: FontSize.s22, color: ColorManager.kBlackColor, fontFamily: FontFamily.kPoppinsFont),),
@@ -53,7 +56,7 @@ class PeriodPickerBlock extends StatelessWidget {
               TimePickerSpinner(
                 alignment: Alignment.center,
                 locale: Localizations.localeOf(context),
-                time: isTrainingDate? workCubit.trainingPeriod:workCubit.bodyCategoryTotalTime,
+                time: isTrainingDate? workCubit!.trainingPeriod:workCubit!.bodyCategoryTotalTime,
                 isShowSeconds: true,
                 itemHeight: AppVerticalSize.s30,
                 normalTextStyle:  TextStyle(
@@ -64,10 +67,10 @@ class PeriodPickerBlock extends StatelessWidget {
                 isForce2Digits: true,
                 onTimeChange: (time) {
                  if(isTrainingDate) {
-                   workCubit.setTrainingPeriod(date: time);
+                   workCubit!.setTrainingPeriod(date: time);
                  } else
                    {
-                     workCubit.setBodyCategoryTotalTime(date: time);
+                     workCubit!.setBodyCategoryTotalTime(date: time);
                    }
                 },
               ),
@@ -77,6 +80,7 @@ class PeriodPickerBlock extends StatelessWidget {
       ],
     );
   },
+),
 );
   }
 

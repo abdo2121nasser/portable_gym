@@ -38,6 +38,7 @@ class ListBodyPartBlock extends StatelessWidget {
                   onTap: () {
                     Get.to(LevelScreen(
                       bodyCategory: bodyCategoryModel[index].english!.title!,
+                      workCubit: WorkOutCubit.get(context),
                     ));
                   },
                   onLongPress: () {
@@ -46,10 +47,11 @@ class ListBodyPartBlock extends StatelessWidget {
                         model: bodyCategoryModel[index]);
                     showAlertBodyCategoryBox(
                       context: context,
+                      workOutCubit: workCubit,
                       title: S.of(context).editBodyCategory,
                       buttonLable: S.of(context).uploadBodyCategory,
                       tabBar: bodyCategoryTabBar,
-                      tabBarView: workCubit.BodyCategoryTabBarView,
+                      tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit),
                       buttonFunction: () {
                         workCubit.editBodyCategory(
                             docId: bodyCategoryModel[index].docId!);

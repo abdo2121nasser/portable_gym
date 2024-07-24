@@ -38,7 +38,7 @@ class PortableGym extends StatelessWidget {
                   MultiBlocProvider(
                     providers: [
                       BlocProvider(create: (context) => AuthenticationCubit()),
-                      BlocProvider(create: (context) => WorkOutCubit()),
+                     // BlocProvider(create: (context) => WorkOutCubit()),
                      // BlocProvider(create: (context) => NutritionCubit()),
                       BlocProvider(create: (context) => ProgressTrackingCubit()),
                   //    BlocProvider(create: (context) => SetUpCubit()),
@@ -64,3 +64,10 @@ class PortableGym extends StatelessWidget {
     );
   }
 }
+// class NoSplashScrollBehavior extends ScrollBehavior {
+//   @override
+//   Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+//     return child;
+//   }
+
+//}

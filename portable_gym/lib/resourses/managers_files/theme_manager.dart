@@ -14,6 +14,7 @@ import 'font_manager.dart';
 ThemeData getAppTheme()
 {
   return ThemeData(
+
     appBarTheme: const AppBarTheme(
       //backgroundColor: ColorManager.kBlackColor,
       elevation: 0,
