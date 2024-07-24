@@ -17,13 +17,19 @@ import '../general_blocks/general_text_form_field.dart';
 import '../general_blocks/profile_photo_block.dart';
 
 class FillProfileSetUpBlock extends StatelessWidget {
+  final SetUpCubit setCubit;
+
+  FillProfileSetUpBlock({required this.setCubit});
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SetUpCubit, SetUpState>(
+    return BlocProvider.value(
+      value: setCubit,
+  child: BlocConsumer<SetUpCubit, SetUpState>(
       listener: (context, state) {
       },
       builder: (context, state) {
-        var setCubit = SetUpCubit.get(context);
+    //    var setCubit = SetUpCubit.get(context);
         return Column(
           children: [
             Container(
@@ -68,6 +74,7 @@ class FillProfileSetUpBlock extends StatelessWidget {
           ],
         );
       },
-    );
+    ),
+);
   }
 }

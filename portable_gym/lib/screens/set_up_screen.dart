@@ -13,61 +13,62 @@ import '../resourses/managers_files/font_manager.dart';
 import '../resourses/managers_files/style_manager.dart';
 import '../resourses/managers_files/values_manager.dart';
 
-
 class SetUpScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SetUpCubit, SetUpState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var setCubit = SetUpCubit.get(context);
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          //backgroundColor: ColorManager.kBlackColor,
-          appBar: GeneralAppBarBlock(title:  S.of(context).back,),
+    return BlocProvider(
+      create: (context) => SetUpCubit(),
+      child: BlocConsumer<SetUpCubit, SetUpState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var setCubit = SetUpCubit.get(context);
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            //backgroundColor: ColorManager.kBlackColor,
+            appBar: GeneralAppBarBlock(
+              title: S.of(context).back,
+              function: () {
+                setCubit.decrementPageBodyIndex();
+              },
+            ),
 
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(setCubit.getTitle(context: context),
-                  style: getBoldStyle(
-                      fontSize: FontSize.s24,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(setCubit.getTitle(context: context),
+                    style: getBoldStyle(
+                        fontSize: FontSize.s24,
+                        color: ColorManager.kWhiteColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+                //todo list of strings
+                Text(
+                  S.of(context).welcomeDescription,
+                  style: getLightStyle(
+                      fontSize: FontSize.s14,
                       color: ColorManager.kWhiteColor,
-                      fontFamily: FontFamily.kPoppinsFont)),
-              //todo list of strings
-              Text(
-                S
-                    .of(context)
-                    .welcomeDescription,
-                style: getLightStyle(
-                    fontSize: FontSize.s14,
-                    color: ColorManager.kWhiteColor,
-                    fontFamily: FontFamily.kLeagueSpartanFont),
-                textAlign: TextAlign.center,
-              ),
+                      fontFamily: FontFamily.kLeagueSpartanFont),
+                  textAlign: TextAlign.center,
+                ),
 
-              setCubit.pageBody[setCubit.currentPageBodyIndex],
+                setCubit.getPageBody(setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
 
-
-              GeneralButtonBlock(
-                lable: setCubit.getButtonText(context: context),
-                function: () {
-                  setCubit.setUpForwardNavigation(context: context);
-                },
-                backgroundColor: setCubit.getButtonColor(context: context),
-                textStyle: getMediumStyle(
-                    fontSize: FontSize.s24,
-                    color: setCubit.getTextColor(context: context),
-                    fontFamily: FontFamily.kLeagueSpartanFont),
-              ),
-
-            ],
-          ),
-
-        );
-      },
+                GeneralButtonBlock(
+                  lable: setCubit.getButtonText(context: context),
+                  function: () {
+                    setCubit.setUpForwardNavigation(context: context);
+                  },
+                  backgroundColor: setCubit.getButtonColor(context: context),
+                  textStyle: getMediumStyle(
+                      fontSize: FontSize.s24,
+                      color: setCubit.getTextColor(context: context),
+                      fontFamily: FontFamily.kLeagueSpartanFont),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

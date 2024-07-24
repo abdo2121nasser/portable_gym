@@ -26,6 +26,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   SetUpCubit() : super(SetUpInitial());
 
   static SetUpCubit get(context) => BlocProvider.of(context);
+  int currentPageBodyIndex = 0;
 
   // TextEditingController loginEmail = TextEditingController();
   // TextEditingController loginPassword = TextEditingController();
@@ -51,28 +52,31 @@ class SetUpCubit extends Cubit<SetUpState> {
   File? imageFile;
   var imagePicker=ImagePicker();
   //------------------------------------------
-  List<Widget> pageBody = [
-    GenderSetUpBlock(),
-    AgeSetUpBlock(),
-    WeightSetUpBlock(),
-    HeightSetUpBlock(),
-    GoalSetUpBlock(),
-    ActivityLevelSetUpBlock(),
-    FillProfileSetUpBlock()
+ List<Widget>  getPageBody({required SetUpCubit setUpCubit}){
+    return  [
+  GenderSetUpBlock(),
+  AgeSetUpBlock(),
+  WeightSetUpBlock(),
+  HeightSetUpBlock(),
+  GoalSetUpBlock(),
+  ActivityLevelSetUpBlock(),
+  FillProfileSetUpBlock(setCubit: setUpCubit,)
   ];
-  int currentPageBodyIndex = 0;
+  }
   incrementPageBodyIndex() {
     currentPageBodyIndex++;
     emit(IncrementPageBodyIndexState());
   }
 
   decrementPageBodyIndex() {
+    if(currentPageBodyIndex==0) return;
     currentPageBodyIndex--;
     emit(DecrementPageBodyIndexState());
   }
 
   setUpForwardNavigation({required context}) {
     if (currentPageBodyIndex == 6) {
+
     } else {
       incrementPageBodyIndex();
     }
