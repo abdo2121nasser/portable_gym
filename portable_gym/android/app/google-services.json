@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "417250754596",
+    "project_id": "portable-gym-a5cee",
+    "storage_bucket": "portable-gym-a5cee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417250754596:android:54b38b217d421797a898b1",
+        "android_client_info": {
+          "package_name": "com.example.portable_gym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClm92hWD0kGSkPcU-MMitD7QBxom6O9rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
