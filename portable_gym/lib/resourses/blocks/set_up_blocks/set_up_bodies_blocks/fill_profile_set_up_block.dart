@@ -5,16 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
-import '../../../generated/l10n.dart';
-import '../../managers_files/color_manager.dart';
-import '../../managers_files/font_manager.dart';
-import '../../managers_files/image_manager.dart';
-import '../../managers_files/style_manager.dart';
-import '../../managers_files/values_manager.dart';
-import '../general_blocks/full_input_block.dart';
-import '../set_up_blocks/gender_block.dart';
-import '../general_blocks/general_text_form_field.dart';
-import '../general_blocks/profile_photo_block.dart';
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/image_manager.dart';
+import '../../../managers_files/values_manager.dart';
+import '../../general_blocks/full_input_block.dart';
+import '../../general_blocks/profile_photo_block.dart';
+
 
 class FillProfileSetUpBlock extends StatelessWidget {
   final SetUpCubit setCubit;
@@ -59,17 +55,18 @@ class FillProfileSetUpBlock extends StatelessWidget {
                         children: [
                           FullInputBlock(
                             lable: setCubit.getFillProfileInputsLables(
-                                context: context, index: index),
+                                context: context)[index],
                             color: ColorManager.kPurpleColor,
                             controller: setCubit.getFillProfileInputControllers(
-                                context: context, index: index),
+                                context: context)[index],
                           ),
                         ],
                       ),
                   separatorBuilder: (context, index) => SizedBox(
                         height: AppVerticalSize.s10,
                       ),
-                  itemCount: 4),
+                  itemCount: setCubit.getFillProfileInputsLables(
+                      context: context).length),
             ),
           ],
         );

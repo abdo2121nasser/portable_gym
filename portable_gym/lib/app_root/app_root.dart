@@ -48,7 +48,7 @@ class PortableGym extends StatelessWidget {
                     theme: getAppTheme(),
                    // home: MainNavigationBarScreen(),
                     //home: ProfileScreen(),
-                   // home: LoginScreen(),
+                    home: LoginScreen(),
                //     home: SetUpScreen(),
                   ),
             ),

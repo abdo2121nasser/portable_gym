@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
-import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
-import '../../managers_files/color_manager.dart';
-import '../../managers_files/font_manager.dart';
-import '../../managers_files/style_manager.dart';
-import '../../managers_files/values_manager.dart';
+
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/style_manager.dart';
+import '../../../managers_files/values_manager.dart';
 import '../set_up_blocks/weight_ruler_block.dart';
 
 class WeightSetUpBlock extends StatelessWidget {

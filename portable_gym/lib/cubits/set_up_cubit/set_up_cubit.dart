@@ -11,13 +11,14 @@ import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/activity_level_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/age_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/fill_profile_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/gender_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/goal_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/height_set_up_block.dart';
-import '../../resourses/blocks/set_up_bodies_blocks/weight_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/activity_level_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/age_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/fill_profile_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/gender_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/goal_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/height_set_up_block.dart';
+import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/weight_set_up_block.dart';
+
 import '../../resourses/managers_files/enum_manager.dart';
 
 part 'set_up_state.dart';
@@ -27,20 +28,11 @@ class SetUpCubit extends Cubit<SetUpState> {
 
   static SetUpCubit get(context) => BlocProvider.of(context);
   int currentPageBodyIndex = 0;
-
-  // TextEditingController loginEmail = TextEditingController();
-  // TextEditingController loginPassword = TextEditingController();
-  // TextEditingController registerEmail = TextEditingController();
-  // TextEditingController registerName = TextEditingController();
-  // TextEditingController registerPassword = TextEditingController();
-  // TextEditingController registerConfirmPassword = TextEditingController();
-  // TextEditingController forgetPasswordEmail = TextEditingController();
-  //----------------------------------------------------------
   RulerPickerController WeightController = RulerPickerController(value: 60);
   WeightSliderController heightController = WeightSliderController(
       initialWeight: 160, minWeight: 0, interval: 1, maxWeight: 220);
 
-  int age = 30;
+  int age = 31;
   int weight = 60;
   int height = 160;
   Gender gender = Gender.male;
@@ -162,24 +154,26 @@ class SetUpCubit extends Cubit<SetUpState> {
     emit(ChangeGenderState());
   }
 
-  getFillProfileInputsLables({required context,required int index}) {
-    List<String> lables = [
-      S.of(context).fullName,
+  getFillProfileInputsLables({required context,}) {
+   return [
+   //   S.of(context).fullName,
       S.of(context).nickName,
-      S.of(context).email,
+ //     S.of(context).email,
+      //todo uncommit it
       S.of(context).phone,
     ];
-    return lables[index];
   }
-  getFillProfileInputControllers({required context,required int index}) {
+  getFillProfileInputControllers({required context,}) {
 
-    List<TextEditingController> inputControllers = [
-      AuthenticationCubit.get(context).registerName,
+   return  [
+    //  AuthenticationCubit.get(context).registerName,
       nickName,
-      AuthenticationCubit.get(context).registerEmail,
+   //   AuthenticationCubit.get(context).registerEmail,
+      //todo uncommit it
+
       phone
     ];
-    return inputControllers[index];
+
   }
 
 

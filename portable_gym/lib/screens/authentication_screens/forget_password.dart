@@ -30,7 +30,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             //backgroundColor: ColorManager.kBlackColor,
             appBar: GeneralAppBarBlock(
-              title: S.of(context).login,
+              title: S.of(context).forgottenPassword,
               titleColor: ColorManager.kLimeGreenColor,
             ),
             body: Column(
@@ -68,20 +68,21 @@ class ForgetPasswordScreen extends StatelessWidget {
                       ),
 
                       SizedBox(
-                        height: AppVerticalSize.s14,
+                        height: AppVerticalSize.s30,
                       ),
 
-                      SizedBox(
-                        height: AppVerticalSize.s14,
-                      ),
+
                       // Text('Welcome',
                       //     style: getBoldStyle(fontSize: FontSize.s20, color: ColorManager.kWhiteColor, fontFamily: FontFamily.kPoppinsFont)),
                     ],
                   ),
                 ),
+              state is ForgetPasswordLoadingState?const CircularProgressIndicator():
                 GeneralButtonBlock(
                   lable: S.of(context).resetPassword,
-                  function: () {},
+                  function: () {
+                    authCubit.forgetPassword(context: context);
+                  },
                   backgroundColor: ColorManager.kBlackColor,
                   textStyle: getBoldStyle(
                       fontSize: FontSize.s18,

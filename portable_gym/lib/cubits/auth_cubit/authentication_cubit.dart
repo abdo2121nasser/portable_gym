@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
+import 'package:portable_gym/screens/set_up_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
@@ -15,7 +18,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   TextEditingController loginEmail = TextEditingController();
   TextEditingController loginPassword = TextEditingController();
   TextEditingController registerEmail = TextEditingController();
-  TextEditingController registerName = TextEditingController();
+  // TextEditingController registerName = TextEditingController();
   TextEditingController registerPassword = TextEditingController();
   TextEditingController registerConfirmPassword = TextEditingController();
   TextEditingController forgetPasswordEmail = TextEditingController();
@@ -39,15 +42,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return StringManager.trueWord;
   }
 
-  String nameValidation({required String name, required context}) {
-    if (!registerName.text.isNotEmpty) {
-      return S.of(context).theNameFieldIsEmpty;
-    } else if (registerName.text
-        .contains(RegExp(StringManager.nameExpression))) {
-      return S.of(context).nameFieldShouldNotContainNumbers;
-    } else
-      return StringManager.trueWord;
-  }
+  // String nameValidation({required String name, required context}) {
+  //   if (!registerName.text.isNotEmpty) {
+  //     return S.of(context).theNameFieldIsEmpty;
+  //   } else if (registerName.text
+  //       .contains(RegExp(StringManager.nameExpression))) {
+  //     return S.of(context).nameFieldShouldNotContainNumbers;
+  //   } else
+  //     return StringManager.trueWord;
+  // }
 
   confirmPasswordValidation({required context}) {
     if (registerPassword.text != registerConfirmPassword.text) {
@@ -57,6 +60,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
   //---------------------------validation----------------------------------
+
+  clearLoginControllers(){
+    loginEmail.clear();
+    loginPassword.clear();
+    emit(ClearLoginControllers());
+  }
 
   bool loginValidation({required context}) {
     if (emailValidation(email: loginEmail.text, context: context) ==
@@ -81,27 +90,51 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
-  void loginPreprocess({required context}) {
+  void loginProcess({required context}) {
     if (loginValidation(context: context) == true) {
-      //todo add login function
+      login(context: context);
     } else {
       getToastMessage(message: getLoginError(context: context));
     }
   }
 
-  login() {}
+  login({required context}) async {
+    emit(LoginLoadingState());
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: loginEmail.text,
+      password: loginPassword.text,
+    ).then((value)
+    {
+      getToastMessage(message: S.of(context).success);
+      emit(LoginSuccessState());
+      Get.to(SetUpScreen());
+    }).catchError((error)
+    {
+      emit(LoginErrorState());
+      getToastMessage(message: S.of(context).somethingWentWrong);
+
+      debugPrint(error);
+    });
+    clearLoginControllers();
+  }
 
   //-----------------------------login------------------------------------------
 
-
+  clearRegisterControllers(){
+    registerEmail.clear();
+    registerPassword.clear();
+    //registerName.clear();
+    registerConfirmPassword.clear();
+    emit(ClearRegisterControllers());
+  }
 
   bool registerValidation({required context}) {
     if (emailValidation(email: registerEmail.text, context: context) ==
             StringManager.trueWord &&
         passwordValidation(password: registerPassword.text, context: context) ==
             StringManager.trueWord &&
-        nameValidation(name: registerName.text, context: context) ==
-            StringManager.trueWord &&
+      //  nameValidation(name: registerName.text, context: context) ==StringManager.trueWord &&
+
         confirmPasswordValidation(context: context) == StringManager.trueWord) {
       return true;
     } else {
@@ -114,13 +147,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         emailValidation(email: registerEmail.text, context: context);
     String passwordError =
         passwordValidation(password: registerPassword.text, context: context);
-    String nameError =
-        nameValidation(name: registerName.text, context: context);
+   // String nameError =nameValidation(name: registerName.text, context: context);
     String confirmPasswordError = confirmPasswordValidation(context: context);
 
-    if (nameError != StringManager.trueWord) {
-      return nameError;
-    } else if (emailError != StringManager.trueWord) {
+    // if (nameError != StringManager.trueWord) {
+    //   return nameError;
+    // } else
+      if (emailError != StringManager.trueWord) {
       return emailError;
     } else if (passwordError != StringManager.trueWord) {
       return passwordError;
@@ -129,27 +162,60 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
-  void registerPreprocess({required context}) {
+  void registerProcess({required context}) {
     if (registerValidation(context: context) == true) {
-      //todo add register function
-      // todo add create profile
+             register(context: context);
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
   }
-  register(){}
+  register({required context}) async {
+
+    emit(RegisterLoadingState());
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: registerEmail.text,
+      password: registerPassword.text,
+    ).then((value)
+     {
+
+      getToastMessage(message: S.of(context).success);
+      emit(RegisterSuccessState());
+      Get.to(SetUpScreen());
+
+     }).catchError((error)
+    {
+      getToastMessage(message: S.of(context).somethingWentWrong);
+      emit(RegisterErrorState());
+      debugPrint(error);
+    });
+   clearRegisterControllers();
+  }
 
 
 //------------------------------register----------------------------------------
 
   void forgetPasswordPreprocess({required context}) {
     if (emailValidation(email: forgetPasswordEmail.text,context: context) == true) {
-      //todo add forget password function
+      forgetPassword(context: context);
     } else {
       getToastMessage(message: emailValidation(email: forgetPasswordEmail.text,context: context) );
     }
   }
-  forgetPassword(){}
+  forgetPassword({required context}) async {
+    emit(ForgetPasswordLoadingState());
+    await FirebaseAuth.instance.sendPasswordResetEmail(email:forgetPasswordEmail.text)
+        .then((value) {
+      emit(ForgetPasswordSuccessState());
+      getToastMessage(message: S.of(context).success);
+    })
+        .catchError((error){
+      emit(ForgetPasswordErrorState());
+      getToastMessage(message: S.of(context).somethingWentWrong);
+      debugPrint(error);
+
+    });
+    forgetPasswordEmail.clear();
+  }
 //-----------------------------forgetPassword-----------------------------------
 
 

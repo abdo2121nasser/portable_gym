@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../managers_files/color_manager.dart';
-import '../../managers_files/image_manager.dart';
-import '../../managers_files/values_manager.dart';
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/values_manager.dart';
+
+
 
 class GenderBlock extends StatelessWidget {
   final String image;

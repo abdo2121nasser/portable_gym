@@ -113,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                state is LoginLoadingState? const CircularProgressIndicator():
                 GeneralButtonBlock(
                   lable: S.of(context).login,
                   width: AppHorizontalSize.s178,
@@ -123,9 +124,7 @@ class LoginScreen extends StatelessWidget {
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont),
                   function: () {
-                    //Get.to(SetUpScreen());
-
-                    authCubit.loginPreprocess(context: context);
+                    authCubit.loginProcess(context: context);
                   },
                 ),
 
@@ -134,6 +133,7 @@ class LoginScreen extends StatelessWidget {
                 //         fontSize: FontSize.s12,
                 //         color: ColorManager.kWhiteColor,
                 //         fontFamily: FontFamily.kPoppinsFont)),
+                state is LoginLoadingState?const SizedBox():
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

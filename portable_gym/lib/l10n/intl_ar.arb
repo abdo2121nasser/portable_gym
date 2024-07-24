@@ -42,15 +42,17 @@
   "theNameFieldIsEmpty" : "مكان الاسم فارغ!!",
   "nameFieldShouldNotContainNumbers" : "يجب علي الاسم الا يحتوي علي ارقام",
   "confirmPasswordIsNotEqualToPassword": "كلمه المرور لا تطابق تأكيد كلمه المور!!",
+  "somethingWentWrong": "حدث خطأ ما",
+  "success": "تم بنجاح",
 
   "nickName": "اللقب",
   "phone": "رقم الهاتف",
 
   "subTitle": "انه الوقت لتتحدي حدودك",
 
-    "myProfile": "ملفي الشخصي",
-    "settings": "الاعدادات",
-    "logout": "تسجيل الخروج",
+  "myProfile": "ملفي الشخصي",
+  "settings": "الاعدادات",
+  "logout": "تسجيل الخروج",
   "birthDate": "تاريخ الميلاد",
   "weight": "الوزن",
   "height": "الطول",

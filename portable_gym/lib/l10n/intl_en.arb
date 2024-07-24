@@ -37,6 +37,8 @@
   "theNameFieldIsEmpty": "the name field is empty!!",
   "nameFieldShouldNotContainNumbers": "name field should not contain numbers",
   "confirmPasswordIsNotEqualToPassword": "confirm password is not equal to password!!",
+  "somethingWentWrong": "Something Went Wrong",
+  "success": "Success",
   "nickName": "Nickname",
   "phone": "Phone",
   "subTitle": "It's time to challenge your limits.",

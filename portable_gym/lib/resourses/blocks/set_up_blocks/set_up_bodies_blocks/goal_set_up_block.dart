@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../managers_files/color_manager.dart';
-import '../../managers_files/font_manager.dart';
-import '../../managers_files/image_manager.dart';
-import '../../managers_files/style_manager.dart';
-import '../../managers_files/values_manager.dart';
+
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/values_manager.dart';
 import '../set_up_blocks/age_picker_block.dart';
 import '../set_up_blocks/gender_block.dart';
 import '../set_up_blocks/goal_choice_block.dart';

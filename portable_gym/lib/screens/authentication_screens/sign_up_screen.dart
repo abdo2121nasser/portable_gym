@@ -1,24 +1,16 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
-import '../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/full_input_block.dart';
 import '../../resourses/blocks/general_blocks/general_button_block.dart';
-import '../set_up_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   final AuthenticationCubit authCubit;
@@ -62,11 +54,11 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FullInputBlock(
-                        lable: S.of(context).fullName,
-                        color: ColorManager.kBlackColor,
-                        controller: authCubit.registerName,
-                      ),
+                      // FullInputBlock(
+                      //   lable: S.of(context).fullName,
+                      //   color: ColorManager.kBlackColor,
+                      //   controller: authCubit.registerName,
+                      // ),
                       SizedBox(
                         height: AppVerticalSize.s14,
                       ),
@@ -97,14 +89,15 @@ class SignUpScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                state is RegisterLoadingState?const CircularProgressIndicator():
                 GeneralButtonBlock(
                   lable: S.of(context).signUp,
                   width: AppHorizontalSize.s178,
                   hight: AppVerticalSize.s44,
                   function: () {
-                     authCubit.registerPreprocess(context: context);
+                     authCubit.registerProcess(context: context);
+                  //  Get.to(SetUpScreen());
 
-                   // Get.to(SetUpScreen());
                   },
                   backgroundColor: ColorManager.kBlackColor,
                   textStyle: getBoldStyle(
@@ -117,6 +110,7 @@ class SignUpScreen extends StatelessWidget {
                 //         fontSize: FontSize.s12,
                 //         color: ColorManager.kWhiteColor,
                 //         fontFamily: FontFamily.kPoppinsFont)),
+                state is RegisterLoadingState?const SizedBox():
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

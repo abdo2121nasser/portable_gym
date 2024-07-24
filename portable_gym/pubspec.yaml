@@ -66,6 +66,7 @@ dependencies:
   permission_handler: ^10.2.0
   sensors: ^2.0.0
   sensors_plus: ^2.0.1
+  firebase_auth: ^4.16.0
 
 
 dev_dependencies:
@@ -127,3 +128,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true

@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
-import '../../managers_files/enum_manager.dart';
-import '../../managers_files/image_manager.dart';
+
+import '../../../managers_files/enum_manager.dart';
+import '../../../managers_files/image_manager.dart';
 import '../set_up_blocks/gender_block.dart';
 
 class GenderSetUpBlock extends StatelessWidget {
