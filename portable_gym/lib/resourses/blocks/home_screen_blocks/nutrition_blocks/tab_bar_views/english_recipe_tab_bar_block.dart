@@ -9,28 +9,36 @@ import '../grid_meal_types_block.dart';
 import '../list_recipe_input_block.dart';
 
 class EnglishRecipeTabBarBlock extends StatelessWidget {
+  NutritionCubit nutCubit;
+
+  EnglishRecipeTabBarBlock({required this.nutCubit});
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NutritionCubit, NutritionState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var nutCubit = NutritionCubit.get(context);
-        return Column(
-          children: [
-            ListRecipeInputBlock(
-              controllers: nutCubit.getEnglishRecipeControllers(),
-              lables: nutCubit.getEnglishRecipeLables(),
-            ),
-            GridMealTypesBlock(
-              lables: nutCubit.getEnglishMealTypeCheckBoxesLables(),
-              values: nutCubit.mealTypeCheckBoxes,
-              function: (int index, bool value) {
-                nutCubit.changeMealTypeCheckBoxesValues(index: index, value: value);
-              },
-            )
-          ],
-        );
-      },
+    return BlocProvider.value(
+      value: nutCubit,
+      child: BlocConsumer<NutritionCubit, NutritionState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var nutCubit = NutritionCubit.get(context);
+          return Column(
+            children: [
+              ListRecipeInputBlock(
+                controllers: nutCubit.getEnglishRecipeControllers(),
+                lables: nutCubit.getEnglishRecipeLables(),
+              ),
+              GridMealTypesBlock(
+                lables: nutCubit.getEnglishMealTypeCheckBoxesLables(),
+                values: nutCubit.mealTypeCheckBoxes,
+                function: (int index, bool value) {
+                  nutCubit.changeMealTypeCheckBoxesValues(
+                      index: index, value: value);
+                },
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

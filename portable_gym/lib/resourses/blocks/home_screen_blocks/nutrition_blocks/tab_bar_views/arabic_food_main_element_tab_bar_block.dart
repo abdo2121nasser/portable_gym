@@ -7,30 +7,36 @@ import '../../../../managers_files/string_manager.dart';
 import '../../../general_blocks/full_input_block.dart';
 
 
-
-
 class ArabicFoodMainElementTabBarBlock extends StatelessWidget {
-  const ArabicFoodMainElementTabBarBlock({super.key});
+  NutritionCubit nutCubit;
+
+  ArabicFoodMainElementTabBarBlock({required this.nutCubit});
 
   @override
   Widget build(BuildContext context) {
-    return  BlocConsumer<NutritionCubit, NutritionState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var nutCubit = NutritionCubit.get(context);
-        return Column(
-          children: [
-            FullInputBlock(lable: StringManager.arabicFoodMainElementTitle, color: ColorManager.kBlackColor,
-                enableBorder: true,
-                isArabicTabView: true,
-                controller: nutCubit.arabicMainElementTitleController) ,
-            FullInputBlock(lable:  StringManager.arabicFoodMainElementDescription, color: ColorManager.kBlackColor,
-                enableBorder: true,
-                isArabicTabView: true,
-                controller: nutCubit.arabicMainElementDescriptionController) ,
-          ],
-        );
-      },
+    return BlocProvider.value(
+       value: nutCubit,
+      child: BlocConsumer<NutritionCubit, NutritionState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          //   var nutCubit = NutritionCubit.get(context);
+          return Column(
+            children: [
+              FullInputBlock(lable: StringManager.arabicFoodMainElementTitle,
+                  color: ColorManager.kBlackColor,
+                  enableBorder: true,
+                  isArabicTabView: true,
+                  controller: nutCubit.arabicMainElementTitleController),
+              FullInputBlock(
+                  lable: StringManager.arabicFoodMainElementDescription,
+                  color: ColorManager.kBlackColor,
+                  enableBorder: true,
+                  isArabicTabView: true,
+                  controller: nutCubit.arabicMainElementDescriptionController),
+            ],
+          );
+        },
+      ),
     );
   }
 }

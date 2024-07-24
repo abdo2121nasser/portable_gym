@@ -39,7 +39,7 @@ class PortableGym extends StatelessWidget {
                     providers: [
                       BlocProvider(create: (context) => AuthenticationCubit()),
                       BlocProvider(create: (context) => WorkOutCubit()),
-                      BlocProvider(create: (context) => NutritionCubit()),
+                     // BlocProvider(create: (context) => NutritionCubit()),
                       BlocProvider(create: (context) => ProgressTrackingCubit()),
                   //    BlocProvider(create: (context) => SetUpCubit()),
 

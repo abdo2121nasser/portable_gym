@@ -15,7 +15,9 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
 class FoodMainElementScreen extends StatelessWidget {
-  const FoodMainElementScreen({super.key});
+         NutritionCubit nutCubit;
+
+         FoodMainElementScreen({required this.nutCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class FoodMainElementScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: NutritionCubit.get(context)..getFoodMainElement(),
+      value: nutCubit..getFoodMainElement(),
       child: BlocConsumer<NutritionCubit, NutritionState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var nutCubit = NutritionCubit.get(context);
+         // var nutCubit = NutritionCubit.get(context);
           return Scaffold(
             appBar: GeneralAppBarBlock(title: S.of(context).foodMainElement),
             body: Column(
@@ -90,7 +92,7 @@ class FoodMainElementScreen extends StatelessWidget {
                             showAlertFoodMainElementBox(
                                 context: context,
                                 tabBar: foodMainElementTabBar,
-                                tabBarView: nutCubit.foodMainElementTabBarViews,
+                                tabBarView: nutCubit.getFoodMainElementTabBarViews(nutritionCubit: nutCubit),
                                 buttonFunction: (){
                                   nutCubit.editFoodMainElement(docId: nutCubit.foodElementModels[index].docId);
                                 },
@@ -121,7 +123,7 @@ class FoodMainElementScreen extends StatelessWidget {
                 showAlertFoodMainElementBox(
                     context: context,
                     tabBar: foodMainElementTabBar,
-                    tabBarView: nutCubit.foodMainElementTabBarViews,
+                    tabBarView: nutCubit.getFoodMainElementTabBarViews(nutritionCubit: nutCubit),
                     buttonFunction: nutCubit.addNewFoodMainElement,
                     title: S.of(context).foodMainElement,
                     buttonLable: S.of(context).add);

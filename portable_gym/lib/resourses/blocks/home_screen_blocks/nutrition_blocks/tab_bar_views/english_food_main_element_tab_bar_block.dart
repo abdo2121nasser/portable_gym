@@ -7,27 +7,35 @@ import '../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
 import '../../../../managers_files/color_manager.dart';
 
 
-
 class EnglishFoodMainElementTabBarBlock extends StatelessWidget {
-  const EnglishFoodMainElementTabBarBlock({super.key});
+  NutritionCubit nutCubit;
+
+
+  EnglishFoodMainElementTabBarBlock({required this.nutCubit});
 
   @override
   Widget build(BuildContext context) {
-    return  BlocConsumer<NutritionCubit, NutritionState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var nutCubit = NutritionCubit.get(context);
-        return Column(
-          children: [
-          FullInputBlock(lable: StringManager.englishFoodMainElementTitle, color: ColorManager.kBlackColor,
-               enableBorder: true,
-               controller: nutCubit.englishMainElementTitleController) ,
-            FullInputBlock(lable: StringManager.englishFoodMainElementDescription, color: ColorManager.kBlackColor,
-               enableBorder: true,
-               controller: nutCubit.englishMainElementDescriptionController) ,
-          ],
-        );
-      },
+    return BlocProvider.value(
+value: nutCubit,
+      child: BlocConsumer<NutritionCubit, NutritionState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          //var nutCubit = NutritionCubit.get(context);
+          return Column(
+            children: [
+              FullInputBlock(lable: StringManager.englishFoodMainElementTitle,
+                  color: ColorManager.kBlackColor,
+                  enableBorder: true,
+                  controller: nutCubit.englishMainElementTitleController),
+              FullInputBlock(
+                  lable: StringManager.englishFoodMainElementDescription,
+                  color: ColorManager.kBlackColor,
+                  enableBorder: true,
+                  controller: nutCubit.englishMainElementDescriptionController),
+            ],
+          );
+        },
+      ),
     );
   }
 }

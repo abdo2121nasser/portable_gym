@@ -29,12 +29,12 @@ class NutritionCubit extends Cubit<NutritionState> {
   List<RecipeModel> recipeModels = [];
   List<FoodElementModel> foodElementModels=[];
 
-  TabBarView recipeTabBarViews = TabBarView(
-      children: [EnglishRecipeTabBarBlock(), ArabicRecipeTabBarBlock()]);
-  TabBarView foodMainElementTabBarViews = TabBarView(children: [
-    EnglishFoodMainElementTabBarBlock(),
-    ArabicFoodMainElementTabBarBlock()
-  ]);
+  // TabBarView recipeTabBarViews = TabBarView(
+  //     children: [EnglishRecipeTabBarBlock(), ArabicRecipeTabBarBlock()]);
+  // TabBarView foodMainElementTabBarViews = TabBarView(children: [
+  //   EnglishFoodMainElementTabBarBlock(),
+  //   ArabicFoodMainElementTabBarBlock()
+  // ]);
 
   List<Widget> planBodies = [MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
@@ -68,6 +68,19 @@ class NutritionCubit extends Cubit<NutritionState> {
   TextEditingController arabicMainElementDescriptionController = TextEditingController();
 
 
+ TabBarView getFoodMainElementTabBarViews({required NutritionCubit nutritionCubit}) {
+    return TabBarView(children: [
+      EnglishFoodMainElementTabBarBlock(nutCubit: nutritionCubit),
+      ArabicFoodMainElementTabBarBlock(nutCubit: nutritionCubit,)
+    ]);
+  }
+ TabBarView getRecipeTabBarViews({required NutritionCubit nutritionCubit}) {
+   return TabBarView(
+       children: [
+         EnglishRecipeTabBarBlock(nutCubit: nutritionCubit),
+         ArabicRecipeTabBarBlock(nutCubit: nutritionCubit,)
+       ]);
+  }
 
   getMealPlaneLabel({context}) {
     List<String> lables = [

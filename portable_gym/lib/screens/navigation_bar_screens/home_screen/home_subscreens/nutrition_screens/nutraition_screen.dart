@@ -29,21 +29,23 @@ class NutritionScreen extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocConsumer<NutritionCubit, NutritionState>(
+    return BlocProvider(
+  create: (context) => NutritionCubit(),
+  child: BlocConsumer<NutritionCubit, NutritionState>(
       listener: (context, state) {},
       builder: (context, state) {
         var nutCubit = NutritionCubit.get(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: ColorManager.kBlackColor,
-          appBar: GeneralAppBarBlock(title:   S.of(context).nutrition,
+          appBar: GeneralAppBarBlock(title:S.of(context).nutrition,
          actions:  [
            Padding(
              padding:
              EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
              child: InkWell(
                  onTap: () {
-                   Get.to(FoodMainElementScreen());
+                   Get.to(FoodMainElementScreen(nutCubit: nutCubit,));
                  },
                  child: Icon(
                    Icons.psychology_rounded,
@@ -69,7 +71,7 @@ class NutritionScreen extends StatelessWidget {
               showAlertRecipeBox(
                   context: context,
                   tabBar: recipeTabBar,
-                  tabBarView: nutCubit.recipeTabBarViews,
+                  tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
                   buttonFunction: nutCubit.processOfAddRecipes,
                   title: S.of(context).recipe,
                   buttonLable:  S.of(context).addRecipe);
@@ -77,6 +79,7 @@ class NutritionScreen extends StatelessWidget {
           ):null,
         );
       },
-    );
+    ),
+);
   }
 }

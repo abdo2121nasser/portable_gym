@@ -53,7 +53,7 @@ class MealIdeaBodyBlock extends StatelessWidget {
                   deleteFunction: (docId){
                     nutCubit.deleteRecipe(docId: docId);
                   },
-                  tabBarView: nutCubit.recipeTabBarViews,
+                  tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
                 ),
               ],
             ),
