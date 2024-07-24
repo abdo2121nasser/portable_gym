@@ -39,6 +39,25 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return StringManager.trueWord;
   }
 
+  String nameValidation({required String name, required context}) {
+    if (!registerName.text.isNotEmpty) {
+      return S.of(context).theNameFieldIsEmpty;
+    } else if (registerName.text
+        .contains(RegExp(StringManager.nameExpression))) {
+      return S.of(context).nameFieldShouldNotContainNumbers;
+    } else
+      return StringManager.trueWord;
+  }
+
+  confirmPasswordValidation({required context}) {
+    if (registerPassword.text != registerConfirmPassword.text) {
+      return S.of(context).confirmPasswordIsNotEqualToPassword;
+    } else {
+      return StringManager.trueWord;
+    }
+  }
+  //---------------------------validation----------------------------------
+
   bool loginValidation({required context}) {
     if (emailValidation(email: loginEmail.text, context: context) ==
             StringManager.trueWord &&
@@ -74,23 +93,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   //-----------------------------login------------------------------------------
 
-  String nameValidation({required String name, required context}) {
-    if (!registerName.text.isNotEmpty) {
-      return S.of(context).theNameFieldIsEmpty;
-    } else if (registerName.text
-        .contains(RegExp(StringManager.nameExpression))) {
-      return S.of(context).nameFieldShouldNotContainNumbers;
-    } else
-      return StringManager.trueWord;
-  }
 
-  confirmPasswordValidation({required context}) {
-    if (registerPassword.text != registerConfirmPassword.text) {
-      return S.of(context).confirmPasswordIsNotEqualToPassword;
-    } else {
-      return StringManager.trueWord;
-    }
-  }
 
   bool registerValidation({required context}) {
     if (emailValidation(email: registerEmail.text, context: context) ==

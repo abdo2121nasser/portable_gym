@@ -12,10 +12,14 @@ class GeneralAppBarBlock extends StatelessWidget implements PreferredSizeWidget 
   final Color backgroundColor;
   final Color titleColor;
   final VoidCallback? function;
+  final bool centerTitle;
+  final bool haveReturnArrow;
 
   GeneralAppBarBlock({required this.title,
     this.actions=const [],
     this.function,
+    this.centerTitle=false,
+    this.haveReturnArrow=true,
     this.titleColor=ColorManager.kPurpleColor,
     this.backgroundColor= ColorManager.kBlackColor});
 
@@ -25,23 +29,24 @@ class GeneralAppBarBlock extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor:backgroundColor,
       leadingWidth: 0,
       automaticallyImplyLeading: false,
+      centerTitle: centerTitle,
       title: InkWell(
-        onTap: () {
+        onTap:haveReturnArrow? () {
           if(function==null) {
             Get.back();
           } else
             {
               function!();
             }
-        },
+        } :null,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Icon(
+           haveReturnArrow? const Icon(
               Icons.arrow_left,
               color: ColorManager.kLimeGreenColor,
-            ),
+            ):const SizedBox(),
             Flexible(
               child: Text(
                title,
@@ -59,5 +64,5 @@ class GeneralAppBarBlock extends StatelessWidget implements PreferredSizeWidget 
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

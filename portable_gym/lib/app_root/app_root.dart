@@ -35,29 +35,20 @@ class PortableGym extends StatelessWidget {
             child: ScreenUtilInit(
               designSize: const Size(393, 852),
               builder: (context, child) =>
-                  MultiBlocProvider(
-                    providers: [
-                      BlocProvider(create: (context) => AuthenticationCubit()),
-                     // BlocProvider(create: (context) => WorkOutCubit()),
-                     // BlocProvider(create: (context) => NutritionCubit()),
-                      BlocProvider(create: (context) => ProgressTrackingCubit()),
-                  //    BlocProvider(create: (context) => SetUpCubit()),
-
+                  GetMaterialApp(
+                    locale: const Locale('en'),
+                    localizationsDelegates: const [
+                      S.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
                     ],
-                    child: GetMaterialApp(
-                      locale: const Locale('en'),
-                      localizationsDelegates: const [
-                        S.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: S.delegate.supportedLocales,
-                      debugShowCheckedModeBanner: false,
-                      theme: getAppTheme(),
-                      home: MainNavigationBarScreen(),
-                      //home: ProfileScreen(),
-                    ),
+                    supportedLocales: S.delegate.supportedLocales,
+                    debugShowCheckedModeBanner: false,
+                    theme: getAppTheme(),
+                   // home: MainNavigationBarScreen(),
+                    //home: ProfileScreen(),
+                    home: LoginScreen(),
                   ),
             ),
           ),

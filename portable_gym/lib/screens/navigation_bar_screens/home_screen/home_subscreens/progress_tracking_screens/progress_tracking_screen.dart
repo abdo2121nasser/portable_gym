@@ -16,32 +16,38 @@ import '../../../../../resourses/managers_files/values_manager.dart';
 class ProgressTrackingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProgressTrackingCubit, ProgressTrackingState>(
-      listener: (context, state) {
-      },
-      builder: (context, state) {
-        var progCubit = ProgressTrackingCubit.get(context);
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: ColorManager.kBlackColor,
-          appBar: GeneralAppBarBlock(title: S.of(context).progressTrack),
-          body: Column(
-            children: [
-              HorizontalCategoryListBlock(
-                  currentLevel: progCubit.currentBodyLevel,
-                  numberOfLevels: progCubit.getBodyLevelLables(context).length,
-                  lables: progCubit.getBodyLevelLables(context),
-                  changeLevel: (index) {
-                    progCubit.changeCurrentBodyIndex(index: index);
-                  }),
-              SizedBox(
-                height: AppVerticalSize.s10,
-              ),
-              progCubit.bodies[progCubit.currentBodyLevel],
-            ],
-          ),
-        );
-      },
+    return BlocProvider(
+      create: (context) => ProgressTrackingCubit(),
+      child: BlocConsumer<ProgressTrackingCubit, ProgressTrackingState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var progCubit = ProgressTrackingCubit.get(context);
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: ColorManager.kBlackColor,
+            appBar: GeneralAppBarBlock(title: S
+                .of(context)
+                .progressTrack),
+            body: Column(
+              children: [
+                HorizontalCategoryListBlock(
+                    currentLevel: progCubit.currentBodyLevel,
+                    numberOfLevels: progCubit
+                        .getBodyLevelLables(context)
+                        .length,
+                    lables: progCubit.getBodyLevelLables(context),
+                    changeLevel: (index) {
+                      progCubit.changeCurrentBodyIndex(index: index);
+                    }),
+                SizedBox(
+                  height: AppVerticalSize.s10,
+                ),
+                progCubit.bodies[progCubit.currentBodyLevel],
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
