@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -24,32 +25,7 @@ class ExerciseScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
-      appBar: AppBar(
-        backgroundColor: ColorManager.kBlackColor,
-        leadingWidth: MediaQuery.of(context).size.width ,
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.arrow_left,
-                color: ColorManager.kLimeGreenColor,
-              ),
-              Expanded(
-                child: Text(
-                  languageModel.name.toString(),
-                  style: getBoldStyle(
-                      fontSize: FontSize.s20,
-                      color: ColorManager.kPurpleColor,
-                      fontFamily: FontFamily.kPoppinsFont),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: GeneralAppBarBlock(title: languageModel.name.toString(),),
          body: Column(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
            children: [

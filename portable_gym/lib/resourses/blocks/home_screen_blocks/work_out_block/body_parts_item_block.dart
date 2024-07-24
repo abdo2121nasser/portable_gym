@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
-import '../../../managers_files/google_drive_function_manager.dart';
-import '../../../managers_files/image_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/body_category_model.dart';
@@ -36,23 +34,16 @@ class BodyPartItemBlock extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.49,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.38,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          languageModel.title!,
-                          textAlign: TextAlign.center,
-                          style: getMediumStyle(
-                              fontSize: FontSize.s18,
-                              color: ColorManager.kBlackColor,
-                              fontFamily: FontFamily.kPoppinsFont),
-                        ),
-                      ),
-                    ],
+                Flexible(
+                  child: Text(
+                    languageModel.title!,
+                    textAlign: TextAlign.center,
+                    style: getMediumStyle(
+                        fontSize: FontSize.s18,
+                        color: ColorManager.kBlackColor,
+                        fontFamily: FontFamily.kPoppinsFont),
                   ),
                 ),
                 Wrap(

@@ -20,7 +20,7 @@ class FoodMainElementBlock extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s18,
+          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30,
           vertical: AppVerticalSize.s10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppRadiusSize.s22),
@@ -29,7 +29,7 @@ class FoodMainElementBlock extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              Flexible(
                 child: Text(
                  title,
                   style: getSemiBoldStyle(
@@ -45,7 +45,7 @@ class FoodMainElementBlock extends StatelessWidget {
 Align(
     alignment: Alignment.topRight,
     child: Padding(
-      padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5,vertical: AppVerticalSize.s10),
+      padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5,vertical: AppVerticalSize.s14),
       child: InkWell(
           onTap: deleteFunction,
           child: Icon(Icons.delete,color: ColorManager.kRed,)),

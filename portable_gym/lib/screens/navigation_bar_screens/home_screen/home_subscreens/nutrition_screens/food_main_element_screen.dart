@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/floating_action_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -34,32 +35,7 @@ class FoodMainElementScreen extends StatelessWidget {
         builder: (context, state) {
           var nutCubit = NutritionCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: ColorManager.kBlackColor,
-              leadingWidth: AppHorizontalSize.s250,
-              leading: InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.arrow_left,
-                      color: ColorManager.kLimeGreenColor,
-                    ),
-                    Expanded(
-                      child: Text(
-                        S.of(context).foodMainElement,
-                        style: getBoldStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kPurpleColor,
-                            fontFamily: FontFamily.kPoppinsFont),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            appBar: GeneralAppBarBlock(title: S.of(context).foodMainElement),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,6 +116,8 @@ class FoodMainElementScreen extends StatelessWidget {
             ),
             floatingActionButton: FloatingActionButtonBlock(
               function: () {
+                nutCubit.clearFoodMainElementAttributes();
+
                 showAlertFoodMainElementBox(
                     context: context,
                     tabBar: foodMainElementTabBar,

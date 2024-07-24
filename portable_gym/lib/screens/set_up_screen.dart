@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../generated/l10n.dart';
 import '../resourses/blocks/general_blocks/general_button_block.dart';
@@ -24,33 +25,8 @@ class SetUpScreen extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           //backgroundColor: ColorManager.kBlackColor,
-          appBar: AppBar(
-            leadingWidth: AppHorizontalSize.s100,
-            leading: InkWell(
-              onTap: () {
-                setCubit.setUpBackWardNavigation(context: context);
-              },
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.arrow_left,
-                    color: ColorManager.kLimeGreenColor,
-                  ),
-                  Text(
-                    S
-                        .of(context)
-                        .back,
-                    style: getSemiBoldStyle(
-                        fontSize: FontSize.s14,
-                        color: ColorManager.kLimeGreenColor,
-                        fontFamily: FontFamily.kPoppinsFont),
-                  ),
-                ],
-              ),
-            ),
-            elevation: 0,
-            backgroundColor: ColorManager.kBlackColor,
-          ),
+          appBar: GeneralAppBarBlock(title:  S.of(context).back,),
+
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

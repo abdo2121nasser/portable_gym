@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
@@ -31,22 +32,8 @@ class LoginScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
 
           //backgroundColor: ColorManager.kBlackColor,
-          appBar: AppBar(
-            leading: const Icon(
-              Icons.arrow_left,
-              color: ColorManager.kLimeGreenColor,
-            ),
-            centerTitle: true,
-            title: Text(
-              S.of(context).login,
-              style: getBoldStyle(
-                  fontSize: FontSize.s20,
-                  color: ColorManager.kLimeGreenColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
-            elevation: 0,
+          appBar: GeneralAppBarBlock(title: S.of(context).login,),
             backgroundColor: ColorManager.kBlackColor,
-          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,

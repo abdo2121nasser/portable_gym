@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
 import 'package:portable_gym/cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
@@ -36,28 +37,14 @@ class MainNavigationBarScreen extends StatelessWidget {
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 200,
+                      Flexible(
+                       // flex: 200,
                         child: Text(
                           'hi ahmed',
                           style: getBoldStyle(
                               fontSize: FontSize.s20,
                               color: ColorManager.kPurpleColor,
                               fontFamily: FontFamily.kPoppinsFont),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.person,
-                          color: ColorManager.kPurpleColor,
                         ),
                       ),
                       SizedBox(
@@ -71,7 +58,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      Flexible(
                         child: Text(
                           S.of(context).subTitle,
                           style: getMediumStyle(
@@ -84,6 +71,20 @@ class MainNavigationBarScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              actions: [
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s18),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(const ProfileScreen());
+                    },
+                    child: const Icon(
+                      Icons.person,
+                      color: ColorManager.kPurpleColor,
+                    ),
+                  ),
+                )
+              ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (newIndex) =>

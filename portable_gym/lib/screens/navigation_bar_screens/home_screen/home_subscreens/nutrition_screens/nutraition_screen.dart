@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/floating_action_button_block.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
@@ -35,45 +36,21 @@ class NutritionScreen extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: ColorManager.kBlackColor,
-          appBar: AppBar(
-            backgroundColor: ColorManager.kBlackColor,
-            leadingWidth: AppHorizontalSize.s150,
-            leading: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.arrow_left,
-                    color: ColorManager.kLimeGreenColor,
-                  ),
-                  Expanded(
-                    child: Text(
-                      S.of(context).nutrition,
-                      style: getBoldStyle(
-                          fontSize: FontSize.s20,
-                          color: ColorManager.kPurpleColor,
-                          fontFamily: FontFamily.kPoppinsFont),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
-                child: InkWell(
-                    onTap: () {
-                      Get.to(FoodMainElementScreen());
-                    },
-                    child: Icon(
-                      Icons.psychology_rounded,
-                      color: ColorManager.kLimeGreenColor,
-                    )),
-              )
-            ],
+          appBar: GeneralAppBarBlock(title:   S.of(context).nutrition,
+         actions:  [
+           Padding(
+             padding:
+             EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
+             child: InkWell(
+                 onTap: () {
+                   Get.to(FoodMainElementScreen());
+                 },
+                 child: Icon(
+                   Icons.psychology_rounded,
+                   color: ColorManager.kLimeGreenColor,
+                 )),
+           )
+         ],
           ),
           body: Column(
             children: [

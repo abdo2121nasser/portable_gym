@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
+import '../../../../../resourses/blocks/general_blocks/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_training_items_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
@@ -37,32 +38,7 @@ class LevelScreen extends StatelessWidget {
     var workCubit=WorkOutCubit.get(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: ColorManager.kBlackColor,
-        leadingWidth: MediaQuery.of(context).size.width * 0.35,
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.arrow_left,
-                color: ColorManager.kLimeGreenColor,
-              ),
-              Expanded(
-                child: Text(
-                  S.of(context).beginner,
-                  style: getBoldStyle(
-                      fontSize: FontSize.s20,
-                      color: ColorManager.kPurpleColor,
-                      fontFamily: FontFamily.kPoppinsFont),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: GeneralAppBarBlock(title: bodyCategory,),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -33,7 +33,7 @@ class RecordedUnitBlock extends StatelessWidget {
             size: FontSize.s12,
           ),
         ),
-        Expanded(
+        Flexible(
           child: Text(
             unitValue+' '+mesuaringUnit,
             style: getLightStyle(

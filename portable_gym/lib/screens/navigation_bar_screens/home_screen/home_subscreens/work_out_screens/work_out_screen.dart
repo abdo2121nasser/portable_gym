@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/level_screen.dart';
@@ -11,7 +12,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_item_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/element_category_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/floating_action_button_block.dart';
+import '../../../../../resourses/blocks/general_blocks/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
 import '../../../../../resourses/blocks/general_blocks/daily_activity_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
@@ -44,32 +45,7 @@ class WorkOutScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorManager.kBlackColor,
-            appBar: AppBar(
-              backgroundColor: ColorManager.kBlackColor,
-              leadingWidth: AppHorizontalSize.s150,
-              leading: InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.arrow_left,
-                      color: ColorManager.kLimeGreenColor,
-                    ),
-                    Expanded(
-                      child: Text(
-                        S.of(context).workOut,
-                        style: getBoldStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kPurpleColor,
-                            fontFamily: FontFamily.kPoppinsFont),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            appBar:GeneralAppBarBlock(title: S.of(context).workOut,),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

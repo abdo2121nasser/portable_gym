@@ -6,6 +6,7 @@ import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_lower_Block.dart';
 import '../../resourses/blocks/profile_blocks/profile_option_list_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_options_block.dart';
@@ -29,31 +30,12 @@ class ProfileScreen extends StatelessWidget {
     var profCubit=ProfileCubit.get(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: ColorManager.kLightPurpleColor,
-          elevation: 0,
-          leading: InkWell(
-            onTap: (){
+        appBar: GeneralAppBarBlock(title: S.of(context).myProfile,
+            backgroundColor: ColorManager.kLightPurpleColor,
+            titleColor: ColorManager.kWhiteColor,
+            function:  (){
               profCubit.profileScreenNavigation(index: 0,isAppBar: true,context: context);
-            },
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.arrow_left,
-                  color: ColorManager.kLimeGreenColor,
-                ),
-                Text(
-                  S.of(context).myProfile,
-                  style: getBoldStyle(
-                      fontSize: FontSize.s20,
-                      color: ColorManager.kWhiteColor,
-                      fontFamily: FontFamily.kPoppinsFont),
-                ),
-              ],
-            ),
-          ),
-          leadingWidth: AppHorizontalSize.s220,
-        ),
+            }),
         body: Stack(
           children: [
             Column(

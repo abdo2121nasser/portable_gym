@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/full_input_block.dart';
@@ -23,27 +24,7 @@ class ForgetPasswordScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       //backgroundColor: ColorManager.kBlackColor,
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_left,
-            color: ColorManager.kLimeGreenColor,
-          ),
-        ),
-        centerTitle: true,
-        title: Text(
-          S.of(context).forgottenPassword,
-          style: getBoldStyle(
-              fontSize: FontSize.s20,
-              color: ColorManager.kLimeGreenColor,
-              fontFamily: FontFamily.kPoppinsFont),
-        ),
-        elevation: 0,
-        backgroundColor: ColorManager.kBlackColor,
-      ),
+      appBar: GeneralAppBarBlock(title: S.of(context).login,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -194,6 +194,7 @@ class AlertRecipeBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
+          
           content: Container(
             width: double.maxFinite,
             child: Column(
@@ -266,10 +267,11 @@ class AlertFoodMainElementBox extends StatelessWidget {
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 tabBar,
                 SizedBox(
-                  height: AppVerticalSize.s253,
+                  height: AppVerticalSize.s265,
                   child: Column(
                     children: [
                       SizedBox(

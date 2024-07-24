@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
@@ -24,44 +25,7 @@ class RecipeDetailsScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorManager.kBlackColor,
-      appBar: AppBar(
-        backgroundColor: ColorManager.kBlackColor,
-       leadingWidth: 0,
-       // leadingWidth: AppHorizontalSize.s150,
-        title: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.arrow_left,
-                color: ColorManager.kLimeGreenColor,
-              ),
-              Expanded(
-                child: Text(
-                  languageModel.name!,
-                  style: getBoldStyle(
-                      fontSize: FontSize.s20,
-                      color: ColorManager.kPurpleColor,
-                      fontFamily: FontFamily.kPoppinsFont),
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
-            child: Icon(
-              Icons.star_rounded,
-              color: ColorManager.kWhiteColor,
-            ),
-          )
-        ],
-      ),
+      appBar: GeneralAppBarBlock(title: languageModel.name!),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
