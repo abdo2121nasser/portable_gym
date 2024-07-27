@@ -11,12 +11,15 @@ class GeneralTextFormField extends StatelessWidget {
   final bool enableBorder;
   final bool multiLine;
   final bool isArabic;
+  final bool readOnly;
   GeneralTextFormField(
       {this.onlyInteger = false,
       required this.controller,
       this.enableBorder = false,
       this.multiLine = false,
-      this.isArabic = false});
+      this.isArabic = false,
+      this.readOnly=false
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class GeneralTextFormField extends StatelessWidget {
       height: AppVerticalSize.s55,
       child: TextFormField(
         controller: controller,
+        readOnly: readOnly,
         minLines: multiLine ? 1 : null,
         maxLines: multiLine ? 2 : null,
         keyboardType: multiLine ? TextInputType.multiline : null,

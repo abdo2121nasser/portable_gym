@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/check_box_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
@@ -32,7 +33,6 @@ class GoalChoiceBlock extends StatelessWidget {
                   fontFamily: FontFamily.kLeagueSpartanFont)),
           RoundCheckBox(
             onTap: (selected) {
-              print(selected);
             },
 
             border: Border.all(width: AppHorizontalSize.s2),

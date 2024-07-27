@@ -124,6 +124,22 @@ class StringManager
   static const String collectionDailyRecipe='daily recipe';
 
 
+  static const String collectionUserProfiles='users profiles';
+
+  static const String userEmail='email';
+  static const String userFullName='full name';
+  static const String userNickName='nick name';
+  static const String userPhone='phone';
+  static const String userImageLink='Image Link';
+  static const String userGender='Gender';
+  static const String userAge='age';
+  static const String userWeight='weight';
+  static const String userHeight='height';
+  static const String userLevel='level';
+  static const String userIsPremium ='is premium';
+  static const String userIsClint ='is client';
+
+
 
 
 

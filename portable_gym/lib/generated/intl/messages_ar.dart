@@ -99,7 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myProfile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
-                "يجب علي الاسم الا يحتوي علي ارقام"),
+                "يجب علي الاسم الكامل الا يحتوي علي ارقام"),
         "nickName": MessageLookupByLibrary.simpleMessage("اللقب"),
         "nutrition": MessageLookupByLibrary.simpleMessage("التغذيه"),
         "password": MessageLookupByLibrary.simpleMessage("كلمه السر"),
@@ -131,8 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("تم بنجاح"),
         "theEmailFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
             "مجال البريد الاليكتروني فارغ!!"),
-        "theNameFieldIsEmpty":
-            MessageLookupByLibrary.simpleMessage("مكان الاسم فارغ!!"),
+        "theFullNameFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("مكان الاسم الكامل فارغ!!"),
+        "theNickNameFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("مكان الاسم الحركي فارغ!!"),
         "thePasswordFieldIsEmpty":
             MessageLookupByLibrary.simpleMessage("خانه كلمه السر فارغه"),
         "trainingOfDay": MessageLookupByLibrary.simpleMessage("تمرين اليوم"),
@@ -148,6 +150,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsYourHeight": MessageLookupByLibrary.simpleMessage("ما هو طولك?"),
         "whatsYourWeight": MessageLookupByLibrary.simpleMessage("ما هو وزنك ؟"),
         "workOut": MessageLookupByLibrary.simpleMessage("العمل"),
-        "workoutLog": MessageLookupByLibrary.simpleMessage("سجل التمارين")
+        "workoutLog": MessageLookupByLibrary.simpleMessage("سجل التمارين"),
+        "youShouldChooseProfilePhoto": MessageLookupByLibrary.simpleMessage(
+            "يجب ان تختار صوره لملفك الشخصي")
       };
 }

@@ -59,6 +59,9 @@ class FillProfileSetUpBlock extends StatelessWidget {
                             color: ColorManager.kPurpleColor,
                             controller: setCubit.getFillProfileInputControllers(
                                 context: context)[index],
+                            readOnly: index==2,
+                            onlyInteger: index==3,
+
                           ),
                         ],
                       ),
@@ -66,7 +69,7 @@ class FillProfileSetUpBlock extends StatelessWidget {
                         height: AppVerticalSize.s10,
                       ),
                   itemCount: setCubit.getFillProfileInputsLables(
-                      context: context).length),
+                      context: context).length)
             ),
           ],
         );

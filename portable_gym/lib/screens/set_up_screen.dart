@@ -14,10 +14,13 @@ import '../resourses/managers_files/style_manager.dart';
 import '../resourses/managers_files/values_manager.dart';
 
 class SetUpScreen extends StatelessWidget {
+  final String email;
+
+  const SetUpScreen({super.key, required this.email});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SetUpCubit(),
+      create: (context) => SetUpCubit(email: email),
       child: BlocConsumer<SetUpCubit, SetUpState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -41,7 +44,6 @@ class SetUpScreen extends StatelessWidget {
                         fontSize: FontSize.s24,
                         color: ColorManager.kWhiteColor,
                         fontFamily: FontFamily.kPoppinsFont)),
-                //todo list of strings
                 Text(
                   S.of(context).welcomeDescription,
                   style: getLightStyle(

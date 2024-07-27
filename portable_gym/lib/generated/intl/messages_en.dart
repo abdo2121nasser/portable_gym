@@ -101,7 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
-                "name field should not contain numbers"),
+                "full name field should not contain numbers"),
         "nickName": MessageLookupByLibrary.simpleMessage("Nickname"),
         "nutrition": MessageLookupByLibrary.simpleMessage("Nutrition"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -136,8 +136,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "theEmailFieldIsEmpty":
             MessageLookupByLibrary.simpleMessage("the email field is empty!!"),
-        "theNameFieldIsEmpty":
-            MessageLookupByLibrary.simpleMessage("the name field is empty!!"),
+        "theFullNameFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the full name field is empty!!"),
+        "theNickNameFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the nick name field is empty!!"),
         "thePasswordFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
             "the password field is empty!!"),
         "trainingOfDay":
@@ -162,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsYourWeight":
             MessageLookupByLibrary.simpleMessage("What Is Your Weight?"),
         "workOut": MessageLookupByLibrary.simpleMessage("Workout"),
-        "workoutLog": MessageLookupByLibrary.simpleMessage("Workout Log")
+        "workoutLog": MessageLookupByLibrary.simpleMessage("Workout Log"),
+        "youShouldChooseProfilePhoto": MessageLookupByLibrary.simpleMessage(
+            "you should choose profile photo")
       };
 }

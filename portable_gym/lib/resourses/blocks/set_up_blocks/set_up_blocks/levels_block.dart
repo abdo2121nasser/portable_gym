@@ -12,7 +12,10 @@ import '../../../managers_files/style_manager.dart';
 
 
 class LevelsBlock extends StatelessWidget {
-  const LevelsBlock({super.key});
+   final String title;
+   final bool isChoosed;
+
+   LevelsBlock({ required this.isChoosed, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +23,13 @@ class LevelsBlock extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s12),
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(AppRadiusSize.s36),
-        color: ColorManager.kWhiteColor
+        color:isChoosed?ColorManager.kLimeGreenColor: ColorManager.kWhiteColor
       ),
       child: Text(
-        S.of(context).enterYourWeight,
+       title,
         style: getMediumStyle(
             fontSize: FontSize.s22,
-            color: ColorManager.kPurpleColor,
+            color: isChoosed?ColorManager.kBlackColor: ColorManager.kPurpleColor,
             fontFamily: FontFamily.kLeagueSpartanFont),
         textAlign: TextAlign.center,
       ),

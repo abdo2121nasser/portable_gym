@@ -400,20 +400,30 @@ class S {
     );
   }
 
-  /// `the name field is empty!!`
-  String get theNameFieldIsEmpty {
+  /// `the full name field is empty!!`
+  String get theFullNameFieldIsEmpty {
     return Intl.message(
-      'the name field is empty!!',
-      name: 'theNameFieldIsEmpty',
+      'the full name field is empty!!',
+      name: 'theFullNameFieldIsEmpty',
       desc: '',
       args: [],
     );
   }
 
-  /// `name field should not contain numbers`
+  /// `the nick name field is empty!!`
+  String get theNickNameFieldIsEmpty {
+    return Intl.message(
+      'the nick name field is empty!!',
+      name: 'theNickNameFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `full name field should not contain numbers`
   String get nameFieldShouldNotContainNumbers {
     return Intl.message(
-      'name field should not contain numbers',
+      'full name field should not contain numbers',
       name: 'nameFieldShouldNotContainNumbers',
       desc: '',
       args: [],
@@ -425,6 +435,16 @@ class S {
     return Intl.message(
       'confirm password is not equal to password!!',
       name: 'confirmPasswordIsNotEqualToPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you should choose profile photo`
+  String get youShouldChooseProfilePhoto {
+    return Intl.message(
+      'you should choose profile photo',
+      name: 'youShouldChooseProfilePhoto',
       desc: '',
       args: [],
     );

@@ -16,7 +16,7 @@ class WeightRulerBlock extends StatelessWidget {
     return  RulerPicker(
       rulerScaleTextStyle: const TextStyle(color: ColorManager.kBlackColor),
       rulerBackgroundColor: ColorManager.kLightPurpleColor,
-      controller: setCubit.WeightController,
+      controller: setCubit.weightController,
       onBuildRulerScaleText: (index, value) {
         return value.toInt().toString();
       },

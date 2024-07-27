@@ -39,9 +39,13 @@
   "thePasswordFieldIsEmpty" : "خانه كلمه السر فارغه",
   "passwordShouldBeAtLeast8NumbersOrCharacters": "كلمه السر يجب ان تحتوي علي الاقل علي 8 احرف",
 
-  "theNameFieldIsEmpty" : "مكان الاسم فارغ!!",
-  "nameFieldShouldNotContainNumbers" : "يجب علي الاسم الا يحتوي علي ارقام",
+  "theFullNameFieldIsEmpty" : "مكان الاسم الكامل فارغ!!",
+  "theNickNameFieldIsEmpty" : "مكان الاسم الحركي فارغ!!",
+  "nameFieldShouldNotContainNumbers" : "يجب علي الاسم الكامل الا يحتوي علي ارقام",
   "confirmPasswordIsNotEqualToPassword": "كلمه المرور لا تطابق تأكيد كلمه المور!!",
+  "youShouldChooseProfilePhoto": "يجب ان تختار صوره لملفك الشخصي",
+
+
   "somethingWentWrong": "حدث خطأ ما",
   "success": "تم بنجاح",
 

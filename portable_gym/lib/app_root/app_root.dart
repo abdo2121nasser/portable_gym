@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -48,8 +49,8 @@ class PortableGym extends StatelessWidget {
                     theme: getAppTheme(),
                    // home: MainNavigationBarScreen(),
                     //home: ProfileScreen(),
-                    home: LoginScreen(),
-               //     home: SetUpScreen(),
+                    home: FirebaseAuth.instance.currentUser==null? LoginScreen():MainNavigationBarScreen(),
+                   // home: SetUpScreen(email: 'email'),
                   ),
             ),
           ),

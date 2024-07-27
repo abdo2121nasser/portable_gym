@@ -107,7 +107,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      Get.to(SetUpScreen());
+      Get.to(SetUpScreen(email: loginEmail.text,));
     }).catchError((error)
     {
       emit(LoginErrorState());
@@ -180,11 +180,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
       getToastMessage(message: S.of(context).success);
       emit(RegisterSuccessState());
-      Get.to(SetUpScreen());
+      Get.to(SetUpScreen(email: registerEmail.text,));
 
      }).catchError((error)
     {
-      getToastMessage(message: S.of(context).somethingWentWrong);
+      getToastMessage(message: error.toString().substring(36));
       emit(RegisterErrorState());
       debugPrint(error);
     });

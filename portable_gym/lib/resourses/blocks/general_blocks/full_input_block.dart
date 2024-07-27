@@ -14,11 +14,14 @@ class FullInputBlock extends StatelessWidget {
   final bool enableBorder;
   final bool isArabicTabView;
   final bool onlyInteger;
+  final bool readOnly;
+
   FullInputBlock(
       {required this.lable,
       required this.color,
       required this.controller,
-      this.enableBorder = false,
+        this.readOnly=false,
+        this.enableBorder = false,
       this.isArabicTabView = false,
       this.onlyInteger=false,
       });
@@ -55,6 +58,8 @@ class FullInputBlock extends StatelessWidget {
           enableBorder: enableBorder,
            onlyInteger: onlyInteger,
           isArabic: isArabicTabView,
+          readOnly: readOnly,
+
         ),
       ],
     );
