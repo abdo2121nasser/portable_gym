@@ -11,6 +11,7 @@ class GetWeightState extends SetUpState {}
 class GetHeightState extends SetUpState {}
 class ChangeGenderState extends SetUpState {}
 class ChangeActivityLevelState extends SetUpState {}
+class ChangeGoalState extends SetUpState {}
 class PickImageLoadingState extends SetUpState {}
 class PickImageSuccessState extends SetUpState {}
 class PickImageErrorState extends SetUpState {}

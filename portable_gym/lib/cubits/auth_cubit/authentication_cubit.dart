@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:portable_gym/screens/set_up_screen.dart';
 
 import '../../generated/l10n.dart';
@@ -104,10 +106,17 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       email: loginEmail.text,
       password: loginPassword.text,
     ).then((value)
-    {
+    async {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      Get.to(SetUpScreen(email: loginEmail.text,));
+      bool hasData=await hasProfile(email: loginEmail.text,context: context);
+      if( hasData ) {
+        Get.to(MainNavigationBarScreen());
+      }
+      else {
+        Get.to(SetUpScreen(email: loginEmail.text,));
+      }
+
     }).catchError((error)
     {
       emit(LoginErrorState());
@@ -176,11 +185,18 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       email: registerEmail.text,
       password: registerPassword.text,
     ).then((value)
-     {
+     async {
 
       getToastMessage(message: S.of(context).success);
       emit(RegisterSuccessState());
-      Get.to(SetUpScreen(email: registerEmail.text,));
+      bool hasData=await hasProfile(email: loginEmail.text,context: context);
+      if( hasData ) {
+        Get.to(MainNavigationBarScreen());
+      }
+      else {
+        Get.to(SetUpScreen(email: loginEmail.text,));
+      }
+
 
      }).catchError((error)
     {
@@ -219,6 +235,18 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 //-----------------------------forgetPassword-----------------------------------
 
 
+ Future<bool> hasProfile({required String email,required context}) async {
+  late  bool hasProfile;
+    var data = await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles).where(StringManager.userEmail,isEqualTo:email );
+   await data.get().then((value) async {
+     hasProfile= await value.docs.isNotEmpty;
+    });
+   return hasProfile;
+  }
+    
+  }
 
 
-}
+
+

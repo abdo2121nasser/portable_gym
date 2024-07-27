@@ -9,12 +9,10 @@ import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_lower_Block.dart';
 import '../../resourses/blocks/profile_blocks/profile_option_list_block.dart';
-import '../../resourses/blocks/profile_blocks/profile_options_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_training_information_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_upper_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
-import '../../resourses/managers_files/font_manager.dart';
-import '../../resourses/managers_files/style_manager.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -22,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileCubit(),
+      create: (context) => ProfileCubit()..getUserData(),
       child: BlocConsumer<ProfileCubit, ProfileState>(
   listener: (context, state) {
   },
@@ -51,14 +49,15 @@ class ProfileScreen extends StatelessWidget {
                 
               ],
             ),
-            Positioned(
+        profCubit.profileModel!=null?    Positioned(
                 top: MediaQuery
                     .of(context)
                     .size
                     .height * 0.35,
                 left: AppHorizontalSize.s22,
                 right: AppHorizontalSize.s22,
-                child: ProfileTrainingInformationBlock())
+                child: ProfileTrainingInformationBlock(age: profCubit.profileModel!.age,
+                weight: profCubit.profileModel!.weight,height: profCubit.profileModel!.height,)) :SizedBox()
           ],
         ),
       );

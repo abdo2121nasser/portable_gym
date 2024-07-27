@@ -9,30 +9,29 @@ import '../../../../cubits/set_up_cubit/set_up_cubit.dart';
 
 class HeightRulerBlock extends StatelessWidget {
 
-//todo fix it
 
   @override
   Widget build(BuildContext context) {
     var setCubit = SetUpCubit.get(context);
 
     return VerticalWeightSlider(
-      height: AppVerticalSize.s120,
+      height: MediaQuery.of(context).size.height*0.23,
 
       controller: setCubit.heightController,
-      decoration: const PointerDecoration(
-        width: 130.0,
-        height: 3.0,
-        largeColor: Color(0xFF898989),
-        mediumColor: Color(0xFFC5C5C5),
-        smallColor: Color(0xFFF0F0F0),
-        gap: 30.0,
+      decoration:  PointerDecoration(
+        width: AppHorizontalSize.s150,
+        height: AppVerticalSize.s5,
+        largeColor: const Color(0xFF898989),
+        mediumColor: const Color(0xFFC5C5C5),
+        smallColor: const Color(0xFFF0F0F0),
+        gap:  AppVerticalSize.s30,
       ),
       onChanged: (double value) {
         setCubit.getHeight(height: value.toInt());
       },
       indicator: Container(
-        height: 3.0,
-        width: 150.0,
+        height:  AppVerticalSize.s5,
+        width: AppHorizontalSize.s178,
         alignment: Alignment.centerLeft,
         color: Colors.red[300],
       ),

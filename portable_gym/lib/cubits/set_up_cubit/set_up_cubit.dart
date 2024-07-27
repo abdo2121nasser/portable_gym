@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,6 +50,7 @@ class SetUpCubit extends Cubit<SetUpState> {
     StringManager.bodyCategoryLevelAdvanced,
   ];
   int currentActivityLevel = 0;
+  int currentGoal = 0;
 
   TextEditingController nickName = TextEditingController();
   TextEditingController fullName = TextEditingController();
@@ -93,6 +95,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   setUpBackWardNavigation({required context}) {
+
     if (currentPageBodyIndex == 0) {
       Get.back();
     } else {
@@ -151,10 +154,36 @@ class SetUpCubit extends Cubit<SetUpState> {
       S.of(context).advanced,
     ];
   }
+ List<String> getGoals({ context,bool isStringManager=false})  {
+
+   if(isStringManager)
+     {
+       return [
+         StringManager.userWeightLoss,
+         StringManager.userWeightGain,
+         StringManager.userMusclesMassGain,
+         StringManager.userShapeBody,
+         StringManager.userOther,
+       ];
+     }
+   else {
+     return [
+      S.of(context).weightLoss,
+      S.of(context).weightGain,
+      S.of(context).musclesMassGain,
+      S.of(context).shapeBody,
+      S.of(context).other,
+    ];
+   }
+  }
 
   changeCurrentActivityLevel({required int index}) {
     currentActivityLevel = index;
     emit(ChangeActivityLevelState());
+  }
+  changeCurrentGoal({required int index}){
+    currentGoal=index;
+    emit(ChangeGoalState());
   }
 
   getAge({required int age}) {
@@ -203,8 +232,9 @@ class SetUpCubit extends Cubit<SetUpState> {
       imageFile = File(pickedFile.path);
       emit(PickImageSuccessState());
     } else {
-      print('no image selected');
       emit(PickImageErrorState());
+      debugPrint('no image selected');
+
     }
   }
   uploadImage() async{
@@ -212,8 +242,10 @@ class SetUpCubit extends Cubit<SetUpState> {
  await  FirebaseStorage.instance.ref().child('${imageFile!.path}')
        .putFile(imageFile!).
     then((result) async {
-    imageLink = await result.ref.getDownloadURL().toString();
-      emit(UploadImageFileSuccessState());
+  imageLink=  await result.ref.getDownloadURL();
+    emit(UploadImageFileSuccessState());
+    print(imageLink);
+    print('////////////////////////////');
     }).catchError((error){
      emit(UploadImageFileErrorState());
      // debugPrint(error);
@@ -263,12 +295,11 @@ class SetUpCubit extends Cubit<SetUpState> {
       createProfile();
     } else {
       getToastMessage(message: getValidateError(context: context));
-    //  uploadImage();
     }
   }
 
   createProfile() async {
-    uploadImage();
+   await uploadImage();
     emit(CreateProfileLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles);
@@ -282,6 +313,8 @@ class SetUpCubit extends Cubit<SetUpState> {
       StringManager.userHeight: height,
       StringManager.userWeight: weight,
       StringManager.userLevel: activityLevels[currentActivityLevel],
+      StringManager.userGoal: getGoals(isStringManager: true)[currentGoal],
+
      StringManager.userImageLink:imageLink.toString(),
      StringManager.userIsPremium:false,
      StringManager.userIsClint:true

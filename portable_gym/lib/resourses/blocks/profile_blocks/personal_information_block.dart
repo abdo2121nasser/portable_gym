@@ -7,46 +7,29 @@ import '../../managers_files/style_manager.dart';
 
 
 class PersonalInformationBlock extends StatelessWidget {
-  const PersonalInformationBlock({super.key});
+     final String fullName;
+     final String email;
+
+     PersonalInformationBlock({required this.fullName,required  this.email});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          'Madison Smith',
+          fullName,
           style: getBoldStyle(
               fontSize: FontSize.s20,
               color: ColorManager.kWhiteColor,
               fontFamily: FontFamily.kPoppinsFont),
         ),
         Text(
-          'madisons@example.com',
+          email,
           style: getLightStyle(
               fontSize: FontSize.s14,
               color: ColorManager.kWhiteColor,
               fontFamily: FontFamily.kPoppinsFont),
         ),
-Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Text(
-      'Birthday:',
-      style: getSemiBoldStyle(
-          fontSize: FontSize.s14,
-          color: ColorManager.kWhiteColor,
-          fontFamily: FontFamily.kPoppinsFont),
-    ),
-    Text(
-      ' April 1st',
-      style: getLightStyle(
-          fontSize: FontSize.s14,
-          color: ColorManager.kWhiteColor,
-          fontFamily: FontFamily.kPoppinsFont),
-    ),
-
-  ],
-)
       ],
     );
   }

@@ -330,6 +330,56 @@ class S {
     );
   }
 
+  /// `Weight Loss`
+  String get weightLoss {
+    return Intl.message(
+      'Weight Loss',
+      name: 'weightLoss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight Gain`
+  String get weightGain {
+    return Intl.message(
+      'Weight Gain',
+      name: 'weightGain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Muscles Mass Gain`
+  String get musclesMassGain {
+    return Intl.message(
+      'Muscles Mass Gain',
+      name: 'musclesMassGain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shape body`
+  String get shapeBody {
+    return Intl.message(
+      'Shape body',
+      name: 'shapeBody',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Physical Activity Level`
   String get physicalActivityLevel {
     return Intl.message(
@@ -345,6 +395,16 @@ class S {
     return Intl.message(
       'Fill Your Profile',
       name: 'fillYourProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `years old`
+  String get yearsOld {
+    return Intl.message(
+      'years old',
+      name: 'yearsOld',
       desc: '',
       args: [],
     );

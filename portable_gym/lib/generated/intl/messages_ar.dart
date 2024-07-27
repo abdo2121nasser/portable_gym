@@ -96,12 +96,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "mealPlan": MessageLookupByLibrary.simpleMessage("خطط للوجبات"),
         "minute": MessageLookupByLibrary.simpleMessage("د"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("دقيقه"),
+        "musclesMassGain": MessageLookupByLibrary.simpleMessage("كسب عضلاط"),
         "myProfile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
                 "يجب علي الاسم الكامل الا يحتوي علي ارقام"),
         "nickName": MessageLookupByLibrary.simpleMessage("اللقب"),
         "nutrition": MessageLookupByLibrary.simpleMessage("التغذيه"),
+        "other": MessageLookupByLibrary.simpleMessage("اخري"),
         "password": MessageLookupByLibrary.simpleMessage("كلمه السر"),
         "passwordShouldBeAtLeast8NumbersOrCharacters":
             MessageLookupByLibrary.simpleMessage(
@@ -121,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "second": MessageLookupByLibrary.simpleMessage("س"),
         "seeAll": MessageLookupByLibrary.simpleMessage("المذيد"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "shapeBody": MessageLookupByLibrary.simpleMessage("تجسيم"),
         "signUp": MessageLookupByLibrary.simpleMessage("انشئ حساب"),
         "snacks": MessageLookupByLibrary.simpleMessage("وجبه خفيفه"),
         "somethingWentWrong":
@@ -144,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadTraining": MessageLookupByLibrary.simpleMessage("تحميل التمرين"),
         "weeklyChallenge": MessageLookupByLibrary.simpleMessage("تحدي الاسبوع"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن"),
+        "weightGain": MessageLookupByLibrary.simpleMessage("زياده وزن"),
+        "weightLoss": MessageLookupByLibrary.simpleMessage("خساره وزن"),
         "welcome": MessageLookupByLibrary.simpleMessage("اهلا"),
         "whatsYourGender": MessageLookupByLibrary.simpleMessage("ما هو جنسك"),
         "whatsYourGoal": MessageLookupByLibrary.simpleMessage("ما هو هدفك؟"),
@@ -151,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatsYourWeight": MessageLookupByLibrary.simpleMessage("ما هو وزنك ؟"),
         "workOut": MessageLookupByLibrary.simpleMessage("العمل"),
         "workoutLog": MessageLookupByLibrary.simpleMessage("سجل التمارين"),
+        "yearsOld": MessageLookupByLibrary.simpleMessage("عاما"),
         "youShouldChooseProfilePhoto": MessageLookupByLibrary.simpleMessage(
             "يجب ان تختار صوره لملفك الشخصي")
       };

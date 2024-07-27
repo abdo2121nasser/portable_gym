@@ -98,12 +98,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "mealPlan": MessageLookupByLibrary.simpleMessage("meal plan"),
         "minute": MessageLookupByLibrary.simpleMessage("M"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("minute"),
+        "musclesMassGain":
+            MessageLookupByLibrary.simpleMessage("Muscles Mass Gain"),
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
                 "full name field should not contain numbers"),
         "nickName": MessageLookupByLibrary.simpleMessage("Nickname"),
         "nutrition": MessageLookupByLibrary.simpleMessage("Nutrition"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordShouldBeAtLeast8NumbersOrCharacters":
             MessageLookupByLibrary.simpleMessage(
@@ -126,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "second": MessageLookupByLibrary.simpleMessage("S"),
         "seeAll": MessageLookupByLibrary.simpleMessage("see all"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shapeBody": MessageLookupByLibrary.simpleMessage("Shape body"),
         "signUp": MessageLookupByLibrary.simpleMessage("SignUp"),
         "snacks": MessageLookupByLibrary.simpleMessage("Snacks"),
         "somethingWentWrong":
@@ -152,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "weeklyChallenge":
             MessageLookupByLibrary.simpleMessage("Weekly Challenge"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight"),
+        "weightGain": MessageLookupByLibrary.simpleMessage("Weight Gain"),
+        "weightLoss": MessageLookupByLibrary.simpleMessage("Weight Loss"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "welcomeDescription": MessageLookupByLibrary.simpleMessage(
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "),
@@ -165,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What Is Your Weight?"),
         "workOut": MessageLookupByLibrary.simpleMessage("Workout"),
         "workoutLog": MessageLookupByLibrary.simpleMessage("Workout Log"),
+        "yearsOld": MessageLookupByLibrary.simpleMessage("years old"),
         "youShouldChooseProfilePhoto": MessageLookupByLibrary.simpleMessage(
             "you should choose profile photo")
       };

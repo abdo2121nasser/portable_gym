@@ -50,8 +50,6 @@ class HeightSetUpBlock extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         // FullInputBlock(lable: S.of(context).enterYourHeight,color: ColorManager.kBlackColor,),
-          //todo make it only accept integera
 
           HeightRulerBlock(),
           SizedBox(

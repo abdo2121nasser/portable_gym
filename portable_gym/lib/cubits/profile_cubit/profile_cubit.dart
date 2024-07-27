@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/managers_files/string_manager.dart';
 
 part 'profile_state.dart';
 
@@ -17,6 +21,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController birthDateController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+
+  ProfileModel? profileModel;
 
   getProfileOptions({required context, required int index}) {
     List<String> profileOptionsLables = [
@@ -63,4 +69,22 @@ class ProfileCubit extends Cubit<ProfileState> {
     return lables[index];
   }
   //todo setting screen is not made
+
+
+  getUserData() async {
+   String email= FirebaseAuth.instance.currentUser!.email!;
+   emit(GetUserDataLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles).where(StringManager.userEmail,isEqualTo:email ).get()
+        .then((value) async {
+         profileModel= ProfileModel.fromJson(json: value.docs[0].data(),docId: value.docs[0].id);
+         emit(GetUserDataSuccessState());
+    }).catchError((error){
+      emit(GetUserDataErrorState());
+               debugPrint(error);
+    });
+  }
+
+
+
 }

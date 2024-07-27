@@ -31,7 +31,7 @@ class SetUpScreen extends StatelessWidget {
             appBar: GeneralAppBarBlock(
               title: S.of(context).back,
               function: () {
-                setCubit.decrementPageBodyIndex();
+                setCubit.setUpBackWardNavigation(context: context);
               },
             ),
 

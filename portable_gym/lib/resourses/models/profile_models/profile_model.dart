@@ -1,0 +1,52 @@
+import 'dart:convert';
+
+import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+
+class ProfileModel {
+  final String docIc;
+  final String fullName;
+  final String nickName;
+  final String email;
+  final String phone;
+  final String imageLink;
+  final String level;
+  final String gender;
+  final int weight;
+  final int height;
+  final int age;
+  final bool isPremium;
+  final bool isClient;
+
+  ProfileModel(
+      {required this.docIc,
+      required this.fullName,
+      required this.nickName,
+      required this.email,
+      required this.phone,
+      required this.imageLink,
+      required this.level,
+      required this.gender,
+      required this.weight,
+      required this.height,
+      required this.age,
+      required this.isPremium,
+      required this.isClient});
+
+  factory ProfileModel.fromJson(
+      {required Map<String, dynamic> json, required String docId}) {
+    return ProfileModel(
+        docIc: docId,
+        fullName: json[StringManager.userFullName],
+        nickName: json[StringManager.userNickName],
+        email: json[StringManager.userEmail],
+        phone: json[StringManager.userPhone],
+        imageLink: json[StringManager.userImageLink],
+        level: json[StringManager.userLevel],
+        gender: json[StringManager.userGender],
+        weight: json[StringManager.userWeight],
+        height: json[StringManager.userHeight],
+        age: json[StringManager.userAge],
+        isPremium: json[StringManager.userIsPremium],
+        isClient: json[StringManager.userIsClint]);
+  }
+}

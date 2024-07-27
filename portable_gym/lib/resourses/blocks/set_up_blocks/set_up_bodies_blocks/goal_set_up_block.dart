@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
 
 
 import '../../../managers_files/color_manager.dart';
@@ -10,6 +11,7 @@ import '../set_up_blocks/goal_choice_block.dart';
 class GoalSetUpBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var setUpCubit=SetUpCubit.get(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       height: AppVerticalSize.s394,
@@ -24,9 +26,13 @@ class GoalSetUpBlock extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                itemBuilder: (context, index) => GoalChoiceBlock(),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: (){
+                       setUpCubit.changeCurrentGoal(index: index);
+                  },
+                    child: GoalChoiceBlock(title: setUpCubit.getGoals(context: context)[index],value: setUpCubit.currentGoal==index,)),
                 separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s16,),
-                itemCount: 5),
+                itemCount: setUpCubit.getGoals(context: context).length),
           )
         ],
       ),

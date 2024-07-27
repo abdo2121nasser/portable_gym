@@ -138,6 +138,23 @@ class StringManager
   static const String userLevel='level';
   static const String userIsPremium ='is premium';
   static const String userIsClint ='is client';
+  static const String userGoal ='is client';
+
+  static const String userWeightLoss = "Weight Loss";
+  static const String userWeightGain = "Weight Gain";
+  static const String userMusclesMassGain = "Muscles Mass Gain";
+  static const String userShapeBody= "Shape body" ;
+  static const String userOther= "Other" ;
+
+
+
+
+
+
+
+
+
+
 
 
 

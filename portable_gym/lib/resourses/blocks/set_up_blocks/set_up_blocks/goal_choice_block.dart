@@ -14,6 +14,10 @@ import '../../../managers_files/style_manager.dart';
 
 
 class GoalChoiceBlock extends StatelessWidget {
+    final String title;
+    final bool value;
+
+    GoalChoiceBlock({required this.title,required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +27,28 @@ class GoalChoiceBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadiusSize.s36),
         color: ColorManager.kWhiteColor
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(S.of(context).whatsYourGoal,
-              style: getRegularStyle(
-                  fontSize: FontSize.s18,
-                  color: ColorManager.kBlackColor,
-                  fontFamily: FontFamily.kLeagueSpartanFont)),
-          RoundCheckBox(
-            onTap: (selected) {
-            },
+      child: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title,
+                style: getRegularStyle(
+                    fontSize: FontSize.s18,
+                    color: ColorManager.kBlackColor,
+                    fontFamily: FontFamily.kLeagueSpartanFont)),
+            RoundCheckBox(
+              onTap: null,
+              isChecked: value,
 
-            border: Border.all(width: AppHorizontalSize.s2),
-            uncheckedColor: ColorManager.kWhiteColor,
-          ),
+              border: Border.all(width: AppHorizontalSize.s2),
+             // uncheckedColor: ColorManager.kWhiteColor,
+              disabledColor: ColorManager.kPurpleColor,
 
-        ],
+            ),
+
+          ],
+        ),
       ),
     );
   }

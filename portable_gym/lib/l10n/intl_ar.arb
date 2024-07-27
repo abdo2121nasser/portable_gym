@@ -30,8 +30,15 @@
   "enterYourWeight":"ادخل وزنك ب KG",
   "enterYourHeight":"ادخل طولك ب CM",
   "whatsYourGoal":"ما هو هدفك؟",
+  "weightLoss": "خساره وزن",
+  "weightGain": "زياده وزن",
+  "musclesMassGain": "كسب عضلاط",
+  "shapeBody": "تجسيم" ,
+  "other": "اخري" ,
   "physicalActivityLevel":"مستوي التدريب البدني",
   "fillYourProfile":"املاء صفحتك الشخصيه",
+  "yearsOld": "عاما",
+
   "start":"أبدء",
 
   "theEmailFieldIsEmpty": "مجال البريد الاليكتروني فارغ!!",

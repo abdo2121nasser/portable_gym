@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../../../generated/l10n.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
 
@@ -9,7 +10,12 @@ import '../../managers_files/style_manager.dart';
 
 
 class ProfileTrainingInformationBlock extends StatelessWidget {
-  const ProfileTrainingInformationBlock({super.key});
+               final int age;
+               final int weight;
+               final int height;
+
+               ProfileTrainingInformationBlock({required this.age,required  this.weight,
+               required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +34,14 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
 
             children: [
               Text(
-                '16 KG',
+              weight.toString(),
                 style: getSemiBoldStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,
                     fontFamily: FontFamily.kLeagueSpartanFont),
               ),
               Text(
-                'Weight',
+                S.of(context).weight,
                 style: getLightStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,
@@ -53,14 +59,14 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
 
             children: [
               Text(
-                '16 KG',
+                age.toString(),
                 style: getSemiBoldStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,
                     fontFamily: FontFamily.kLeagueSpartanFont),
               ),
               Text(
-                'years old',
+                S.of(context).yearsOld,
                 style: getLightStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,
@@ -78,14 +84,14 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
 
             children: [
               Text(
-                '16 KG',
+                height.toString(),
                 style: getSemiBoldStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,
                     fontFamily: FontFamily.kLeagueSpartanFont),
               ),
               Text(
-                'Weight',
+                S.of(context).height,
                 style: getLightStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.kWhiteColor,

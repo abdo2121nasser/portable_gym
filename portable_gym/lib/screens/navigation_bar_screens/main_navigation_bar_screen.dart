@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
 import 'package:portable_gym/cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
@@ -11,9 +10,7 @@ import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/general_blocks/section_title_block.dart';
-import '../../resourses/blocks/home_screen_blocks/top_menu_block.dart';
-import '../../resourses/blocks/home_screen_blocks/top_menu_element_block.dart';
+
 import '../app_bar_screens/profile_screen.dart';
 
 class MainNavigationBarScreen extends StatelessWidget {
@@ -31,6 +28,9 @@ class MainNavigationBarScreen extends StatelessWidget {
             appBar: AppBar(
               toolbarHeight: AppVerticalSize.s80,
               backgroundColor: ColorManager.kBlackColor,
+              automaticallyImplyLeading: false,
+
+
               title: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
