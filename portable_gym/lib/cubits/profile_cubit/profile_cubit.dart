@@ -7,12 +7,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 
 import '../../firebase_options.dart';
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/profile_blocks/log_out_bottom_sheet_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
 
 part 'profile_state.dart';
@@ -33,13 +35,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   File? imageFile;
   String imageLink='';  ProfileModel? profileModel;
 
-  getProfileOptions({required context, required int index}) {
-    List<String> profileOptionsLables = [
+  getProfileOptions({required context,}) {
+   return [
       S.of(context).myProfile,
       S.of(context).settings,
       S.of(context).logout,
     ];
-    return profileOptionsLables[index];
   }
 
   profileScreenNavigation(
@@ -48,11 +49,16 @@ class ProfileCubit extends Cubit<ProfileState> {
       isProfileLowerBlock = false;
       emit(ChangeToProfileScreenBlockState());
     } else if (isAppBar == true && isProfileLowerBlock == false) {
-      Navigator.pop(context);
+     Get.back();
     } else if (index == 0 && isAppBar == false) {
       isProfileLowerBlock = true;
       emit(ChangeToProfileLowerBlockState());
     }
+    else if(index==2)
+      {
+        showLogOutBottomSheet(context);
+      }
+
   }
 
   getProfileControllers() {
@@ -89,6 +95,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(SetProfileControllersValuesState());
   }
   //todo setting screen is not made
+
+  void showLogOutBottomSheet(BuildContext ctx) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+
+        context: ctx,
+        builder: (ctx) => const LogOutBottomSheetBlock());
+  }
   Future<void> pickImage() async {
     emit(PickImageLoadingState());
     final pickedFile =

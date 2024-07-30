@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Are you sure you want to log out ?`
+  String get logOutMassage {
+    return Intl.message(
+      'Are you sure you want to log out ?',
+      name: 'logOutMassage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. `
   String get welcomeDescription {
     return Intl.message(
@@ -1085,6 +1095,16 @@ class S {
     return Intl.message(
       'Edit',
       name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
       desc: '',
       args: [],
     );

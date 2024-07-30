@@ -1,6 +1,7 @@
 {
   "login": "Login",
   "welcome": "Welcome",
+  "logOutMassage": "Are you sure you want to log out ?",
   "welcomeDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
   "email": "Email",
   "password": "Password",
@@ -104,6 +105,7 @@
   "foodMainElement": "food main element",
   "add": "Add",
   "edit": "Edit",
+  "cancel": "Cancel",
 
   "workoutLog": "Workout Log",
   "charts": "Charts",

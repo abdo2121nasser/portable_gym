@@ -47,8 +47,7 @@ class ProfileLowerBlock extends StatelessWidget {
                                 fontSize: FontSize.s20,
                                 color:ColorManager.kWhiteColor,
                                 fontFamily: FontFamily.kPoppinsFont));
-                    }
-                      ,
+                    },
 
                     separatorBuilder: (context, index) => SizedBox(
                           height: AppVerticalSize.s5,
@@ -63,4 +62,5 @@ class ProfileLowerBlock extends StatelessWidget {
       },
     );
   }
+
 }

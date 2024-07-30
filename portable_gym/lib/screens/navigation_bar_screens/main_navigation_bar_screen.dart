@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
@@ -9,18 +8,25 @@ import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../../cubits/profile_cubit/profile_cubit.dart';
 import '../../generated/l10n.dart';
 
 import '../app_bar_screens/profile_screen.dart';
 
 class MainNavigationBarScreen extends StatelessWidget {
+  const MainNavigationBarScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+  create: (context) => ProfileCubit(email: FirebaseAuth.instance.currentUser!.email!)
+    ..getUserData(),
+  child: BlocProvider(
       create: (context) => MainNavigationBarCubit(),
       child: BlocConsumer<MainNavigationBarCubit, MainNavigationBarState>(
         listener: (context, state) {},
         builder: (context, state) {
+          var profCubit=ProfileCubit.get(context);
           var navCubit = MainNavigationBarCubit.get(context);
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -35,18 +41,17 @@ class MainNavigationBarScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      profCubit.profileModel!=null?
                       Flexible(
-                       // flex: 200,
                         child: Text(
-                          'hi ahmed',
+                          profCubit.profileModel!.nickName,
                           style: getBoldStyle(
                               fontSize: FontSize.s20,
                               color: ColorManager.kPurpleColor,
                               fontFamily: FontFamily.kPoppinsFont),
                         ),
-                      ),
+                      ): const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,),
                       SizedBox(
                         width: AppHorizontalSize.s10,
                       ),
@@ -76,7 +81,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                   padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s18),
                   child: InkWell(
                     onTap: () {
-                      Get.to(const ProfileScreen());
+                      Get.to( ProfileScreen(profCubit: profCubit,));
                     },
                     child: const Icon(
                       Icons.person,
@@ -101,6 +106,7 @@ class MainNavigationBarScreen extends StatelessWidget {
           );
         },
       ),
-    );
+    ),
+);
   }
 }

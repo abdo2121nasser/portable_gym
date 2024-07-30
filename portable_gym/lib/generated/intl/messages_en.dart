@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "beginner": MessageLookupByLibrary.simpleMessage("Beginner"),
         "birthDate": MessageLookupByLibrary.simpleMessage("Date of birth"),
         "breakfast": MessageLookupByLibrary.simpleMessage("BreakFast"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("carbohydrate"),
         "charts": MessageLookupByLibrary.simpleMessage("Charts"),
         "chooseDate": MessageLookupByLibrary.simpleMessage("Choose Date"),
@@ -88,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lb": MessageLookupByLibrary.simpleMessage("LB"),
         "letsGo": MessageLookupByLibrary.simpleMessage("Let\'s go "),
         "letsStart": MessageLookupByLibrary.simpleMessage("Let\'s start!"),
+        "logOutMassage": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out ?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginOtherOptions":
             MessageLookupByLibrary.simpleMessage("or sign up with"),

@@ -18,59 +18,59 @@ import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final ProfileCubit profCubit;
+
+
+  const ProfileScreen({super.key,required this.profCubit});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          ProfileCubit(email: FirebaseAuth.instance.currentUser!.email!)
-            ..getUserData(),
-      child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var profCubit = ProfileCubit.get(context);
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: GeneralAppBarBlock(
-                title: S.of(context).myProfile,
-                backgroundColor: ColorManager.kLightPurpleColor,
-                titleColor: ColorManager.kWhiteColor,
-                function: () {
-                  profCubit.profileScreenNavigation(
-                      index: 0, isAppBar: true, context: context);
-                }),
-            body: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const ProfileUpperBlock(),
-                    SizedBox(
-                      height: AppVerticalSize.s65,
-                    ),
-                    profCubit.isProfileLowerBlock &&
-                            profCubit.profileModel != null
-                        ? const ProfileLowerBlock()
-                        : const ProfileOptionListBlock()
-                  ],
-                ),
-                profCubit.profileModel != null
-                    ? Positioned(
-                        top: MediaQuery.of(context).size.height * 0.28,
-                        left: AppHorizontalSize.s22,
-                        right: AppHorizontalSize.s22,
-                        child: ProfileTrainingInformationBlock(
-                          age: profCubit.profileModel!.age,
-                          weight: profCubit.profileModel!.weight,
-                          height: profCubit.profileModel!.height,
-                        ))
-                    : const SizedBox(),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+    return BlocProvider.value(
+      value: profCubit,
+  child: BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: GeneralAppBarBlock(
+              title: S.of(context).myProfile,
+              backgroundColor: ColorManager.kLightPurpleColor,
+              titleColor: ColorManager.kWhiteColor,
+              function: () {
+                profCubit.profileScreenNavigation(
+                    index: 0, isAppBar: true, context: context);
+              }),
+          body: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const ProfileUpperBlock(),
+                  SizedBox(
+                    height: AppVerticalSize.s65,
+                  ),
+                  profCubit.isProfileLowerBlock &&
+                          profCubit.profileModel != null
+                      ? const ProfileLowerBlock()
+                      : const ProfileOptionListBlock()
+                ],
+              ),
+              profCubit.profileModel != null
+                  ? Positioned(
+                      top: MediaQuery.of(context).size.height * 0.28,
+                      left: AppHorizontalSize.s22,
+                      right: AppHorizontalSize.s22,
+                      child: ProfileTrainingInformationBlock(
+                        age: profCubit.profileModel!.age,
+                        weight: profCubit.profileModel!.weight,
+                        height: profCubit.profileModel!.height,
+                      ))
+                  : const SizedBox(),
+            ],
+          ),
+        );
+      },
+    ),
+);
   }
 }

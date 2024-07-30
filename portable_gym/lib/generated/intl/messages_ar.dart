@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "beginner": MessageLookupByLibrary.simpleMessage("مبدء"),
         "birthDate": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
         "breakfast": MessageLookupByLibrary.simpleMessage("الفطار"),
+        "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("كاربوهايدريت"),
         "charts": MessageLookupByLibrary.simpleMessage("المخططات"),
         "chooseDate": MessageLookupByLibrary.simpleMessage("اختر تاريخ"),
@@ -86,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lb": MessageLookupByLibrary.simpleMessage("LB"),
         "letsGo": MessageLookupByLibrary.simpleMessage("لنبدء "),
         "letsStart": MessageLookupByLibrary.simpleMessage("يلا نبدأ"),
+        "logOutMassage":
+            MessageLookupByLibrary.simpleMessage("هل تريد حقا تسجيل الخروج ؟"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "loginOtherOptions":
             MessageLookupByLibrary.simpleMessage("او سجل عن طريق"),

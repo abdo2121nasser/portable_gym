@@ -1,6 +1,8 @@
 {
   "login": "تسجيل الدخول",
   "welcome": "اهلا",
+  "logOutMassage": "هل تريد حقا تسجيل الخروج ؟",
+
   "loginWelcomeDescrioption" :"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
   "email": "البريد الاليكتروني",
   "password": "كلمه السر",
@@ -119,6 +121,7 @@
   "foodMainElement": "العناصر الاساسيه في الطعام",
   "add": "اضف",
   "edit": "عدل",
+  "cancel": "الغاء",
 
   "workoutLog": "سجل التمارين",
   "charts": "المخططات",
