@@ -16,7 +16,6 @@ class HeightRulerBlock extends StatelessWidget {
 
     return VerticalWeightSlider(
       height: MediaQuery.of(context).size.height*0.23,
-
       controller: setCubit.heightController,
       decoration:  PointerDecoration(
         width: AppHorizontalSize.s150,

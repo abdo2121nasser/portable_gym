@@ -54,7 +54,7 @@ class PortableGym extends StatelessWidget {
                       theme: getAppTheme(),
                      // home: MainNavigationBarScreen(),
                       //home: ProfileScreen(),
-                      home: FirebaseAuth.instance.currentUser==null? LoginScreen():MainNavigationBarScreen(),
+                      home: FirebaseAuth.instance.currentUser==null? LoginScreen():const MainNavigationBarScreen(),
                       //home: SetUpScreen(email: 'email'),
                      // home: LoginScreen(),
                     ),

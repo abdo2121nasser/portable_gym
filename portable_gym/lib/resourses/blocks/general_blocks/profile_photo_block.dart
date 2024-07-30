@@ -33,7 +33,7 @@ class ProfilePhotoBlock extends StatelessWidget {
             padding: EdgeInsets.all(AppVerticalSize.s5),
             decoration: const BoxDecoration(
                 color: ColorManager.kLimeGreenColor, shape: BoxShape.circle),
-            child: Image.asset(ImageManager.kPenIconImage),
+            child: Image.asset(ImageManager.kPenIconImage,fit: BoxFit.fill,),
           ),
         )
         : const SizedBox()

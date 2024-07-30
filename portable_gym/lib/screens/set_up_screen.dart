@@ -54,7 +54,7 @@ class SetUpScreen extends StatelessWidget {
                 ),
 
                 setCubit.getPageBody(setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
-
+                    state is CreateProfileLoadingState? const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,):
                 GeneralButtonBlock(
                   lable: setCubit.getButtonText(context: context),
                   function: () {

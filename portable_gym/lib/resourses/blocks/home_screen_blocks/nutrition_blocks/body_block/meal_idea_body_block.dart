@@ -7,7 +7,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../../../managers_files/color_manager.dart';
-import '../../../general_blocks/grid_square_block.dart';
+import '../recipe_grid_square_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 
 class MealIdeaBodyBlock extends StatelessWidget {
@@ -42,7 +42,7 @@ class MealIdeaBodyBlock extends StatelessWidget {
                       )),
                 )
                     :
-                GridSquareBlock(
+                RecipeGridSquareBlock(
                   recipeModel: nutCubit.recipeModels,
                   editFunction: (docId) {
                     nutCubit.editRecipe(docId: docId);

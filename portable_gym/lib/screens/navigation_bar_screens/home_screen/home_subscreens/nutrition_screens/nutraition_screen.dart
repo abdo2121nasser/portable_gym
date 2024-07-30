@@ -47,7 +47,7 @@ class NutritionScreen extends StatelessWidget {
                  onTap: () {
                    Get.to(FoodMainElementScreen(nutCubit: nutCubit,));
                  },
-                 child: Icon(
+                 child: const Icon(
                    Icons.psychology_rounded,
                    color: ColorManager.kLimeGreenColor,
                  )),
@@ -58,7 +58,7 @@ class NutritionScreen extends StatelessWidget {
             children: [
               HorizontalCategoryListBlock(
                   currentLevel: nutCubit.currentPlane,
-                  numberOfLevels: 2,
+                  numberOfLevels:  nutCubit.planBodies.length,
                   lables: nutCubit.getMealPlaneLabel(context: context),
                   changeLevel: (index) {
                     nutCubit.changeCurrentPlane(index: index);

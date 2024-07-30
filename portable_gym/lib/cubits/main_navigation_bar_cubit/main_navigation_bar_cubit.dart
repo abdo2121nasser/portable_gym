@@ -14,7 +14,7 @@ class MainNavigationBarCubit extends Cubit<MainNavigationBarState> {
   MainNavigationBarCubit() : super(MainNavigationBarInitial());
   static MainNavigationBarCubit get(context) => BlocProvider.of(context);
   int currentIndex=0;
-  List<Widget> screens=[HomeScreen(),FavouriteScreen(),ResourcesScreen(),const ContactScreen()];
+  List<Widget> screens=[HomeScreen(),ResourcesScreen(),const FavouriteScreen(),const ContactScreen()];
   List<BottomNavigationBarItem> items=[
 
     const BottomNavigationBarItem(icon: Icon(Icons.home,color:ColorManager.kWhiteColor,), label: '' ),

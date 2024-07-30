@@ -17,17 +17,27 @@ import '../../managers_files/style_manager.dart';
 import '../../models/nutrition_models/recipe_model.dart';
 
 class SquareElementBlock extends StatelessWidget {
-final RecipeModel recipeModel;
-final Function(String) deleteFunction;
+//final RecipeModel recipeModel;
+final String imageLink;
+final String title;
+final String calories;
 
-  SquareElementBlock({
-     required  this.recipeModel,
-   required this.deleteFunction
+ final VoidCallback? deleteFunction;
+ final bool isViewOnly;
+ final bool isFavouriteItem;
+
+  const SquareElementBlock({super.key,
+    // required  this.recipeModel,
+    required this.title,
+    required this.calories,
+    required this.imageLink,
+    this.isViewOnly=false,
+    this.isFavouriteItem=false,
+    this.deleteFunction
   });
 
   @override
   Widget build(BuildContext context) {
-    var languageModel=recipeModel!.getLanguageClass(context);
     return Container(
       width: AppHorizontalSize.s178,
       decoration: BoxDecoration(
@@ -46,7 +56,7 @@ final Function(String) deleteFunction;
                       topLeft: Radius.circular(AppRadiusSize.s12),
                       topRight: Radius.circular(AppRadiusSize.s12)),
                   child: Image.network(
-                    recipeModel.imageLink,
+                    imageLink,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
@@ -85,7 +95,7 @@ final Function(String) deleteFunction;
                             children: [
                               Expanded(
                                 child: Text(
-                                  languageModel.name!,
+        title,
                                   style: getRegularStyle(
                                       fontSize: FontSize.s16,
                                       color: ColorManager.kLimeGreenColor,
@@ -112,7 +122,7 @@ final Function(String) deleteFunction;
                               child: RecordedUnitBlock(
                                 icon: Icons.local_fire_department_outlined,
                                 mesuaringUnit: S.of(context).kCal,
-                                unitValue: languageModel.calories!,
+                                unitValue:calories,
                               )),
                         ],
                       )
@@ -132,17 +142,17 @@ final Function(String) deleteFunction;
                       mainAxisAlignment: MainAxisAlignment.end,
 
                       children: [
-                        const Icon(
-                          Icons.star_border,
-                          color: ColorManager.kBlackColor,
+                         Icon(
+                       isFavouriteItem?   Icons.star_rounded:Icons.star_border,
+                          color: isFavouriteItem?ColorManager.kLimeGreenColor :ColorManager.kBlackColor,
                         ),
-                        Padding(
+                      isViewOnly?const SizedBox():  Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: AppHorizontalSize.s5),
                           child: InkWell(
 
                             onTap: (){
-                              deleteFunction(recipeModel.docId);
+                              deleteFunction!();
                             },
                             child: Icon(
                               Icons.delete,

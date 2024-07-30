@@ -13,6 +13,7 @@ import 'package:meta/meta.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../generated/l10n.dart';
@@ -323,6 +324,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       getToastMessage(
         message: 'successfully Created',
       );
+      Get.offAll(const MainNavigationBarScreen());
     }).catchError((error) {
       getToastMessage(
         message: 'an error has happened',

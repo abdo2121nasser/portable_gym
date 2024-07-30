@@ -6,17 +6,17 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
-import '../../../generated/l10n.dart';
+import '../../../../generated/l10n.dart';
 
-class GridSquareBlock extends StatelessWidget {
+class RecipeGridSquareBlock extends StatelessWidget {
   final List<RecipeModel> recipeModel;
   final Function(RecipeModel) setAttributes;
   final Function(String) editFunction;
   final Function(String) deleteFunction;
   final TabBarView tabBarView;
 
-  GridSquareBlock(
-      {required this.recipeModel,
+  const RecipeGridSquareBlock(
+      {super.key, required this.recipeModel,
       required this.editFunction,
         required this.deleteFunction,
         required this.setAttributes,
@@ -60,9 +60,11 @@ class GridSquareBlock extends StatelessWidget {
             },
 
             child: SquareElementBlock(
-              recipeModel: recipeModel[index],
-              deleteFunction: (docId){
-                deleteFunction(docId);
+              title: recipeModel[index].getLanguageClass(context).name!,
+              calories: recipeModel[index].getLanguageClass(context).calories!,
+              imageLink: recipeModel[index].imageLink,
+              deleteFunction: (){
+                deleteFunction(recipeModel[index].docId);
               },
             )),
         itemCount: recipeModel.length,

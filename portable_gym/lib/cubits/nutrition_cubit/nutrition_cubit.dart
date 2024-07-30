@@ -29,16 +29,9 @@ class NutritionCubit extends Cubit<NutritionState> {
   List<RecipeModel> recipeModels = [];
   List<FoodElementModel> foodElementModels=[];
 
-  // TabBarView recipeTabBarViews = TabBarView(
-  //     children: [EnglishRecipeTabBarBlock(), ArabicRecipeTabBarBlock()]);
-  // TabBarView foodMainElementTabBarViews = TabBarView(children: [
-  //   EnglishFoodMainElementTabBarBlock(),
-  //   ArabicFoodMainElementTabBarBlock()
-  // ]);
 
   List<Widget> planBodies = [MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
-    false,
     false,
     false,
     false,

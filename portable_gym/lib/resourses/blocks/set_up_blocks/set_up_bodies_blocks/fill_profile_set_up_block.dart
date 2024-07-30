@@ -45,7 +45,7 @@ class FillProfileSetUpBlock extends StatelessWidget {
                   )),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.35,
               child: ListView.separated(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppHorizontalSize.s20,

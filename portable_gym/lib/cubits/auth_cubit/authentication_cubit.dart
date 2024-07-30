@@ -112,7 +112,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(LoginSuccessState());
       bool hasData=await hasProfile(email: loginEmail.text,context: context);
       if( hasData ) {
-        Get.to(MainNavigationBarScreen());
+        Get.to(const MainNavigationBarScreen());
       }
       else {
         Get.to(SetUpScreen(email: loginEmail.text,));
@@ -190,13 +190,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
       getToastMessage(message: S.of(context).success);
       emit(RegisterSuccessState());
-      bool hasData=await hasProfile(email: loginEmail.text,context: context);
-      if( hasData ) {
-        Get.to(MainNavigationBarScreen());
-      }
-      else {
         Get.to(SetUpScreen(email: loginEmail.text,));
-      }
+
 
 
      }).catchError((error)

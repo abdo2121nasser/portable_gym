@@ -28,7 +28,11 @@ class MainNavigationBarScreen extends StatelessWidget {
         BlocProvider(create: (context) => FavouriteCubit()),
 
       ],
-      child: BlocConsumer<MainNavigationBarCubit, MainNavigationBarState>(
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    return BlocConsumer<MainNavigationBarCubit, MainNavigationBarState>(
         listener: (context, state) {},
         builder: (context, state) {
           var profCubit = ProfileCubit.get(context);
@@ -113,7 +117,9 @@ class MainNavigationBarScreen extends StatelessWidget {
             body: navCubit.screens[navCubit.currentIndex],
           );
         },
-      ),
+      );
+  },
+),
     );
   }
 }
