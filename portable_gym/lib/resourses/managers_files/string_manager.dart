@@ -13,6 +13,7 @@ class StringManager
   static const String trainingEnglishLableName='Name';
   static const String trainingEnglishLablePeriod='Period';
   static const String trainingEnglishLableNumberOfRepetation='Number of Reputation';
+  static const String trainingEnglishLableNumberOfRounds='Number of Rounds';
   static const String trainingEnglishLablePriority='Priority';
   static const String trainingEnglishLableInstruction='Instructions';
   static const String trainingEnglishLableVideoLink='video link';
@@ -20,6 +21,7 @@ class StringManager
   static const String trainingArabicLableName='الاسم';
   static const String trainingArabicLablePeriod='المده';
   static const String trainingArabicLableNumberOfRepetation='عدد التكرار';
+  static const String trainingArabicLableNumberOfRounds='عدد الجولات';
   static const String trainingArabicLablePriority='الاولويه';
   static const String trainingArabicLableInstruction='الارشادات';
   static const String trainingArabicLableVideoLink='رابط الفديو';
@@ -43,10 +45,12 @@ class StringManager
 
   static const String trainingEnglishName='training english name';
   static const String trainingEnglishNumberOfReputation='training english number of reputation';
+  static const String trainingEnglishNumberOfRounds='training english number of rounds';
   static const String trainingEnglishInstruction='training english instruction';
 
   static const String trainingArabicName='training arabic name';
   static const String trainingArabicNumberOfReputation='training arabic number of reputation';
+  static const String trainingArabicNumberOfRounds='training arabic number of rounds';
   static const String trainingArabicInstruction='training arabic instruction';
 
   static const String trainingVideoLink='training video link';

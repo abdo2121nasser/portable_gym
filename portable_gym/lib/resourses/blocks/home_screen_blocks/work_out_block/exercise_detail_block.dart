@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 class ExerciseDetailBlock extends StatelessWidget {
         final TrainingModel trainingModel;
 
-        ExerciseDetailBlock({required this.trainingModel});
+        const ExerciseDetailBlock({super.key, required this.trainingModel});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,8 @@ class ExerciseDetailBlock extends StatelessWidget {
                     child: RecordedUnitBlock(
                       icon: Icons.local_fire_department_outlined,
                       mesuaringUnit: S.of(context).reputation,
-                      unitValue: languageModel.numberOfReputation.toString(),
+                      unitValue:
+                          '${languageModel.numberOfRounds} x ${languageModel.numberOfReputation}',
                       textColor: ColorManager.kBlackColor,
                       iconColor: ColorManager.kBlackColor,
                     )),],

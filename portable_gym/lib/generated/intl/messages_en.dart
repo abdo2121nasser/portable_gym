@@ -55,8 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editBodyCategory":
             MessageLookupByLibrary.simpleMessage("edit body category"),
         "editRecipe": MessageLookupByLibrary.simpleMessage("Edit Recipe"),
-        "editTraining":
-            MessageLookupByLibrary.simpleMessage("edit new training"),
+        "editTraining": MessageLookupByLibrary.simpleMessage("edit training"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailFieldPatternIsWrong": MessageLookupByLibrary.simpleMessage(
             "email field pattern is wrong"),

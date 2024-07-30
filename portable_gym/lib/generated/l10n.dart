@@ -880,10 +880,10 @@ class S {
     );
   }
 
-  /// `edit new training`
+  /// `edit training`
   String get editTraining {
     return Intl.message(
-      'edit new training',
+      'edit training',
       name: 'editTraining',
       desc: '',
       args: [],

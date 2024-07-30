@@ -33,17 +33,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   int currentLevel = 0;
 
   //--------------------------------------------------------------------------------------
-  // TabBarView trainingTabBarView = TabBarView(children: [
-  //   EnglishTrainingTabBarViewBlock(),
-  //   ArabicTrainingTabBarViewBlock()
-  // ]);
-  // TabBarView bodyCategoryTabBarView = TabBarView(children: [
-  //   EnglishBodyCategoryTabBarViewBlock(),
-  //   ArabicBodyCategoryTabBarViewBlock()
-  // ]);
+
   List<String> trainingEnglishLables = [
     StringManager.trainingEnglishLableName,
     StringManager.trainingEnglishLableNumberOfRepetation,
+    StringManager.trainingEnglishLableNumberOfRounds,
     StringManager.trainingEnglishLablePriority,
     StringManager.trainingEnglishLableInstruction,
     StringManager.trainingEnglishLableVideoLink,
@@ -51,6 +45,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<String> trainingArabicLables = [
     StringManager.trainingArabicLableName,
     StringManager.trainingArabicLableNumberOfRepetation,
+    StringManager.trainingArabicLableNumberOfRounds,
     StringManager.trainingArabicLablePriority,
     StringManager.trainingArabicLableInstruction,
     StringManager.trainingArabicLableVideoLink,
@@ -70,12 +65,16 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   TextEditingController trainingEnglishNameController = TextEditingController();
   TextEditingController trainingEnglishNumberOfReputationController =
       TextEditingController();
+  TextEditingController trainingEnglishNumberOfRoundsController =
+      TextEditingController();
   TextEditingController trainingPriorityController = TextEditingController();
   TextEditingController trainingEnglishInstructionController =
       TextEditingController();
 
   TextEditingController trainingArabicNameController = TextEditingController();
   TextEditingController trainingArabicNumberOfReputationController =
+      TextEditingController();
+  TextEditingController trainingArabicNumberOfRoundsController =
       TextEditingController();
 
   TextEditingController trainingArabicInstructionController =
@@ -131,25 +130,25 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
   List<TextEditingController> getTrainingEnglishControllers() {
-    List<TextEditingController> controllers = [
+    return [
       trainingEnglishNameController,
       trainingEnglishNumberOfReputationController,
+      trainingEnglishNumberOfRoundsController,
       trainingPriorityController,
       trainingEnglishInstructionController,
       trainingVideoLinkController
     ];
-    return controllers;
   }
 
   List<TextEditingController> getTrainingArabicControllers() {
-    List<TextEditingController> controllers = [
+    return [
       trainingArabicNameController,
       trainingArabicNumberOfReputationController,
+      trainingArabicNumberOfRoundsController,
       trainingPriorityController,
       trainingArabicInstructionController,
       trainingVideoLinkController
     ];
-    return controllers;
   }
 
   getEnglishBodyCategoryControllers({required int index}) {
@@ -208,6 +207,16 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the arabic number of reputation field is empty',
       );
       return false;
+    } else if (trainingEnglishNumberOfRoundsController.text.isEmpty) {
+      getToastMessage(
+        message: 'the english number of round field is empty',
+      );
+      return false;
+    } else if (trainingArabicNumberOfRoundsController.text.isEmpty) {
+      getToastMessage(
+        message: 'the arabic number of round field is empty',
+      );
+      return false;
     } else if (trainingEnglishInstructionController.text.isEmpty) {
       getToastMessage(
         message: 'the english instruction field is empty',
@@ -238,9 +247,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   clearTrainingAttributes() {
     trainingEnglishNameController.clear();
     trainingEnglishNumberOfReputationController.clear();
+    trainingEnglishNumberOfRoundsController.clear();
     trainingEnglishInstructionController.clear();
     trainingArabicNameController.clear();
     trainingArabicNumberOfReputationController.clear();
+    trainingArabicNumberOfRoundsController.clear();
     trainingArabicInstructionController.clear();
     trainingPriorityController.clear();
     trainingVideoLinkController.clear();
@@ -253,10 +264,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingEnglishNameController.text = model.english!.name!;
     trainingEnglishNumberOfReputationController.text =
         model.english!.numberOfReputation!;
+    trainingEnglishNumberOfRoundsController.text =
+        model.english!.numberOfRounds!;
+
     trainingEnglishInstructionController.text = model.english!.instructions!;
     trainingArabicNameController.text = model.arabic!.name!;
     trainingArabicNumberOfReputationController.text =
         model.arabic!.numberOfReputation!;
+    trainingArabicNumberOfRoundsController.text =
+        model.arabic!.numberOfRounds!;
     trainingArabicInstructionController.text = model.arabic!.instructions!;
     trainingPriorityController.text = model.priority.toString();
     trainingVideoLinkController.text = model.videoLink!;
@@ -275,11 +291,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       StringManager.trainingEnglishName: trainingEnglishNameController.text,
       StringManager.trainingEnglishNumberOfReputation:
           trainingEnglishNumberOfReputationController.text,
+      StringManager.trainingEnglishNumberOfRounds:
+          trainingEnglishNumberOfRoundsController.text,
       StringManager.trainingEnglishInstruction:
           trainingEnglishInstructionController.text,
       StringManager.trainingArabicName: trainingArabicNameController.text,
       StringManager.trainingArabicNumberOfReputation:
           trainingArabicNumberOfReputationController.text,
+      StringManager.trainingArabicNumberOfRounds:
+          trainingArabicNumberOfRoundsController.text,
       StringManager.trainingArabicInstruction:
           trainingArabicInstructionController.text,
       StringManager.trainingVideoLink: trainingVideoLinkController.text,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
@@ -18,15 +19,19 @@ class MainNavigationBarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-  create: (context) => ProfileCubit(email: FirebaseAuth.instance.currentUser!.email!)
-    ..getUserData(),
-  child: BlocProvider(
-      create: (context) => MainNavigationBarCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => ProfileCubit(email: FirebaseAuth.instance.currentUser!.email!)
+                  ..getUserData()),
+        BlocProvider(create: (context) => MainNavigationBarCubit()),
+        BlocProvider(create: (context) => FavouriteCubit()),
+
+      ],
       child: BlocConsumer<MainNavigationBarCubit, MainNavigationBarState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var profCubit=ProfileCubit.get(context);
+          var profCubit = ProfileCubit.get(context);
           var navCubit = MainNavigationBarCubit.get(context);
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -35,26 +40,23 @@ class MainNavigationBarScreen extends StatelessWidget {
               toolbarHeight: AppVerticalSize.s80,
               backgroundColor: ColorManager.kBlackColor,
               automaticallyImplyLeading: false,
-
-
-              title: Column(
+              title:profCubit.profileModel != null
+                  ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      profCubit.profileModel!=null?
                       Flexible(
-                        child: Text(
-                          profCubit.profileModel!.nickName,
-                          style: getBoldStyle(
-                              fontSize: FontSize.s20,
-                              color: ColorManager.kPurpleColor,
-                              fontFamily: FontFamily.kPoppinsFont),
-                        ),
-                      ): const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,),
-                      SizedBox(
-                        width: AppHorizontalSize.s10,
-                      ),
+                              child: Text(
+                                profCubit.profileModel!.nickName,
+                                style: getBoldStyle(
+                                    fontSize: FontSize.s20,
+                                    color: ColorManager.kPurpleColor,
+                                    fontFamily: FontFamily.kPoppinsFont),
+                              ),
+                            )
+
                     ],
                   ),
                   SizedBox(
@@ -75,13 +77,19 @@ class MainNavigationBarScreen extends StatelessWidget {
                     ],
                   ),
                 ],
+              ) : const CircularProgressIndicator(
+                color: ColorManager.kLightPurpleColor,
               ),
-              actions: [
+              actions:profCubit.profileModel != null
+                  ? [
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s18),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppHorizontalSize.s18),
                   child: InkWell(
                     onTap: () {
-                      Get.to( ProfileScreen(profCubit: profCubit,));
+                      Get.to(ProfileScreen(
+                        profCubit: profCubit,
+                      ));
                     },
                     child: const Icon(
                       Icons.person,
@@ -89,7 +97,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                     ),
                   ),
                 )
-              ],
+              ]:null,
             ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (newIndex) =>
@@ -106,7 +114,6 @@ class MainNavigationBarScreen extends StatelessWidget {
           );
         },
       ),
-    ),
-);
+    );
   }
 }

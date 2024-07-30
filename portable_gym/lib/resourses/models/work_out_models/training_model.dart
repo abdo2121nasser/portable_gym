@@ -56,11 +56,13 @@ class TrainingModel {
 abstract class LanguageClass {
   final String? name;
   final String? numberOfReputation;
+  final String? numberOfRounds;
   final String? instructions;
 
   LanguageClass({
     required this.name,
     required this.numberOfReputation,
+    required this.numberOfRounds,
     required this.instructions,
   });
 }
@@ -69,13 +71,17 @@ class English extends LanguageClass {
   English({
     required String? name,
     required String? numberOfReputation,
+    required String? numberOfRounds,
     required String? instructions,
-  }) : super(name: name, numberOfReputation: numberOfReputation, instructions: instructions);
+  }) : super(name: name, numberOfReputation: numberOfReputation,
+      numberOfRounds: numberOfRounds,
+      instructions: instructions);
 
   factory English.fromJson({required Map<String, dynamic> json}) {
     return English(
       name: json[StringManager.trainingEnglishName],
       numberOfReputation: json[StringManager.trainingEnglishNumberOfReputation],
+      numberOfRounds: json[StringManager.trainingEnglishNumberOfRounds]??'1',
       instructions: json[StringManager.trainingEnglishInstruction],
     );
   }
@@ -85,13 +91,17 @@ class Arabic extends LanguageClass {
   Arabic({
     required String? name,
     required String? numberOfReputation,
+    required String? numberOfRounds,
     required String? instructions,
-  }) : super(name: name, numberOfReputation: numberOfReputation, instructions: instructions);
+  }) : super(name: name, numberOfReputation: numberOfReputation,
+      numberOfRounds: numberOfRounds,
+      instructions: instructions);
 
   factory Arabic.fromJson({required Map<String, dynamic> json}) {
     return Arabic(
       name: json[StringManager.trainingArabicName],
       numberOfReputation: json[StringManager.trainingArabicNumberOfReputation],
+      numberOfRounds: json[StringManager.trainingArabicNumberOfRounds]??'1',
       instructions: json[StringManager.trainingArabicInstruction],
     );
   }

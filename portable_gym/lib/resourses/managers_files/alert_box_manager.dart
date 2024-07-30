@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/animation.dart';
@@ -6,16 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:video_player/video_player.dart';
 
-import '../../generated/l10n.dart';
-import '../blocks/general_blocks/check_box_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 
 class AlertBodyCategoryBox extends StatelessWidget {
@@ -25,7 +20,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  AlertBodyCategoryBox({
+  const AlertBodyCategoryBox({
     required context,
     required this.workOutCubit,
     required this.tabBar,
@@ -100,7 +95,7 @@ class AlertTrainingBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  AlertTrainingBox({
+  const AlertTrainingBox({super.key,
     required context,
     required this.workOutCubit,
     required this.tabBar,
@@ -171,7 +166,7 @@ class AlertRecipeBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  AlertRecipeBox({
+  const AlertRecipeBox({
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -240,7 +235,7 @@ class AlertFoodMainElementBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  AlertFoodMainElementBox({
+  const AlertFoodMainElementBox({
     required context,
     required this.tabBar,
     required this.tabBarView,
