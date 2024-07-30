@@ -11,6 +11,7 @@ import 'package:portable_gym/screens/set_up_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
+import '../../screens/authentication_screens/login_screen.dart';
 
 part 'authentication_state.dart';
 
@@ -219,22 +220,43 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
   forgetPassword({required context}) async {
     emit(ForgetPasswordLoadingState());
-    await FirebaseAuth.instance.sendPasswordResetEmail(email:forgetPasswordEmail.text)
+    await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: forgetPasswordEmail.text)
         .then((value) {
       emit(ForgetPasswordSuccessState());
-      getToastMessage(message: S.of(context).success);
+      getToastMessage(message: S
+          .of(context)
+          .success);
     })
-        .catchError((error){
+        .catchError((error) {
       emit(ForgetPasswordErrorState());
-      getToastMessage(message: S.of(context).somethingWentWrong);
+      getToastMessage(message: S
+          .of(context)
+          .somethingWentWrong);
       debugPrint(error);
-
     });
     forgetPasswordEmail.clear();
   }
+
+
+
 //-----------------------------forgetPassword-----------------------------------
 
+  logOut(context) async {
+    await FirebaseAuth.instance.signOut().then((value) {
+      getToastMessage(message: S
+          .of(context)
+          .success);
 
+        Get.offAll(LoginScreen());
+    }).catchError((error) {
+      getToastMessage(message: S
+          .of(context)
+          .somethingWentWrong);
+      debugPrint(error);
+    });
+  }
+//------------------------------logout------------------------------------------
  Future<bool> hasProfile({required String email,required context}) async {
   late  bool hasProfile;
     var data = await FirebaseFirestore.instance

@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
@@ -16,6 +19,11 @@ class LogOutBottomSheetBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
+    var authCubit=AuthenticationCubit.get(context);
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.2,
@@ -53,7 +61,7 @@ class LogOutBottomSheetBlock extends StatelessWidget {
          GeneralButtonBlock(
              lable: S.of(context).logout,
              function: (){
-               logOut(context);
+             authCubit.logOut(context);
              },
              backgroundColor: ColorManager.kLimeGreenColor,
              textStyle: getMediumStyle(
@@ -66,16 +74,9 @@ class LogOutBottomSheetBlock extends StatelessWidget {
         ],
       ),
     );
+  },
+);
   }
-  logOut(context) async {
+  
 
-    await FirebaseAuth.instance.signOut().then((value) {
-      getToastMessage(message: S.of(context).success);
-
-      Get.offAll(LoginScreen());
-    }).catchError((error){
-      getToastMessage(message: S.of(context).somethingWentWrong);
-      debugPrint(error);
-    });
-  }
 }
