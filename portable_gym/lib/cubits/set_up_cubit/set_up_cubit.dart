@@ -239,13 +239,11 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
   uploadImage() async{
     emit(UploadImageFileLoadingState());
- await  FirebaseStorage.instance.ref().child('${imageFile!.path}')
+ await  FirebaseStorage.instance.ref().child(imageFile!.path)
        .putFile(imageFile!).
     then((result) async {
   imageLink=  await result.ref.getDownloadURL();
     emit(UploadImageFileSuccessState());
-    print(imageLink);
-    print('////////////////////////////');
     }).catchError((error){
      emit(UploadImageFileErrorState());
      // debugPrint(error);

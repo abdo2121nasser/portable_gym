@@ -8,6 +8,8 @@ import '../../managers_files/values_manager.dart';
 
 
 class ProfileOptionListBlock extends StatelessWidget {
+  const ProfileOptionListBlock({super.key});
+
 
 
   @override

@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addRecipe": MessageLookupByLibrary.simpleMessage("Add Recipe"),
         "advanced": MessageLookupByLibrary.simpleMessage("Advanced"),
         "advantage": MessageLookupByLibrary.simpleMessage("Advantage"),
+        "age": MessageLookupByLibrary.simpleMessage("Age"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("Arabic"),

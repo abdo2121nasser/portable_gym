@@ -20,7 +20,7 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s12),
+      padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s14),
     width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: ColorManager.kPurpleColor,
@@ -52,8 +52,8 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
             ],
           ),
           SizedBox(
-              height:MediaQuery.of(context).size.height*0.07,
-              child: VerticalDivider(thickness: AppHorizontalSize.s2,)),
+              height:MediaQuery.of(context).size.height*0.05,
+              child: VerticalDivider(thickness: AppHorizontalSize.s2,color: ColorManager.kWhiteColor,)),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
 
@@ -77,8 +77,8 @@ class ProfileTrainingInformationBlock extends StatelessWidget {
             ],
           ),
           SizedBox(
-              height:MediaQuery.of(context).size.height*0.07,
-              child: VerticalDivider(thickness: AppHorizontalSize.s2,)),
+              height:MediaQuery.of(context).size.height*0.05,
+              child: VerticalDivider(thickness: AppHorizontalSize.s2,color: ColorManager.kWhiteColor,)),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
 

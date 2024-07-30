@@ -15,6 +15,8 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
 
 class ProfileUpperBlock extends StatelessWidget {
+  const ProfileUpperBlock({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ProfileUpperBlock extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: AppHorizontalSize.s22,
           ),
-          height: MediaQuery.of(context).size.height * 0.38,
+          height: MediaQuery.of(context).size.height * 0.3,
           width: double.infinity,
           color: ColorManager.kLightPurpleColor,
           child:
@@ -42,10 +44,18 @@ class ProfileUpperBlock extends StatelessWidget {
         children: [
           SizedBox(
                 height: MediaQuery.of(context).size.height * 0.2,
-                child:  ProfilePhotoBlock(
-                  image:
-                  Image.network(profCubit.profileModel!.imageLink).image,
-                  isEditable: false,
+                child:  InkWell(
+                  onTap: profCubit.isProfileLowerBlock?(){
+                   profCubit.pickImage();
+                  }:null,
+                  child: ProfilePhotoBlock(
+                    image:profCubit.imageFile==null?
+                    Image.network(
+                    profCubit.profileModel!.imageLink).image:
+                        Image.file(profCubit.imageFile!).image
+                    ,
+                    isEditable: profCubit.isProfileLowerBlock,
+                  ),
                 )),
           PersonalInformationBlock(fullName: profCubit.profileModel!.fullName,email: profCubit.profileModel!.email),
           SizedBox(

@@ -13,7 +13,7 @@ class ProfilePhotoBlock extends StatelessWidget {
   final ImageProvider image;
   final bool isEditable;
 
-  ProfilePhotoBlock({required this.image,this.isEditable=true});
+  const ProfilePhotoBlock({super.key, required this.image,this.isEditable=true});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,6 @@ class ProfilePhotoBlock extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.red,
               shape: BoxShape.circle,
               image: DecorationImage(
                   image:image,
@@ -29,7 +28,7 @@ class ProfilePhotoBlock extends StatelessWidget {
         ),
     isEditable?    Positioned(
           bottom: AppVerticalSize.s2,
-          left: MediaQuery.of(context).size.width * 0.56,
+          left: MediaQuery.of(context).size.width * 0.54,
           child: Container(
             padding: EdgeInsets.all(AppVerticalSize.s5),
             decoration: const BoxDecoration(
@@ -37,7 +36,7 @@ class ProfilePhotoBlock extends StatelessWidget {
             child: Image.asset(ImageManager.kPenIconImage),
           ),
         )
-        : SizedBox()
+        : const SizedBox()
       ],
     );
 

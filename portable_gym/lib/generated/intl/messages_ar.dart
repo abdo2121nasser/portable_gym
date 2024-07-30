@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addRecipe": MessageLookupByLibrary.simpleMessage("اضف وصفه"),
         "advanced": MessageLookupByLibrary.simpleMessage("متقدم"),
         "advantage": MessageLookupByLibrary.simpleMessage("المميزات"),
+        "age": MessageLookupByLibrary.simpleMessage("العمر"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("عربي"),
