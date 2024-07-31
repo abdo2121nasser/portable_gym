@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/recipe_category_body_block.dart';
@@ -125,6 +126,44 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
 
+  addFavouriteRecipe({required RecipeModel recipeModel}) async {
+    emit(AddFavouriteRecipeLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles).doc(userDocId).collection(StringManager.collectionUserFavouriteRecipes).add(
+        {
+          StringManager.recipesEnglishName: recipeModel.english.name,
+          StringManager.recipesEnglishCalories: recipeModel.english.calories,
+          StringManager.recipesEnglishProtein: recipeModel.english.protein,
+          StringManager.recipesEnglishCarbohydrates:
+          recipeModel.english.carbohydrates,
+          StringManager.recipesEnglishAdvantage: recipeModel.english.advantage,
+          StringManager.recipesArabicName: recipeModel.arabic.name,
+          StringManager.recipesArabicCalories:recipeModel.arabic.calories,
+          StringManager.recipesArabicProtein: recipeModel.arabic.protein,
+          StringManager.recipesArabicCarbohydrates:
+          recipeModel.arabic.carbohydrates,
+          StringManager.recipesArabicAdvantage:recipeModel.arabic.advantage,
+          StringManager.recipesImageLink: recipeModel.imageLink,
+          StringManager.recipeDocId: recipeModel.docId,
 
+        }
+    ).then((value) async {
+      emit(AddFavouriteRecipeSuccessState());
+
+    }).catchError((error){
+      debugPrint(error);
+      emit(AddFavouriteRecipeErrorState());
+
+    });
+  }
+
+  Future<bool> isRecipeIsFavourite({required String recipeDocId}) async {
+    return  await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles).doc(userDocId).collection(StringManager.collectionUserFavouriteRecipes)
+        .where( StringManager.recipeDocId, isEqualTo: recipeDocId).get()
+        .then((value) {
+      return  value.docs.isNotEmpty;
+    });
+  }
 
 }

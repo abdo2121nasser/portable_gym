@@ -156,7 +156,9 @@ class StringManager
 
 
   static const String collectionUserFavouriteTraining='favourite trainings';
+  static const String collectionUserFavouriteRecipes='favourite recipes';
   static const String trainingDocId='training doc id';
+  static const String recipeDocId='recipe doc id';
 
 
 
