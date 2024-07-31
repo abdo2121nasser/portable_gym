@@ -70,6 +70,8 @@
   "trainingOfDay": "training of the day",
   "round": "Round ",
   "reputation": "repetition ",
+  "reputationShort": "Rep",
+
   "hour": "H",
   "minute": "M",
   "second": "S",

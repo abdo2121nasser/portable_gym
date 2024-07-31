@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';
@@ -120,12 +118,9 @@ class BodyPartItemBlock extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(
-                        Icons.star_border,
-                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: AppHorizontalSize.s10),
+                            horizontal: AppHorizontalSize.s10,vertical: AppVerticalSize.s5),
                         child: InkWell(
                           onTap: deleteFunction,
                           child: Icon(

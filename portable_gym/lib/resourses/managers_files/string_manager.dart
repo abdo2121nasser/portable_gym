@@ -152,6 +152,11 @@ class StringManager
 
 
 
+  static const String collectionUserFavouriteTraining='favourite trainings';
+  static const String trainingDocId='training doc id';
+
+
+
 
 
 

@@ -12,7 +12,7 @@ class ElementCategoryBlock extends StatelessWidget {
       final Color color;
 
 
-      ElementCategoryBlock({required this.lable,required this.color});
+      const ElementCategoryBlock({super.key, required this.lable,required this.color});
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
@@ -22,6 +24,7 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
 class WorkOutScreen extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {

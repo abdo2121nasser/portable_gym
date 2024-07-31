@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/nutraition_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/progress_tracking_screens/progress_tracking_screen.dart';
@@ -15,7 +16,6 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   static HomeCubit get(context) => BlocProvider.of(context);
-
   List<Widget> topMenuScreens = [
     WorkOutScreen(),
     NutritionScreen(),

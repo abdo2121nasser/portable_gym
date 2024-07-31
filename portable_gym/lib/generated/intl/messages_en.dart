@@ -127,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recommendations":
             MessageLookupByLibrary.simpleMessage("Recommendations"),
         "reputation": MessageLookupByLibrary.simpleMessage("repetition "),
+        "reputationShort": MessageLookupByLibrary.simpleMessage("Rep"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "round": MessageLookupByLibrary.simpleMessage("Round "),
         "second": MessageLookupByLibrary.simpleMessage("S"),

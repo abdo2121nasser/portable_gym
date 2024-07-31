@@ -393,8 +393,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     }
   }
 
-  getTraining(
-      {required String bodyCategory, bool isDailyCategory = false}) async {
+  getTraining({required String bodyCategory, bool isDailyCategory = false}) async {
     trainingModel.clear();
     var data;
     if (isDailyCategory) {
@@ -425,7 +424,21 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       print(error);
     });
   }
+ Future<TrainingModel>  getTrainingUsingDocId({required String trainingDocId}) async {
+   TrainingModel specificTraining;
+   emit(GetTrainingUsingDocIdLoadingState());
+ return await  FirebaseFirestore.instance
+        .collection(StringManager.collectionTrainings).doc(trainingDocId).get().then((value) {
+   emit(GetTrainingUsingDocIdSuccessState());
+   return  specificTraining=TrainingModel.fromJson(json: value.data()!, docId: value.id);
 
+  }).catchError((error){
+    emit(GetTrainingUsingDocIdErrorState());
+    debugPrint(error);
+
+  });
+
+  }
 //------------------------------------------------------------------------------
   bool validateAddBodyCategory() {
     if (bodyCategoryEnglishTitleController.text.isEmpty) {

@@ -13,12 +13,20 @@ import 'package:intl/intl.dart';
 class RoundItemBlock extends StatelessWidget {
   final TrainingModel trainingModel;
   final VoidCallback deleteFunction;
+  final VoidCallback addToFavouriteFunction;
+  final Future<bool> isTrainingFavourite;
 
-  RoundItemBlock({required this.trainingModel, required this.deleteFunction});
+  const RoundItemBlock(
+      {super.key,
+      required this.trainingModel,
+      required this.deleteFunction,
+      required this.addToFavouriteFunction,
+      required this.isTrainingFavourite});
 
   @override
   Widget build(BuildContext context) {
     var languageModel = trainingModel.getLanguageClass(context);
+
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: AppVerticalSize.s10, horizontal: AppHorizontalSize.s16),
@@ -31,7 +39,7 @@ class RoundItemBlock extends StatelessWidget {
           Row(
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: ColorManager.kLightPurpleColor,
                     shape: BoxShape.circle),
                 child: Icon(
@@ -91,15 +99,41 @@ class RoundItemBlock extends StatelessWidget {
             ],
           ),
           Text(
-            languageModel.numberOfRounds.toString() +
-                ' x ' +
-                languageModel.numberOfReputation.toString() +
-                ' ' +
-                S.of(context).reputation,
+            '${languageModel.numberOfRounds} x ${languageModel.numberOfReputation} ${S.of(context).reputationShort}',
             style: getMediumStyle(
                 fontSize: FontSize.s12,
                 color: ColorManager.kBlackColor,
                 fontFamily: FontFamily.kPoppinsFont),
+          ),
+          !trainingModel.isPaid!
+              ? Flexible(
+                  child: SizedBox(
+                      width: AppHorizontalSize.s22,
+                      height: AppVerticalSize.s22,
+                      child: Image.asset(ImageManager.kCrownImage)),
+                )
+              : const SizedBox(),
+          Flexible(
+            child: FutureBuilder<bool>(
+                future: isTrainingFavourite,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasData && snapshot.data == true) {
+                    return InkWell(
+                        onTap: addToFavouriteFunction,
+                        child: Icon(
+                          Icons.star_rounded,
+                          color: ColorManager.kPurpleColor,
+                        ));
+                  } else
+                    return InkWell(
+                        onTap: addToFavouriteFunction,
+                        child: Icon(
+                          Icons.star_border,
+                          color: ColorManager.kPurpleColor,
+                        ));
+                }),
           ),
           InkWell(
               onTap: deleteFunction,
@@ -107,12 +141,6 @@ class RoundItemBlock extends StatelessWidget {
                 Icons.delete,
                 color: ColorManager.kRed,
               )),
-          trainingModel.isPaid!
-              ? SizedBox(
-                  width: AppHorizontalSize.s22,
-                  height: AppVerticalSize.s22,
-                  child: Image.asset(ImageManager.kCrownImage))
-              : SizedBox(),
         ],
       ),
     );

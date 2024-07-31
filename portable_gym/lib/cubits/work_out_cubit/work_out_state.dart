@@ -54,3 +54,7 @@ class GetTrainingLoadingState extends WorkOutState {}
 class GetTrainingSuccessState extends WorkOutState {}
 class GetTrainingErrorState extends WorkOutState {}
 
+class GetTrainingUsingDocIdLoadingState extends WorkOutState {}
+class GetTrainingUsingDocIdSuccessState extends WorkOutState {}
+class GetTrainingUsingDocIdErrorState extends WorkOutState {}
+

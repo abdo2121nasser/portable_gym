@@ -122,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "recipeOfDay": MessageLookupByLibrary.simpleMessage("وصفه اليوم"),
         "recommendations": MessageLookupByLibrary.simpleMessage("المقترحات"),
         "reputation": MessageLookupByLibrary.simpleMessage("التكرار "),
+        "reputationShort": MessageLookupByLibrary.simpleMessage("عدد"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("غير كلمه السر"),
         "round": MessageLookupByLibrary.simpleMessage("جوله "),
         "second": MessageLookupByLibrary.simpleMessage("س"),

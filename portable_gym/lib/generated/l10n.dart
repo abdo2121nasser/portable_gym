@@ -760,6 +760,16 @@ class S {
     );
   }
 
+  /// `Rep`
+  String get reputationShort {
+    return Intl.message(
+      'Rep',
+      name: 'reputationShort',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `H`
   String get hour {
     return Intl.message(

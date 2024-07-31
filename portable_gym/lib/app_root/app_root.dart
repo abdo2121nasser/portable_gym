@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
@@ -16,14 +17,15 @@ import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_
 
 import 'package:portable_gym/screens/set_up_screen.dart';
 
+import '../cubits/profile_cubit/profile_cubit.dart';
 import '../cubits/set_up_cubit/set_up_cubit.dart';
 import '../generated/l10n.dart';
 
 
 class PortableGym extends StatelessWidget {
-  PortableGym.internalConstructor();
+  const PortableGym.internalConstructor({super.key});
 
-  static final PortableGym instance = PortableGym.internalConstructor();
+  static const PortableGym instance = PortableGym.internalConstructor();
 
   factory PortableGym() => instance;
 
@@ -38,7 +40,9 @@ class PortableGym extends StatelessWidget {
               builder: (context, child) =>
                   MultiBlocProvider(
                     providers: [
-                    BlocProvider( create: (context) => AuthenticationCubit()),
+                      BlocProvider(create: (context) => AuthenticationCubit()),
+                      BlocProvider(create: (context) =>  FavouriteCubit(email: FirebaseAuth.instance.currentUser!.email! )
+                        ..getUserDocId()),
 
                     ],
                     child: GetMaterialApp(
@@ -52,11 +56,13 @@ class PortableGym extends StatelessWidget {
                       supportedLocales: S.delegate.supportedLocales,
                       debugShowCheckedModeBanner: false,
                       theme: getAppTheme(),
-                     // home: MainNavigationBarScreen(),
+                      // home: MainNavigationBarScreen(),
                       //home: ProfileScreen(),
-                      home: FirebaseAuth.instance.currentUser==null? LoginScreen():const MainNavigationBarScreen(),
-                      //home: SetUpScreen(email: 'email'),
-                     // home: LoginScreen(),
+                      home: FirebaseAuth.instance.currentUser == null
+                          ? LoginScreen()
+                          : const MainNavigationBarScreen(),
+                      //   home: SetUpScreen(email: 'email'),
+                      // home: LoginScreen(),
                     ),
                   ),
             ),
