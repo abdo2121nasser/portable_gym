@@ -22,23 +22,25 @@ class SquareElementBlock extends StatelessWidget {
 //final RecipeModel recipeModel;
   final String imageLink;
   final String title;
-  final String calories;
+  final String subValue;
 
   final VoidCallback? deleteFunction;
   final bool isViewOnly;
   final bool isFavouriteItem;
   final bool isVideo;
+  final bool isTraining;
 
   const SquareElementBlock({
     super.key,
     // required  this.recipeModel,
     required this.title,
-    required this.calories,
+    required this.subValue,
     required this.imageLink,
     this.isViewOnly = false,
     this.isFavouriteItem = false,
     this.deleteFunction,
     this.isVideo = false,
+    this.isTraining=false,
   });
 
   @override
@@ -62,7 +64,7 @@ class SquareElementBlock extends StatelessWidget {
                       topRight: Radius.circular(AppRadiusSize.s12)),
                   child:isVideo?SizedBox(
                       width: constrain.maxWidth,
-                      height: constrain.maxHeight*0.5,
+                      height: constrain.maxHeight*0.6,
                       child: GeneralVideoBlock(videoLink: imageLink,)): Image.network(
                     imageLink,
                     loadingBuilder: (BuildContext context, Widget child,
@@ -128,9 +130,9 @@ class SquareElementBlock extends StatelessWidget {
                               width: constrain.maxWidth ,
                               height: constrain.maxHeight * 0.15,
                               child: RecordedUnitBlock(
-                                icon: Icons.local_fire_department_outlined,
-                                mesuaringUnit: S.of(context).kCal,
-                                unitValue: calories,
+                                icon: isTraining?Icons.timer: Icons.local_fire_department_outlined,
+                                mesuaringUnit:isTraining? '':S.of(context).kCal,
+                                unitValue: subValue,
                               )),
                         ],
                       )

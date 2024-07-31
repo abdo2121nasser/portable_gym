@@ -136,7 +136,7 @@ class DailyActivityBlock extends StatelessWidget {
                                               icon: Icons.local_fire_department,
                                               mesuaringUnit: S.of(context).kCal,
                                               unitValue: isDailyTraining
-                                                  ? languageModel.calories!
+                                                  ? languageModel.subValue!
                                                   : '50',
                                             )),
                                         SizedBox(

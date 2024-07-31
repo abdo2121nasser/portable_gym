@@ -61,7 +61,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
 
             child: SquareElementBlock(
               title: recipeModel[index].getLanguageClass(context).name!,
-              calories: recipeModel[index].getLanguageClass(context).calories!,
+              subValue: recipeModel[index].getLanguageClass(context).calories!,
               imageLink: recipeModel[index].imageLink,
               deleteFunction: (){
                 deleteFunction(recipeModel[index].docId);
