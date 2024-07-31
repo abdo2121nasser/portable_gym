@@ -7,6 +7,7 @@ import '../../generated/l10n.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/recipe_category_body_block.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/training_category_body_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
+import '../../resourses/models/favourite_models/favourite_training_model.dart';
 import '../../resourses/models/work_out_models/training_model.dart';
 
 part 'favourite_state.dart';
@@ -19,7 +20,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       final String email;
   int currentCategory=0;
  List<Widget> categories=[const TrainingCategoryBodyBlock(),const RecipeCategoryBodyBlock()];
-
+ List<FavouriteTrainingModel> favouriteTrainingModels=[];
      getUserDocId() async {
        emit(GetUserDocIdLoadingState());
        await FirebaseFirestore.instance
@@ -91,11 +92,22 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   }
 
   getFavouriteTrainings() async {
+       favouriteTrainingModels.clear();
+       emit(GetFavouriteTrainingLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(userDocId)
         .collection(StringManager.collectionUserFavouriteTraining)
-        .get();
+        .get().then((value) {
+          value.docs.forEach((element) {
+            favouriteTrainingModels.add(FavouriteTrainingModel.fromJson(json: element.data(), docId: element.id));
+          });
+          emit(GetFavouriteTrainingSuccessState());
+
+    }).catchError((error){
+      emit(GetFavouriteTrainingErrorState());
+      debugPrint(error);
+    });
   }
 
 

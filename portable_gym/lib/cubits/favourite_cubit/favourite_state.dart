@@ -13,3 +13,7 @@ class GetUserDocIdErrorState extends FavouriteState {}
 class AddFavouriteTrainingLoadingState extends FavouriteState {}
 class AddFavouriteTrainingSuccessState extends FavouriteState {}
 class AddFavouriteTrainingErrorState extends FavouriteState {}
+
+class GetFavouriteTrainingLoadingState extends FavouriteState {}
+class GetFavouriteTrainingSuccessState extends FavouriteState {}
+class GetFavouriteTrainingErrorState extends FavouriteState {}

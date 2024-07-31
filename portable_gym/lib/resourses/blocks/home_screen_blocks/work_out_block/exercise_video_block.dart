@@ -4,19 +4,12 @@ import 'package:video_player/video_player.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/google_drive_function_manager.dart';
 import '../../../managers_files/values_manager.dart';
+import '../../general_blocks/general_video_block.dart';
 
-class ExerciseVideoBlock extends StatefulWidget {
+class ExerciseVideoBlock extends StatelessWidget {
   final String videoUrl;
 
   const ExerciseVideoBlock({Key? key, required this.videoUrl}) : super(key: key);
-
-  @override
-  _ExerciseVideoBlockState createState() => _ExerciseVideoBlockState();
-}
-
-class _ExerciseVideoBlockState extends State<ExerciseVideoBlock> {
-  late VideoPlayerController _controller;
-  bool _isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,56 +21,11 @@ class _ExerciseVideoBlockState extends State<ExerciseVideoBlock> {
           padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s30,vertical: AppVerticalSize.s30),  // Use hardcoded values for simplicity
           height: MediaQuery.of(context).size.height*0.55,
           color: ColorManager.kLightPurpleColor,// Replace with your ColorManager.kLightPurpleColor
-          child:    _controller.value.isInitialized ? Stack(
-            alignment: Alignment.topRight,
-            children: [
-              InkWell(
-                onTap: _togglePlayPause,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(AppRadiusSize.s20),
-                  child: AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller,),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.all(AppVerticalSize.s12),
-                child: Icon(Icons.star_rounded,color: ColorManager.kLimeGreenColor,size: AppVerticalSize.s44,),
-              )
-            ],
-          ):CircularProgressIndicator(),
+          child:  ClipRRect(
+          borderRadius: BorderRadius.circular(AppRadiusSize.s20),
+              child: GeneralVideoBlock(videoLink: videoUrl,isViewOnly: false)),
         ),
       ],
     );
   }
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.network(widget.videoUrl)
-      ..initialize().then((_) {
-        setState(() {});  // Ensure the first frame is shown after the video is initialized
-      });
-    _controller.setLooping(true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _togglePlayPause() {
-    setState(() {
-      if (_controller.value.isPlaying) {
-        _controller.pause();
-        _isPlaying = false;
-      } else {
-        _controller.play();
-        _isPlaying = true;
-      }
-    });
-  }
-
-
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 
 import '../blocks/favourite_grid_view_block.dart';
-
 
 
 class TrainingCategoryBodyBlock extends StatelessWidget {
@@ -9,6 +11,16 @@ class TrainingCategoryBodyBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FavouriteGridViewBlock();
+    return BlocProvider.value(
+      value: FavouriteCubit.get(context)..getFavouriteTrainings(),
+      child: BlocConsumer<FavouriteCubit, FavouriteState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          FavouriteCubit favCubit = FavouriteCubit.get(context);
+          return   FavouriteGridViewBlock(
+            favouriteTrainingModels: favCubit.favouriteTrainingModels,);
+        },
+      ),
+    );
   }
 }

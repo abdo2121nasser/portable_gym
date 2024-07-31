@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:portable_gym/resourses/blocks/general_blocks/general_video_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/exercise_video_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
@@ -18,22 +20,25 @@ import '../../models/nutrition_models/recipe_model.dart';
 
 class SquareElementBlock extends StatelessWidget {
 //final RecipeModel recipeModel;
-final String imageLink;
-final String title;
-final String calories;
+  final String imageLink;
+  final String title;
+  final String calories;
 
- final VoidCallback? deleteFunction;
- final bool isViewOnly;
- final bool isFavouriteItem;
+  final VoidCallback? deleteFunction;
+  final bool isViewOnly;
+  final bool isFavouriteItem;
+  final bool isVideo;
 
-  const SquareElementBlock({super.key,
+  const SquareElementBlock({
+    super.key,
     // required  this.recipeModel,
     required this.title,
     required this.calories,
     required this.imageLink,
-    this.isViewOnly=false,
-    this.isFavouriteItem=false,
-    this.deleteFunction
+    this.isViewOnly = false,
+    this.isFavouriteItem = false,
+    this.deleteFunction,
+    this.isVideo = false,
   });
 
   @override
@@ -55,7 +60,10 @@ final String calories;
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(AppRadiusSize.s12),
                       topRight: Radius.circular(AppRadiusSize.s12)),
-                  child: Image.network(
+                  child:isVideo?SizedBox(
+                      width: constrain.maxWidth,
+                      height: constrain.maxHeight*0.5,
+                      child: GeneralVideoBlock(videoLink: imageLink,)): Image.network(
                     imageLink,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
@@ -95,7 +103,7 @@ final String calories;
                             children: [
                               Expanded(
                                 child: Text(
-        title,
+                                  title,
                                   style: getRegularStyle(
                                       fontSize: FontSize.s16,
                                       color: ColorManager.kLimeGreenColor,
@@ -117,12 +125,12 @@ final String calories;
                           //       unitValue: '45',
                           //     )),
                           SizedBox(
-                              width: constrain.maxWidth * 0.45,
+                              width: constrain.maxWidth ,
                               height: constrain.maxHeight * 0.15,
                               child: RecordedUnitBlock(
                                 icon: Icons.local_fire_department_outlined,
                                 mesuaringUnit: S.of(context).kCal,
-                                unitValue:calories,
+                                unitValue: calories,
                               )),
                         ],
                       )
@@ -140,26 +148,30 @@ final String calories;
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-
                       children: [
-                         Icon(
-                       isFavouriteItem?   Icons.star_rounded:Icons.star_border,
-                          color: isFavouriteItem?ColorManager.kLimeGreenColor :ColorManager.kBlackColor,
+                        Icon(
+                          isFavouriteItem
+                              ? Icons.star_rounded
+                              : Icons.star_border,
+                          color: isFavouriteItem
+                              ? ColorManager.kLimeGreenColor
+                              : ColorManager.kBlackColor,
                         ),
-                      isViewOnly?const SizedBox():  Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppHorizontalSize.s5),
-                          child: InkWell(
-
-                            onTap: (){
-                              deleteFunction!();
-                            },
-                            child: Icon(
-                              Icons.delete,
-                              color: ColorManager.kRed,
-                            ),
-                          ),
-                        ),
+                        isViewOnly
+                            ? const SizedBox()
+                            : Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppHorizontalSize.s5),
+                                child: InkWell(
+                                  onTap: () {
+                                    deleteFunction!();
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: ColorManager.kRed,
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                     // SizedBox(
