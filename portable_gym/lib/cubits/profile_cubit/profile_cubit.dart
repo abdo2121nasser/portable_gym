@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -20,10 +21,10 @@ import '../../resourses/managers_files/string_manager.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit({required this.email}) : super(ProfileInitial());
+  ProfileCubit() : super(ProfileInitial());
   static ProfileCubit get(context) => BlocProvider.of(context);
   bool isProfileLowerBlock = false;
-  String email;
+  late final String userDocId;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController nickNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -35,6 +36,20 @@ class ProfileCubit extends Cubit<ProfileState> {
   File? imageFile;
   String imageLink='';  ProfileModel? profileModel;
 
+  getUserDocId() async {
+    emit(GetUserDocIdLoadingState());
+    await const FlutterSecureStorage()
+        .read(key: StringManager.userDocId).then((value) {
+      userDocId=value!;
+      emit(GetUserDocIdSuccessState());
+    }).then((value){
+      getUserData();
+    }).catchError((error) {
+      emit(GetUserDocIdErrorState());
+      debugPrint(error);
+
+    });
+  }
   getProfileOptions({required context,}) {
    return [
       S.of(context).myProfile,
@@ -138,9 +153,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   getUserData() async {
    emit(GetUserDataLoadingState());
     await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles).where(StringManager.userEmail,isEqualTo:email ).get()
+        .collection(StringManager.collectionUserProfiles).doc(userDocId).get()
         .then((value) async {
-         profileModel= ProfileModel.fromJson(json: value.docs[0].data(),docId: value.docs[0].id);
+         profileModel= ProfileModel.fromJson(json: value.data()!,docId: value.id);
          emit(GetUserDataSuccessState());
          setProfileControllers();
     }).catchError((error){

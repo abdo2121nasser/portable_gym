@@ -19,3 +19,7 @@ class ForgetPasswordLoadingState extends AuthenticationState {}
 class ForgetPasswordSuccessState extends AuthenticationState {}
 class ForgetPasswordErrorState extends AuthenticationState {}
 
+class SaveUserDataDocIdLoadingState extends AuthenticationState {}
+class SaveUserDataDocIdSuccessState extends AuthenticationState {}
+class SaveUserDataDocIdErrorState extends AuthenticationState {}
+

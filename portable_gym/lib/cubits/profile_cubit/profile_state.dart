@@ -4,9 +4,13 @@ part of 'profile_cubit.dart';
 abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
-class ChangeToProfileLowerBlockState extends ProfileState {}
-class ChangeToProfileScreenBlockState extends ProfileState {}
+class ChangeToProfileLowerBlockState extends   ProfileState {}
+class ChangeToProfileScreenBlockState extends  ProfileState {}
 class SetProfileControllersValuesState extends ProfileState {}
+
+class GetUserDocIdLoadingState extends ProfileState {}
+class GetUserDocIdSuccessState extends ProfileState {}
+class GetUserDocIdErrorState extends   ProfileState {}
 
 class GetUserDataLoadingState extends ProfileState {}
 class GetUserDataSuccessState extends ProfileState {}

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 
 import '../../generated/l10n.dart';
@@ -14,22 +15,19 @@ part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
 
-  FavouriteCubit({required this.email}) : super(FavouriteInitial());
+  FavouriteCubit() : super(FavouriteInitial());
   static FavouriteCubit get(context) => BlocProvider.of(context);
  late final String userDocId;
-      final String email;
   int currentCategory=0;
  List<Widget> categories=[const TrainingCategoryBodyBlock(),const RecipeCategoryBodyBlock()];
  List<FavouriteTrainingModel> favouriteTrainingModels=[];
      getUserDocId() async {
        emit(GetUserDocIdLoadingState());
-       await FirebaseFirestore.instance
-           .collection(StringManager.collectionUserProfiles).where(StringManager.userEmail,isEqualTo:email ).get()
-           .then((value) {
-             userDocId=value.docs[0].id;
+      await const FlutterSecureStorage()
+           .read(key: StringManager.userDocId).then((value) {
+             userDocId=value!;
          emit(GetUserDocIdSuccessState());
-
-       }).catchError((error){
+       }).catchError((error) {
          emit(GetUserDocIdErrorState());
          debugPrint(error);
 
@@ -41,8 +39,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       S.of(context).recipe,
     ];
   }
-  changeCurrentCategory({required int index})
-  {
+  changeCurrentCategory({required int index}) {
     currentCategory=index;
     emit(ChangeCurrentCategory());
   }

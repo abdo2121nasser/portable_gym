@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
@@ -17,10 +18,12 @@ part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit() : super(AuthenticationInitial());
+
   static AuthenticationCubit get(context) => BlocProvider.of(context);
   TextEditingController loginEmail = TextEditingController();
   TextEditingController loginPassword = TextEditingController();
   TextEditingController registerEmail = TextEditingController();
+
   // TextEditingController registerName = TextEditingController();
   TextEditingController registerPassword = TextEditingController();
   TextEditingController registerConfirmPassword = TextEditingController();
@@ -62,9 +65,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return StringManager.trueWord;
     }
   }
+
   //---------------------------validation----------------------------------
 
-  clearLoginControllers(){
+  clearLoginControllers() {
     loginEmail.clear();
     loginPassword.clear();
     emit(ClearLoginControllers());
@@ -103,23 +107,23 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   login({required context}) async {
     emit(LoginLoadingState());
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
       email: loginEmail.text,
       password: loginPassword.text,
-    ).then((value)
-    async {
+    )
+        .then((value) async {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      bool hasData=await hasProfile(email: loginEmail.text,context: context);
-      if( hasData ) {
+      bool hasData = await hasProfile(email: loginEmail.text, context: context);
+      if (hasData) {
         Get.to(const MainNavigationBarScreen());
+      } else {
+        Get.to(SetUpScreen(
+          email: loginEmail.text,
+        ));
       }
-      else {
-        Get.to(SetUpScreen(email: loginEmail.text,));
-      }
-
-    }).catchError((error)
-    {
+    }).catchError((error) {
       emit(LoginErrorState());
       getToastMessage(message: error.toString().substring(36));
 
@@ -130,7 +134,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   //-----------------------------login------------------------------------------
 
-  clearRegisterControllers(){
+  clearRegisterControllers() {
     registerEmail.clear();
     registerPassword.clear();
     //registerName.clear();
@@ -143,7 +147,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
             StringManager.trueWord &&
         passwordValidation(password: registerPassword.text, context: context) ==
             StringManager.trueWord &&
-      //  nameValidation(name: registerName.text, context: context) ==StringManager.trueWord &&
+        //  nameValidation(name: registerName.text, context: context) ==StringManager.trueWord &&
 
         confirmPasswordValidation(context: context) == StringManager.trueWord) {
       return true;
@@ -157,13 +161,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         emailValidation(email: registerEmail.text, context: context);
     String passwordError =
         passwordValidation(password: registerPassword.text, context: context);
-   // String nameError =nameValidation(name: registerName.text, context: context);
+    // String nameError =nameValidation(name: registerName.text, context: context);
     String confirmPasswordError = confirmPasswordValidation(context: context);
 
     // if (nameError != StringManager.trueWord) {
     //   return nameError;
     // } else
-      if (emailError != StringManager.trueWord) {
+    if (emailError != StringManager.trueWord) {
       return emailError;
     } else if (passwordError != StringManager.trueWord) {
       return passwordError;
@@ -174,96 +178,101 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   void registerProcess({required context}) {
     if (registerValidation(context: context) == true) {
-             register(context: context);
+      register(context: context);
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
   }
-  register({required context}) async {
 
+  register({required context}) async {
     emit(RegisterLoadingState());
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: registerEmail.text,
       password: registerPassword.text,
-    ).then((value)
-     async {
-
+    )
+        .then((value) async {
       getToastMessage(message: S.of(context).success);
       emit(RegisterSuccessState());
-        Get.to(SetUpScreen(email: registerEmail.text,));
-
-
-
-     }).catchError((error)
-    {
+      Get.to(SetUpScreen(
+        email: registerEmail.text,
+      ));
+    }).catchError((error) {
       getToastMessage(message: error.toString().substring(36));
       emit(RegisterErrorState());
       debugPrint(error);
     });
-   clearRegisterControllers();
+    clearRegisterControllers();
   }
-
 
 //------------------------------register----------------------------------------
 
   void forgetPasswordPreprocess({required context}) {
-    if (emailValidation(email: forgetPasswordEmail.text,context: context) == true) {
+    if (emailValidation(email: forgetPasswordEmail.text, context: context) ==
+        true) {
       forgetPassword(context: context);
     } else {
-      getToastMessage(message: emailValidation(email: forgetPasswordEmail.text,context: context) );
+      getToastMessage(
+          message: emailValidation(
+              email: forgetPasswordEmail.text, context: context));
     }
   }
+
   forgetPassword({required context}) async {
     emit(ForgetPasswordLoadingState());
-    await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: forgetPasswordEmail.text)
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: forgetPasswordEmail.text)
         .then((value) {
       emit(ForgetPasswordSuccessState());
-      getToastMessage(message: S
-          .of(context)
-          .success);
-    })
-        .catchError((error) {
+      getToastMessage(message: S.of(context).success);
+    }).catchError((error) {
       emit(ForgetPasswordErrorState());
-      getToastMessage(message: S
-          .of(context)
-          .somethingWentWrong);
+      getToastMessage(message: S.of(context).somethingWentWrong);
       debugPrint(error);
     });
     forgetPasswordEmail.clear();
   }
 
-
-
 //-----------------------------forgetPassword-----------------------------------
 
   logOut(context) async {
     await FirebaseAuth.instance.signOut().then((value) {
-      getToastMessage(message: S
-          .of(context)
-          .success);
-
-        Get.offAll(LoginScreen());
+      getToastMessage(message: S.of(context).success);
+      deleteAllLocalStoredData();
+      Get.offAll(LoginScreen());
     }).catchError((error) {
-      getToastMessage(message: S
-          .of(context)
-          .somethingWentWrong);
+      getToastMessage(message: S.of(context).somethingWentWrong);
       debugPrint(error);
     });
   }
+  deleteAllLocalStoredData() async {
+  await  const FlutterSecureStorage().deleteAll();
+  }
+
 //------------------------------logout------------------------------------------
- Future<bool> hasProfile({required String email,required context}) async {
-  late  bool hasProfile;
+  Future<bool> hasProfile({required String email, required context}) async {
+    bool hasProfile = false;
     var data = await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles).where(StringManager.userEmail,isEqualTo:email );
-   await data.get().then((value) async {
-     hasProfile= await value.docs.isNotEmpty;
+        .collection(StringManager.collectionUserProfiles)
+        .where(StringManager.userEmail, isEqualTo: email);
+    await data.get().then((value) async {
+      if (value.docs.isNotEmpty) {
+        hasProfile = true;
+        saveUserDocId(userDocId: value.docs[0].id);
+      }
     });
-   return hasProfile;
-  }
-    
+    return hasProfile;
   }
 
-
-
-
+  saveUserDocId({required String userDocId}) async {
+    emit(SaveUserDataDocIdLoadingState());
+    await const FlutterSecureStorage()
+        .write(key: StringManager.userDocId, value: userDocId)
+        .then((value) {
+      emit(SaveUserDataDocIdSuccessState());
+    }).catchError((error) {
+      emit(SaveUserDataDocIdErrorState());
+      debugPrint(error);
+    });
+  }
+}

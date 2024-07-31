@@ -17,6 +17,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_
 
 import 'package:portable_gym/screens/set_up_screen.dart';
 
+import '../cubits/main_navigation_bar_cubit/main_navigation_bar_cubit.dart';
 import '../cubits/profile_cubit/profile_cubit.dart';
 import '../cubits/set_up_cubit/set_up_cubit.dart';
 import '../generated/l10n.dart';
@@ -41,8 +42,7 @@ class PortableGym extends StatelessWidget {
                   MultiBlocProvider(
                     providers: [
                       BlocProvider(create: (context) => AuthenticationCubit()),
-                      BlocProvider(create: (context) =>  FavouriteCubit(email: FirebaseAuth.instance.currentUser!.email! )
-                        ..getUserDocId()),
+                      BlocProvider(create: (context) =>  FavouriteCubit()..getUserDocId()),
 
                     ],
                     child: GetMaterialApp(

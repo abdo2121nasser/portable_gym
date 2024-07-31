@@ -130,6 +130,9 @@ class StringManager
 
   static const String collectionUserProfiles='users profiles';
 
+  static const String userDocId='user doc id';
+
+
   static const String userEmail='email';
   static const String userFullName='full name';
   static const String userNickName='nick name';

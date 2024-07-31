@@ -42,17 +42,21 @@ class ExerciseDetailBlock extends StatelessWidget {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height *0.075,
-            child: Flexible(
-              child: SingleChildScrollView(
-                child: Text(
-                  languageModel.instructions.toString(),
-                  style: getMediumStyle(
-                      fontSize: FontSize.s12,
-                      color: ColorManager.kBlackColor,
-                      fontFamily: FontFamily.kPoppinsFont),
-                  textAlign: TextAlign.center,
+            child: Column(
+              children: [
+                Flexible(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      languageModel.instructions.toString(),
+                      style: getMediumStyle(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.kBlackColor,
+                          fontFamily: FontFamily.kPoppinsFont),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           Container(

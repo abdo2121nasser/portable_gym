@@ -4,19 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_video_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/exercise_video_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
-import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
-import '../../models/nutrition_models/recipe_model.dart';
 
 class SquareElementBlock extends StatelessWidget {
 //final RecipeModel recipeModel;
@@ -42,7 +37,7 @@ class SquareElementBlock extends StatelessWidget {
     this.deleteFunction,
     this.deleteFavouriteFunction,
     this.isVideo = false,
-    this.isTraining=false,
+    this.isTraining = false,
   });
 
   @override
@@ -64,34 +59,38 @@ class SquareElementBlock extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(AppRadiusSize.s12),
                       topRight: Radius.circular(AppRadiusSize.s12)),
-                  child:isVideo?SizedBox(
-                      width: constrain.maxWidth,
-                      height: constrain.maxHeight*0.6,
-                      child: GeneralVideoBlock(videoLink: imageLink,)): Image.network(
-                    imageLink,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      } else {
-                        return SizedBox(
-                          height: AppVerticalSize.s80,
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppHorizontalSize.s30),
-                              child: CircularProgressIndicator(
-                                color: ColorManager.kBlue,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    height: constrain.maxHeight * 0.57,
-                    width: constrain.maxWidth,
-                    fit: BoxFit.fill,
-                  ),
+                  child: isVideo
+                      ? SizedBox(
+                          width: constrain.maxWidth,
+                          height: constrain.maxHeight * 0.6,
+                          child: GeneralVideoBlock(
+                            videoLink: imageLink,
+                          ))
+                      : Image.network(
+                          imageLink,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return SizedBox(
+                                height: AppVerticalSize.s80,
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: AppHorizontalSize.s30),
+                                    child: CircularProgressIndicator(
+                                      color: ColorManager.kBlue,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          height: constrain.maxHeight * 0.57,
+                          width: constrain.maxWidth,
+                          fit: BoxFit.fill,
+                        ),
                 ),
                 SizedBox(
                   height: constrain.maxHeight * 0.4,
@@ -129,11 +128,14 @@ class SquareElementBlock extends StatelessWidget {
                           //       unitValue: '45',
                           //     )),
                           SizedBox(
-                              width: constrain.maxWidth ,
+                              width: constrain.maxWidth,
                               height: constrain.maxHeight * 0.15,
                               child: RecordedUnitBlock(
-                                icon: isTraining?Icons.timer: Icons.local_fire_department_outlined,
-                                mesuaringUnit:isTraining? '':S.of(context).kCal,
+                                icon: isTraining
+                                    ? Icons.timer
+                                    : Icons.local_fire_department_outlined,
+                                mesuaringUnit:
+                                    isTraining ? '' : S.of(context).kCal,
                                 unitValue: subValue,
                               )),
                         ],
@@ -154,8 +156,8 @@ class SquareElementBlock extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         InkWell(
-                          onTap:(){
-                            if(isFavouriteItem) {
+                          onTap: () {
+                            if (isFavouriteItem) {
                               deleteFavouriteFunction!();
                             }
                           },
