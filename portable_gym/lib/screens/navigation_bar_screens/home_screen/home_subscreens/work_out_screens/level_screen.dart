@@ -51,11 +51,11 @@ class LevelScreen extends StatelessWidget {
               children: [
                 //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
                 state is GetTrainingLoadingState
-                    ? Expanded(
+                    ? const Expanded(
                         child: Align(
                             alignment: Alignment.center,
                             child: CircularProgressIndicator(
-                              color: ColorManager.kBlue,
+                              color: ColorManager.kPurpleColor,
                             )),
                       )
                     : ListTrainingItemsBlock(

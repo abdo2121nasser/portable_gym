@@ -90,8 +90,13 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
 
-
-
+  getFavouriteTrainings() async {
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .collection(StringManager.collectionUserFavouriteTraining)
+        .get();
+  }
 
 
 

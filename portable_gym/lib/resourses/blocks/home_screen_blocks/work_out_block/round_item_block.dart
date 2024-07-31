@@ -14,7 +14,7 @@ class RoundItemBlock extends StatelessWidget {
   final TrainingModel trainingModel;
   final VoidCallback deleteFunction;
   final VoidCallback addToFavouriteFunction;
-  final Future<bool> isTrainingFavourite;
+  final bool isTrainingFavourite;
 
   const RoundItemBlock(
       {super.key,
@@ -114,26 +114,12 @@ class RoundItemBlock extends StatelessWidget {
                 )
               : const SizedBox(),
           Flexible(
-            child: FutureBuilder<bool>(
-                future: isTrainingFavourite,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasData && snapshot.data == true) {
-                    return InkWell(
-                        onTap: addToFavouriteFunction,
-                        child: Icon(
-                          Icons.star_rounded,
-                          color: ColorManager.kPurpleColor,
-                        ));
-                  } else
-                    return InkWell(
-                        onTap: addToFavouriteFunction,
-                        child: Icon(
-                          Icons.star_border,
-                          color: ColorManager.kPurpleColor,
-                        ));
-                }),
+            child: InkWell(
+                onTap: addToFavouriteFunction,
+                child: Icon(
+                 isTrainingFavourite? Icons.star_rounded:Icons.star_border,
+                  color: ColorManager.kPurpleColor,
+                )),
           ),
           InkWell(
               onTap: deleteFunction,
