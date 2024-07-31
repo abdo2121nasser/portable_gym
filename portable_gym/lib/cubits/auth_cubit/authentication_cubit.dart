@@ -258,7 +258,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     await data.get().then((value) async {
       if (value.docs.isNotEmpty) {
         hasProfile = true;
-        saveUserDocId(userDocId: value.docs[0].id);
+        saveUserDocId(userDocId: value.docs.first.id);
       }
     });
     return hasProfile;

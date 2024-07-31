@@ -25,3 +25,8 @@ class GetFavouriteTrainingErrorState extends FavouriteState {}
 class AddFavouriteRecipeLoadingState extends FavouriteState {}
 class AddFavouriteRecipeSuccessState extends FavouriteState {}
 class AddFavouriteRecipeErrorState extends FavouriteState {}
+
+class DeleteFavouriteRecipeLoadingState extends FavouriteState {}
+class DeleteFavouriteRecipeSuccessState extends FavouriteState {}
+class DeleteFavouriteRecipeErrorState extends FavouriteState {}
+

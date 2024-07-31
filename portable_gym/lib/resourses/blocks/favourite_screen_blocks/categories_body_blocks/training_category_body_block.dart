@@ -19,7 +19,7 @@ class TrainingCategoryBodyBlock extends StatelessWidget {
           FavouriteCubit favCubit = FavouriteCubit.get(context);
           return   FavouriteGridViewBlock(
             favouriteTrainingModels: favCubit.favouriteTrainingModels,
-          deleteFavouriteFuction:(docId){
+          deleteFavouriteFunction:(docId){
               favCubit.deleteFavouriteTrainings(trainingDocId: docId);
           },
           );

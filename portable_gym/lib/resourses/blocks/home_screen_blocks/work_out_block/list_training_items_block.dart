@@ -49,7 +49,8 @@ class ListTrainingItemsBlock extends StatelessWidget {
                 child: CircularProgressIndicator(
                   color: ColorManager.kPurpleColor,
                 ),
-              ): ListView.separated(
+              ):
+              ListView.separated(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppHorizontalSize.s20,
                   vertical: AppVerticalSize.s10,

@@ -21,7 +21,8 @@ class SquareElementBlock extends StatelessWidget {
 
   final VoidCallback? deleteFunction;
   final VoidCallback? deleteFavouriteFunction;
-  final bool isViewOnly;
+  final VoidCallback? addFavouriteFunction;
+  final bool canBeDeleted;
   final bool isFavouriteItem;
   final bool isVideo;
   final bool isTraining;
@@ -32,10 +33,11 @@ class SquareElementBlock extends StatelessWidget {
     required this.title,
     required this.subValue,
     required this.imageLink,
-    this.isViewOnly = false,
+    this.canBeDeleted = false,
     this.isFavouriteItem = false,
     this.deleteFunction,
     this.deleteFavouriteFunction,
+    this.addFavouriteFunction,
     this.isVideo = false,
     this.isTraining = false,
   });
@@ -160,6 +162,10 @@ class SquareElementBlock extends StatelessWidget {
                             if (isFavouriteItem) {
                               deleteFavouriteFunction!();
                             }
+                            else
+                              {
+                                addFavouriteFunction!();
+                              }
                           },
                           child: Icon(
                             isFavouriteItem
@@ -170,7 +176,7 @@ class SquareElementBlock extends StatelessWidget {
                                 : ColorManager.kBlackColor,
                           ),
                         ),
-                        isViewOnly
+                        canBeDeleted
                             ? const SizedBox()
                             : Padding(
                                 padding: EdgeInsets.symmetric(

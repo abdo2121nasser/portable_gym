@@ -12,11 +12,11 @@ import 'package:intl/intl.dart';
 
 class FavouriteGridViewBlock extends StatelessWidget {
   final List<FavouriteTrainingModel>? favouriteTrainingModels;
-  final Function(String) deleteFavouriteFuction;
+  final Function(String) deleteFavouriteFunction;
   const FavouriteGridViewBlock(
       {super.key,
       this.favouriteTrainingModels,
-      required this.deleteFavouriteFuction});
+      required this.deleteFavouriteFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class FavouriteGridViewBlock extends StatelessWidget {
                 }
               },
               child: SquareElementBlock(
-                isViewOnly: true,
+                canBeDeleted: true,
                 title: languageModel == null ? 'ahmed' : languageModel.name!,
                 subValue: time ?? 'ahmed',
                 isFavouriteItem: true,
@@ -75,7 +75,7 @@ class FavouriteGridViewBlock extends StatelessWidget {
                 isVideo: true,
                 isTraining: true,
           deleteFavouriteFunction:(){
-            deleteFavouriteFuction(favouriteTrainingModels![index].docId!);
+            deleteFavouriteFunction(favouriteTrainingModels![index].trainingDocId!);
           } ,
               )
           );
