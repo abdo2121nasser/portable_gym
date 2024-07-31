@@ -42,8 +42,14 @@ class ListTrainingItemsBlock extends StatelessWidget {
             var workCubit = WorkOutCubit.get(context);
             var favCubit = FavouriteCubit.get(context);
 
-            return Expanded(
-              child: ListView.separated(
+            return
+            Expanded(
+              child: state is AddFavouriteTrainingLoadingState?  const Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(
+                  color: ColorManager.kPurpleColor,
+                ),
+              ): ListView.separated(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppHorizontalSize.s20,
                   vertical: AppVerticalSize.s10,
@@ -52,7 +58,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
                   return
                   FutureBuilder<bool>(
                     future: favCubit.isTrainingIsFavourite(
-                      trainingDocId: trainingModel[index]!.docId!,
+                      trainingDocId: trainingModel[index].docId!,
                     ),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -111,7 +117,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (context, index) => SizedBox(
-                  height: AppVerticalSize.s5,
+                  height: AppVerticalSize.s18,
                 ),
                 itemCount: trainingModel.length,
               ),

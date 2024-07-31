@@ -14,6 +14,10 @@ class AddFavouriteTrainingLoadingState extends FavouriteState {}
 class AddFavouriteTrainingSuccessState extends FavouriteState {}
 class AddFavouriteTrainingErrorState extends FavouriteState {}
 
+class DeleteFavouriteTrainingLoadingState extends FavouriteState {}
+class DeleteFavouriteTrainingSuccessState extends FavouriteState {}
+class DeleteFavouriteTrainingErrorState extends FavouriteState {}
+
 class GetFavouriteTrainingLoadingState extends FavouriteState {}
 class GetFavouriteTrainingSuccessState extends FavouriteState {}
 class GetFavouriteTrainingErrorState extends FavouriteState {}

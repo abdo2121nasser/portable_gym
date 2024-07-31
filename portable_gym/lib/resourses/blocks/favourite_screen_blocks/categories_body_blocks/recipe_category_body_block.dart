@@ -11,6 +11,6 @@ class RecipeCategoryBodyBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FavouriteGridViewBlock();
+    return  FavouriteGridViewBlock(deleteFavouriteFuction:(doc){},);
   }
 }

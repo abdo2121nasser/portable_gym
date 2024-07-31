@@ -35,7 +35,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
 
        });
      }
-  getFavouriteCategory(context){
+  getFavouriteCategories(context){
     return [
       S.of(context).exercises,
       S.of(context).recipe,
@@ -106,6 +106,24 @@ class FavouriteCubit extends Cubit<FavouriteState> {
 
     }).catchError((error){
       emit(GetFavouriteTrainingErrorState());
+      debugPrint(error);
+    });
+  }
+
+  deleteFavouriteTrainings({required String trainingDocId}) async {
+    favouriteTrainingModels.clear();
+    emit(DeleteFavouriteTrainingLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .collection(StringManager.collectionUserFavouriteTraining).doc(trainingDocId).delete()
+        .then((value) {
+
+      emit(DeleteFavouriteTrainingSuccessState());
+      getFavouriteTrainings();
+
+    }).catchError((error){
+      emit(DeleteFavouriteTrainingErrorState());
       debugPrint(error);
     });
   }

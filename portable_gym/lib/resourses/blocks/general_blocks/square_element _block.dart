@@ -25,6 +25,7 @@ class SquareElementBlock extends StatelessWidget {
   final String subValue;
 
   final VoidCallback? deleteFunction;
+  final VoidCallback? deleteFavouriteFunction;
   final bool isViewOnly;
   final bool isFavouriteItem;
   final bool isVideo;
@@ -39,6 +40,7 @@ class SquareElementBlock extends StatelessWidget {
     this.isViewOnly = false,
     this.isFavouriteItem = false,
     this.deleteFunction,
+    this.deleteFavouriteFunction,
     this.isVideo = false,
     this.isTraining=false,
   });
@@ -151,13 +153,20 @@ class SquareElementBlock extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          isFavouriteItem
-                              ? Icons.star_rounded
-                              : Icons.star_border,
-                          color: isFavouriteItem
-                              ? ColorManager.kLimeGreenColor
-                              : ColorManager.kBlackColor,
+                        InkWell(
+                          onTap:(){
+                            if(isFavouriteItem) {
+                              deleteFavouriteFunction!();
+                            }
+                          },
+                          child: Icon(
+                            isFavouriteItem
+                                ? Icons.star_rounded
+                                : Icons.star_border,
+                            color: isFavouriteItem
+                                ? ColorManager.kLimeGreenColor
+                                : ColorManager.kBlackColor,
+                          ),
                         ),
                         isViewOnly
                             ? const SizedBox()

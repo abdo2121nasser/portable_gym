@@ -12,7 +12,11 @@ import 'package:intl/intl.dart';
 
 class FavouriteGridViewBlock extends StatelessWidget {
   final List<FavouriteTrainingModel>? favouriteTrainingModels;
-  const FavouriteGridViewBlock({super.key, this.favouriteTrainingModels});
+  final Function(String) deleteFavouriteFuction;
+  const FavouriteGridViewBlock(
+      {super.key,
+      this.favouriteTrainingModels,
+      required this.deleteFavouriteFuction});
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +48,18 @@ class FavouriteGridViewBlock extends StatelessWidget {
                 if (favouriteTrainingModels != null) {
                   Get.to(() => ExerciseScreen(
                         trainingModel: TrainingModel(
-                          english: favouriteTrainingModels![index].english,
-                          arabic: favouriteTrainingModels![index].arabic,
-                          videoLink: favouriteTrainingModels![index].videoLink,
-                          hour: favouriteTrainingModels![index].hour,
-                          minute: favouriteTrainingModels![index].minute!,
-                          second: favouriteTrainingModels![index].second!,
-                          docId: null,
-                          bodyCategory: null,
-                          isPaid: null,
-                          level: null,
-                          priority: null
-                        ),
+                            english: favouriteTrainingModels![index].english,
+                            arabic: favouriteTrainingModels![index].arabic,
+                            videoLink:
+                                favouriteTrainingModels![index].videoLink,
+                            hour: favouriteTrainingModels![index].hour,
+                            minute: favouriteTrainingModels![index].minute!,
+                            second: favouriteTrainingModels![index].second!,
+                            docId: null,
+                            bodyCategory: null,
+                            isPaid: null,
+                            level: null,
+                            priority: null),
                       ));
                 }
               },
@@ -70,7 +74,11 @@ class FavouriteGridViewBlock extends StatelessWidget {
                     : favouriteTrainingModels![index].videoLink!,
                 isVideo: true,
                 isTraining: true,
-              ));
+          deleteFavouriteFunction:(){
+            deleteFavouriteFuction(favouriteTrainingModels![index].docId!);
+          } ,
+              )
+          );
         },
         itemCount: favouriteTrainingModels == null
             ? 0

@@ -19,8 +19,8 @@ class FavouriteScreen extends StatelessWidget {
           children: [
             HorizontalCategoryListBlock(
                 currentLevel: favCubit.currentCategory,
-                numberOfLevels: favCubit.getFavouriteCategory(context).length,
-                lables: favCubit.getFavouriteCategory(context),
+                numberOfLevels: favCubit.getFavouriteCategories(context).length,
+                lables: favCubit.getFavouriteCategories(context),
                 changeLevel: (index) {
                   favCubit.changeCurrentCategory(index: index);
                 }),
