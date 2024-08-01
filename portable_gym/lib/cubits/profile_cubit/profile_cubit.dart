@@ -34,24 +34,28 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController heightController = TextEditingController();
   var pickedFilename;
   File? imageFile;
-  String imageLink='';  ProfileModel? profileModel;
+  String imageLink = '';
+  ProfileModel? profileModel;
 
   getUserDocId() async {
     emit(GetUserDocIdLoadingState());
     await const FlutterSecureStorage()
-        .read(key: StringManager.userDocId).then((value) {
-      userDocId=value!;
+        .read(key: StringManager.userDocId)
+        .then((value) {
+      userDocId = value!;
       emit(GetUserDocIdSuccessState());
-    }).then((value){
+    }).then((value) {
       getUserData();
     }).catchError((error) {
       emit(GetUserDocIdErrorState());
       debugPrint(error);
-
     });
   }
-  getProfileOptions({required context,}) {
-   return [
+
+  getProfileOptions({
+    required context,
+  }) {
+    return [
       S.of(context).myProfile,
       S.of(context).settings,
       S.of(context).logout,
@@ -64,16 +68,13 @@ class ProfileCubit extends Cubit<ProfileState> {
       isProfileLowerBlock = false;
       emit(ChangeToProfileScreenBlockState());
     } else if (isAppBar == true && isProfileLowerBlock == false) {
-     Get.back();
+      Get.back();
     } else if (index == 0 && isAppBar == false) {
       isProfileLowerBlock = true;
       emit(ChangeToProfileLowerBlockState());
+    } else if (index == 2) {
+      showLogOutBottomSheet(context);
     }
-    else if(index==2)
-      {
-        showLogOutBottomSheet(context);
-      }
-
   }
 
   getProfileControllers() {
@@ -87,6 +88,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       heightController,
     ];
   }
+
   getProfileInputsLables({required context}) {
     return [
       S.of(context).fullName,
@@ -98,15 +100,16 @@ class ProfileCubit extends Cubit<ProfileState> {
       S.of(context).height,
     ];
   }
+
   setProfileControllers() {
-   fullNameController.text= profileModel!.fullName;
-   nickNameController.text= profileModel!.nickName;
-   emailController.text= profileModel!.email;
-   phoneController.text= profileModel!.phone;
-   ageController.text= profileModel!.age.toString();
-   weightController.text= profileModel!.weight.toString();
-   heightController.text= profileModel!.height.toString();
-   imageLink= profileModel!.imageLink;
+    fullNameController.text = profileModel!.fullName;
+    nickNameController.text = profileModel!.nickName;
+    emailController.text = profileModel!.email;
+    phoneController.text = profileModel!.phone;
+    ageController.text = profileModel!.age.toString();
+    weightController.text = profileModel!.weight.toString();
+    heightController.text = profileModel!.height.toString();
+    imageLink = profileModel!.imageLink;
     emit(SetProfileControllersValuesState());
   }
   //todo setting screen is not made
@@ -114,14 +117,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   void showLogOutBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
-
         context: ctx,
         builder: (ctx) => const LogOutBottomSheetBlock());
   }
+
   Future<void> pickImage() async {
     emit(PickImageLoadingState());
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       pickedFilename = pickedFile.path.split('/').last;
       imageFile = File(pickedFile.path);
@@ -129,48 +132,68 @@ class ProfileCubit extends Cubit<ProfileState> {
     } else {
       emit(PickImageErrorState());
       debugPrint('no image selected');
-
     }
   }
-  Future<void> updateImageOnCloud() async {
-    emit(UpdateImageFileOnCloudLoadingState());
+  Future<void> deleteImageOnCloud({required String imageUrl}) async {
+    emit(DeleteImageFileOnCloudLoadingState());
+    FirebaseStorage.instance.refFromURL(imageUrl).delete()
+        .then((value) {
+      emit(DeleteImageFileOnCloudSuccessState());
 
-    await FirebaseStorage.instance.ref().child(profileModel!.imageLink)
-         .putFile(imageFile!)
-               .then((value) async {
-                 //profileModel!.imageLink!=await value.ref.getDownloadURL();
-                 emit(UpdateImageFileOnCloudSuccessState());
-
-           })
-               .catchError((error){
-             emit(UpdateImageFileOnCloudErrorState());
-
-             debugPrint(error);
-           });
-
-  }
-//------------------------setUp functions---------------------------------
-  getUserData() async {
-   emit(GetUserDataLoadingState());
-    await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles).doc(userDocId).get()
-        .then((value) async {
-         profileModel= ProfileModel.fromJson(json: value.data()!,docId: value.id);
-         emit(GetUserDataSuccessState());
-         setProfileControllers();
     }).catchError((error){
-      emit(GetUserDataErrorState());
-               debugPrint(error);
+      emit(DeleteImageFileOnCloudErrorState());
+    });
+  }
+ Future<void> uploadImage() async{
+    emit(UploadImageFileLoadingState());
+    await  FirebaseStorage.instance.ref().child(imageFile!.path)
+        .putFile(imageFile!).
+    then((result) async {
+      imageLink=  await result.ref.getDownloadURL();
+      emit(UploadImageFileSuccessState());
+    }).catchError((error){
+      emit(UploadImageFileErrorState());
+       debugPrint(error);
     });
   }
 
-  editUserData() async {
-    // if(imageFile!=null) {
-    //   await updateImageOnCloud();
-    // }
-   emit(UpdateUserDataLoadingState());
+  Future<void> updateImageOnCloud() async {
+    await   Future.delayed(const Duration(seconds: 0)).then((value) async {
+       await  deleteImageOnCloud(imageUrl: imageLink);
+       }).then((value) async {
+        await uploadImage();
+       }).catchError((error){
+         debugPrint(error);
+       });
+  }
+
+//------------------------setUp functions---------------------------------
+  getUserData() async {
+    emit(GetUserDataLoadingState());
     await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles).doc(profileModel!.docIc)
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .get()
+        .then((value) async {
+      profileModel =
+          ProfileModel.fromJson(json: value.data()!, docId: value.id);
+      emit(GetUserDataSuccessState());
+      setProfileControllers();
+    }).catchError((error) {
+      emit(GetUserDataErrorState());
+      debugPrint(error);
+    });
+  }
+
+ Future<void> editUserData() async {
+
+    emit(UpdateUserDataLoadingState());
+    if(imageFile!=null) {
+      await updateImageOnCloud();
+    }
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(profileModel!.docIc)
         .update({
       StringManager.userFullName: fullNameController.text,
       StringManager.userNickName: nickNameController.text,
@@ -178,19 +201,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       StringManager.userAge: int.parse(ageController.text),
       StringManager.userHeight: int.parse(heightController.text),
       StringManager.userWeight: int.parse(weightController.text),
-    //  StringManager.userImageLink:imageLink,
-    }).then((value)   {
-
-      // imageFile=null;
-      // imageLink='';
+        StringManager.userImageLink:imageLink,
+    }).then((value) {
+      imageFile=null;
+      imageLink='';
       emit(UpdateUserDataSuccessState());
-       getUserData();
-    }).catchError((error){
+      getUserData();
+    }).catchError((error) {
       emit(UpdateUserDataErrorState());
-               debugPrint(error);
+      debugPrint(error);
     });
   }
-
-
-
 }

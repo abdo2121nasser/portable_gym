@@ -20,9 +20,16 @@ class PickImageLoadingState extends ProfileState {}
 class PickImageSuccessState extends ProfileState {}
 class PickImageErrorState extends  ProfileState {}
 
-class UpdateImageFileOnCloudLoadingState extends ProfileState {}
-class UpdateImageFileOnCloudSuccessState extends ProfileState {}
-class UpdateImageFileOnCloudErrorState extends   ProfileState {}
+class DeleteImageFileOnCloudLoadingState extends ProfileState {}
+class DeleteImageFileOnCloudSuccessState extends ProfileState {}
+class DeleteImageFileOnCloudErrorState extends   ProfileState {}
+
+class UploadImageFileLoadingState extends ProfileState {}
+class UploadImageFileSuccessState extends ProfileState {}
+class UploadImageFileErrorState extends   ProfileState {}
+
+
+
 
 class UpdateUserDataLoadingState extends ProfileState {}
 class UpdateUserDataSuccessState extends ProfileState {}

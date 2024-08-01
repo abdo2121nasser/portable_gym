@@ -17,8 +17,7 @@ class ProfileLowerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var profCubit = ProfileCubit.get(context);
         return Expanded(
@@ -31,36 +30,47 @@ class ProfileLowerBlock extends StatelessWidget {
                         left: AppHorizontalSize.s22,
                         bottom: AppVerticalSize.s20),
                     itemBuilder: (context, index) {
-                      return index!=profCubit.getProfileControllers().length?  FullInputBlock(
-                          lable: profCubit.getProfileInputsLables(
-                              context: context)[index],
-                          color: ColorManager.kPurpleColor,
-                          controller: profCubit.getProfileControllers()[index],
-                          onlyInteger: index>3,
-                        ):GeneralButtonBlock(
-                            lable: S.of(context).edit,
-                            function: (){
-                              profCubit.editUserData();
-                            },
-                            backgroundColor: ColorManager.kPurpleColor,
-                            textStyle: getMediumStyle(
-                                fontSize: FontSize.s20,
-                                color:ColorManager.kWhiteColor,
-                                fontFamily: FontFamily.kPoppinsFont));
+                      return index != profCubit.getProfileControllers().length
+                          ? FullInputBlock(
+                              lable: profCubit.getProfileInputsLables(
+                                  context: context)[index],
+                              color: ColorManager.kPurpleColor,
+                              controller:
+                                  profCubit.getProfileControllers()[index],
+                              onlyInteger: index > 3,
+                            )
+                          : state is UpdateUserDataLoadingState ||
+                          state is DeleteImageFileOnCloudLoadingState ||
+                          state is DeleteImageFileOnCloudSuccessState ||
+                          state is UploadImageFileLoadingState ||
+                          state is UploadImageFileSuccessState
+                      ? const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: CircularProgressIndicator(
+                                    color: ColorManager.kPurpleColor,
+                                ),
+                                  ))
+                              : GeneralButtonBlock(
+                                  lable: S.of(context).edit,
+                                  function: () {
+                                    profCubit.editUserData();
+                                  },
+                                  backgroundColor: ColorManager.kPurpleColor,
+                                  textStyle: getMediumStyle(
+                                      fontSize: FontSize.s20,
+                                      color: ColorManager.kWhiteColor,
+                                      fontFamily: FontFamily.kPoppinsFont));
                     },
-
                     separatorBuilder: (context, index) => SizedBox(
                           height: AppVerticalSize.s5,
                         ),
-                    itemCount: profCubit.getProfileControllers().length+1),
+                    itemCount: profCubit.getProfileControllers().length + 1),
               ),
-
-
             ],
           ),
         );
       },
     );
   }
-
 }
