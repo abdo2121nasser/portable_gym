@@ -29,7 +29,7 @@ class RecipeDetailsScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GridRecipeMeasurementsBlock(languageModel: recipeModel.getLanguageClass(context),),
+          GridRecipeMeasurementsBlock(languageModel: languageModel,),
           RecipeImageBlock(image: recipeModel.imageLink,),
         Expanded(
           child: Padding(

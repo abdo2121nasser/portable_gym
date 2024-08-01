@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/models/favourite_models/favourite_training_model.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
 import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 import '../../../managers_files/values_manager.dart';
@@ -62,30 +64,41 @@ class FavouriteGridViewBlock extends StatelessWidget {
                             priority: null),
                       ));
                 }
+                else {
+                    Get.to(RecipeDetailsScreen(recipeModel: RecipeModel(
+                      english: favouriteRecipeModels![index].english,
+                      arabic: favouriteRecipeModels![index].arabic,
+                      docId:favouriteRecipeModels![index].recipeDocId,
+                      imageLink: favouriteRecipeModels![index].imageLink,
+                      isSnacks: false,
+                      isDinner: false,
+                      isBreakfast: false,
+                      isLunch: false
+                    )));
+                  }
               },
               child: SquareElementBlock(
                 canBeDeleted: true,
-                title:
-                    favouriteRecipeModels?[index]
-                        ?.getLanguageClass(context)
-                        .name??
-                     favouriteTrainingModels![index]
+                title: favouriteRecipeModels?[index]
+                        .getLanguageClass(context)
+                        .name ??
+                    favouriteTrainingModels![index]
                         .getLanguageClass(context)
                         .name!,
                 subValue: time ?? 'ahmed',
                 isFavouriteItem: true,
-                imageLink: favouriteTrainingModels?[index].videoLink??
-                     favouriteRecipeModels![index].imageLink,
+                imageLink: favouriteTrainingModels?[index].videoLink ??
+                    favouriteRecipeModels![index].imageLink,
                 isVideo: favouriteTrainingModels != null,
                 deleteFavouriteFunction: () {
                   deleteFavouriteFunction(
-                      favouriteTrainingModels?[index]?.trainingDocId??
-                  favouriteRecipeModels![index].recipeDocId
-                  );
+                      favouriteTrainingModels?[index].trainingDocId ??
+                          favouriteRecipeModels![index].recipeDocId);
                 },
               ));
         },
-        itemCount: favouriteTrainingModels?.length?? favouriteRecipeModels!.length,
+        itemCount:
+            favouriteTrainingModels?.length ?? favouriteRecipeModels!.length,
       ),
     );
   }
