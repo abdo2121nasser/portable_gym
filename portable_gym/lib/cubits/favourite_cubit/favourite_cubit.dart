@@ -9,6 +9,7 @@ import '../../generated/l10n.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/recipe_category_body_block.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/training_category_body_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
+import '../../resourses/models/favourite_models/favourite_recipe_model.dart';
 import '../../resourses/models/favourite_models/favourite_training_model.dart';
 import '../../resourses/models/work_out_models/training_model.dart';
 
@@ -24,6 +25,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     const RecipeCategoryBodyBlock()
   ];
   List<FavouriteTrainingModel> favouriteTrainingModels = [];
+  List<FavouriteRecipeModel> favouriteRecipeModels = [];
   getUserDocId() async {
     emit(GetUserDocIdLoadingState());
     await const FlutterSecureStorage()
@@ -95,6 +97,34 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
 
+  Future<String> getFavouriteTrainingDocId({required String originalTrainingDocId}) async {
+    return await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .collection(StringManager.collectionUserFavouriteTraining)
+        .where(StringManager.trainingDocId, isEqualTo: originalTrainingDocId)
+        .get()
+        .then((value) {
+      return value.docs.first.id;
+    });
+  }
+
+  deleteFavouriteTrainings({required String trainingDocId}) async {
+    emit(DeleteFavouriteTrainingLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .collection(StringManager.collectionUserFavouriteTraining)
+        .doc(await getFavouriteTrainingDocId(originalTrainingDocId: trainingDocId))
+        .delete()
+        .then((value) {
+      emit(DeleteFavouriteTrainingSuccessState());
+      getFavouriteTrainings();
+    }).catchError((error) {
+      emit(DeleteFavouriteTrainingErrorState());
+      debugPrint(error);
+    });
+  }
   getFavouriteTrainings() async {
     favouriteTrainingModels.clear();
     emit(GetFavouriteTrainingLoadingState());
@@ -114,35 +144,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       debugPrint(error);
     });
   }
-  Future<String> getFavouriteTrainingDocId({required String originalTrainingDocId}) async {
-    return await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles)
-        .doc(userDocId)
-        .collection(StringManager.collectionUserFavouriteTraining)
-        .where(StringManager.trainingDocId, isEqualTo: originalTrainingDocId)
-        .get()
-        .then((value) {
-      return value.docs.first.id;
-    });
-  }
 
-  deleteFavouriteTrainings({required String trainingDocId}) async {
-    favouriteTrainingModels.clear();
-    emit(DeleteFavouriteTrainingLoadingState());
-    await FirebaseFirestore.instance
-        .collection(StringManager.collectionUserProfiles)
-        .doc(userDocId)
-        .collection(StringManager.collectionUserFavouriteTraining)
-        .doc(await getFavouriteTrainingDocId(originalTrainingDocId: trainingDocId))
-        .delete()
-        .then((value) {
-      emit(DeleteFavouriteTrainingSuccessState());
-      getFavouriteTrainings();
-    }).catchError((error) {
-      emit(DeleteFavouriteTrainingErrorState());
-      debugPrint(error);
-    });
-  }
   //---------------------------------training-------------------------------
 
   addFavouriteRecipe({required RecipeModel recipeModel}) async {
@@ -199,7 +201,6 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   }
 
   deleteFavouriteRecipe({required String recipeDocId}) async {
-    // favouriteTrainingModels.clear();
     emit(DeleteFavouriteRecipeLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
@@ -208,10 +209,31 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         .doc(await getFavouriteRecipeDocId(originalRecipeDocId: recipeDocId)).delete()
         .then((value) {
       emit(DeleteFavouriteRecipeSuccessState());
-      //getFavouriteTrainings();
+      getFavouriteRecipes();
     }).catchError((error) {
       emit(DeleteFavouriteRecipeErrorState());
       debugPrint(error);
     });
   }
+  getFavouriteRecipes() async {
+    favouriteRecipeModels.clear();
+    emit(GetFavouriteRecipesLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .collection(StringManager.collectionUserFavouriteRecipes)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        favouriteRecipeModels.add(FavouriteRecipeModel.fromJson(
+            json: element.data(), docId: element.id));
+      });
+      emit(GetFavouriteRecipesSuccessState());
+    }).catchError((error) {
+      emit(GetFavouriteRecipesErrorState());
+      debugPrint(error);
+    });
+  }
+
+
 }

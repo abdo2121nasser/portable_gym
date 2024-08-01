@@ -6,16 +6,19 @@ import 'package:portable_gym/resourses/models/work_out_models/training_model.dar
 
 import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 import '../../../managers_files/values_manager.dart';
+import '../../../models/favourite_models/favourite_recipe_model.dart';
 import '../../general_blocks/square_element _block.dart';
 
 import 'package:intl/intl.dart';
 
 class FavouriteGridViewBlock extends StatelessWidget {
   final List<FavouriteTrainingModel>? favouriteTrainingModels;
+  final List<FavouriteRecipeModel>? favouriteRecipeModels;
   final Function(String) deleteFavouriteFunction;
   const FavouriteGridViewBlock(
       {super.key,
       this.favouriteTrainingModels,
+      this.favouriteRecipeModels,
       required this.deleteFavouriteFunction});
 
   @override
@@ -30,9 +33,6 @@ class FavouriteGridViewBlock extends StatelessWidget {
             childAspectRatio: (1 / .8),
             mainAxisSpacing: 15),
         itemBuilder: (context, index) {
-          var languageModel = favouriteTrainingModels == null
-              ? null
-              : favouriteTrainingModels![index].getLanguageClass(context);
           var time = favouriteTrainingModels == null
               ? null
               : DateFormat('HH:mm:ss').format(DateTime(
@@ -65,24 +65,27 @@ class FavouriteGridViewBlock extends StatelessWidget {
               },
               child: SquareElementBlock(
                 canBeDeleted: true,
-                title: languageModel == null ? 'ahmed' : languageModel.name!,
+                title:
+                    favouriteRecipeModels?[index]
+                        ?.getLanguageClass(context)
+                        .name??
+                     favouriteTrainingModels![index]
+                        .getLanguageClass(context)
+                        .name!,
                 subValue: time ?? 'ahmed',
                 isFavouriteItem: true,
-                imageLink: favouriteTrainingModels == null
-                    ? convertGoogleDriveLinkToStreamable(
-                        "https://drive.google.com/uc?export=download&id=1-yk_Ei99v_clflTJYpAkSm9MMijiJ7l1")
-                    : favouriteTrainingModels![index].videoLink!,
-                isVideo: true,
-                isTraining: true,
-          deleteFavouriteFunction:(){
-            deleteFavouriteFunction(favouriteTrainingModels![index].trainingDocId!);
-          } ,
-              )
-          );
+                imageLink: favouriteTrainingModels?[index].videoLink??
+                     favouriteRecipeModels![index].imageLink,
+                isVideo: favouriteTrainingModels != null,
+                deleteFavouriteFunction: () {
+                  deleteFavouriteFunction(
+                      favouriteTrainingModels?[index]?.trainingDocId??
+                  favouriteRecipeModels![index].recipeDocId
+                  );
+                },
+              ));
         },
-        itemCount: favouriteTrainingModels == null
-            ? 0
-            : favouriteTrainingModels!.length,
+        itemCount: favouriteTrainingModels?.length?? favouriteRecipeModels!.length,
       ),
     );
   }

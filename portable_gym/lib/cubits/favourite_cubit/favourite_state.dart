@@ -30,3 +30,6 @@ class DeleteFavouriteRecipeLoadingState extends FavouriteState {}
 class DeleteFavouriteRecipeSuccessState extends FavouriteState {}
 class DeleteFavouriteRecipeErrorState extends FavouriteState {}
 
+class GetFavouriteRecipesLoadingState extends FavouriteState {}
+class GetFavouriteRecipesSuccessState extends FavouriteState {}
+class GetFavouriteRecipesErrorState extends FavouriteState {}

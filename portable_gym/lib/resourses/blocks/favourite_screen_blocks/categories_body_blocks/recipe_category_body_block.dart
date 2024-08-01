@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 
-import '../../../managers_files/google_drive_function_manager.dart';
-import '../../../managers_files/values_manager.dart';
-import '../../general_blocks/square_element _block.dart';
 import '../blocks/favourite_grid_view_block.dart';
 
 
@@ -11,6 +10,19 @@ class RecipeCategoryBodyBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  FavouriteGridViewBlock(deleteFavouriteFunction:(doc){},);
+    return BlocProvider.value(
+      value: FavouriteCubit.get(context)..getFavouriteRecipes(),
+      child: BlocConsumer<FavouriteCubit, FavouriteState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var favCubit = FavouriteCubit.get(context);
+          return FavouriteGridViewBlock(
+            deleteFavouriteFunction: (doc) {
+              favCubit.deleteFavouriteRecipe(recipeDocId: doc);
+            },
+            favouriteRecipeModels: favCubit.favouriteRecipeModels,);
+        },
+      ),
+    );
   }
 }
