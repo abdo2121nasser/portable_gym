@@ -14,11 +14,13 @@ import '../../../models/work_out_models/training_model.dart';
 class ListTrainingItemsBlock extends StatelessWidget {
   final List<TrainingModel> trainingModels;
   final String bodyCategory;
+  final bool isDailyCategory;
 
-  ListTrainingItemsBlock({
+  const ListTrainingItemsBlock({
     super.key,
     required this.trainingModels,
     required this.bodyCategory,
+    required this.isDailyCategory
   });
 
   @override
@@ -91,16 +93,19 @@ class ListTrainingItemsBlock extends StatelessWidget {
                                 workCubit.editTraining(
                                   docId: trainingModels[index].docId!,
                                   bodyCategory: bodyCategory,
+                                  isDailyCategory: isDailyCategory
                                 );
                               },
                             );
                           },
                           child: RoundItemBlock(
                             trainingModel: trainingModels[index],
+                            isDailyTraining: isDailyCategory,
                             deleteFunction: () {
                               workCubit.deleteTraining(
                                 docId: trainingModels[index].docId!,
                                 bodyCategory: bodyCategory,
+                                isDailyTraining: isDailyCategory
                               );
                             },
                             addToFavouriteFunction: () async {

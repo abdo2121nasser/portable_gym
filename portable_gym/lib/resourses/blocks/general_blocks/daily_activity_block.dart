@@ -17,23 +17,24 @@ class DailyActivityBlock extends StatelessWidget {
   final BodyCategoryModel? bodyCategoryModel;
   final String title;
   final bool isDailyTraining;
-  DailyActivityBlock(
-      {this.bodyCategoryModel,
+  const DailyActivityBlock(
+      {super.key, this.bodyCategoryModel,
       required this.title,
       this.isDailyTraining = true});
 
   @override
   Widget build(BuildContext context) {
     var languageModel;
-    if (isDailyTraining)
+    if (isDailyTraining) {
       languageModel = bodyCategoryModel!.getLanguageClass(context);
+    }
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.32,
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.05,
           vertical: MediaQuery.of(context).size.height * 0.03),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: ColorManager.kLightPurpleColor,
       ),
       child: LayoutBuilder(builder: (context, constrain) {
@@ -165,14 +166,6 @@ class DailyActivityBlock extends StatelessWidget {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppHorizontalSize.s10),
-                          child: Icon(
-                            Icons.star_rounded,
-                            color: ColorManager.kWhiteColor,
-                          ),
-                        )
                       ],
                     ),
                   )

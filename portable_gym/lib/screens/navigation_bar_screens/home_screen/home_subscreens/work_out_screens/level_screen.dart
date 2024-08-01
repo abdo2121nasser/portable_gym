@@ -59,8 +59,9 @@ class LevelScreen extends StatelessWidget {
                             )),
                       )
                     : ListTrainingItemsBlock(
-                        trainingModels: workCubit.trainingModel,
+                        trainingModels: workCubit.trainingModels,
                         bodyCategory: bodyCategory,
+                  isDailyCategory: isDailyCategory,
                       ),
               ],
             ),
@@ -78,7 +79,8 @@ class LevelScreen extends StatelessWidget {
                     buttonFunction: () {
                       workCubit.processOfAddingTraining(
                           bodyCategory: bodyCategory,
-                          isDailyCategory: isDailyCategory);
+                          isDailyCategory: isDailyCategory
+                      );
                     });
                 workCubit.clearTrainingAttributes();
                 // await pickImage();

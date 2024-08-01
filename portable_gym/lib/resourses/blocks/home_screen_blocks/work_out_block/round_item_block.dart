@@ -16,6 +16,7 @@ class RoundItemBlock extends StatelessWidget {
   final VoidCallback addToFavouriteFunction;
   final VoidCallback deleteFavouriteFunction;
   final bool isTrainingFavourite;
+  final bool isDailyTraining;
 
   const RoundItemBlock(
       {super.key,
@@ -23,7 +24,9 @@ class RoundItemBlock extends StatelessWidget {
       required this.deleteFunction,
       required this.addToFavouriteFunction,
         required this.deleteFavouriteFunction,
-      required this.isTrainingFavourite});
+      required this.isTrainingFavourite,
+     required this.isDailyTraining
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class RoundItemBlock extends StatelessWidget {
                 color: ColorManager.kBlackColor,
                 fontFamily: FontFamily.kPoppinsFont),
           ),
-          !trainingModel.isPaid!
+          trainingModel.isPaid!
               ? Flexible(
                   child: SizedBox(
                       width: AppHorizontalSize.s22,
@@ -115,14 +118,14 @@ class RoundItemBlock extends StatelessWidget {
                       child: Image.asset(ImageManager.kCrownImage)),
                 )
               : const SizedBox(),
-          Flexible(
+       !isDailyTraining?   Flexible(
             child: InkWell(
                 onTap:isTrainingFavourite?deleteFavouriteFunction: addToFavouriteFunction,
                 child: Icon(
                  isTrainingFavourite? Icons.star_rounded:Icons.star_border,
                   color: ColorManager.kPurpleColor,
                 )),
-          ),
+          ):SizedBox(),
           InkWell(
               onTap: deleteFunction,
               child: Icon(

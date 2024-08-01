@@ -40,7 +40,7 @@ class WorkOutScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => WorkOutCubit()
         ..getBodyCategories()
-        ..getDailyBodyCategory(),
+        ..getDailyBodyCategoryCard(),
       child: BlocConsumer<WorkOutCubit, WorkOutState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -140,7 +140,7 @@ class WorkOutScreen extends StatelessWidget {
                             )),
                       )
                     : ListBodyPartBlock(
-                        bodyCategoryModel: workCubit.bodyCategoryModel,
+                        bodyCategoryModel: workCubit.bodyCategoryModels,
                       ),
               ],
             ),

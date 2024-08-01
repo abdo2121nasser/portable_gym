@@ -1,9 +1,5 @@
-import 'dart:ui';
 
-import 'package:flutter/animation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
@@ -20,7 +16,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertBodyCategoryBox({
+  const AlertBodyCategoryBox({super.key,
     required context,
     required this.workOutCubit,
     required this.tabBar,
@@ -49,7 +45,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -65,7 +61,7 @@ class AlertBodyCategoryBox extends StatelessWidget {
                       Expanded(child: tabBarView),
                       PeriodPickerBlock(
                         isTrainingDate: false,
-                        workCubit: WorkOutCubit(),
+                        workCubit: workOutCubit,
                       ),
                       GeneralButtonBlock(
                           lable: buttonLable,
@@ -125,7 +121,7 @@ class AlertTrainingBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -166,7 +162,7 @@ class AlertRecipeBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertRecipeBox({
+  const AlertRecipeBox({super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -195,7 +191,7 @@ class AlertRecipeBox extends StatelessWidget {
           alignment: Alignment.center,
           scrollable: true,
           
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -235,7 +231,7 @@ class AlertFoodMainElementBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertFoodMainElementBox({
+  const AlertFoodMainElementBox({super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -263,7 +259,7 @@ class AlertFoodMainElementBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,

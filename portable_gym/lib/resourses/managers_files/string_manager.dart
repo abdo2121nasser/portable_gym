@@ -62,6 +62,11 @@ class StringManager
   static const String trainingMinutePeriod='training minute period';
   static const String trainingSecondPeriod='training second period';
 
+  static const String collectionDailyBodyCategory='daily body category';
+
+  static const String dailyBodyCategoryCardInformation='card information';
+
+
   static const String collectionBodyCategory='body category';
 
   static const String bodyCategoryEnglishTitle='english title';

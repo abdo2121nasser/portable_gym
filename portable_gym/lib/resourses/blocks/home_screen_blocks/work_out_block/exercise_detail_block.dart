@@ -43,6 +43,7 @@ class ExerciseDetailBlock extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height *0.075,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: SingleChildScrollView(
