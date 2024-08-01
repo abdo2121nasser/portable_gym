@@ -14,6 +14,7 @@ class RoundItemBlock extends StatelessWidget {
   final TrainingModel trainingModel;
   final VoidCallback deleteFunction;
   final VoidCallback addToFavouriteFunction;
+  final VoidCallback deleteFavouriteFunction;
   final bool isTrainingFavourite;
 
   const RoundItemBlock(
@@ -21,6 +22,7 @@ class RoundItemBlock extends StatelessWidget {
       required this.trainingModel,
       required this.deleteFunction,
       required this.addToFavouriteFunction,
+        required this.deleteFavouriteFunction,
       required this.isTrainingFavourite});
 
   @override
@@ -115,7 +117,7 @@ class RoundItemBlock extends StatelessWidget {
               : const SizedBox(),
           Flexible(
             child: InkWell(
-                onTap: addToFavouriteFunction,
+                onTap:isTrainingFavourite?deleteFavouriteFunction: addToFavouriteFunction,
                 child: Icon(
                  isTrainingFavourite? Icons.star_rounded:Icons.star_border,
                   color: ColorManager.kPurpleColor,

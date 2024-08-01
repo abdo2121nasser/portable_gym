@@ -59,7 +59,7 @@ class LevelScreen extends StatelessWidget {
                             )),
                       )
                     : ListTrainingItemsBlock(
-                        trainingModel: workCubit.trainingModel,
+                        trainingModels: workCubit.trainingModel,
                         bodyCategory: bodyCategory,
                       ),
               ],

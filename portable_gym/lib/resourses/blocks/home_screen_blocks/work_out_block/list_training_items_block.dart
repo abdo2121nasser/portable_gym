@@ -12,12 +12,12 @@ import '../../../managers_files/values_manager.dart';
 import '../../../models/work_out_models/training_model.dart';
 
 class ListTrainingItemsBlock extends StatelessWidget {
-  final List<TrainingModel> trainingModel;
+  final List<TrainingModel> trainingModels;
   final String bodyCategory;
 
   ListTrainingItemsBlock({
     super.key,
-    required this.trainingModel,
+    required this.trainingModels,
     required this.bodyCategory,
   });
 
@@ -44,7 +44,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
 
             return
             Expanded(
-              child: state is AddFavouriteTrainingLoadingState?  const Align(
+              child: state is AddFavouriteTrainingLoadingState || state is DeleteFavouriteTrainingLoadingState?  const Align(
                 alignment: Alignment.center,
                 child: CircularProgressIndicator(
                   color: ColorManager.kPurpleColor,
@@ -59,7 +59,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
                   return
                   FutureBuilder<bool>(
                     future: favCubit.isTrainingIsFavourite(
-                      trainingDocId: trainingModel[index].docId!,
+                      trainingDocId: trainingModels[index].docId!,
                     ),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -68,13 +68,13 @@ class ListTrainingItemsBlock extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             Get.to(ExerciseScreen(
-                              trainingModel: trainingModel[index],
+                              trainingModel: trainingModels[index],
                             ));
                           },
                           onLongPress: () {
                             workCubit.clearTrainingAttributes();
                             workCubit.setTrainingAttributes(
-                              model: trainingModel[index],
+                              model: trainingModels[index],
                             );
 
                             showAlertTrainingBox(
@@ -89,26 +89,29 @@ class ListTrainingItemsBlock extends StatelessWidget {
                               trainingPeriod: workCubit.trainingPeriod,
                               buttonFunction: () {
                                 workCubit.editTraining(
-                                  docId: trainingModel[index].docId!,
+                                  docId: trainingModels[index].docId!,
                                   bodyCategory: bodyCategory,
                                 );
                               },
                             );
                           },
                           child: RoundItemBlock(
-                            trainingModel: trainingModel[index],
+                            trainingModel: trainingModels[index],
                             deleteFunction: () {
                               workCubit.deleteTraining(
-                                docId: trainingModel[index].docId!,
+                                docId: trainingModels[index].docId!,
                                 bodyCategory: bodyCategory,
                               );
                             },
                             addToFavouriteFunction: () async {
                               favCubit.addFavouritTraining(
                                 trainingModel: await workCubit.getTrainingUsingDocId(
-                                  trainingDocId: trainingModel[index].docId!,
+                                  trainingDocId: trainingModels[index].docId!,
                                 ),
                               );
+                            },
+                            deleteFavouriteFunction: (){
+                              favCubit.deleteFavouriteTrainings(trainingDocId: trainingModels[index].docId!);
                             },
                             isTrainingFavourite: snapshot.data!,
                           ),
@@ -120,7 +123,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
                 separatorBuilder: (context, index) => SizedBox(
                   height: AppVerticalSize.s18,
                 ),
-                itemCount: trainingModel.length,
+                itemCount: trainingModels.length,
               ),
             );
           },
