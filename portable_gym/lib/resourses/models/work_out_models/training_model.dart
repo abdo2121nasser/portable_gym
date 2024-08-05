@@ -3,8 +3,8 @@ import 'package:portable_gym/resourses/managers_files/google_drive_function_mana
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class TrainingModel {
-  final English? english;
-  final Arabic? arabic;
+  final TrainingEnglish? english;
+  final TrainingArabic? arabic;
   final String? level;
   final String? videoLink;
   final String? bodyCategory;
@@ -39,27 +39,54 @@ class TrainingModel {
       minute: json[StringManager.trainingMinutePeriod],
       second: json[StringManager.trainingSecondPeriod],
       priority: json[StringManager.trainingPriority],
-      english: English.fromJson(json: json),
-      arabic: Arabic.fromJson(json: json),
+      english: TrainingEnglish.fromJson(json: json),
+      arabic: TrainingArabic.fromJson(json: json),
         docId: docId
 
     );
   }
+  Map<String,dynamic> toJson(){
+    return {
+      StringManager.trainingEnglishName: english!.name,
+      StringManager.trainingEnglishNumberOfReputation:
+      english!.numberOfReputation,
+      StringManager.trainingEnglishNumberOfRounds:
+     english!.numberOfRounds,
+      StringManager.trainingEnglishInstruction:
+      english!.instructions,
+      StringManager.trainingArabicName: arabic!.name,
+      StringManager.trainingArabicNumberOfReputation:
+      arabic!.numberOfReputation,
+      StringManager.trainingArabicNumberOfRounds:
+      arabic!.numberOfRounds,
+      StringManager.trainingArabicInstruction:
+      arabic!.instructions,
+      StringManager.trainingVideoLink: videoLink,
+      StringManager.trainingPriority: priority  ,
+      StringManager.trainingHourPeriod: hour,
+      StringManager.trainingMinutePeriod:minute,
+      StringManager.trainingSecondPeriod:second,
+      StringManager.trainingIsPaid: isPaid
+    };
+}
 
-  LanguageClass getLanguageClass(context) {
+
+
+
+  TrainingLanguageClass getLanguageClass(context) {
     return  Localizations.localeOf(context).toString() == 'ar' ? arabic! : english!;
   }
 
 
 }
 
-abstract class LanguageClass {
+abstract class TrainingLanguageClass {
   final String? name;
   final String? numberOfReputation;
   final String? numberOfRounds;
   final String? instructions;
 
-  LanguageClass({
+  TrainingLanguageClass({
     required this.name,
     required this.numberOfReputation,
     required this.numberOfRounds,
@@ -67,8 +94,8 @@ abstract class LanguageClass {
   });
 }
 
-class English extends LanguageClass {
-  English({
+class TrainingEnglish extends TrainingLanguageClass {
+  TrainingEnglish({
     required String? name,
     required String? numberOfReputation,
     required String? numberOfRounds,
@@ -77,8 +104,8 @@ class English extends LanguageClass {
       numberOfRounds: numberOfRounds,
       instructions: instructions);
 
-  factory English.fromJson({required Map<String, dynamic> json}) {
-    return English(
+  factory TrainingEnglish.fromJson({required Map<String, dynamic> json}) {
+    return TrainingEnglish(
       name: json[StringManager.trainingEnglishName],
       numberOfReputation: json[StringManager.trainingEnglishNumberOfReputation],
       numberOfRounds: json[StringManager.trainingEnglishNumberOfRounds]??'1',
@@ -87,8 +114,8 @@ class English extends LanguageClass {
   }
 }
 
-class Arabic extends LanguageClass {
-  Arabic({
+class TrainingArabic extends TrainingLanguageClass {
+  TrainingArabic({
     required String? name,
     required String? numberOfReputation,
     required String? numberOfRounds,
@@ -97,8 +124,8 @@ class Arabic extends LanguageClass {
       numberOfRounds: numberOfRounds,
       instructions: instructions);
 
-  factory Arabic.fromJson({required Map<String, dynamic> json}) {
-    return Arabic(
+  factory TrainingArabic.fromJson({required Map<String, dynamic> json}) {
+    return TrainingArabic(
       name: json[StringManager.trainingArabicName],
       numberOfReputation: json[StringManager.trainingArabicNumberOfReputation],
       numberOfRounds: json[StringManager.trainingArabicNumberOfRounds]??'1',

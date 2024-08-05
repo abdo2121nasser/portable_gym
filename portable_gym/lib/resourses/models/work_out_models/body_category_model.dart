@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class BodyCategoryModel {
-  final English? english;
-  final Arabic? arabic;
+  final BodyCategoryEnglish? english;
+  final BodyCategoryArabic? arabic;
   final String? level;
   final String? imageLink;
   final int? hour;
@@ -13,77 +12,104 @@ class BodyCategoryModel {
   final int? second;
   final String? docId;
 
-  BodyCategoryModel({
-    required this.english,
-    required this.arabic,
-    required this.level,
-    required this.imageLink,
-    required this.hour,
-    required this.minute,
-    required this.second,
-    required this.docId
-  });
+  BodyCategoryModel(
+      {required this.english,
+      required this.arabic,
+      required this.level,
+      required this.imageLink,
+      required this.hour,
+      required this.minute,
+      required this.second,
+      required this.docId});
 
-  factory BodyCategoryModel.fromJson({required Map<String, dynamic> json,required String docId}) {
+  factory BodyCategoryModel.fromJson(
+      {required Map<String, dynamic> json, required String docId}) {
     return BodyCategoryModel(
-      level: json[StringManager.bodyCategoryLevel],
-      imageLink:convertGoogleDriveLinkToStreamable( json[StringManager.bodyCategoryImageLink]),
-      hour: json[StringManager.bodyCategoryTotalTimeHour],
-      minute: json[StringManager.bodyCategoryTotalTimeMinute],
-      second: json[StringManager.bodyCategoryTotalTimeSecond],
-      english: English.fromJson(json: json),
-      arabic: Arabic.fromJson(json: json),
-      docId: docId
-    );
+        level: json[StringManager.bodyCategoryLevel],
+        imageLink: convertGoogleDriveLinkToStreamable(
+            json[StringManager.bodyCategoryImageLink]),
+        hour: json[StringManager.bodyCategoryTotalTimeHour],
+        minute: json[StringManager.bodyCategoryTotalTimeMinute],
+        second: json[StringManager.bodyCategoryTotalTimeSecond],
+        english: BodyCategoryEnglish.fromJson(json: json),
+        arabic: BodyCategoryArabic.fromJson(json: json),
+        docId: docId);
   }
 
-  LanguageClass getLanguageClass(context) {
-    return  Localizations.localeOf(context).toString() == 'ar' ? arabic! : english!;
+  Map<String, dynamic> toJson(
+      {bool isAddFunction = true, String? bodyCategoryLevel}) {
+    return {
+      StringManager.bodyCategoryEnglishTitle: english!.title,
+      StringManager.bodyCategoryEnglishCalories: english!.calories,
+      StringManager.bodyCategoryEnglishNumberOfExercises:
+          english!.numberOfExercises,
+      StringManager.bodyCategoryArabicTitle: arabic!.title,
+      StringManager.bodyCategoryArabicCalories: arabic!.calories,
+      StringManager.bodyCategoryArabicNumberOfExercises:
+          arabic!.numberOfExercises,
+      StringManager.bodyCategoryImageLink: imageLink,
+      if (isAddFunction) StringManager.bodyCategoryLevel: bodyCategoryLevel,
+      StringManager.bodyCategoryTotalTimeHour: hour,
+      StringManager.bodyCategoryTotalTimeMinute: minute,
+      StringManager.bodyCategoryTotalTimeSecond: second,
+    };
   }
 
-
+  BodyCategoryLanguageClass getLanguageClass(context) {
+    return Localizations.localeOf(context).toString() == 'ar'
+        ? arabic!
+        : english!;
+  }
 }
 
-abstract class LanguageClass {
+abstract class BodyCategoryLanguageClass {
   final String? title;
   final String? calories;
   final String? numberOfExercises;
 
-  LanguageClass({
+  BodyCategoryLanguageClass({
     required this.title,
     required this.calories,
     required this.numberOfExercises,
   });
 }
 
-class English extends LanguageClass {
-  English({
+class BodyCategoryEnglish extends BodyCategoryLanguageClass {
+  BodyCategoryEnglish({
     required String? title,
     required String? calories,
     required String? numberOfExercises,
-  }) : super(title: title, calories: calories, numberOfExercises: numberOfExercises);
+  }) : super(
+            title: title,
+            calories: calories,
+            numberOfExercises: numberOfExercises);
 
-  factory English.fromJson({required Map<String, dynamic> json}) {
-    return English(
+  factory BodyCategoryEnglish.fromJson({required Map<String, dynamic> json}) {
+    return BodyCategoryEnglish(
       title: json[StringManager.bodyCategoryEnglishTitle],
       calories: json[StringManager.bodyCategoryEnglishCalories],
-      numberOfExercises: json[StringManager.bodyCategoryEnglishNumberOfExercises],
+      numberOfExercises:
+          json[StringManager.bodyCategoryEnglishNumberOfExercises],
     );
   }
 }
 
-class Arabic extends LanguageClass {
-  Arabic({
+class BodyCategoryArabic extends BodyCategoryLanguageClass {
+  BodyCategoryArabic({
     required String? title,
     required String? calories,
     required String? numberOfExercises,
-  }) : super(title: title, calories: calories, numberOfExercises: numberOfExercises);
+  }) : super(
+            title: title,
+            calories: calories,
+            numberOfExercises: numberOfExercises);
 
-  factory Arabic.fromJson({required Map<String, dynamic> json}) {
-    return Arabic(
+  factory BodyCategoryArabic.fromJson({required Map<String, dynamic> json}) {
+    return BodyCategoryArabic(
       title: json[StringManager.bodyCategoryArabicTitle],
       calories: json[StringManager.bodyCategoryArabicCalories],
-      numberOfExercises: json[StringManager.bodyCategoryArabicNumberOfExercises],
+      numberOfExercises:
+          json[StringManager.bodyCategoryArabicNumberOfExercises],
     );
   }
 }

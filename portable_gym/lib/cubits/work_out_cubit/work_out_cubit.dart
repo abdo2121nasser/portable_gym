@@ -286,39 +286,42 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(SetTrainingControllersState());
   }
 
+  Map<String, dynamic> getTrainingModelMap({required String bodyCategory}) {
+    return TrainingModel(
+            english: TrainingEnglish(
+                name: trainingEnglishNameController.text,
+                numberOfReputation:
+                    trainingEnglishNumberOfReputationController.text,
+                numberOfRounds: trainingEnglishNumberOfRoundsController.text,
+                instructions: trainingEnglishInstructionController.text),
+            arabic: TrainingArabic(
+                name: trainingArabicNameController.text,
+                numberOfReputation:
+                    trainingArabicNumberOfReputationController.text,
+                numberOfRounds: trainingArabicNumberOfRoundsController.text,
+                instructions: trainingArabicInstructionController.text),
+            level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+            bodyCategory: bodyCategory,
+            videoLink: trainingVideoLinkController.text,
+            priority: int.parse(trainingPriorityController.text),
+            hour: trainingPeriod.hour,
+            minute: trainingPeriod.minute,
+            second: trainingPeriod.second,
+            isPaid: trainingIsPaid,
+            docId: '')
+        .toJson();
+  }
+
   addNewTraining(
       {required String bodyCategory, bool isDailyCategory = false}) async {
     emit(AddNewTrainingLoadingState());
-    CollectionReference data = FirebaseFirestore.instance
-        .collection(
-        isDailyCategory?StringManager.collectionDailyBodyCategory:
-        StringManager.collectionTrainings);
-    await data.add({
-      StringManager.trainingEnglishName: trainingEnglishNameController.text,
-      StringManager.trainingEnglishNumberOfReputation:
-          trainingEnglishNumberOfReputationController.text,
-      StringManager.trainingEnglishNumberOfRounds:
-          trainingEnglishNumberOfRoundsController.text,
-      StringManager.trainingEnglishInstruction:
-          trainingEnglishInstructionController.text,
-      StringManager.trainingArabicName: trainingArabicNameController.text,
-      StringManager.trainingArabicNumberOfReputation:
-          trainingArabicNumberOfReputationController.text,
-      StringManager.trainingArabicNumberOfRounds:
-          trainingArabicNumberOfRoundsController.text,
-      StringManager.trainingArabicInstruction:
-          trainingArabicInstructionController.text,
-      StringManager.trainingVideoLink: trainingVideoLinkController.text,
-      StringManager.trainingLevel:
-          getBodyCategoryLevelString(currentLevelIndex: currentLevel),
-      StringManager.trainingBodyCategory: bodyCategory,
-      StringManager.trainingPriority:
-          int.parse(trainingPriorityController.text),
-      StringManager.trainingHourPeriod: trainingPeriod.hour,
-      StringManager.trainingMinutePeriod: trainingPeriod.minute,
-      StringManager.trainingSecondPeriod: trainingPeriod.second,
-      StringManager.trainingIsPaid: trainingIsPaid,
-    }).then((value) {
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        isDailyCategory
+            ? StringManager.collectionDailyBodyCategory
+            : StringManager.collectionTrainings);
+    await data
+        .add(getTrainingModelMap(bodyCategory: bodyCategory))
+        .then((value) {
       emit(AddNewTrainingSuccessState());
       getToastMessage(
         message: 'added successfully',
@@ -333,33 +336,49 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     getTraining(bodyCategory: bodyCategory);
     Get.back();
   }
+//   {
+//   StringManager.trainingEnglishName: trainingEnglishNameController.text,
+//   StringManager.trainingEnglishNumberOfReputation:
+//   trainingEnglishNumberOfReputationController.text,
+//   StringManager.trainingEnglishNumberOfRounds:
+//   trainingEnglishNumberOfRoundsController.text,
+//   StringManager.trainingEnglishInstruction:
+//   trainingEnglishInstructionController.text,
+//   StringManager.trainingArabicName: trainingArabicNameController.text,
+//   StringManager.trainingArabicNumberOfReputation:
+//   trainingArabicNumberOfReputationController.text,
+//   StringManager.trainingArabicNumberOfRounds:
+//   trainingArabicNumberOfRoundsController.text,
+//   StringManager.trainingArabicInstruction:
+//   trainingArabicInstructionController.text,
+//   StringManager.trainingVideoLink: trainingVideoLinkController.text,
+//   StringManager.trainingLevel:
+//   getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+//   StringManager.trainingBodyCategory: bodyCategory,
+//   StringManager.trainingPriority:
+//   int.parse(trainingPriorityController.text),
+//   StringManager.trainingHourPeriod:   trainingPeriod.hour,
+//   StringManager.trainingMinutePeriod: trainingPeriod.minute,
+//   StringManager.trainingSecondPeriod: trainingPeriod.second,
+//   StringManager.trainingIsPaid: trainingIsPaid,
+// }
 
-  editTraining({required String docId, required String bodyCategory, bool isDailyCategory=false}) async {
+  editTraining(
+      {required String docId,
+      required String bodyCategory,
+      bool isDailyCategory = false}) async {
     emit(EditTrainingLoadingState());
-    CollectionReference data = FirebaseFirestore.instance
-        .collection(isDailyCategory?StringManager.collectionDailyBodyCategory:StringManager.collectionTrainings);
-    await data.doc(docId).update({
-      StringManager.trainingEnglishName: trainingEnglishNameController.text,
-      StringManager.trainingEnglishNumberOfReputation:
-          trainingEnglishNumberOfReputationController.text,
-      StringManager.trainingEnglishInstruction:
-          trainingEnglishInstructionController.text,
-      StringManager.trainingArabicName: trainingArabicNameController.text,
-      StringManager.trainingArabicNumberOfReputation:
-          trainingArabicNumberOfReputationController.text,
-      StringManager.trainingArabicInstruction:
-          trainingArabicInstructionController.text,
-      StringManager.trainingVideoLink: trainingVideoLinkController.text,
-      StringManager.trainingPriority:
-          int.parse(trainingPriorityController.text),
-      StringManager.trainingHourPeriod: trainingPeriod.hour,
-      StringManager.trainingMinutePeriod: trainingPeriod.minute,
-      StringManager.trainingSecondPeriod: trainingPeriod.second,
-      StringManager.trainingIsPaid: trainingIsPaid
-    }).then((value) {
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        isDailyCategory
+            ? StringManager.collectionDailyBodyCategory
+            : StringManager.collectionTrainings);
+    await data
+        .doc(docId)
+        .update(getTrainingModelMap(bodyCategory: bodyCategory))
+        .then((value) {
       emit(EditTrainingSuccessState());
 
-      getTraining(bodyCategory: bodyCategory,isDailyCategory: isDailyCategory);
+      getTraining(bodyCategory: bodyCategory, isDailyCategory: isDailyCategory);
     }).catchError((error) {
       emit(EditTrainingErrorState());
       print(error.toString());
@@ -367,10 +386,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     Get.back();
   }
 
-  deleteTraining({required String docId, required String bodyCategory, required isDailyTraining}) async {
+  deleteTraining(
+      {required String docId,
+      required String bodyCategory,
+      required isDailyTraining}) async {
     emit(DeleteTrainingLoadingState());
-    CollectionReference data = FirebaseFirestore.instance
-        .collection(isDailyTraining? StringManager.collectionDailyBodyCategory:StringManager.collectionTrainings);
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        isDailyTraining
+            ? StringManager.collectionDailyBodyCategory
+            : StringManager.collectionTrainings);
     await data.doc(docId).delete().then((value) {
       emit(DeleteTrainingSuccessState());
       getToastMessage(
@@ -402,8 +426,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     var data;
     if (isDailyCategory) {
       data = FirebaseFirestore.instance
-          .collection(StringManager.collectionDailyBodyCategory)
-      ;
+          .collection(StringManager.collectionDailyBodyCategory);
       print('--------------------');
     } else {
       data = FirebaseFirestore.instance
@@ -423,9 +446,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-          trainingModels.add(
+        trainingModels.add(
             TrainingModel.fromJson(json: element.data(), docId: element.id));
-
       });
       emit(GetTrainingSuccessState());
     }).catchError((error) {
@@ -553,30 +575,35 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(SetBodyCategoryControllersState());
   }
 
+  Map<String, dynamic> getBodyCategoryMap({required bool isAddFunction}) {
+    return BodyCategoryModel(
+            english: BodyCategoryEnglish(
+                title: bodyCategoryEnglishTitleController.text,
+                calories: bodyCategoryEnglishCaloriesController.text,
+                numberOfExercises:
+                    bodyCategoryEnglishNumberOfExercisesController.text),
+            arabic: BodyCategoryArabic(
+              title: bodyCategoryArabicTitleController.text,
+              calories:  bodyCategoryArabicCaloriesController.text,
+              numberOfExercises: bodyCategoryArabicNumberOfExercisesController.text
+            ),
+            imageLink: bodyCategoryImageLinkController.text,
+            level:  getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+            hour:   bodyCategoryTotalTime.hour,
+            minute: bodyCategoryTotalTime.minute,
+            second: bodyCategoryTotalTime.second,
+            docId: '')
+        .toJson(
+            isAddFunction: isAddFunction,
+            bodyCategoryLevel:
+                getBodyCategoryLevelString(currentLevelIndex: currentLevel));
+  }
+
   addNewBodyCategory() async {
     emit(AddNewBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionBodyCategory);
-    await data.add({
-      StringManager.bodyCategoryEnglishTitle:
-          bodyCategoryEnglishTitleController.text,
-      StringManager.bodyCategoryEnglishCalories:
-          bodyCategoryEnglishCaloriesController.text,
-      StringManager.bodyCategoryEnglishNumberOfExercises:
-          bodyCategoryEnglishNumberOfExercisesController.text,
-      StringManager.bodyCategoryArabicTitle:
-          bodyCategoryArabicTitleController.text,
-      StringManager.bodyCategoryArabicCalories:
-          bodyCategoryArabicCaloriesController.text,
-      StringManager.bodyCategoryArabicNumberOfExercises:
-          bodyCategoryArabicNumberOfExercisesController.text,
-      StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
-      StringManager.bodyCategoryLevel:
-          getBodyCategoryLevelString(currentLevelIndex: currentLevel),
-      StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
-      StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
-      StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
-    }).then((value) {
+    await data.add(getBodyCategoryMap(isAddFunction: true)).then((value) {
       emit(AddNewBodyCategorySuccessState());
       getToastMessage(
         message: 'successfully added',
@@ -590,31 +617,31 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     });
     Get.back();
   }
-
+  // StringManager.bodyCategoryEnglishTitle:
+  // bodyCategoryEnglishTitleController.text,
+  // StringManager.bodyCategoryEnglishCalories:
+  // bodyCategoryEnglishCaloriesController.text,
+  // StringManager.bodyCategoryEnglishNumberOfExercises:
+  // bodyCategoryEnglishNumberOfExercisesController.text,
+  // StringManager.bodyCategoryArabicTitle:
+  // bodyCategoryArabicTitleController.text,
+  // StringManager.bodyCategoryArabicCalories:
+  // bodyCategoryArabicCaloriesController.text,
+  // StringManager.bodyCategoryArabicNumberOfExercises:
+  // bodyCategoryArabicNumberOfExercisesController.text,
+  // StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
+  // StringManager.bodyCategoryLevel:
+  // getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+  // StringManager.bodyCategoryTotalTimeHour:   bodyCategoryTotalTime.hour,
+  // StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
+  // StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
   editBodyCategory({required String docId, bool isDailyCategory = false}) {
     emit(EditBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyCategory
             ? StringManager.collectionDailyBodyCategory
             : StringManager.collectionBodyCategory);
-    data.doc(docId).update({
-      StringManager.bodyCategoryEnglishTitle:
-          bodyCategoryEnglishTitleController.text,
-      StringManager.bodyCategoryEnglishCalories:
-          bodyCategoryEnglishCaloriesController.text,
-      StringManager.bodyCategoryEnglishNumberOfExercises:
-          bodyCategoryEnglishNumberOfExercisesController.text,
-      StringManager.bodyCategoryArabicTitle:
-          bodyCategoryArabicTitleController.text,
-      StringManager.bodyCategoryArabicCalories:
-          bodyCategoryArabicCaloriesController.text,
-      StringManager.bodyCategoryArabicNumberOfExercises:
-          bodyCategoryArabicNumberOfExercisesController.text,
-      StringManager.bodyCategoryImageLink: bodyCategoryImageLinkController.text,
-      StringManager.bodyCategoryTotalTimeHour: bodyCategoryTotalTime.hour,
-      StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
-      StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
-    }).then((value) {
+    data.doc(docId).update(getBodyCategoryMap(isAddFunction: false)).then((value) {
       emit(EditBodyCategorySuccessState());
       getToastMessage(
         message: 'the category has been edited',
@@ -660,7 +687,10 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       {required String docId, required String bodyCategory}) async {
     await getTraining(bodyCategory: bodyCategory);
     trainingModels.forEach((element) async {
-      await deleteTraining(docId: element.docId!, bodyCategory: bodyCategory, isDailyTraining: false);
+      await deleteTraining(
+          docId: element.docId!,
+          bodyCategory: bodyCategory,
+          isDailyTraining: false);
     });
     await deleteBodyCategory(docId: docId);
     await getBodyCategories();
@@ -677,8 +707,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(GetBodyCategoryLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
-          bodyCategoryModels.add(BodyCategoryModel.fromJson(
-              json: element.data(), docId: element.id));
+        bodyCategoryModels.add(BodyCategoryModel.fromJson(
+            json: element.data(), docId: element.id));
       });
       emit(GetBodyCategorySuccessState());
     }).catchError((error) {

@@ -1,29 +1,22 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
-import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password.dart';
 import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';
-import 'package:portable_gym/screens/set_up_screen.dart';
 
-import '../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/full_input_block.dart';
 import '../../resourses/blocks/general_blocks/general_button_block.dart';
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
@@ -94,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.to(ForgetPasswordScreen(
+                            Get.to(const ForgetPasswordScreen(
                             ));
                           },
                           child: Text(S.of(context).forgetPassword,

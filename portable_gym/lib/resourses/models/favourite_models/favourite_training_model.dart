@@ -5,8 +5,8 @@ import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import '../work_out_models/training_model.dart';
 
 class FavouriteTrainingModel {
-  final English english;
-  final Arabic? arabic;
+  final TrainingEnglish english;
+  final TrainingArabic? arabic;
   final String? videoLink;
   final int? hour;
   final int? minute;
@@ -31,14 +31,14 @@ class FavouriteTrainingModel {
         hour: json[StringManager.trainingHourPeriod],
         minute: json[StringManager.trainingMinutePeriod],
         second: json[StringManager.trainingSecondPeriod],
-        english: English.fromJson(json: json),
-        arabic: Arabic.fromJson(json: json),
+        english: TrainingEnglish.fromJson(json: json),
+        arabic: TrainingArabic.fromJson(json: json),
         docId: docId,
       trainingDocId: json[ StringManager.trainingDocId]
 
     );
   }
-  LanguageClass getLanguageClass(context) {
+  TrainingLanguageClass getLanguageClass(context) {
     return  Localizations.localeOf(context).toString() == 'ar' ? arabic! : english!;
   }
 
