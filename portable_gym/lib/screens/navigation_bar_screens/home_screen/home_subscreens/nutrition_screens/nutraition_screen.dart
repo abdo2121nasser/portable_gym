@@ -30,7 +30,7 @@ class NutritionScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider(
-  create: (context) => NutritionCubit(),
+  create: (context) => NutritionCubit()..getDailyRecipeCategory(),
   child: BlocConsumer<NutritionCubit, NutritionState>(
       listener: (context, state) {},
       builder: (context, state) {

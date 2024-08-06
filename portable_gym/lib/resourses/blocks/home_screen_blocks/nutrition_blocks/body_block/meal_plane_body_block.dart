@@ -32,7 +32,7 @@ class MealPlaneBodyBlock extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: NutritionCubit.get(context)..getDailyRecipeCategory(),
+      value: NutritionCubit.get(context),
       child: BlocConsumer<NutritionCubit, NutritionState>(
         listener: (context, state) {},
         builder: (context, state) {
