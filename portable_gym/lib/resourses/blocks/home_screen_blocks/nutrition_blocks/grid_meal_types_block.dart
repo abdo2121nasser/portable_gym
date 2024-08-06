@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/check_box_block.dart';
 
@@ -33,6 +36,10 @@ class GridMealTypesBlock extends StatelessWidget {
             function(index,value!);
           },
           lable: lables[index],
+          textStyle: getSemiBoldStyle(
+              fontSize: FontSize.s16,
+              color: ColorManager.kBlackColor,
+              fontFamily: FontFamily.kPoppinsFont),
         isArabic: isArabic,),
         itemCount: lables.length,
       ),

@@ -104,14 +104,20 @@
   "protein": "protein",
   "carbohydrate": "carbohydrate",
   "advantage": "Advantage",
+  "createMealPlanMassage": "ask your owen meal plan",
   "foodMainElement": "food main element",
   "add": "Add",
   "edit": "Edit",
   "cancel": "Cancel",
+  "create": "Create",
 
   "workoutLog": "Workout Log",
   "charts": "Charts",
   "chooseDate": "Choose Date",
   "activities": "Activities"
+
+
+
+
 }
 

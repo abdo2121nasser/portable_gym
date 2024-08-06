@@ -1080,6 +1080,16 @@ class S {
     );
   }
 
+  /// `ask your owen meal plan`
+  String get createMealPlanMassage {
+    return Intl.message(
+      'ask your owen meal plan',
+      name: 'createMealPlanMassage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `food main element`
   String get foodMainElement {
     return Intl.message(
@@ -1115,6 +1125,16 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
       desc: '',
       args: [],
     );

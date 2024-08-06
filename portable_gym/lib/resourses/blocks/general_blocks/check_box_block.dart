@@ -9,51 +9,40 @@ class CheckBoxBlock extends StatelessWidget {
   final bool value;
   final bool isArabic;
   final String lable;
+  final TextStyle textStyle;
   final Function(bool?) function;
-  CheckBoxBlock(
-      {required this.value,
+  const CheckBoxBlock(
+      {super.key,
+      required this.value,
       required this.function,
       required this.lable,
+      required this.textStyle,
       this.isArabic = false});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppHorizontalSize.s140,
-      child: Row(
-        mainAxisAlignment:
-            isArabic ? MainAxisAlignment.end : MainAxisAlignment.start,
-        children: [
-          isArabic
-              ? SizedBox(
-            width: AppHorizontalSize.s30,
-            child: Checkbox(
-              shape: CircleBorder(),
-              value: value,
-              onChanged: function,
-            ),
-          )
-              : SizedBox(),
-          Text(
-            lable,
-            style: getSemiBoldStyle(
-                fontSize: FontSize.s16,
-                color: ColorManager.kBlackColor,
-                fontFamily: FontFamily.kPoppinsFont),
-            textAlign: isArabic ? TextAlign.end : TextAlign.start,
-          ),
-          isArabic
-              ? SizedBox()
-              : SizedBox(
-            width: AppHorizontalSize.s30,
+        width: AppHorizontalSize.s140,
+        child: Directionality(
+          textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 30,
                 child: Checkbox(
-                    shape: CircleBorder(),
-                    value: value,
-                    onChanged: function,
-                  ),
-              )
-        ],
-      ),
-    );
+                  shape: const CircleBorder(),
+                  value: value,
+                  onChanged: function,
+                ),
+              ),
+              Text(
+                lable,
+                style: textStyle,
+                textAlign: isArabic ? TextAlign.end : TextAlign.start,
+              ),
+            ],
+          ),
+        ));
   }
 }

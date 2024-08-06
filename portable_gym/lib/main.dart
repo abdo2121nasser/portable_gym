@@ -10,7 +10,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   Bloc.observer = MyBlocObserver();
-  DioHelper.init();
+ // DioHelper.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

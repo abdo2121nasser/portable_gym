@@ -31,6 +31,10 @@ class TrainingBaisicInformationBlock extends StatelessWidget {
       lable: isArabicTabView?
       StringManager.trainingArabicLableIsPaid:
       StringManager.trainingEnglishLableIsPaid,
+      textStyle: getSemiBoldStyle(
+          fontSize: FontSize.s16,
+          color: ColorManager.kBlackColor,
+          fontFamily: FontFamily.kPoppinsFont),
       isArabic: isArabicTabView,
       ):
         FullInputBlock(

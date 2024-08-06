@@ -9,7 +9,7 @@ import '../../general_blocks/horizontal_square_block.dart';
 class MealsTypesListBlock extends StatelessWidget {
   final List<String> lables;
 
-  MealsTypesListBlock({required this.lables});
+  const MealsTypesListBlock({super.key, required this.lables});
 
   @override
   Widget build(BuildContext context) {

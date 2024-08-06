@@ -120,10 +120,13 @@
   "protein": "بروتين",
   "carbohydrate": "كاربوهايدريت",
   "advantage": "المميزات",
+  "createMealPlanMassage": "اطلب خطته وجباتك الخاصه",
+
   "foodMainElement": "العناصر الاساسيه في الطعام",
   "add": "اضف",
   "edit": "عدل",
   "cancel": "الغاء",
+  "create": "انشئ",
 
   "workoutLog": "سجل التمارين",
   "charts": "المخططات",

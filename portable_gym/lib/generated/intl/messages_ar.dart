@@ -49,7 +49,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "كلمه المرور لا تطابق تأكيد كلمه المور!!"),
         "continued": MessageLookupByLibrary.simpleMessage("استمر"),
+        "create": MessageLookupByLibrary.simpleMessage("انشئ"),
         "createAccount": MessageLookupByLibrary.simpleMessage("انشئ حساب"),
+        "createMealPlanMassage":
+            MessageLookupByLibrary.simpleMessage("اطلب خطته وجباتك الخاصه"),
         "dinner": MessageLookupByLibrary.simpleMessage("العشاء"),
         "edit": MessageLookupByLibrary.simpleMessage("عدل"),
         "editBodyCategory":
