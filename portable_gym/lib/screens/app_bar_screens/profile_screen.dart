@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
               title: S.of(context).myProfile,
               backgroundColor: ColorManager.kLightPurpleColor,
               titleColor: ColorManager.kWhiteColor,
-              function: () {
+              titleFunction: () {
                 profCubit.profileScreenNavigation(
                     index: 0, isAppBar: true, context: context);
               }),

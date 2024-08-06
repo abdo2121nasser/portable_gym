@@ -11,13 +11,13 @@ class GeneralAppBarBlock extends StatelessWidget implements PreferredSizeWidget 
   final List<Widget> actions;
   final Color backgroundColor;
   final Color titleColor;
-  final VoidCallback? function;
+  final VoidCallback? titleFunction;
   final bool centerTitle;
   final bool haveReturnArrow;
 
   GeneralAppBarBlock({required this.title,
     this.actions=const [],
-    this.function,
+    this.titleFunction,
     this.centerTitle=false,
     this.haveReturnArrow=true,
     this.titleColor=ColorManager.kPurpleColor,
@@ -32,11 +32,11 @@ class GeneralAppBarBlock extends StatelessWidget implements PreferredSizeWidget 
       centerTitle: centerTitle,
       title: InkWell(
         onTap:haveReturnArrow? () {
-          if(function==null) {
+          if(titleFunction==null) {
             Get.back();
           } else
             {
-              function!();
+              titleFunction!();
             }
         } :null,
         child: Row(

@@ -11,6 +11,7 @@ class SetRecipeAttributes extends NutritionState {}
 class ClearRecipeAttributes extends NutritionState {}
 class SetFoodMainElement extends NutritionState {}
 class ClearFoodMainElement extends NutritionState {}
+class SetDailyRecipeCategoryAttributes extends NutritionState {}
 
 class AddNewRecipeLoadingState extends NutritionState {}
 class AddNewRecipeSuccessState extends NutritionState {}
@@ -43,6 +44,14 @@ class GetFoodMainElementErrorState extends NutritionState {}
 class DeleteFoodMainElementLoadingState extends NutritionState {}
 class DeleteFoodMainElementSuccessState extends NutritionState {}
 class DeleteFoodMainElementErrorState extends NutritionState {}
+
+class EditDailyRecipeCardLoadingState extends NutritionState {}
+class EditDailyRecipeCardSuccessState extends NutritionState {}
+class EditDailyRecipeCardErrorState extends NutritionState {}
+
+class GetDailyRecipeCardLoadingState extends NutritionState {}
+class GetDailyRecipeCardSuccessState extends NutritionState {}
+class GetDailyRecipeCardErrorState extends NutritionState {}
 
 class AddDailyRecipeLoadingState extends NutritionState {}
 class AddDailyRecipeSuccessState extends NutritionState {}

@@ -18,12 +18,15 @@ class RecipeGridSquareBlock extends StatelessWidget {
   final Function(String) editFunction;
   final Function(String) deleteFunction;
   final TabBarView tabBarView;
+  final bool hasFavouriteIcon;
 
   const RecipeGridSquareBlock(
-      {super.key, required this.recipeModels,
+      {super.key,
+      required this.recipeModels,
+      this.hasFavouriteIcon = true,
       required this.editFunction,
-        required this.deleteFunction,
-        required this.setAttributes,
+      required this.deleteFunction,
+      required this.setAttributes,
       required this.tabBarView});
 
   @override
@@ -38,72 +41,82 @@ class RecipeGridSquareBlock extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocConsumer<FavouriteCubit, FavouriteState>(
-  listener: (context, state) {
-  },
-  builder: (context, state) {
-    var favCubit=FavouriteCubit.get(context);
-    return Expanded(
-      child:state is AddFavouriteRecipeLoadingState || state is DeleteFavouriteRecipeLoadingState?  const Align(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(
-          color: ColorManager.kPurpleColor,
-        ),
-      ):
-      GridView.builder(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppHorizontalSize.s22, vertical: AppVerticalSize.s14),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            childAspectRatio: (1 / .8),
-            mainAxisSpacing: 15),
-        itemBuilder: (context, index) => FutureBuilder(
-          future: favCubit.isRecipeIsFavourite(recipeDocId: recipeModels[index].docId),
-          builder: (context,snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-              return const SizedBox();
-            } else {
-                return InkWell(
-              onTap: (){
-                Get.to(RecipeDetailsScreen(recipeModel: recipeModels[index]));
-              },
-                onLongPress: () {
-                  setAttributes(recipeModels[index]);
-                  showAlertRecipeBox(
-                      context: context,
-                      tabBar: recipeTabBar,
-                      tabBarView: tabBarView,
-                      buttonFunction: () {
-                        editFunction(recipeModels[index].docId);
-                      },
-                      title: S.of(context).recipe,
-                      buttonLable: S.of(context).editRecipe);
-                },
-
-                child: SquareElementBlock(
-                  title: recipeModels[index].getLanguageClass(context).name!,
-                  subValue: recipeModels[index].getLanguageClass(context).calories!,
-                  imageLink: recipeModels[index].imageLink,
-                  deleteFunction: (){
-                    deleteFunction(recipeModels[index].docId);
-                  },
-                  isFavouriteItem: snapshot.data!,
-                  addFavouriteFunction: (){
-                    favCubit.addFavouriteRecipe(recipeModel: recipeModels[index]);
-                  },
-                  deleteFavouriteFunction: (){
-                    favCubit.deleteFavouriteRecipe(recipeDocId: recipeModels[index].docId);
-                  },
-
-
-                ));
-              }
-          }
-        ),
-        itemCount: recipeModels.length,
-      ),
+      listener: (context, state) {},
+      builder: (context, state) {
+        var favCubit = FavouriteCubit.get(context);
+        return Expanded(
+          child: state is AddFavouriteRecipeLoadingState ||
+                  state is DeleteFavouriteRecipeLoadingState
+              ? const Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(
+                    color: ColorManager.kPurpleColor,
+                  ),
+                )
+              : GridView.builder(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppHorizontalSize.s22,
+                      vertical: AppVerticalSize.s14),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: (1 / .8),
+                      mainAxisSpacing: 15),
+                  itemBuilder: (context, index) => FutureBuilder(
+                      future: hasFavouriteIcon
+                          ? favCubit.isRecipeIsFavourite(
+                              recipeDocId: recipeModels[index].docId)
+                          : Future(() => false),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const SizedBox();
+                        } else {
+                          return InkWell(
+                              onTap: () {
+                                Get.to(RecipeDetailsScreen(
+                                    recipeModel: recipeModels[index]));
+                              },
+                              onLongPress: () {
+                                setAttributes(recipeModels[index]);
+                                showAlertRecipeBox(
+                                    context: context,
+                                    tabBar: recipeTabBar,
+                                    tabBarView: tabBarView,
+                                    buttonFunction: () {
+                                      editFunction(recipeModels[index].docId);
+                                    },
+                                    title: S.of(context).recipe,
+                                    buttonLable: S.of(context).editRecipe);
+                              },
+                              child: SquareElementBlock(
+                                title: recipeModels[index]
+                                    .getLanguageClass(context)
+                                    .name!,
+                                subValue: recipeModels[index]
+                                    .getLanguageClass(context)
+                                    .calories!,
+                                imageLink: recipeModels[index].imageLink,
+                                deleteFunction: () {
+                                  deleteFunction(recipeModels[index].docId);
+                                },
+                                isFavouriteItem: snapshot.data!,
+                                addFavouriteFunction: () {
+                                  favCubit.addFavouriteRecipe(
+                                      recipeModel: recipeModels[index]);
+                                },
+                                deleteFavouriteFunction: () {
+                                  favCubit.deleteFavouriteRecipe(
+                                      recipeDocId: recipeModels[index].docId);
+                                },
+                                hasFavouriteIcon: hasFavouriteIcon,
+                              ));
+                        }
+                      }),
+                  itemCount: recipeModels.length,
+                ),
+        );
+      },
     );
-  },
-);
   }
 }

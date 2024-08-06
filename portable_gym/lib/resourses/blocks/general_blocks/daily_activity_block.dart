@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/daily_recipe_card_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/color_manager.dart';
@@ -15,10 +16,12 @@ import 'package:intl/intl.dart';
 
 class DailyActivityBlock extends StatelessWidget {
   final BodyCategoryModel? bodyCategoryModel;
+  final DailyRecipeCardModel? dailyRecipeCardModel;
   final String title;
   final bool isDailyTraining;
   const DailyActivityBlock(
       {super.key, this.bodyCategoryModel,
+        this.dailyRecipeCardModel,
       required this.title,
       this.isDailyTraining = true});
 
@@ -28,6 +31,10 @@ class DailyActivityBlock extends StatelessWidget {
     if (isDailyTraining) {
       languageModel = bodyCategoryModel!.getLanguageClass(context);
     }
+    else
+      {
+        languageModel= dailyRecipeCardModel!.getLanguageClass(context);
+      }
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.32,
@@ -44,11 +51,11 @@ class DailyActivityBlock extends StatelessWidget {
                 color: ColorManager.kBlackColor,
                 borderRadius: BorderRadius.circular(AppRadiusSize.s20),
                 image: DecorationImage(
-                    image: isDailyTraining
-                        ? Image.network(
-                                bodyCategoryModel!.imageLink!)
-                            .image
-                        : Image.asset(ImageManager.kSmileManImage).image,
+                    image: Image.network(isDailyTraining?
+                                bodyCategoryModel!.imageLink!:
+                    dailyRecipeCardModel!.imageLink)
+                            .image,
+
                     fit: BoxFit.fill)),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +103,7 @@ class DailyActivityBlock extends StatelessWidget {
                                     child: Text(
                                       isDailyTraining
                                           ? languageModel.title.toString()
-                                          : "egg",
+                                          : languageModel.name,
                                       textAlign: TextAlign.start,
                                       style: getMediumStyle(
                                           fontSize: FontSize.s14,
@@ -118,8 +125,7 @@ class DailyActivityBlock extends StatelessWidget {
                                             height: AppVerticalSize.s22,
                                             child: RecordedUnitBlock(
                                               icon: Icons.timer,
-                                              mesuaringUnit:
-                                                  S.of(context).minuteWord,
+                                              mesuaringUnit:'',
                                               unitValue: DateFormat('HH:mm:ss')
                                                   .format(DateTime(
                                                 0,
@@ -161,7 +167,7 @@ class DailyActivityBlock extends StatelessWidget {
                                       child: RecordedUnitBlock(
                                         icon: Icons.local_fire_department,
                                         mesuaringUnit: S.of(context).kCal,
-                                        unitValue: '50',
+                                        unitValue: languageModel.calories,
                                       )),
                             )
                           ],

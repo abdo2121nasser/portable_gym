@@ -26,6 +26,7 @@ class SquareElementBlock extends StatelessWidget {
   final bool isFavouriteItem;
   final bool isVideo;
   final bool isTraining;
+  final bool hasFavouriteIcon;
 
   const SquareElementBlock({
     super.key,
@@ -40,6 +41,7 @@ class SquareElementBlock extends StatelessWidget {
     this.addFavouriteFunction,
     this.isVideo = false,
     this.isTraining = false,
+    this.hasFavouriteIcon=true
   });
 
   @override
@@ -147,6 +149,7 @@ class SquareElementBlock extends StatelessWidget {
                 )
               ],
             ),
+
             Positioned(
               right: constrain.maxWidth * 0.08,
               child: Padding(
@@ -157,6 +160,7 @@ class SquareElementBlock extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        hasFavouriteIcon?
                         InkWell(
                           onTap: () {
                             if (isFavouriteItem) {
@@ -175,7 +179,7 @@ class SquareElementBlock extends StatelessWidget {
                                 ? ColorManager.kLimeGreenColor
                                 : ColorManager.kBlackColor,
                           ),
-                        ),
+                        ):SizedBox(),
                         canBeDeleted
                             ? const SizedBox()
                             : Padding(

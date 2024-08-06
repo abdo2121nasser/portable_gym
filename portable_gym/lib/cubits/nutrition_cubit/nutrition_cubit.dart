@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +12,13 @@ import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
+import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_daily_recipe_category_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_food_main_element_tab_bar_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_recipe_tab_bar_block.dart';
+import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_daily_recipe_category_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_food_main_element_tab_bar_block.dart';
 import '../../resourses/managers_files/toast_massage_manager.dart';
+import '../../resourses/models/nutrition_models/daily_recipe_card_model.dart';
 import '../../resourses/models/nutrition_models/food_element_model.dart';
 
 part 'nutrition_state.dart';
@@ -27,10 +28,10 @@ class NutritionCubit extends Cubit<NutritionState> {
   static NutritionCubit get(context) => BlocProvider.of(context);
 
   List<RecipeModel> recipeModels = [];
-  List<FoodElementModel> foodElementModels=[];
+  List<FoodElementModel> foodElementModels = [];
+  DailyRecipeCardModel? dailyRecipeCardModel;
 
-
-  List<Widget> planBodies = [MealPlaneBodyBlock(), MealIdeaBodyBlock()];
+  List<Widget> planBodies = [const MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
     false,
     false,
@@ -54,25 +55,54 @@ class NutritionCubit extends Cubit<NutritionState> {
   TextEditingController arabicAdvantageController = TextEditingController();
 
   TextEditingController imageLinkController = TextEditingController();
-  //-----------------------------------------------------------------------------
-  TextEditingController englishMainElementTitleController = TextEditingController();
-  TextEditingController englishMainElementDescriptionController = TextEditingController();
-  TextEditingController arabicMainElementTitleController = TextEditingController();
-  TextEditingController arabicMainElementDescriptionController = TextEditingController();
+  //----------------------------------------------------------------------------
+  TextEditingController englishMainElementTitleController =
+      TextEditingController();
+  TextEditingController englishMainElementDescriptionController =
+      TextEditingController();
+  TextEditingController arabicMainElementTitleController =
+      TextEditingController();
+  TextEditingController arabicMainElementDescriptionController =
+      TextEditingController();
+  //----------------------------------------------------------------------------
+  TextEditingController englishDailyRecipeCategoryNameController =
+      TextEditingController();
+  TextEditingController englishDailyRecipeCategoryCaloriesController =
+      TextEditingController();
+  TextEditingController arabicDailyRecipeCategoryNameController =
+      TextEditingController();
+  TextEditingController arabicDailyRecipeCategoryCaloriesController =
+      TextEditingController();
+  TextEditingController dailyRecipeCategoryImageLinkController =
+      TextEditingController();
 
-
- TabBarView getFoodMainElementTabBarViews({required NutritionCubit nutritionCubit}) {
+  TabBarView getFoodMainElementTabBarViews(
+      {required NutritionCubit nutritionCubit}) {
     return TabBarView(children: [
       EnglishFoodMainElementTabBarBlock(nutCubit: nutritionCubit),
-      ArabicFoodMainElementTabBarBlock(nutCubit: nutritionCubit,)
+      ArabicFoodMainElementTabBarBlock(
+        nutCubit: nutritionCubit,
+      )
     ]);
   }
- TabBarView getRecipeTabBarViews({required NutritionCubit nutritionCubit}) {
-   return TabBarView(
-       children: [
-         EnglishRecipeTabBarBlock(nutCubit: nutritionCubit),
-         ArabicRecipeTabBarBlock(nutCubit: nutritionCubit,)
-       ]);
+
+  TabBarView getRecipeTabBarViews({required NutritionCubit nutritionCubit}) {
+    return TabBarView(children: [
+      EnglishRecipeTabBarBlock(nutCubit: nutritionCubit),
+      ArabicRecipeTabBarBlock(
+        nutCubit: nutritionCubit,
+      )
+    ]);
+  }
+
+  TabBarView getDailyRecipeCategoryTabBarViews(
+      {required NutritionCubit nutritionCubit}) {
+    return TabBarView(children: [
+      EnglishDailyRecipeCategoryBlock(nutCubit: nutritionCubit),
+      ArabicDailyRecipeCategoryBlock(
+        nutCubit: nutritionCubit,
+      )
+    ]);
   }
 
   getMealPlaneLabel({context}) {
@@ -97,10 +127,10 @@ class NutritionCubit extends Cubit<NutritionState> {
     ];
   }
 
-  changeCurrentMealType({required int index}) {
+  changeCurrentMealType({required int index, bool isDailyRecipe = false}) {
     currentMealType = index;
     emit(ChangeCurrentMealTypeState());
-    getFilteredRecipes();
+    getFilteredRecipes(isDailyRecipe: isDailyRecipe);
   }
 
   List<TextEditingController> getEnglishRecipeControllers() {
@@ -285,9 +315,11 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(SetRecipeAttributes());
   }
 
-  addNewRecipe() async {
-    CollectionReference data =
-        FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
+  addNewRecipe({bool isDailyRecipe = false}) async {
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        isDailyRecipe
+            ? StringManager.collectionDailyRecipe
+            : StringManager.collectionRecipes);
     emit(AddNewRecipeLoadingState());
     await data.add({
       StringManager.recipesEnglishName: englishNameController.text,
@@ -323,48 +355,12 @@ class NutritionCubit extends Cubit<NutritionState> {
     clearRecipeAttributes();
     Get.back();
   }
-  addDailyRecipe()async {
-    CollectionReference data =
-    FirebaseFirestore.instance.collection(StringManager.collectionDailyRecipe);
-    emit(AddDailyRecipeLoadingState());
-    await data.add({
-      StringManager.recipesEnglishName: englishNameController.text,
-      StringManager.recipesEnglishCalories: englishCaloriesController.text,
-      StringManager.recipesEnglishProtein: englishProteinController.text,
-      StringManager.recipesEnglishCarbohydrates:
-      englishCarbohydratesController.text,
-      StringManager.recipesEnglishAdvantage: englishAdvantageController.text,
-      StringManager.recipesArabicName: arabicNameController.text,
-      StringManager.recipesArabicCalories: arabicCaloriesController.text,
-      StringManager.recipesArabicProtein: arabicProteinController.text,
-      StringManager.recipesArabicCarbohydrates:
-      arabicCarbohydratesController.text,
-      StringManager.recipesArabicAdvantage: arabicAdvantageController.text,
-      StringManager.recipesImageLink: imageLinkController.text,
-      StringManager.englishBreakFastLable: mealTypeCheckBoxes[0],
-      StringManager.englishLunchLable: mealTypeCheckBoxes[1],
-      StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
-      StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
-    }).then((value) {
-      emit(AddDailyRecipeSuccessState());
-      getToastMessage(
-        message: 'added successfully',
-      );
-    }).catchError((error) {
-      emit(AddDailyRecipeErrorState());
-      getToastMessage(
-        message: 'a problem has happened',
-      );
-      debugPrint(error);
-    });
-    getFilteredRecipes();
-    clearRecipeAttributes();
-    Get.back();
-  }
 
-  editRecipe({required String docId}) async {
+  editRecipe({required String docId, bool isDailyRecipe = false}) async {
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionRecipes)
+        .collection(isDailyRecipe
+            ? StringManager.collectionDailyRecipe
+            : StringManager.collectionRecipes)
         .doc(docId);
     emit(EditRecipeLoadingState());
     await data.update({
@@ -401,10 +397,12 @@ class NutritionCubit extends Cubit<NutritionState> {
     Get.back();
   }
 
-  deleteRecipe({required String docId,}) async {
+  deleteRecipe({required String docId, bool isDailyRecipe = false}) async {
     emit(DeleteRecipeLoadingState());
-    CollectionReference data =
-        FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
+    CollectionReference data = FirebaseFirestore.instance.collection(
+        isDailyRecipe
+            ? StringManager.collectionDailyRecipe
+            : StringManager.collectionRecipes);
     await data.doc(docId).delete().then((value) {
       emit(DeleteRecipeSuccessState());
       getFilteredRecipes();
@@ -421,10 +419,12 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  getFilteredRecipes() async {
+  getFilteredRecipes({bool isDailyRecipe = false}) async {
     recipeModels.clear();
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionRecipes)
+        .collection(isDailyRecipe
+            ? StringManager.collectionDailyRecipe
+            : StringManager.collectionRecipes)
         .where(getFilterKey(), isEqualTo: true);
     emit(GetFilteredRecipesLoadingState());
     await data.get().then((value) {
@@ -439,44 +439,77 @@ class NutritionCubit extends Cubit<NutritionState> {
       debugPrint(error.toString());
     });
   }
-  getDailyRecipeCategory(){}
-  getDailyRecipes() async {
-    recipeModels.clear();
+
+  processOfAddRecipes({bool isDailyRecipe = false}) {
+    if (isValidRecipe()) {
+      addNewRecipe(isDailyRecipe: isDailyRecipe);
+    }
+  }
+
+  //------------------------------------daily recipe----------------------
+  setDailyRecipeCategoryAttributes() {
+    englishDailyRecipeCategoryNameController.text =
+        dailyRecipeCardModel!.english.name!;
+    englishDailyRecipeCategoryCaloriesController.text =
+        dailyRecipeCardModel!.english.calories!;
+    arabicDailyRecipeCategoryNameController.text =
+        dailyRecipeCardModel!.arabic.name!;
+    arabicDailyRecipeCategoryCaloriesController.text =
+        dailyRecipeCardModel!.arabic.name!;
+    dailyRecipeCategoryImageLinkController.text =
+        dailyRecipeCardModel!.imageLink;
+    emit(SetDailyRecipeCategoryAttributes());
+  }
+
+  Map<String, dynamic> getDailyRecipeCategoryMap() {
+    return DailyRecipeCardModel(
+            english: DailyRecipeCardEnglish(
+                name: englishDailyRecipeCategoryNameController.text,
+                calories: englishDailyRecipeCategoryCaloriesController.text),
+            arabic: DailyRecipeCardArabic(
+                name: arabicDailyRecipeCategoryNameController.text,
+                calories: arabicDailyRecipeCategoryCaloriesController.text),
+            imageLink: dailyRecipeCategoryImageLinkController.text)
+        .toJson();
+  }
+
+  editDailyRecipeCategory() {
+    emit(EditDailyRecipeCardLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionDailyRecipe)
-        .where(getFilterKey(), isEqualTo: true);
-    emit(GetDailyRecipesLoadingState());
-    await data.get().then((value) {
-      value.docs.forEach((element) {
-        recipeModels
-            .add(RecipeModel.fromJson(json: element.data(), docId: element.id));
-      });
-
-      emit(GetDailyRecipesSuccessState());
+        .doc(StringManager.dailyRecipeStaticDocId);
+    data.update(getDailyRecipeCategoryMap()).then((value) {
+      emit(EditDailyRecipeCardLoadingState());
+      getDailyRecipeCategory();
     }).catchError((error) {
-      emit(GetDailyRecipesErrorState());
-      debugPrint(error.toString());
+      emit(EditDailyRecipeCardLoadingState());
+    });
+    Get.back();
+  }
+
+  getDailyRecipeCategory() async {
+    emit(GetDailyRecipeCardLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionDailyRecipe)
+        .doc(StringManager.dailyRecipeStaticDocId);
+    await data.get().then((value) {
+      dailyRecipeCardModel = DailyRecipeCardModel.fromJson(json: value.data()!);
+      emit(GetDailyRecipeCardSuccessState());
+    }).catchError((error) {
+      emit(GetDailyRecipeCardErrorState());
+      print(error);
     });
   }
 
-  processOfAddRecipes() {
-    if (isValidRecipe()) {
-      addNewRecipe();
-    }
-  }
-  processOfAddDailyRecipes() {
-    if (isValidRecipe()) {
-      addNewRecipe();
-    }
-  }
 //---------------------------------------------------------------------------
   setFoodMainElementAttributes({required FoodElementModel model}) {
-    englishMainElementTitleController.text=model.english.title!;
-    englishMainElementDescriptionController.text=model.english.description!;
-    arabicMainElementTitleController.text=model.arabic.title!;
-    arabicMainElementDescriptionController.text=model.arabic.description!;
+    englishMainElementTitleController.text = model.english.title!;
+    englishMainElementDescriptionController.text = model.english.description!;
+    arabicMainElementTitleController.text = model.arabic.title!;
+    arabicMainElementDescriptionController.text = model.arabic.description!;
     emit(SetFoodMainElement());
   }
+
   clearFoodMainElementAttributes() {
     englishMainElementTitleController.clear();
     englishMainElementDescriptionController.clear();
@@ -486,14 +519,18 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
   addNewFoodMainElement() async {
-    CollectionReference data =
-    FirebaseFirestore.instance.collection(StringManager.collectionFoodMainElement);
+    CollectionReference data = FirebaseFirestore.instance
+        .collection(StringManager.collectionFoodMainElement);
     emit(AddNewFoodMainElementLoadingState());
     await data.add({
-      StringManager.englishFoodMainElementTitle:englishMainElementTitleController.text,
-      StringManager.englishFoodMainElementDescription:englishMainElementDescriptionController.text,
-      StringManager.arabicFoodMainElementTitle:arabicMainElementTitleController.text,
-      StringManager.arabicFoodMainElementDescription:arabicMainElementDescriptionController.text
+      StringManager.englishFoodMainElementTitle:
+          englishMainElementTitleController.text,
+      StringManager.englishFoodMainElementDescription:
+          englishMainElementDescriptionController.text,
+      StringManager.arabicFoodMainElementTitle:
+          arabicMainElementTitleController.text,
+      StringManager.arabicFoodMainElementDescription:
+          arabicMainElementDescriptionController.text
     }).then((value) {
       emit(AddNewFoodMainElementSuccessState());
       getFoodMainElement();
@@ -512,14 +549,19 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
   editFoodMainElement({required String docId}) async {
-    var data =
-    FirebaseFirestore.instance.collection(StringManager.collectionFoodMainElement).doc(docId);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionFoodMainElement)
+        .doc(docId);
     emit(EditFoodMainElementLoadingState());
     await data.update({
-      StringManager.englishFoodMainElementTitle:englishMainElementTitleController.text,
-      StringManager.englishFoodMainElementDescription:englishMainElementDescriptionController.text,
-      StringManager.arabicFoodMainElementTitle:arabicMainElementTitleController.text,
-      StringManager.arabicFoodMainElementDescription:arabicMainElementDescriptionController.text
+      StringManager.englishFoodMainElementTitle:
+          englishMainElementTitleController.text,
+      StringManager.englishFoodMainElementDescription:
+          englishMainElementDescriptionController.text,
+      StringManager.arabicFoodMainElementTitle:
+          arabicMainElementTitleController.text,
+      StringManager.arabicFoodMainElementDescription:
+          arabicMainElementDescriptionController.text
     }).then((value) {
       emit(EditFoodMainElementSuccessState());
       getFoodMainElement();
@@ -536,11 +578,13 @@ class NutritionCubit extends Cubit<NutritionState> {
     clearFoodMainElementAttributes();
     Get.back();
   }
+
   deleteFoodMainElement({required String docId}) async {
-foodElementModels.clear();
-var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionFoodMainElement) .doc(docId);
-emit(DeleteFoodMainElementLoadingState());
+    foodElementModels.clear();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionFoodMainElement)
+        .doc(docId);
+    emit(DeleteFoodMainElementLoadingState());
     await data.delete().then((value) {
       emit(DeleteFoodMainElementSuccessState());
       getToastMessage(
@@ -555,15 +599,16 @@ emit(DeleteFoodMainElementLoadingState());
       );
     });
   }
+
   getFoodMainElement() async {
-foodElementModels.clear();
-var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionFoodMainElement) ;
-emit(GetFoodMainElementLoadingState());
+    foodElementModels.clear();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionFoodMainElement);
+    emit(GetFoodMainElementLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
-        foodElementModels
-            .add(FoodElementModel.fromJson(json: element.data(), docId: element.id));
+        foodElementModels.add(
+            FoodElementModel.fromJson(json: element.data(), docId: element.id));
       });
 
       emit(GetFoodMainElementSuccessState());
@@ -572,7 +617,4 @@ emit(GetFoodMainElementLoadingState());
       debugPrint(error.toString());
     });
   }
-
-
-
 }

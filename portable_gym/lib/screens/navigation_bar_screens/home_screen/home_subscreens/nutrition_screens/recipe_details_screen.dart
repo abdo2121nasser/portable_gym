@@ -17,7 +17,7 @@ import '../../../../../resourses/managers_files/values_manager.dart';
 class RecipeDetailsScreen extends StatelessWidget {
   final RecipeModel recipeModel;
 
-  RecipeDetailsScreen({required this.recipeModel});
+  const RecipeDetailsScreen({super.key, required this.recipeModel});
 
   @override
   Widget build(BuildContext context) {

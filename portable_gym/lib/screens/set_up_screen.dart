@@ -30,7 +30,7 @@ class SetUpScreen extends StatelessWidget {
             //backgroundColor: ColorManager.kBlackColor,
             appBar: GeneralAppBarBlock(
               title: S.of(context).back,
-              function: () {
+              titleFunction: () {
                 setCubit.setUpBackWardNavigation(context: context);
               },
             ),

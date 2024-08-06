@@ -132,6 +132,9 @@ class StringManager
 
   static const String collectionDailyRecipe='daily recipe';
 
+  static const String dailyRecipeStaticDocId='fM4wETxsbT42wN3P9ySf';
+
+
 
   static const String collectionUserProfiles='users profiles';
 

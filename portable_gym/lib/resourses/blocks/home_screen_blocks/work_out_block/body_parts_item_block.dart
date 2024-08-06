@@ -51,7 +51,7 @@ class BodyPartItemBlock extends StatelessWidget {
                         height: AppVerticalSize.s22,
                         child: RecordedUnitBlock(
                           icon: Icons.timer,
-                          mesuaringUnit: S.of(context).minuteWord,
+                          mesuaringUnit:'',
                           unitValue:DateFormat('HH:mm:ss').format(dateTime),
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
