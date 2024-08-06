@@ -5,8 +5,8 @@ import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
 class FavouriteRecipeModel {
-  final English english;
-  final Arabic arabic;
+  final EnglishRecipeModel english;
+  final ArabicRecipeModel arabic;
   final String docId;
   final String recipeDocId;
   final String imageLink;
@@ -23,14 +23,14 @@ class FavouriteRecipeModel {
   });
   factory FavouriteRecipeModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return FavouriteRecipeModel(
-      english: English.fromJson(json: json),
-      arabic: Arabic.fromJson(json: json),
+      english: EnglishRecipeModel.fromJson(json: json),
+      arabic: ArabicRecipeModel.fromJson(json: json),
       docId: docId,
       recipeDocId: json[StringManager.recipeDocId],
       imageLink:convertGoogleDriveLinkToStreamable( json[StringManager.recipesImageLink]),
     );
   }
-  LanguageClass getLanguageClass(context) {
+  LanguageClassRecipeModel getLanguageClass(context) {
     return  Localizations.localeOf(context).toString() == 'ar' ? arabic : english;
   }
 }

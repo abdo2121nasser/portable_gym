@@ -315,31 +315,36 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(SetRecipeAttributes());
   }
 
+  Map<String, dynamic> getRecipeModelMap() {
+    return RecipeModel(
+      english: EnglishRecipeModel(
+          name: englishNameController.text,
+          calories: englishCaloriesController.text,
+          protein: englishProteinController.text,
+          carbohydrates: englishCarbohydratesController.text,
+          advantage: englishAdvantageController.text),
+      arabic: ArabicRecipeModel(
+          name: arabicNameController.text,
+          calories: arabicCaloriesController.text,
+          protein: arabicProteinController.text,
+          carbohydrates: arabicCarbohydratesController.text,
+          advantage: arabicAdvantageController.text),
+      docId: '',
+      imageLink: imageLinkController.text,
+      isBreakfast: mealTypeCheckBoxes[0],
+      isLunch: mealTypeCheckBoxes[1],
+      isDinner: mealTypeCheckBoxes[2],
+      isSnacks: mealTypeCheckBoxes[3],
+    ).toJson();
+  }
+
   addNewRecipe({bool isDailyRecipe = false}) async {
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyRecipe
             ? StringManager.collectionDailyRecipe
             : StringManager.collectionRecipes);
     emit(AddNewRecipeLoadingState());
-    await data.add({
-      StringManager.recipesEnglishName: englishNameController.text,
-      StringManager.recipesEnglishCalories: englishCaloriesController.text,
-      StringManager.recipesEnglishProtein: englishProteinController.text,
-      StringManager.recipesEnglishCarbohydrates:
-          englishCarbohydratesController.text,
-      StringManager.recipesEnglishAdvantage: englishAdvantageController.text,
-      StringManager.recipesArabicName: arabicNameController.text,
-      StringManager.recipesArabicCalories: arabicCaloriesController.text,
-      StringManager.recipesArabicProtein: arabicProteinController.text,
-      StringManager.recipesArabicCarbohydrates:
-          arabicCarbohydratesController.text,
-      StringManager.recipesArabicAdvantage: arabicAdvantageController.text,
-      StringManager.recipesImageLink: imageLinkController.text,
-      StringManager.englishBreakFastLable: mealTypeCheckBoxes[0],
-      StringManager.englishLunchLable: mealTypeCheckBoxes[1],
-      StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
-      StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
-    }).then((value) {
+    await data.add(getRecipeModelMap()).then((value) {
       emit(AddNewRecipeSuccessState());
       getToastMessage(
         message: 'added successfully',
@@ -363,25 +368,7 @@ class NutritionCubit extends Cubit<NutritionState> {
             : StringManager.collectionRecipes)
         .doc(docId);
     emit(EditRecipeLoadingState());
-    await data.update({
-      StringManager.recipesEnglishName: englishNameController.text,
-      StringManager.recipesEnglishCalories: englishCaloriesController.text,
-      StringManager.recipesEnglishProtein: englishProteinController.text,
-      StringManager.recipesEnglishCarbohydrates:
-          englishCarbohydratesController.text,
-      StringManager.recipesEnglishAdvantage: englishAdvantageController.text,
-      StringManager.recipesArabicName: arabicNameController.text,
-      StringManager.recipesArabicCalories: arabicCaloriesController.text,
-      StringManager.recipesArabicProtein: arabicProteinController.text,
-      StringManager.recipesArabicCarbohydrates:
-          arabicCarbohydratesController.text,
-      StringManager.recipesArabicAdvantage: arabicAdvantageController.text,
-      StringManager.recipesImageLink: imageLinkController.text,
-      StringManager.englishBreakFastLable: mealTypeCheckBoxes[0],
-      StringManager.englishLunchLable: mealTypeCheckBoxes[1],
-      StringManager.englishDinnerLable: mealTypeCheckBoxes[2],
-      StringManager.englishSnackesLable: mealTypeCheckBoxes[3],
-    }).then((value) {
+    await data.update(getRecipeModelMap()).then((value) {
       emit(EditRecipeSuccessState());
       getToastMessage(
         message: 'edited successfully',
@@ -518,20 +505,24 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(ClearFoodMainElement());
   }
 
+  Map<String, dynamic> getFoodMainElementModelMap() {
+    return FoodElementModel(
+            english: EnglishFoodElementModel(
+              title: englishMainElementTitleController.text,
+              description: englishMainElementDescriptionController.text,
+            ),
+            arabic: ArabicFoodElementModel(
+                title: arabicMainElementTitleController.text,
+                description: arabicMainElementDescriptionController.text),
+            docId: '')
+        .toJson();
+  }
+
   addNewFoodMainElement() async {
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionFoodMainElement);
     emit(AddNewFoodMainElementLoadingState());
-    await data.add({
-      StringManager.englishFoodMainElementTitle:
-          englishMainElementTitleController.text,
-      StringManager.englishFoodMainElementDescription:
-          englishMainElementDescriptionController.text,
-      StringManager.arabicFoodMainElementTitle:
-          arabicMainElementTitleController.text,
-      StringManager.arabicFoodMainElementDescription:
-          arabicMainElementDescriptionController.text
-    }).then((value) {
+    await data.add(getFoodMainElementModelMap()).then((value) {
       emit(AddNewFoodMainElementSuccessState());
       getFoodMainElement();
       getToastMessage(
@@ -553,16 +544,7 @@ class NutritionCubit extends Cubit<NutritionState> {
         .collection(StringManager.collectionFoodMainElement)
         .doc(docId);
     emit(EditFoodMainElementLoadingState());
-    await data.update({
-      StringManager.englishFoodMainElementTitle:
-          englishMainElementTitleController.text,
-      StringManager.englishFoodMainElementDescription:
-          englishMainElementDescriptionController.text,
-      StringManager.arabicFoodMainElementTitle:
-          arabicMainElementTitleController.text,
-      StringManager.arabicFoodMainElementDescription:
-          arabicMainElementDescriptionController.text
-    }).then((value) {
+    await data.update(getFoodMainElementModelMap()).then((value) {
       emit(EditFoodMainElementSuccessState());
       getFoodMainElement();
       getToastMessage(

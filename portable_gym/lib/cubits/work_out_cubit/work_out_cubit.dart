@@ -427,7 +427,6 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     if (isDailyCategory) {
       data = FirebaseFirestore.instance
           .collection(StringManager.collectionDailyBodyCategory);
-      print('--------------------');
     } else {
       data = FirebaseFirestore.instance
           .collection(StringManager.collectionTrainings)

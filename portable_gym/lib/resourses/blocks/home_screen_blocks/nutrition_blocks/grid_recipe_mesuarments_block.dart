@@ -6,7 +6,7 @@ import '../../../../generated/l10n.dart';
 import '../../../managers_files/values_manager.dart';
 
 class GridRecipeMeasurementsBlock extends StatelessWidget {
-  final LanguageClass languageModel;
+  final LanguageClassRecipeModel languageModel;
 
 
   GridRecipeMeasurementsBlock({required this.languageModel});

@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/food_element_model.dart';
 
 class RecipeModel {
-  final English english;
-  final Arabic arabic;
+  final EnglishRecipeModel english;
+  final ArabicRecipeModel arabic;
   final String docId;
   final String imageLink;
   final bool isBreakfast;
@@ -24,31 +23,55 @@ class RecipeModel {
     required this.isDinner,
     required this.isSnacks,
   });
-  factory RecipeModel.fromJson({required Map<String, dynamic> json,required String docId}) {
+  factory RecipeModel.fromJson(
+      {required Map<String, dynamic> json, required String docId}) {
     return RecipeModel(
-      english: English.fromJson(json: json),
-      arabic: Arabic.fromJson(json: json),
+      english: EnglishRecipeModel.fromJson(json: json),
+      arabic: ArabicRecipeModel.fromJson(json: json),
       docId: docId,
-      imageLink:convertGoogleDriveLinkToStreamable( json[StringManager.recipesImageLink]),
+      imageLink: convertGoogleDriveLinkToStreamable(
+          json[StringManager.recipesImageLink]),
       isBreakfast: json[StringManager.englishBreakFastLable],
       isLunch: json[StringManager.englishLunchLable],
       isDinner: json[StringManager.englishDinnerLable],
       isSnacks: json[StringManager.englishSnackesLable],
     );
   }
-  LanguageClass getLanguageClass(context) {
-    return  Localizations.localeOf(context).toString() == 'ar' ? arabic : english;
+  Map<String, dynamic> toJson() {
+    return {
+      StringManager.recipesEnglishName: english.name,
+      StringManager.recipesEnglishCalories: english.calories,
+      StringManager.recipesEnglishProtein: english.protein,
+      StringManager.recipesEnglishCarbohydrates: english.carbohydrates,
+      StringManager.recipesEnglishAdvantage: english.advantage,
+      StringManager.recipesArabicName: arabic.name,
+      StringManager.recipesArabicCalories: arabic.calories,
+      StringManager.recipesArabicProtein: arabic.protein,
+      StringManager.recipesArabicCarbohydrates: arabic.carbohydrates,
+      StringManager.recipesArabicAdvantage: arabic.advantage,
+      StringManager.recipesImageLink: imageLink,
+      StringManager.englishBreakFastLable: isBreakfast,
+      StringManager.englishLunchLable: isLunch,
+      StringManager.englishDinnerLable: isDinner,
+      StringManager.englishSnackesLable: isSnacks,
+    };
+  }
+
+  LanguageClassRecipeModel getLanguageClass(context) {
+    return Localizations.localeOf(context).toString() == 'ar'
+        ? arabic
+        : english;
   }
 }
 
-abstract class LanguageClass {
+abstract class LanguageClassRecipeModel {
   final String? name;
   final String? protein;
   final String? calories;
   final String? carbohydrates;
   final String? advantage;
 
-  LanguageClass({
+  LanguageClassRecipeModel({
     required this.name,
     required this.protein,
     required this.calories,
@@ -57,8 +80,8 @@ abstract class LanguageClass {
   });
 }
 
-class English extends LanguageClass {
-  English({
+class EnglishRecipeModel extends LanguageClassRecipeModel {
+  EnglishRecipeModel({
     required String name,
     required String protein,
     required String calories,
@@ -72,8 +95,8 @@ class English extends LanguageClass {
           advantage: advantage,
         );
 
-  factory English.fromJson({required Map<String, dynamic> json}) {
-    return English(
+  factory EnglishRecipeModel.fromJson({required Map<String, dynamic> json}) {
+    return EnglishRecipeModel(
       name: json[StringManager.recipesEnglishName],
       //
       protein: json[StringManager.recipesEnglishProtein],
@@ -84,8 +107,8 @@ class English extends LanguageClass {
   }
 }
 
-class Arabic extends LanguageClass {
-  Arabic({
+class ArabicRecipeModel extends LanguageClassRecipeModel {
+  ArabicRecipeModel({
     required String name,
     required String protein,
     required String calories,
@@ -98,8 +121,8 @@ class Arabic extends LanguageClass {
           carbohydrates: carbohydrates,
           advantage: advantage,
         );
-  factory Arabic.fromJson({required Map<String, dynamic> json}) {
-    return Arabic(
+  factory ArabicRecipeModel.fromJson({required Map<String, dynamic> json}) {
+    return ArabicRecipeModel(
       name: json[StringManager.recipesArabicName],
       protein: json[StringManager.recipesArabicProtein],
       calories: json[StringManager.recipesArabicCalories],
