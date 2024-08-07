@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:portable_gym/screens/app_bar_screens/setting_screen/setting_screen.dart';
 
 import '../../firebase_options.dart';
 import '../../generated/l10n.dart';
@@ -75,6 +76,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     } else if (index == 2) {
       showLogOutBottomSheet(context);
     }
+    else if(index==1)
+      {
+        Get.to(()=> const SettingScreen());
+      }
   }
 
   getProfileControllers() {

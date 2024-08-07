@@ -9,8 +9,13 @@ import '../../managers_files/values_manager.dart';
 
 
 
-class ProfileOptionListBlock extends StatelessWidget {
-  const ProfileOptionListBlock({super.key});
+class OptionsListBlock extends StatelessWidget {
+
+  final List<String> lables;
+  final Function(int,BuildContext) onClickFunction;
+   const OptionsListBlock({super.key,
+     required this.lables,
+     required this.onClickFunction});
 
 
 
@@ -22,11 +27,11 @@ class ProfileOptionListBlock extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
           itemBuilder: (context, index) => InkWell(
               onTap: (){
-                ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
+                onClickFunction(index,context);
               },
-              child: ProfileOptionBlock(lable: profCubit.getProfileOptions(context: context)[index],)),
+              child: ProfileOptionBlock(lable: lables[index],)),
           separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s10,),
-          itemCount: profCubit.getProfileOptions(context: context).length),
+          itemCount: lables.length),
     )
     ;
   }
