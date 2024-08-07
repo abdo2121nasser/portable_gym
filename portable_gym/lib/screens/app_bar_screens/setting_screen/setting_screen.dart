@@ -30,7 +30,7 @@ class SettingScreen extends StatelessWidget {
                       context: context),
                   icons: settCubit.getSettingOptionsIcons(),
                   onClickFunction: (index,context) {
-settCubit.settingNavigation(index: index);
+settCubit.settingNavigation(index: index,context: context);
                   },
                 ),
               ],

@@ -178,6 +178,12 @@ class StringManager
   static const String mealPlanQuestionsText='text';
   static const String mealPlanQuestionsValue='value';
 
+  static const String englishQuestionTitle='title';
+  static const String englishQuestionsQuestion='question';
+  static const String arabicQuestionTitle='العنوان';
+  static const String arabicQuestionsQuestion='السؤال';
+
+
 
 
 
