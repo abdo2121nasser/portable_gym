@@ -66,6 +66,9 @@
 
   "myProfile": "ملفي الشخصي",
   "settings": "الاعدادات",
+  "changeMealPlanQuestions": "تغيير اسئله خطط الوجبات",
+  "questions": "الاسئله",
+
   "logout": "تسجيل الخروج",
   "birthDate": "تاريخ الميلاد",
   "weight": "الوزن",

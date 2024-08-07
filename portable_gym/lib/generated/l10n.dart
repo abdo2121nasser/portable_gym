@@ -610,6 +610,26 @@ class S {
     );
   }
 
+  /// `Change Meal Plan Questions`
+  String get changeMealPlanQuestions {
+    return Intl.message(
+      'Change Meal Plan Questions',
+      name: 'changeMealPlanQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Questions`
+  String get questions {
+    return Intl.message(
+      'Questions',
+      name: 'questions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date of birth`
   String get birthDate {
     return Intl.message(

@@ -32,7 +32,7 @@ class GridMealTypesBlock extends StatelessWidget {
             mainAxisSpacing: 15),
         itemBuilder: (context, index) => CheckBoxBlock(
           value: values[index],
-          function: (bool? value){
+          checkBoxFunction: (bool? value){
             function(index,value!);
           },
           lable: lables[index],

@@ -6,37 +6,48 @@ import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/check_box_block.dart';
 
-
-
-
-
-
 class QuestionWithChoicesBlock extends StatelessWidget {
-  const QuestionWithChoicesBlock({super.key});
-
+  final String title;
+  final String question;
+  final List<String> choicesText;
+  final List<bool>? choicesValues;
+  final bool isClientView;
+  const QuestionWithChoicesBlock({super.key,
+     required this.title,
+     required this.question,
+required this.choicesText,
+     this.choicesValues,
+     required this.isClientView});
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s10),
-          child: Text(
-            'Dietary Preferences',
-            style: getMediumStyle(
-                fontSize: FontSize.s24,
-                color:ColorManager.kLimeGreenColor,
-                fontFamily: FontFamily.kPoppinsFont),
+          padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s10),
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: getMediumStyle(
+                    fontSize: FontSize.s24,
+                    color: ColorManager.kLimeGreenColor,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
+            ],
           ),
-        ) ,
-        Text(
-          'What are your dietary preferences?',
-          style: getMediumStyle(
-              fontSize: FontSize.s14,
-              color:ColorManager.kWhiteColor,
-              fontFamily: FontFamily.kPoppinsFont),
         ),
-
+        Row(
+          children: [
+            Text(
+              question,
+              style: getMediumStyle(
+                  fontSize: FontSize.s14,
+                  color: ColorManager.kWhiteColor,
+                  fontFamily: FontFamily.kPoppinsFont),
+            ),
+          ],
+        ),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -47,13 +58,18 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               crossAxisSpacing: 0,
               childAspectRatio: (2.5 / 0.3),
               mainAxisSpacing: 15),
-          itemBuilder: (context, index) =>  CheckBoxBlock(value: false, function: (f){}, lable: 'Vegetarian',
-    borderColor: ColorManager.kWhiteColor,
-    textStyle: getLightStyle(
-    fontSize: FontSize.s16,
-    color: ColorManager.kWhiteColor,
-    fontFamily: FontFamily.kLeagueSpartanFont),),
-          itemCount:7,
+          itemBuilder: (context, index) => CheckBoxBlock(
+            value: choicesValues?[index],
+            checkBoxFunction: (f) {},
+            lable: choicesText[index],
+            borderColor: ColorManager.kWhiteColor,
+            textStyle: getLightStyle(
+                fontSize: FontSize.s16,
+                color: ColorManager.kWhiteColor,
+                fontFamily: FontFamily.kLeagueSpartanFont),
+            isSqecialCheckBox: !isClientView,
+          ),
+          itemCount: choicesText.length,
         )
       ],
     );

@@ -1,21 +1,11 @@
-import 'package:checkbox_grouped/checkbox_grouped.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/check_box_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
-import '../../../../../resourses/blocks/general_blocks/general_button_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/question_with_choices_block.dart';
-import '../../../../../resourses/managers_files/font_manager.dart';
-import '../../../../../resourses/managers_files/style_manager.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/list_questions_with_choices_block.dart';
 
 class MealPlanCreationScreen extends StatelessWidget {
-  MealPlanCreationScreen({super.key});
-  GroupController controller = GroupController();
+  const MealPlanCreationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +13,15 @@ class MealPlanCreationScreen extends StatelessWidget {
       appBar: GeneralAppBarBlock(
         title: S.of(context).mealPlan,
       ),
-      body: Column(
+      body: const Column(
         children: [
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppHorizontalSize.s14),
-                itemBuilder: (context, index) =>
-                    index==(7+1)-1?GeneralButtonBlock(
-                        lable: S.of(context).create,
-                        function: () {
-
-                        },
-                        backgroundColor: ColorManager.kPurpleColor,
-                        textStyle: getMediumStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kWhiteColor,
-                            fontFamily: FontFamily.kPoppinsFont)):
-                    const QuestionWithChoicesBlock(),
-                separatorBuilder: (context, index) => const SizedBox(height: 5,),
-                itemCount: 7+1),
-          ),
+          ListOfQuestionsWithChoicesBlock(
+            titles: ['Dietary Preferences'],
+            questions: ['What are your dietary preferences?'],
+            choicesText: ['Vegetarian'],
+            choicesValues: [true],
+            isClientView: true,
+          )
 
         ],
       ),

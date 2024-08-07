@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "breakfast": MessageLookupByLibrary.simpleMessage("BreakFast"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("carbohydrate"),
+        "changeMealPlanQuestions":
+            MessageLookupByLibrary.simpleMessage("Change Meal Plan Questions"),
         "charts": MessageLookupByLibrary.simpleMessage("Charts"),
         "chooseDate": MessageLookupByLibrary.simpleMessage("Choose Date"),
         "confirmPassword":
@@ -124,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "progressTrack":
             MessageLookupByLibrary.simpleMessage("Progress tracking"),
         "protein": MessageLookupByLibrary.simpleMessage("protein"),
+        "questions": MessageLookupByLibrary.simpleMessage("Questions"),
         "recipe": MessageLookupByLibrary.simpleMessage("Recipe"),
         "recipeOfDay":
             MessageLookupByLibrary.simpleMessage("recipe of the day"),

@@ -5,10 +5,11 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
 
-class ProfileOptionBlock extends StatelessWidget {
+class OptionBlock extends StatelessWidget {
   final  String lable;
+  final IconData icon;
 
-  ProfileOptionBlock({required this.lable});
+  const OptionBlock({super.key, required this.lable,required this.icon});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,11 +19,11 @@ class ProfileOptionBlock extends StatelessWidget {
           children: [
             Container(
                 padding: EdgeInsets.all(AppVerticalSize.s5),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: ColorManager.kPurpleColor
                 ),
-                child: Icon(Icons.person,color: ColorManager.kWhiteColor,)),
+                child:  Icon(icon,color: ColorManager.kWhiteColor,)),
             Padding(
               padding:  EdgeInsets.only(left: AppHorizontalSize.s16),
               child: Text(

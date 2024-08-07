@@ -71,7 +71,6 @@ dependencies:
   sensors_plus: ^2.0.1
 
   flutter_secure_storage: ^8.1.0
-  checkbox_grouped: ^2.0.0
 
 
 dev_dependencies:

@@ -27,7 +27,7 @@ class TrainingBaisicInformationBlock extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) =>index== trainingControllers.length?
             //handling the is paid condition lable
-      CheckBoxBlock(value: isPaidValue,function: isPaidSetter,
+      CheckBoxBlock(value: isPaidValue,checkBoxFunction: isPaidSetter,
       lable: isArabicTabView?
       StringManager.trainingArabicLableIsPaid:
       StringManager.trainingEnglishLableIsPaid,

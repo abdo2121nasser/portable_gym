@@ -53,7 +53,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  getProfileOptions({
+  getProfileOptionsLables({
     required context,
   }) {
     return [
@@ -61,6 +61,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       S.of(context).settings,
       S.of(context).logout,
     ];
+  }
+  getProfileOptionsIcons() {
+    return
+      [Icons.person,Icons.settings,Icons.logout_outlined]
+    ;
   }
 
   profileScreenNavigation(

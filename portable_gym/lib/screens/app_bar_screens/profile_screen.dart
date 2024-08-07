@@ -11,7 +11,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_lower_Block.dart';
-import '../../resourses/blocks/profile_blocks/profile_option_list_block.dart';
+import '../../resourses/blocks/general_blocks/option_list_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_training_information_block.dart';
 import '../../resourses/blocks/profile_blocks/profile_upper_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
@@ -53,7 +53,8 @@ class ProfileScreen extends StatelessWidget {
                           profCubit.profileModel != null
                       ? const ProfileLowerBlock()
                       :  OptionsListBlock(
-                    lables: profCubit.getProfileOptions(context: context),
+                    lables: profCubit.getProfileOptionsLables(context: context),
+                    icons: profCubit.getProfileOptionsIcons(),
                     onClickFunction: (index,context){
                       ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
                     },

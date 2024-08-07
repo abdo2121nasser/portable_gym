@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "breakfast": MessageLookupByLibrary.simpleMessage("الفطار"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("كاربوهايدريت"),
+        "changeMealPlanQuestions":
+            MessageLookupByLibrary.simpleMessage("تغيير اسئله خطط الوجبات"),
         "charts": MessageLookupByLibrary.simpleMessage("المخططات"),
         "chooseDate": MessageLookupByLibrary.simpleMessage("اختر تاريخ"),
         "confirmPassword":
@@ -121,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pickVideo": MessageLookupByLibrary.simpleMessage("اختر فيديو"),
         "progressTrack": MessageLookupByLibrary.simpleMessage("تتبع  العمل"),
         "protein": MessageLookupByLibrary.simpleMessage("بروتين"),
+        "questions": MessageLookupByLibrary.simpleMessage("الاسئله"),
         "recipe": MessageLookupByLibrary.simpleMessage("وصفه"),
         "recipeOfDay": MessageLookupByLibrary.simpleMessage("وصفه اليوم"),
         "recommendations": MessageLookupByLibrary.simpleMessage("المقترحات"),

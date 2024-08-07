@@ -55,6 +55,9 @@
   "myProfile": "My Profile",
   "settings": "Settings",
   "logout": "Logout",
+  "changeMealPlanQuestions": "Change Meal Plan Questions",
+  "questions": "Questions",
+
   "birthDate": "Date of birth",
   "weight": "Weight",
   "height": "Height",
