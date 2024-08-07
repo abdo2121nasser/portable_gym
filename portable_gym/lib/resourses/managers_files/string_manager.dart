@@ -170,6 +170,17 @@ class StringManager
 
 
 
+  static const String collectionQuestionsOfMealPlan='meal plan questions collection';
+
+  static const String mealPlanQuestionsTitle='title';
+  static const String mealPlanQuestionsAnswer='answer';
+  static const String mealPlanQuestionsQuestion='question';
+  static const String mealPlanQuestionsText='text';
+  static const String mealPlanQuestionsValue='value';
+
+
+
+
 
 
 

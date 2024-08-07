@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/check_box_block.dart';
+import '../../general_blocks/general_button_block.dart';
 
 class QuestionWithChoicesBlock extends StatelessWidget {
   final String title;
@@ -56,9 +58,22 @@ required this.choicesText,
               crossAxisCount: 2,
               // mainAxisExtent: 140,
               crossAxisSpacing: 0,
-              childAspectRatio: (2.5 / 0.3),
+              childAspectRatio: (2.5 / 0.38),
               mainAxisSpacing: 15),
-          itemBuilder: (context, index) => CheckBoxBlock(
+          itemBuilder: (context, index) =>
+              !isClientView && index==choicesText.length?
+              Align(
+                alignment: Alignment.centerLeft,
+                child: GeneralButtonBlock(
+                    lable: S.of(context).add,
+                    function: () {},
+                    backgroundColor: ColorManager.kPurpleColor,
+                    textStyle: getMediumStyle(
+                        fontSize: FontSize.s20,
+                        color: ColorManager.kWhiteColor,
+                        fontFamily: FontFamily.kPoppinsFont)),
+              ):
+              CheckBoxBlock(
             value: choicesValues?[index],
             checkBoxFunction: (f) {},
             lable: choicesText[index],
@@ -69,7 +84,7 @@ required this.choicesText,
                 fontFamily: FontFamily.kLeagueSpartanFont),
             isSqecialCheckBox: !isClientView,
           ),
-          itemCount: choicesText.length,
+          itemCount: isClientView? choicesText.length:choicesText.length+1,
         )
       ],
     );
