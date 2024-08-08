@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/question_with_choices_block.dart';
 import 'package:portable_gym/resourses/models/setting_models/meal_plan_question_model.dart';
 
@@ -33,6 +34,13 @@ class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
                 addChoiceFunction: (mod) {
                   addChoiceFunction!(mod);
                 },
+            checkBoxFunction: (value,answerIndex){
+                  SettingCubit.get(context).changeAnswerValue(
+                      questionIndex: index,
+                      answerIndex: answerIndex,
+                  value: value
+                  );
+            },
                 isClientView: isClientView,
               ),
           separatorBuilder: (context, index) => SizedBox(

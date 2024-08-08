@@ -17,11 +17,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
   // final List<Answer> answers;
   final MealPlanQuestionModel model;
   final Function(MealPlanQuestionModel)? addChoiceFunction;
+  final Function(bool, int)? checkBoxFunction;
   final bool isClientView;
   const QuestionWithChoicesBlock(
       {super.key,
       required this.model,
       this.addChoiceFunction,
+        this.checkBoxFunction,
       required this.isClientView});
   @override
   Widget build(BuildContext context) {
@@ -128,7 +130,9 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                 )
               : CheckBoxBlock(
                   value: model.getLanguageClass(context).answers[index].value,
-                  checkBoxFunction: (f) {},
+                  checkBoxFunction: (value) {
+                    checkBoxFunction!(value,index);
+                  },
                   lable: model.getLanguageClass(context).answers[index].text,
                   borderColor: ColorManager.kWhiteColor,
                   textStyle: getLightStyle(

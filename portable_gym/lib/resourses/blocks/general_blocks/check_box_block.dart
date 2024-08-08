@@ -11,7 +11,7 @@ class CheckBoxBlock extends StatelessWidget {
   final String lable;
   final Color borderColor;
   final TextStyle textStyle;
-  final Function(bool?)? checkBoxFunction;
+  final Function(bool)? checkBoxFunction;
   final VoidCallback? editChoiceFunction;
   final bool isSpecialCheckBox;
   const CheckBoxBlock(
@@ -48,7 +48,9 @@ class CheckBoxBlock extends StatelessWidget {
           Checkbox(
             shape:  const CircleBorder(),
             value: value,
-            onChanged: checkBoxFunction,
+            onChanged: (result){
+              checkBoxFunction!(result!);
+            },
             side: BorderSide(color:borderColor ),
           ),
           Flexible(

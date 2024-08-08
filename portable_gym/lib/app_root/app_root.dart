@@ -9,6 +9,7 @@ import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
+import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
@@ -42,6 +43,7 @@ class PortableGym extends StatelessWidget {
                   MultiBlocProvider(
                     providers: [
                       BlocProvider(create: (context) => AuthenticationCubit()),
+                    //  BlocProvider(create: (context) => SettingCubit()),
                       BlocProvider(create: (context) =>  FavouriteCubit()..getUserDocId()),
 
                     ],

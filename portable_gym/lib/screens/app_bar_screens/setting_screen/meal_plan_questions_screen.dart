@@ -35,6 +35,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
       child: BlocConsumer<SettingCubit, SettingState>(
         listener: (context, state) {},
         builder: (context, state) {
+          var settCubit=SettingCubit.get(context);
           return Scaffold(
             appBar: GeneralAppBarBlock(
               title: S.of(context).questions,

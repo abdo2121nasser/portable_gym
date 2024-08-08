@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
+import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
@@ -13,30 +16,35 @@ class MealPlanCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: GeneralAppBarBlock(
-        title: S.of(context).mealPlan,
-      ),
-      body:  Column(
-        children: [
-          // ListOfQuestionsWithChoicesBlock(
-          //   titles: ['Dietary Preferences','fdjhfd'],
-          //   questions: ['What are your dietary preferences?','dfs'],
-          //   choicesText: [['Vegetarian'],['dfdf','djdk']],
-          //   choicesValues: [[true],[false,true]],
-          //   isClientView: true,
-          // ),
-          GeneralButtonBlock(
-              lable: S.of(context).create,
-              function: () {},
-              backgroundColor: ColorManager.kPurpleColor,
-              textStyle: getMediumStyle(
-                  fontSize: FontSize.s20,
-                  color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont))
-
-        ],
-      ),
-    );
+    return BlocProvider(
+      create: (context) => SettingCubit()..getAllQuestions(),
+  child: BlocConsumer<SettingCubit, SettingState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var settCubit = SettingCubit.get(context);
+        return Scaffold(
+          appBar: GeneralAppBarBlock(
+            title: S.of(context).mealPlan,
+          ),
+          body: Column(
+            children: [
+              ListOfQuestionsWithChoicesBlock(
+                model: settCubit.questionsModel,
+                isClientView: true,
+              ),
+              GeneralButtonBlock(
+                  lable: S.of(context).create,
+                  function: () {},
+                  backgroundColor: ColorManager.kPurpleColor,
+                  textStyle: getMediumStyle(
+                      fontSize: FontSize.s20,
+                      color: ColorManager.kWhiteColor,
+                      fontFamily: FontFamily.kPoppinsFont))
+            ],
+          ),
+        );
+      },
+    ),
+);
   }
 }

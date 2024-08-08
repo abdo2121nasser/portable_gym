@@ -73,9 +73,13 @@ class SettingCubit extends Cubit<SettingState> {
     ]);
   }
 
-  settingNavigation({required int index, required context}) {
+  settingNavigation({
+    required int index,
+    required context
+  }) {
     switch (index) {
       case 0:
+        //there was a context here to pass the setting cubit
         Get.to(MealPlanQuestionScreen(
           settCubit: SettingCubit.get(context),
         ));
@@ -84,6 +88,19 @@ class SettingCubit extends Cubit<SettingState> {
         Get.to(const ForgetPasswordScreen());
         break;
     }
+  }
+
+  changeAnswerValue(
+      {required questionIndex, required int answerIndex, required bool value}) {
+    for (int i = 0;
+        i < questionsModel[questionIndex].english.answers.length;
+        i++) {
+      questionsModel[questionIndex].english.answers[i].value = false;
+      questionsModel[questionIndex].arabic.answers[i].value = false;
+    }
+    questionsModel[questionIndex].english.answers[answerIndex].value = value;
+    questionsModel[questionIndex].arabic.answers[answerIndex].value = value;
+    emit(ChangeAnswerValueState());
   }
 
   MealPlanQuestionModel? getQuestionModelQuestionFromControllers(
@@ -179,14 +196,14 @@ class SettingCubit extends Cubit<SettingState> {
       debugPrint(error);
     });
   }
+
   deleteQuestion({required MealPlanQuestionModel model}) async {
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
         .doc(model.docId);
     emit(DeleteQuestionLoadingState());
     Get.back();
-    await data.delete()
-        .then((value) {
+    await data.delete().then((value) {
       emit(DeleteQuestionSuccessState());
       getAllQuestions();
     }).catchError((error) {
@@ -246,7 +263,8 @@ class SettingCubit extends Cubit<SettingState> {
     });
   }
 
-  deleteAnswer({required MealPlanQuestionModel model, required int index}) async {
+  deleteAnswer(
+      {required MealPlanQuestionModel model, required int index}) async {
     model.english.answers.removeAt(index);
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
