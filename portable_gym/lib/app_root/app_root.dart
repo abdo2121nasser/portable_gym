@@ -42,7 +42,7 @@ class PortableGym extends StatelessWidget {
               builder: (context, child) =>
                   MultiBlocProvider(
                     providers: [
-                      BlocProvider(create: (context) => AuthenticationCubit()),
+                  //    BlocProvider(create: (context) => AuthenticationCubit()),
                     //  BlocProvider(create: (context) => SettingCubit()),
                       BlocProvider(create: (context) =>  FavouriteCubit()..getUserDocId()),
 
@@ -61,7 +61,7 @@ class PortableGym extends StatelessWidget {
                       // home: MainNavigationBarScreen(),
                       //home: ProfileScreen(),
                       home: FirebaseAuth.instance.currentUser == null
-                          ? LoginScreen()
+                          ? const LoginScreen()
                           : const MainNavigationBarScreen(),
                       //   home: SetUpScreen(email: 'email'),
                       // home: LoginScreen(),

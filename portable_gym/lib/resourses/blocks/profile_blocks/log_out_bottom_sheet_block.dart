@@ -15,7 +15,9 @@ class LogOutBottomSheetBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+    return BlocProvider(
+  create: (context) => AuthenticationCubit(),
+  child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
   listener: (context, state) {
   },
   builder: (context, state) {
@@ -71,6 +73,7 @@ class LogOutBottomSheetBlock extends StatelessWidget {
       ),
     );
   },
+),
 );
   }
   

@@ -117,9 +117,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(LoginSuccessState());
       bool hasData = await hasProfile(email: loginEmail.text, context: context);
       if (hasData) {
-        Get.to(const MainNavigationBarScreen());
+        Get.offAll(const MainNavigationBarScreen());
       } else {
-        Get.to(SetUpScreen(
+        Get.offAll(SetUpScreen(
           email: loginEmail.text,
         ));
       }
