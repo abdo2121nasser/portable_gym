@@ -13,7 +13,8 @@ import '../../general_blocks/general_button_block.dart';
 class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
  final List<MealPlanQuestionModel> model;
  final Function(MealPlanQuestionModel)? addChoiceFunction;
-  final bool isClientView;
+
+ final bool isClientView;
 
   const ListOfQuestionsWithChoicesBlock({
      required this.model,

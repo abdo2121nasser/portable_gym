@@ -368,7 +368,7 @@ class AlertQuestionBox extends StatelessWidget {
   final String title;
   final String firstButtonLable;
   final String? secondButtonLable;
-  final bool isAddFunction;
+  final bool isSingleButton;
   const AlertQuestionBox({super.key,
     required context,
     required this.tabBar,
@@ -378,7 +378,7 @@ class AlertQuestionBox extends StatelessWidget {
     required this.title,
     required this.firstButtonLable,
      this.secondButtonFunction,
-    required this.isAddFunction
+    required this.isSingleButton
   });
   @override
   Widget build(BuildContext context) {
@@ -414,7 +414,7 @@ class AlertQuestionBox extends StatelessWidget {
                       ),
                       Expanded(child: tabBarView),
                       Row(
-                        mainAxisAlignment:isAddFunction?MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment:isSingleButton?MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
                         children: [
                           GeneralButtonBlock(
                               lable: firstButtonLable,
@@ -424,7 +424,7 @@ class AlertQuestionBox extends StatelessWidget {
                                   fontSize: FontSize.s20,
                                   color: ColorManager.kBlackColor,
                                   fontFamily: FontFamily.kLeagueSpartanFont)),
-                      isAddFunction?const SizedBox():
+                      isSingleButton?const SizedBox():
                           GeneralButtonBlock(
                               lable: secondButtonLable!,
                               function: secondButtonFunction!,
@@ -561,7 +561,7 @@ showAlertQuestionBox({
   required String title,
   required String firstButtonLable,
    String? secondButtonLable,
-  required bool isAddFunction
+  required bool isSingleButton
 }) {
   return showDialog(
     context: context,
@@ -573,7 +573,8 @@ showAlertQuestionBox({
         secondButtonFunction: secondButtonFunction,
         title: title,
         firstButtonLable: firstButtonLable,
-    secondButtonLable: secondButtonLable, isAddFunction: isAddFunction,
+    secondButtonLable: secondButtonLable,
+      isSingleButton: isSingleButton,
     ),
   );
 }

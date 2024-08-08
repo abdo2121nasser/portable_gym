@@ -12,8 +12,8 @@ class CheckBoxBlock extends StatelessWidget {
   final Color borderColor;
   final TextStyle textStyle;
   final Function(bool?)? checkBoxFunction;
-  final VoidCallback? alertBoxFunction;
-  final bool isSqecialCheckBox;
+  final VoidCallback? editChoiceFunction;
+  final bool isSpecialCheckBox;
   const CheckBoxBlock(
       {super.key,
       required this.value,
@@ -21,9 +21,9 @@ class CheckBoxBlock extends StatelessWidget {
         this.borderColor=ColorManager.kBlackColor,
       required this.lable,
       required this.textStyle,
+        this.editChoiceFunction,
       this.isArabic = false,
-      this.isSqecialCheckBox=false,
-        this.alertBoxFunction
+      this.isSpecialCheckBox=false,
       });
 
   @override
@@ -33,11 +33,13 @@ class CheckBoxBlock extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          isSqecialCheckBox?
+          isSpecialCheckBox?
                Padding(
                  padding:  EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
                  child: InkWell(
-                   onTap: (){},
+                   onTap: (){
+                     editChoiceFunction!();
+                   },
                    child: const Icon(Icons.open_in_new_rounded,
               color: ColorManager.kWhiteColor,),
                  ),

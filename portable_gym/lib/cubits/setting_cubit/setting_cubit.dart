@@ -28,7 +28,6 @@ class SettingCubit extends Cubit<SettingState> {
   TextEditingController englishAnswer = TextEditingController();
   TextEditingController arabicAnswer = TextEditingController();
 
-
   getSettingOptionsLables({
     required context,
   }) {
@@ -45,27 +44,31 @@ class SettingCubit extends Cubit<SettingState> {
     ];
   }
 
-  getQuestionsTabBarViews({required bool isQuestion}) {
+  TabBarView getQuestionsTabBarViews({required bool isQuestion}) {
     return TabBarView(children: [
       EnglishQuestionTabBarView(
-        lables: isQuestion? const [
-          StringManager.englishQuestionTitleLable,
-          StringManager.englishQuestionsQuestionLable,
-        ]: [
-          StringManager.englishQuestionsAnswerLable,
-
-        ],
-        controllers:isQuestion? [englishTitle, englishQuestion]:[englishAnswer],
+        lables: isQuestion
+            ? const [
+                StringManager.englishQuestionTitleLable,
+                StringManager.englishQuestionsQuestionLable,
+              ]
+            : [
+                StringManager.englishQuestionsAnswerLable,
+              ],
+        controllers:
+            isQuestion ? [englishTitle, englishQuestion] : [englishAnswer],
       ),
       ArabicQuestionTabBarView(
-        lables: isQuestion?const [
-          StringManager.arabicQuestionTitleLable,
-          StringManager.arabicQuestionsQuestionLable,
-        ]:[
-          StringManager.arabicQuestionsAnswerLable,
-
-        ],
-        controllers:isQuestion? [arabicTitle, arabicQuestion]:[arabicAnswer],
+        lables: isQuestion
+            ? const [
+                StringManager.arabicQuestionTitleLable,
+                StringManager.arabicQuestionsQuestionLable,
+              ]
+            : [
+                StringManager.arabicQuestionsAnswerLable,
+              ],
+        controllers:
+            isQuestion ? [arabicTitle, arabicQuestion] : [arabicAnswer],
       )
     ]);
   }
@@ -83,85 +86,123 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  MealPlanQuestionModel getQuestionModelQuestionFromControllers({MealPlanQuestionModel? model}) {
-    if(model==null) {
+  MealPlanQuestionModel getQuestionModelQuestionFromControllers({MealPlanQuestionModel? model,bool isAddAnswer=true}) {
+    if (model == null) {
+      //add question
       return MealPlanQuestionModel(
-        english: EnglishQuestion(
-          title: englishTitle.text,
-          question: englishQuestion.text,
-          answers: []
-        ),
-        arabic: ArabicQuestion(
-          title: arabicTitle.text,
-          question: arabicQuestion.text,
-          answers: []
-        ),
-    docId: ''
-    );
+          english: EnglishQuestion(
+              title: englishTitle.text,
+              question: englishQuestion.text,
+              answers: []),
+          arabic: ArabicQuestion(
+              title: arabicTitle.text,
+              question: arabicQuestion.text,
+              answers: []),
+          docId: '');
+    } else if (isAddAnswer) {
+      // add answer
+      return MealPlanQuestionModel(
+          english: EnglishQuestion(
+              title: model.english.title,
+              question: model.english.question,
+              answers: model.english.answers
+                ..add(Answer(text: englishAnswer.text, value: false))),
+          arabic: ArabicQuestion(
+              title: arabicTitle.text,
+              question: arabicQuestion.text,
+              answers: model.arabic.answers
+                ..add(Answer(text: arabicAnswer.text, value: false))),
+          docId: model.docId);
+    } else {
+      //edit question
+      return MealPlanQuestionModel(
+          english: EnglishQuestion(
+              title: englishTitle.text,
+              question: englishQuestion.text,
+              answers: model.english.answers),
+          arabic: ArabicQuestion(
+              title: arabicTitle.text,
+              question: arabicQuestion.text,
+              answers: model.arabic.answers),
+          docId: model.docId);
     }
-    else
-      {
-        return MealPlanQuestionModel(
-            english: EnglishQuestion(
-                title: model.english.title,
-                question: model.english.question,
-                answers: model.english.answers..add(Answer(text: englishAnswer.text, value: false))
-            ),
-            arabic: ArabicQuestion(
-                title: arabicTitle.text,
-                question: arabicQuestion.text,
-                answers: model.arabic.answers..add(Answer(text: arabicAnswer.text, value: false))
-            ),
-            docId: model.docId
-        );
-      }
+  }
+
+  setControllersWithModel({MealPlanQuestionModel? model, Answer? answer}) {
+    if (model != null) {
+      englishTitle.text = model.english.title;
+      englishQuestion.text = model.english.question;
+      arabicTitle.text = model.arabic.title;
+      arabicQuestion.text = model.arabic.question;
+    } else {
+      englishAnswer.text = answer!.text;
+      arabicAnswer.text = answer.text;
+    }
+    emit(SetControllersWithModelState());
   }
 
   addQuestion() async {
-    MealPlanQuestionModel model=getQuestionModelQuestionFromControllers();
+    MealPlanQuestionModel model = getQuestionModelQuestionFromControllers();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan);
     emit(AddQuestionLoadingState());
-     await  data.add(model.toJson())
-        .then((value) {
-       emit(AddQuestionSuccessState());
-       getAllQuestions();
-    }).catchError((error){
-       emit(AddQuestionErrorState());
-       debugPrint(error);
+    Get.back();
+    await data.add(model.toJson()).then((value) {
+      emit(AddQuestionSuccessState());
+      getAllQuestions();
+    }).catchError((error) {
+      emit(AddQuestionErrorState());
+      debugPrint(error);
     });
-     Get.back();
   }
+
+  editQuestion({required MealPlanQuestionModel model}) async {
+    model = getQuestionModelQuestionFromControllers(model: model,isAddAnswer: false);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan)
+        .doc(model.docId);
+       emit(EditQuestionLoadingState());
+    Get.back();
+    await data.update(model.toJson()).then((value) {
+      emit(EditQuestionSuccessState());
+      getAllQuestions();
+    }).catchError((error) {
+      emit(EditQuestionErrorState());
+      debugPrint(error);
+    });
+
+  }
+
   getAllQuestions() async {
     questionsModel.clear();
     emit(GetQuestionsLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan);
-    await  data.get()
-        .then((value) {
-          value.docs.forEach((element) {
-            questionsModel.add(MealPlanQuestionModel.fromJson(json: element.data(),docId: element.id));
-          });
+    await data.get().then((value) {
+      value.docs.forEach((element) {
+        questionsModel.add(MealPlanQuestionModel.fromJson(
+            json: element.data(), docId: element.id));
+      });
       emit(GetQuestionsSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetQuestionsErrorState());
       debugPrint(error);
     });
   }
 
   addAnswer({required MealPlanQuestionModel model}) async {
-    model=getQuestionModelQuestionFromControllers(model: model);
+    model = getQuestionModelQuestionFromControllers(model: model,isAddAnswer: false);
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan).doc(model.docId);
+        .collection(StringManager.collectionQuestionsOfMealPlan)
+        .doc(model.docId);
     emit(AddAnswerLoadingState());
-    await  data.update(model.toJson())
-        .then((value) {
+    Get.back();
+    await data.update(model.toJson()).then((value) {
       emit(AddAnswerSuccessState());
       getAllQuestions();
-    }).catchError((error){
+    }).catchError((error) {
       emit(AddAnswerErrorState());
       debugPrint(error);
     });
-    Get.back();
   }
 }

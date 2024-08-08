@@ -42,6 +42,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
             body: Column(
               children: [
                 state is AddQuestionLoadingState ||
+                    state is EditQuestionLoadingState ||
                         state is AddAnswerLoadingState ||
                         state is GetQuestionsLoadingState
                     ? const Expanded(
@@ -65,9 +66,10 @@ class MealPlanQuestionScreen extends StatelessWidget {
                               },
                               title: S.of(context).questions,
                               firstButtonLable: S.of(context).add,
-                            isAddFunction: true
+                            isSingleButton: true
                               );
                         },
+
                         isClientView: false,
                       ),
                 GeneralButtonBlock(
@@ -83,7 +85,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
                           },
                           title: S.of(context).questions,
                           firstButtonLable: S.of(context).add,
-                      isAddFunction: true
+                      isSingleButton: true
                       );
                     },
                     backgroundColor: ColorManager.kPurpleColor,

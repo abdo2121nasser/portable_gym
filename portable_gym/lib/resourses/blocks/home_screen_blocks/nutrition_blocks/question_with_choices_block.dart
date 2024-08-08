@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../managers_files/alert_box_manager.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
@@ -19,10 +21,20 @@ class QuestionWithChoicesBlock extends StatelessWidget {
   const QuestionWithChoicesBlock(
       {super.key,
       required this.model,
-        this.addChoiceFunction,
+      this.addChoiceFunction,
       required this.isClientView});
   @override
   Widget build(BuildContext context) {
+    var settCubit = SettingCubit.get(context);
+    final TabBar questionsTabBar = TabBar(
+      tabs: [
+        Tab(text: S.of(context).englishWord),
+        Tab(text: S.of(context).arabicWord)
+      ],
+      indicatorColor: Colors.blue,
+      labelColor: Colors.blue,
+      unselectedLabelColor: Colors.grey,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,11 +46,23 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               isClientView
                   ? const SizedBox()
                   : Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppHorizontalSize.s5),
+                      padding: EdgeInsets.only(right: AppHorizontalSize.s5),
                       child: InkWell(
-                        onTap: () {},
-                        child:  Icon(
+                        onTap: () {
+                          settCubit.setControllersWithModel(model: model);
+                          showAlertQuestionBox(
+                              context: context,
+                              tabBar: questionsTabBar,
+                              tabBarView: settCubit.getQuestionsTabBarViews(
+                                  isQuestion: true),
+                              firstButtonFunction: () {
+                                settCubit.editQuestion(model: model);
+                              },
+                              title: S.of(context).questions,
+                              firstButtonLable: S.of(context).edit,
+                              isSingleButton: true);
+                        },
+                        child: Icon(
                           Icons.open_in_new_rounded,
                           color: ColorManager.kWhiteColor,
                           size: FontSize.s24,
@@ -52,36 +76,18 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                     color: ColorManager.kLimeGreenColor,
                     fontFamily: FontFamily.kPoppinsFont),
               ),
-
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-
-          children: [
-            isClientView
-                ? const SizedBox()
-                : Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
-                    child: InkWell(
-                      onTap: () {},
-                      child:  Icon(
-                        Icons.open_in_new_rounded,
-                        color: ColorManager.kWhiteColor,
-                        size: FontSize.s14,
-                      ),
-                    ),
-                  ),
-            Text(
-              model.getLanguageClass(context).question,
-              style: getMediumStyle(
-                  fontSize: FontSize.s14,
-                  color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
-          ],
+        Padding(
+          padding: EdgeInsets.only(left: AppHorizontalSize.s5),
+          child: Text(
+            model.getLanguageClass(context).question,
+            style: getMediumStyle(
+                fontSize: FontSize.s14,
+                color: ColorManager.kWhiteColor,
+                fontFamily: FontFamily.kPoppinsFont),
+          ),
         ),
         GridView.builder(
           shrinkWrap: true,
@@ -93,39 +99,57 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               crossAxisSpacing: 0,
               childAspectRatio: (2.5 / 0.38),
               mainAxisSpacing: 15),
-          itemBuilder: (context, index) =>
-              !isClientView && index == model.getLanguageClass(context).answers.length
-                  ? Align(
-                      alignment: Alignment.centerLeft,
-                      child:InkWell(
-                        onTap: (){
-                          addChoiceFunction!(model);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s2,),
-                          decoration: BoxDecoration(
-                            color: ColorManager.kPurpleColor,
-                            borderRadius: BorderRadius.circular(AppRadiusSize.s8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: ColorManager.kWhiteColor,
-                          ),
-                        ),
+          itemBuilder: (context, index) => !isClientView &&
+                  index == model.getLanguageClass(context).answers.length
+              ? Align(
+                  alignment: Alignment.centerLeft,
+                  child: InkWell(
+                    onTap: () {
+                      addChoiceFunction!(model);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: AppHorizontalSize.s2,
                       ),
-                    )
-                  : CheckBoxBlock(
-                      value: model.getLanguageClass(context).answers[index].value,
-                      checkBoxFunction: (f) {},
-                      lable: model.getLanguageClass(context).answers[index].text,
-                      borderColor: ColorManager.kWhiteColor,
-                      textStyle: getLightStyle(
-                          fontSize: FontSize.s16,
-                          color: ColorManager.kWhiteColor,
-                          fontFamily: FontFamily.kLeagueSpartanFont),
-                      isSqecialCheckBox: !isClientView,
+                      decoration: BoxDecoration(
+                          color: ColorManager.kPurpleColor,
+                          borderRadius:
+                              BorderRadius.circular(AppRadiusSize.s8)),
+                      child: const Icon(
+                        Icons.add,
+                        color: ColorManager.kWhiteColor,
+                      ),
                     ),
-          itemCount: isClientView ? model.getLanguageClass(context).answers.length : model.getLanguageClass(context).answers.length + 1,
+                  ),
+                )
+              : CheckBoxBlock(
+                  value: model.getLanguageClass(context).answers[index].value,
+                  checkBoxFunction: (f) {},
+                  lable: model.getLanguageClass(context).answers[index].text,
+                  borderColor: ColorManager.kWhiteColor,
+                  textStyle: getLightStyle(
+                      fontSize: FontSize.s16,
+                      color: ColorManager.kWhiteColor,
+                      fontFamily: FontFamily.kLeagueSpartanFont),
+            editChoiceFunction:() {
+              settCubit.setControllersWithModel(model: model);
+              showAlertQuestionBox(
+                  context: context,
+                  tabBar: questionsTabBar,
+                  tabBarView: settCubit.getQuestionsTabBarViews(
+                      isQuestion: false),
+                  firstButtonFunction: () {
+                    settCubit.editQuestion(model: model);
+                  },
+                  title: S.of(context).questions,
+                  firstButtonLable: S.of(context).edit,
+                  isSingleButton: true);
+            } ,
+                  isSpecialCheckBox: !isClientView,
+                ),
+          itemCount: isClientView
+              ? model.getLanguageClass(context).answers.length
+              : model.getLanguageClass(context).answers.length + 1,
         )
       ],
     );

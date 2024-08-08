@@ -4,10 +4,15 @@ part of 'setting_cubit.dart';
 abstract class SettingState {}
 
 class SettingInitial extends SettingState {}
+class SetControllersWithModelState extends SettingState {}
 
 class AddQuestionLoadingState extends SettingState {}
 class AddQuestionSuccessState extends SettingState {}
 class AddQuestionErrorState extends SettingState {}
+
+class EditQuestionLoadingState extends SettingState {}
+class EditQuestionSuccessState extends SettingState {}
+class EditQuestionErrorState extends SettingState {}
 
 class GetQuestionsLoadingState extends SettingState {}
 class GetQuestionsSuccessState extends SettingState {}
