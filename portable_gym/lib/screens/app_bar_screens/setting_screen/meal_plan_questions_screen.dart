@@ -41,10 +41,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
             ),
             body: Column(
               children: [
-                state is AddQuestionLoadingState ||
-                    state is EditQuestionLoadingState ||
-                        state is AddAnswerLoadingState ||
-                        state is GetQuestionsLoadingState
+                isLoadingState(state)
                     ? const Expanded(
                         child: Align(
                           alignment: Alignment.center,
@@ -56,6 +53,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
                     : ListOfQuestionsWithChoicesBlock(
                         model: settCubit.questionsModel,
                         addChoiceFunction: (model) {
+                          settCubit.clearControllers();
                           showAlertQuestionBox(
                               context: context,
                               tabBar: questionsTabBar,
@@ -66,15 +64,14 @@ class MealPlanQuestionScreen extends StatelessWidget {
                               },
                               title: S.of(context).questions,
                               firstButtonLable: S.of(context).add,
-                            isSingleButton: true
-                              );
+                              isSingleButton: true);
                         },
-
                         isClientView: false,
                       ),
                 GeneralButtonBlock(
                     lable: S.of(context).add,
                     function: () {
+                      settCubit.clearControllers();
                       showAlertQuestionBox(
                           context: context,
                           tabBar: questionsTabBar,
@@ -85,8 +82,7 @@ class MealPlanQuestionScreen extends StatelessWidget {
                           },
                           title: S.of(context).questions,
                           firstButtonLable: S.of(context).add,
-                      isSingleButton: true
-                      );
+                          isSingleButton: true);
                     },
                     backgroundColor: ColorManager.kPurpleColor,
                     textStyle: getMediumStyle(
@@ -99,5 +95,15 @@ class MealPlanQuestionScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  bool isLoadingState(SettingState state) {
+    return state is AddQuestionLoadingState ||
+        state is EditQuestionLoadingState ||
+        state is DeleteQuestionLoadingState ||
+        state is AddAnswerLoadingState ||
+        state is EditAnswerLoadingState ||
+        state is DeleteAnswerLoadingState ||
+        state is GetQuestionsLoadingState;
   }
 }

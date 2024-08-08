@@ -11,15 +11,15 @@ import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/general_button_block.dart';
 
 class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
- final List<MealPlanQuestionModel> model;
- final Function(MealPlanQuestionModel)? addChoiceFunction;
+  final List<MealPlanQuestionModel> model;
+  final Function(MealPlanQuestionModel)? addChoiceFunction;
 
- final bool isClientView;
+  final bool isClientView;
 
-  const ListOfQuestionsWithChoicesBlock({
-     required this.model,
-    this.addChoiceFunction,
-      this.isClientView=true,
+  const ListOfQuestionsWithChoicesBlock(
+      {required this.model,
+      this.addChoiceFunction,
+      this.isClientView = true,
       super.key});
 
   @override
@@ -28,19 +28,17 @@ class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
       child: ListView.separated(
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s14),
-          itemBuilder: (context, index) =>
-
-          QuestionWithChoicesBlock(
-         model: model[index],
-            addChoiceFunction:(mod){
-              addChoiceFunction!(mod);
-            },
-            isClientView: isClientView,
-          ),
+          itemBuilder: (context, index) => QuestionWithChoicesBlock(
+                model: model[index],
+                addChoiceFunction: (mod) {
+                  addChoiceFunction!(mod);
+                },
+                isClientView: isClientView,
+              ),
           separatorBuilder: (context, index) => SizedBox(
                 height: AppHorizontalSize.s5,
               ),
-          itemCount:model.length),
+          itemCount: model.length),
     );
   }
 }

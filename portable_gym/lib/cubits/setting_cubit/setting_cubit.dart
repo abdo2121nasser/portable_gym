@@ -91,8 +91,7 @@ class SettingCubit extends Cubit<SettingState> {
       bool isAddAnswer = false,
       bool isEditAnswer = false,
       bool isEditQuestion = false,
-      int answerIndex=0
-      }) {
+      int answerIndex = 0}) {
     if (model == null) {
       //add question
       return MealPlanQuestionModel(
@@ -121,8 +120,8 @@ class SettingCubit extends Cubit<SettingState> {
       return model;
     }
     if (isEditAnswer) {
-      model.english.answers[answerIndex].text=englishAnswer.text;
-      model.arabic.answers[answerIndex].text=arabicAnswer.text;
+      model.english.answers[answerIndex].text = englishAnswer.text;
+      model.arabic.answers[answerIndex].text = arabicAnswer.text;
       return model;
     }
   }
@@ -138,6 +137,15 @@ class SettingCubit extends Cubit<SettingState> {
       arabicAnswer.text = model.arabic.answers[index].text;
     }
     emit(SetControllersWithModelState());
+  }
+
+  clearControllers() {
+    englishTitle.clear();
+    englishQuestion.clear();
+    arabicTitle.clear();
+    arabicQuestion.clear();
+    englishAnswer.clear();
+    arabicAnswer.clear();
   }
 
   addQuestion() async {
@@ -168,6 +176,21 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions();
     }).catchError((error) {
       emit(EditQuestionErrorState());
+      debugPrint(error);
+    });
+  }
+  deleteQuestion({required MealPlanQuestionModel model}) async {
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan)
+        .doc(model.docId);
+    emit(DeleteQuestionLoadingState());
+    Get.back();
+    await data.delete()
+        .then((value) {
+      emit(DeleteQuestionSuccessState());
+      getAllQuestions();
+    }).catchError((error) {
+      emit(DeleteQuestionErrorState());
       debugPrint(error);
     });
   }
@@ -208,17 +231,33 @@ class SettingCubit extends Cubit<SettingState> {
 
   editAnswer({required MealPlanQuestionModel model, required int index}) async {
     model = getQuestionModelQuestionFromControllers(
-        model: model,answerIndex: index, isEditAnswer: true)!;
+        model: model, answerIndex: index, isEditAnswer: true)!;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
         .doc(model.docId);
-    emit(EditQuestionLoadingState());
+    emit(EditAnswerLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
-      emit(EditQuestionSuccessState());
+      emit(EditAnswerSuccessState());
       getAllQuestions();
     }).catchError((error) {
-      emit(EditQuestionErrorState());
+      emit(EditAnswerErrorState());
+      debugPrint(error);
+    });
+  }
+
+  deleteAnswer({required MealPlanQuestionModel model, required int index}) async {
+    model.english.answers.removeAt(index);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan)
+        .doc(model.docId);
+    emit(DeleteAnswerLoadingState());
+    Get.back();
+    await data.update(model.toJson()).then((value) {
+      emit(DeleteAnswerSuccessState());
+      getAllQuestions();
+    }).catchError((error) {
+      emit(DeleteAnswerErrorState());
       debugPrint(error);
     });
   }

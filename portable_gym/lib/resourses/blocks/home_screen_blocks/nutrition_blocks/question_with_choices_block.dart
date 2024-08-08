@@ -60,7 +60,11 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                               },
                               title: S.of(context).questions,
                               firstButtonLable: S.of(context).edit,
-                              isSingleButton: true);
+                              secondButtonLable: S.of(context).delete,
+                              secondButtonFunction: () {
+                                settCubit.deleteQuestion(model: model);
+                              },
+                              isSingleButton: false);
                         },
                         child: Icon(
                           Icons.open_in_new_rounded,
@@ -132,18 +136,24 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kLeagueSpartanFont),
                   editChoiceFunction: () {
-                    settCubit.setControllersWithModel(model: model,index: index);
+                    settCubit.setControllersWithModel(
+                        model: model, index: index);
                     showAlertQuestionBox(
-                        context: context,
-                        tabBar: questionsTabBar,
-                        tabBarView: settCubit.getQuestionsTabBarViews(
-                            isQuestion: false),
-                        firstButtonFunction: () {
-                          settCubit.editAnswer(model: model, index: index);
-                        },
-                        title: S.of(context).questions,
-                        firstButtonLable: S.of(context).edit,
-                        isSingleButton: true);
+                      context: context,
+                      tabBar: questionsTabBar,
+                      tabBarView:
+                          settCubit.getQuestionsTabBarViews(isQuestion: false),
+                      firstButtonFunction: () {
+                        settCubit.editAnswer(model: model, index: index);
+                      },
+                      title: S.of(context).questions,
+                      firstButtonLable: S.of(context).edit,
+                      secondButtonLable: S.of(context).delete,
+                      secondButtonFunction: () {
+                        settCubit.deleteAnswer(model: model, index: index);
+                      },
+                      isSingleButton: false,
+                    );
                   },
                   isSpecialCheckBox: !isClientView,
                 ),
