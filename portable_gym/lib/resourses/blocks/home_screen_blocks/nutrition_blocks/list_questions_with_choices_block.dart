@@ -12,10 +12,12 @@ import '../../general_blocks/general_button_block.dart';
 
 class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
  final List<MealPlanQuestionModel> model;
+ final Function(MealPlanQuestionModel)? addChoiceFunction;
   final bool isClientView;
 
   const ListOfQuestionsWithChoicesBlock({
      required this.model,
+    this.addChoiceFunction,
       this.isClientView=true,
       super.key});
 
@@ -28,9 +30,10 @@ class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
           itemBuilder: (context, index) =>
 
           QuestionWithChoicesBlock(
-            title: model[index].getLanguageClass(context).title,
-            question: model[index].getLanguageClass(context).question,
-       answers:  model[index].getLanguageClass(context).answers,
+         model: model[index],
+            addChoiceFunction:(mod){
+              addChoiceFunction!(mod);
+            },
             isClientView: isClientView,
           ),
           separatorBuilder: (context, index) => SizedBox(

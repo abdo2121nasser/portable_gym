@@ -187,10 +187,12 @@ class StringManager
   // static const String arabicQuestionsText='arabic text';
   // static const String arabicQuestionsValue='arabic value';
 
-  static const String englishQuestionTitleLable='title';
-  static const String englishQuestionsQuestionLable='question';
+  static const String englishQuestionTitleLable='Title';
+  static const String englishQuestionsQuestionLable='Question';
+  static const String englishQuestionsAnswerLable='Answer';
   static const String arabicQuestionTitleLable='العنوان';
   static const String arabicQuestionsQuestionLable='السؤال';
+  static const String arabicQuestionsAnswerLable='الاجابه';
 
 
 

@@ -12,3 +12,7 @@ class AddQuestionErrorState extends SettingState {}
 class GetQuestionsLoadingState extends SettingState {}
 class GetQuestionsSuccessState extends SettingState {}
 class GetQuestionsErrorState extends SettingState {}
+
+class AddAnswerLoadingState extends SettingState {}
+class AddAnswerSuccessState extends SettingState {}
+class AddAnswerErrorState extends SettingState {}

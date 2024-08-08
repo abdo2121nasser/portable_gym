@@ -363,18 +363,22 @@ class AlertDailyRecipeCategoryBox extends StatelessWidget {
 class AlertQuestionBox extends StatelessWidget {
   final TabBar tabBar;
   final TabBarView tabBarView;
-  final VoidCallback firstButtonFunction,secondButtonFunction;
+  final VoidCallback firstButtonFunction;
+  final VoidCallback? secondButtonFunction;
   final String title;
-  final String firstButtonLable,secondButtonLable;
+  final String firstButtonLable;
+  final String? secondButtonLable;
+  final bool isAddFunction;
   const AlertQuestionBox({super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
     required this.firstButtonFunction,
-    required this.secondButtonLable,
+     this.secondButtonLable,
     required this.title,
     required this.firstButtonLable,
-    required this.secondButtonFunction
+     this.secondButtonFunction,
+    required this.isAddFunction
   });
   @override
   Widget build(BuildContext context) {
@@ -410,7 +414,7 @@ class AlertQuestionBox extends StatelessWidget {
                       ),
                       Expanded(child: tabBarView),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment:isAddFunction?MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
                         children: [
                           GeneralButtonBlock(
                               lable: firstButtonLable,
@@ -420,9 +424,10 @@ class AlertQuestionBox extends StatelessWidget {
                                   fontSize: FontSize.s20,
                                   color: ColorManager.kBlackColor,
                                   fontFamily: FontFamily.kLeagueSpartanFont)),
+                      isAddFunction?const SizedBox():
                           GeneralButtonBlock(
-                              lable: secondButtonLable,
-                              function: secondButtonFunction,
+                              lable: secondButtonLable!,
+                              function: secondButtonFunction!,
                               backgroundColor: ColorManager.kLightPurpleColor,
                               textStyle: getSemiBoldStyle(
                                   fontSize: FontSize.s20,
@@ -552,10 +557,11 @@ showAlertQuestionBox({
   required TabBar tabBar,
   required TabBarView tabBarView,
   required VoidCallback firstButtonFunction,
-  required VoidCallback secondButtonFunction,
+   VoidCallback? secondButtonFunction,
   required String title,
   required String firstButtonLable,
-  required String secondButtonLable
+   String? secondButtonLable,
+  required bool isAddFunction
 }) {
   return showDialog(
     context: context,
@@ -567,7 +573,7 @@ showAlertQuestionBox({
         secondButtonFunction: secondButtonFunction,
         title: title,
         firstButtonLable: firstButtonLable,
-    secondButtonLable: secondButtonLable,
+    secondButtonLable: secondButtonLable, isAddFunction: isAddFunction,
     ),
   );
 }

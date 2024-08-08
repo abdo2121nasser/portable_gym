@@ -45,21 +45,27 @@ class SettingCubit extends Cubit<SettingState> {
     ];
   }
 
-  getQuestionsTabBarViews() {
+  getQuestionsTabBarViews({required bool isQuestion}) {
     return TabBarView(children: [
       EnglishQuestionTabBarView(
-        lables: const [
+        lables: isQuestion? const [
           StringManager.englishQuestionTitleLable,
           StringManager.englishQuestionsQuestionLable,
+        ]: [
+          StringManager.englishQuestionsAnswerLable,
+
         ],
-        controllers: [englishTitle, englishQuestion],
+        controllers:isQuestion? [englishTitle, englishQuestion]:[englishAnswer],
       ),
       ArabicQuestionTabBarView(
-        lables: const [
+        lables: isQuestion?const [
           StringManager.arabicQuestionTitleLable,
           StringManager.arabicQuestionsQuestionLable,
+        ]:[
+          StringManager.arabicQuestionsAnswerLable,
+
         ],
-        controllers: [arabicTitle, arabicQuestion],
+        controllers:isQuestion? [arabicTitle, arabicQuestion]:[arabicAnswer],
       )
     ]);
   }
@@ -77,8 +83,9 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  MealPlanQuestionModel getQuestionModelQuestionFromControllers() {
-    return MealPlanQuestionModel(
+  MealPlanQuestionModel getQuestionModelQuestionFromControllers({MealPlanQuestionModel? model}) {
+    if(model==null) {
+      return MealPlanQuestionModel(
         english: EnglishQuestion(
           title: englishTitle.text,
           question: englishQuestion.text,
@@ -88,7 +95,26 @@ class SettingCubit extends Cubit<SettingState> {
           title: arabicTitle.text,
           question: arabicQuestion.text,
           answers: []
-        ));
+        ),
+    docId: ''
+    );
+    }
+    else
+      {
+        return MealPlanQuestionModel(
+            english: EnglishQuestion(
+                title: model.english.title,
+                question: model.english.question,
+                answers: model.english.answers..add(Answer(text: englishAnswer.text, value: false))
+            ),
+            arabic: ArabicQuestion(
+                title: arabicTitle.text,
+                question: arabicQuestion.text,
+                answers: model.arabic.answers..add(Answer(text: arabicAnswer.text, value: false))
+            ),
+            docId: model.docId
+        );
+      }
   }
 
   addQuestion() async {
@@ -114,12 +140,28 @@ class SettingCubit extends Cubit<SettingState> {
     await  data.get()
         .then((value) {
           value.docs.forEach((element) {
-            questionsModel.add(MealPlanQuestionModel.fromJson(json: element.data()));
+            questionsModel.add(MealPlanQuestionModel.fromJson(json: element.data(),docId: element.id));
           });
       emit(GetQuestionsSuccessState());
     }).catchError((error){
       emit(GetQuestionsErrorState());
       debugPrint(error);
     });
+  }
+
+  addAnswer({required MealPlanQuestionModel model}) async {
+    model=getQuestionModelQuestionFromControllers(model: model);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan).doc(model.docId);
+    emit(AddAnswerLoadingState());
+    await  data.update(model.toJson())
+        .then((value) {
+      emit(AddAnswerSuccessState());
+      getAllQuestions();
+    }).catchError((error){
+      emit(AddAnswerErrorState());
+      debugPrint(error);
+    });
+    Get.back();
   }
 }

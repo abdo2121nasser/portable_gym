@@ -23,44 +23,41 @@ class GeneralTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: AppVerticalSize.s55,
-      child: TextFormField(
-        controller: controller,
-        readOnly: readOnly,
-        minLines: multiLine ? 1 : null,
-        maxLines: multiLine ? 2 : null,
-        keyboardType: multiLine ? TextInputType.multiline : null,
-        textAlign: isArabic ? TextAlign.end : TextAlign.start,
-        inputFormatters: <TextInputFormatter>[
-          //if (onlyInteger) FilteringTextInputFormatter.digitsOnly,
-          if (onlyInteger)
-            FilteringTextInputFormatter.allow(
-                // RegExp(r'^[\u0660-\u0669\d]+$'),
+    return TextFormField(
+      controller: controller,
+      readOnly: readOnly,
+      minLines: multiLine ? 1 : null,
+      maxLines: multiLine ? 2 : null,
+      keyboardType: multiLine ? TextInputType.multiline : null,
+      textAlign: isArabic ? TextAlign.end : TextAlign.start,
+      inputFormatters: <TextInputFormatter>[
+        //if (onlyInteger) FilteringTextInputFormatter.digitsOnly,
+        if (onlyInteger)
+          FilteringTextInputFormatter.allow(
+              // RegExp(r'^[\u0660-\u0669\d]+$'),
 
-                RegExp(
-                    r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$')),
-        ],
-        decoration: InputDecoration(
-          fillColor: ColorManager.kWhiteColor,
-          filled: true,
-          enabledBorder: enableBorder
-              ? OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                  borderSide: BorderSide(
-                      width: AppHorizontalSize.s1_5,
-                      color: ColorManager.kBlackColor))
-              : null,
-          focusedBorder: enableBorder
-              ? OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                  borderSide: BorderSide(
-                      width: AppHorizontalSize.s1_5,
-                      color: ColorManager.kBlackColor))
-              : null,
-        ),
+              RegExp(
+                  r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$')),
+      ],
+      decoration: InputDecoration(
+        fillColor: ColorManager.kWhiteColor,
+        filled: true,
+        enabledBorder: enableBorder
+            ? OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+                borderSide: BorderSide(
+                    width: AppHorizontalSize.s1_5,
+                    color: ColorManager.kBlackColor))
+            : null,
+        focusedBorder: enableBorder
+            ? OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+                borderSide: BorderSide(
+                    width: AppHorizontalSize.s1_5,
+                    color: ColorManager.kBlackColor))
+            : null,
       ),
     );
   }

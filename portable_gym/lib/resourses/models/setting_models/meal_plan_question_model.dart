@@ -4,18 +4,21 @@ import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 class MealPlanQuestionModel {
    EnglishQuestion english;
    ArabicQuestion arabic;
+   final String docId;
 
   MealPlanQuestionModel({
     required this.english,
     required this.arabic,
+    required this.docId
   });
 
-  factory MealPlanQuestionModel.fromJson({required Map<String, dynamic> json}) {
+  factory MealPlanQuestionModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return MealPlanQuestionModel(
       english:
           EnglishQuestion.fromJson(json: json[StringManager.englishMealPlanQuestion]),
       arabic:
           ArabicQuestion.fromJson(json: json[StringManager.arabicMealPlanQuestion]),
+      docId: docId
     );
   }
 

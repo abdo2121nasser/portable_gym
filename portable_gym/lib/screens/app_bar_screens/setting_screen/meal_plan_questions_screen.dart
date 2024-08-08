@@ -13,13 +13,11 @@ import '../../../resourses/managers_files/color_manager.dart';
 import '../../../resourses/managers_files/font_manager.dart';
 import '../../../resourses/managers_files/style_manager.dart';
 
-
-
 class MealPlanQuestionScreen extends StatelessWidget {
   final SettingCubit settCubit;
 
   const MealPlanQuestionScreen({super.key, required this.settCubit});
-  
+
   @override
   Widget build(BuildContext context) {
     final TabBar questionsTabBar = TabBar(
@@ -33,52 +31,71 @@ class MealPlanQuestionScreen extends StatelessWidget {
     );
 
     return BlocProvider.value(
-      value:settCubit..getAllQuestions(),
-  child: BlocConsumer<SettingCubit, SettingState>(
-  listener: (context, state) {
-  },
-  builder: (context, state) {
-    return Scaffold(
-appBar: GeneralAppBarBlock(title: S.of(context).questions,),
-      body:   Column(
-        children: [
-          state is GetQuestionsLoadingState? const Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: CircularProgressIndicator(color: ColorManager.kPurpleColor,),),
-          ):
-           ListOfQuestionsWithChoicesBlock(
-         model: settCubit.questionsModel,
-            isClientView: false,
-          ),
-          GeneralButtonBlock(
-              lable: S.of(context).add,
-              function: () {
-                showAlertQuestionBox(
-                    context: context,
-                    tabBar: questionsTabBar,
-                    tabBarView: settCubit.getQuestionsTabBarViews(),
-                    firstButtonFunction: (){
-                      settCubit.addQuestion();
+      value: settCubit..getAllQuestions(),
+      child: BlocConsumer<SettingCubit, SettingState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: GeneralAppBarBlock(
+              title: S.of(context).questions,
+            ),
+            body: Column(
+              children: [
+                state is AddQuestionLoadingState ||
+                        state is AddAnswerLoadingState ||
+                        state is GetQuestionsLoadingState
+                    ? const Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                            color: ColorManager.kPurpleColor,
+                          ),
+                        ),
+                      )
+                    : ListOfQuestionsWithChoicesBlock(
+                        model: settCubit.questionsModel,
+                        addChoiceFunction: (model) {
+                          showAlertQuestionBox(
+                              context: context,
+                              tabBar: questionsTabBar,
+                              tabBarView: settCubit.getQuestionsTabBarViews(
+                                  isQuestion: false),
+                              firstButtonFunction: () {
+                                settCubit.addAnswer(model: model);
+                              },
+                              title: S.of(context).questions,
+                              firstButtonLable: S.of(context).add,
+                            isAddFunction: true
+                              );
+                        },
+                        isClientView: false,
+                      ),
+                GeneralButtonBlock(
+                    lable: S.of(context).add,
+                    function: () {
+                      showAlertQuestionBox(
+                          context: context,
+                          tabBar: questionsTabBar,
+                          tabBarView: settCubit.getQuestionsTabBarViews(
+                              isQuestion: true),
+                          firstButtonFunction: () {
+                            settCubit.addQuestion();
+                          },
+                          title: S.of(context).questions,
+                          firstButtonLable: S.of(context).add,
+                      isAddFunction: true
+                      );
                     },
-                  secondButtonFunction: (){},
-                    title: S.of(context).questions,
-                    firstButtonLable: S.of(context).add,
-                  secondButtonLable: S.of(context).delete
-
-                );
-              },
-              backgroundColor: ColorManager.kPurpleColor,
-              textStyle: getMediumStyle(
-                  fontSize: FontSize.s20,
-                  color: ColorManager.kWhiteColor,
-                  fontFamily: FontFamily.kPoppinsFont))
-
-        ],
+                    backgroundColor: ColorManager.kPurpleColor,
+                    textStyle: getMediumStyle(
+                        fontSize: FontSize.s20,
+                        color: ColorManager.kWhiteColor,
+                        fontFamily: FontFamily.kPoppinsFont))
+              ],
+            ),
+          );
+        },
       ),
     );
-  },
-),
-);
   }
 }

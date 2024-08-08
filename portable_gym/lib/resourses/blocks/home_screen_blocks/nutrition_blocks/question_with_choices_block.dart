@@ -10,15 +10,16 @@ import '../../general_blocks/check_box_block.dart';
 import '../../general_blocks/general_button_block.dart';
 
 class QuestionWithChoicesBlock extends StatelessWidget {
-  final String title;
-  final String question;
-  final List<Answer> answers;
+  // final String title;
+  // final String question;
+  // final List<Answer> answers;
+  final MealPlanQuestionModel model;
+  final Function(MealPlanQuestionModel)? addChoiceFunction;
   final bool isClientView;
   const QuestionWithChoicesBlock(
       {super.key,
-      required this.title,
-      required this.question,
-      required this.answers,
+      required this.model,
+        this.addChoiceFunction,
       required this.isClientView});
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       ),
                     ),
               Text(
-                title,
+                model.getLanguageClass(context).title,
                 style: getMediumStyle(
                     fontSize: FontSize.s24,
                     color: ColorManager.kLimeGreenColor,
@@ -74,7 +75,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                     ),
                   ),
             Text(
-              question,
+              model.getLanguageClass(context).question,
               style: getMediumStyle(
                   fontSize: FontSize.s14,
                   color: ColorManager.kWhiteColor,
@@ -93,11 +94,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               childAspectRatio: (2.5 / 0.38),
               mainAxisSpacing: 15),
           itemBuilder: (context, index) =>
-              !isClientView && index == answers.length
+              !isClientView && index == model.getLanguageClass(context).answers.length
                   ? Align(
                       alignment: Alignment.centerLeft,
                       child:InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          addChoiceFunction!(model);
+                        },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s2,),
                           decoration: BoxDecoration(
@@ -112,9 +115,9 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       ),
                     )
                   : CheckBoxBlock(
-                      value: answers[index].value,
+                      value: model.getLanguageClass(context).answers[index].value,
                       checkBoxFunction: (f) {},
-                      lable: answers[index].text,
+                      lable: model.getLanguageClass(context).answers[index].text,
                       borderColor: ColorManager.kWhiteColor,
                       textStyle: getLightStyle(
                           fontSize: FontSize.s16,
@@ -122,7 +125,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                           fontFamily: FontFamily.kLeagueSpartanFont),
                       isSqecialCheckBox: !isClientView,
                     ),
-          itemCount: isClientView ? answers.length : answers.length + 1,
+          itemCount: isClientView ? model.getLanguageClass(context).answers.length : model.getLanguageClass(context).answers.length + 1,
         )
       ],
     );
