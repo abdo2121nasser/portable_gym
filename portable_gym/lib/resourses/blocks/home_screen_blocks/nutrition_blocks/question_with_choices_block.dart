@@ -131,20 +131,20 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       fontSize: FontSize.s16,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kLeagueSpartanFont),
-            editChoiceFunction:() {
-              settCubit.setControllersWithModel(model: model);
-              showAlertQuestionBox(
-                  context: context,
-                  tabBar: questionsTabBar,
-                  tabBarView: settCubit.getQuestionsTabBarViews(
-                      isQuestion: false),
-                  firstButtonFunction: () {
-                    settCubit.editQuestion(model: model);
+                  editChoiceFunction: () {
+                    settCubit.setControllersWithModel(model: model,index: index);
+                    showAlertQuestionBox(
+                        context: context,
+                        tabBar: questionsTabBar,
+                        tabBarView: settCubit.getQuestionsTabBarViews(
+                            isQuestion: false),
+                        firstButtonFunction: () {
+                          settCubit.editAnswer(model: model, index: index);
+                        },
+                        title: S.of(context).questions,
+                        firstButtonLable: S.of(context).edit,
+                        isSingleButton: true);
                   },
-                  title: S.of(context).questions,
-                  firstButtonLable: S.of(context).edit,
-                  isSingleButton: true);
-            } ,
                   isSpecialCheckBox: !isClientView,
                 ),
           itemCount: isClientView

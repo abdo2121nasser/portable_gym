@@ -86,7 +86,13 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  MealPlanQuestionModel getQuestionModelQuestionFromControllers({MealPlanQuestionModel? model,bool isAddAnswer=true}) {
+  MealPlanQuestionModel? getQuestionModelQuestionFromControllers(
+      {MealPlanQuestionModel? model,
+      bool isAddAnswer = false,
+      bool isEditAnswer = false,
+      bool isEditQuestion = false,
+      int answerIndex=0
+      }) {
     if (model == null) {
       //add question
       return MealPlanQuestionModel(
@@ -99,50 +105,43 @@ class SettingCubit extends Cubit<SettingState> {
               question: arabicQuestion.text,
               answers: []),
           docId: '');
-    } else if (isAddAnswer) {
+    }
+    if (isAddAnswer) {
       // add answer
-      return MealPlanQuestionModel(
-          english: EnglishQuestion(
-              title: model.english.title,
-              question: model.english.question,
-              answers: model.english.answers
-                ..add(Answer(text: englishAnswer.text, value: false))),
-          arabic: ArabicQuestion(
-              title: arabicTitle.text,
-              question: arabicQuestion.text,
-              answers: model.arabic.answers
-                ..add(Answer(text: arabicAnswer.text, value: false))),
-          docId: model.docId);
-    } else {
+      return model
+        ..english.answers.add(Answer(text: englishAnswer.text, value: false))
+        ..arabic.answers.add(Answer(text: englishAnswer.text, value: false));
+    }
+    if (isEditQuestion) {
       //edit question
-      return MealPlanQuestionModel(
-          english: EnglishQuestion(
-              title: englishTitle.text,
-              question: englishQuestion.text,
-              answers: model.english.answers),
-          arabic: ArabicQuestion(
-              title: arabicTitle.text,
-              question: arabicQuestion.text,
-              answers: model.arabic.answers),
-          docId: model.docId);
+      model.english.title = englishTitle.text;
+      model.english.question = englishQuestion.text;
+      model.arabic.title = arabicTitle.text;
+      model.arabic.question = arabicQuestion.text;
+      return model;
+    }
+    if (isEditAnswer) {
+      model.english.answers[answerIndex].text=englishAnswer.text;
+      model.arabic.answers[answerIndex].text=arabicAnswer.text;
+      return model;
     }
   }
 
-  setControllersWithModel({MealPlanQuestionModel? model, Answer? answer}) {
-    if (model != null) {
+  setControllersWithModel({required MealPlanQuestionModel model, int? index}) {
+    if (index == null) {
       englishTitle.text = model.english.title;
       englishQuestion.text = model.english.question;
       arabicTitle.text = model.arabic.title;
       arabicQuestion.text = model.arabic.question;
     } else {
-      englishAnswer.text = answer!.text;
-      arabicAnswer.text = answer.text;
+      englishAnswer.text = model.english.answers[index].text;
+      arabicAnswer.text = model.arabic.answers[index].text;
     }
     emit(SetControllersWithModelState());
   }
 
   addQuestion() async {
-    MealPlanQuestionModel model = getQuestionModelQuestionFromControllers();
+    MealPlanQuestionModel model = getQuestionModelQuestionFromControllers()!;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan);
     emit(AddQuestionLoadingState());
@@ -157,11 +156,12 @@ class SettingCubit extends Cubit<SettingState> {
   }
 
   editQuestion({required MealPlanQuestionModel model}) async {
-    model = getQuestionModelQuestionFromControllers(model: model,isAddAnswer: false);
+    model = getQuestionModelQuestionFromControllers(
+        model: model, isEditQuestion: true)!;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
         .doc(model.docId);
-       emit(EditQuestionLoadingState());
+    emit(EditQuestionLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
       emit(EditQuestionSuccessState());
@@ -170,7 +170,6 @@ class SettingCubit extends Cubit<SettingState> {
       emit(EditQuestionErrorState());
       debugPrint(error);
     });
-
   }
 
   getAllQuestions() async {
@@ -191,7 +190,8 @@ class SettingCubit extends Cubit<SettingState> {
   }
 
   addAnswer({required MealPlanQuestionModel model}) async {
-    model = getQuestionModelQuestionFromControllers(model: model,isAddAnswer: false);
+    model = getQuestionModelQuestionFromControllers(
+        model: model, isAddAnswer: true)!;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
         .doc(model.docId);
@@ -202,6 +202,23 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions();
     }).catchError((error) {
       emit(AddAnswerErrorState());
+      debugPrint(error);
+    });
+  }
+
+  editAnswer({required MealPlanQuestionModel model, required int index}) async {
+    model = getQuestionModelQuestionFromControllers(
+        model: model,answerIndex: index, isEditAnswer: true)!;
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan)
+        .doc(model.docId);
+    emit(EditQuestionLoadingState());
+    Get.back();
+    await data.update(model.toJson()).then((value) {
+      emit(EditQuestionSuccessState());
+      getAllQuestions();
+    }).catchError((error) {
+      emit(EditQuestionErrorState());
       debugPrint(error);
     });
   }
