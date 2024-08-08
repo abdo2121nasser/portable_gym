@@ -5,21 +5,20 @@ import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
+import '../../../models/setting_models/meal_plan_question_model.dart';
 import '../../general_blocks/check_box_block.dart';
 import '../../general_blocks/general_button_block.dart';
 
 class QuestionWithChoicesBlock extends StatelessWidget {
   final String title;
   final String question;
-  final List<String> choicesText;
-  final List<bool>? choicesValues;
+  final List<Answer> answers;
   final bool isClientView;
   const QuestionWithChoicesBlock(
       {super.key,
       required this.title,
       required this.question,
-      required this.choicesText,
-      this.choicesValues,
+      required this.answers,
       required this.isClientView});
   @override
   Widget build(BuildContext context) {
@@ -29,6 +28,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               isClientView
                   ? const SizedBox()
@@ -51,16 +51,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                     color: ColorManager.kLimeGreenColor,
                     fontFamily: FontFamily.kPoppinsFont),
               ),
-              const Spacer(),
-              IconButton(
-                onPressed: (){},
-                icon:Icon( Icons.delete,
-                color: ColorManager.kRed,
-                ))
+
             ],
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+
           children: [
             isClientView
                 ? const SizedBox()
@@ -96,13 +93,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               childAspectRatio: (2.5 / 0.38),
               mainAxisSpacing: 15),
           itemBuilder: (context, index) =>
-              !isClientView && index == choicesText.length
+              !isClientView && index == answers.length
                   ? Align(
                       alignment: Alignment.centerLeft,
                       child:InkWell(
                         onTap: (){},
                         child: Container(
-                          margin: EdgeInsets.only(left: AppHorizontalSize.s5),
+                          margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s2,),
                           decoration: BoxDecoration(
                             color: ColorManager.kPurpleColor,
                             borderRadius: BorderRadius.circular(AppRadiusSize.s8)
@@ -115,9 +112,9 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       ),
                     )
                   : CheckBoxBlock(
-                      value: choicesValues?[index],
+                      value: answers[index].value,
                       checkBoxFunction: (f) {},
-                      lable: choicesText[index],
+                      lable: answers[index].text,
                       borderColor: ColorManager.kWhiteColor,
                       textStyle: getLightStyle(
                           fontSize: FontSize.s16,
@@ -125,7 +122,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                           fontFamily: FontFamily.kLeagueSpartanFont),
                       isSqecialCheckBox: !isClientView,
                     ),
-          itemCount: isClientView ? choicesText.length : choicesText.length + 1,
+          itemCount: isClientView ? answers.length : answers.length + 1,
         )
       ],
     );

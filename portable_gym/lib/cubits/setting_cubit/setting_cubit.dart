@@ -21,11 +21,12 @@ class SettingCubit extends Cubit<SettingState> {
 
   List<MealPlanQuestionModel> questionsModel = [];
 
-  TextEditingController englishTitle=TextEditingController();
-  TextEditingController englishQuestion=TextEditingController();
-  TextEditingController arabicTitle=TextEditingController();
-  TextEditingController arabicQuestion=TextEditingController();
-
+  TextEditingController englishTitle = TextEditingController();
+  TextEditingController englishQuestion = TextEditingController();
+  TextEditingController arabicTitle = TextEditingController();
+  TextEditingController arabicQuestion = TextEditingController();
+  TextEditingController englishAnswer = TextEditingController();
+  TextEditingController arabicAnswer = TextEditingController();
 
 
   getSettingOptionsLables({
@@ -43,28 +44,32 @@ class SettingCubit extends Cubit<SettingState> {
       Icons.lock_reset_outlined,
     ];
   }
-  getQuestionsTabBarViews(){
-    return TabBarView(children:
-      [
-      EnglishQuestionTabBarView(lables: const [
-        StringManager.englishQuestionTitle,
-        StringManager.englishQuestionsQuestion,
-      ],
-      controllers: [englishTitle,englishQuestion],
+
+  getQuestionsTabBarViews() {
+    return TabBarView(children: [
+      EnglishQuestionTabBarView(
+        lables: const [
+          StringManager.englishQuestionTitleLable,
+          StringManager.englishQuestionsQuestionLable,
+        ],
+        controllers: [englishTitle, englishQuestion],
       ),
-      ArabicQuestionTabBarView(lables: const [
-        StringManager.arabicQuestionTitle,
-        StringManager.arabicQuestionsQuestion,
-      ],
-        controllers: [arabicTitle,arabicQuestion],
+      ArabicQuestionTabBarView(
+        lables: const [
+          StringManager.arabicQuestionTitleLable,
+          StringManager.arabicQuestionsQuestionLable,
+        ],
+        controllers: [arabicTitle, arabicQuestion],
       )
     ]);
   }
 
-  settingNavigation({required int index,required context}) {
+  settingNavigation({required int index, required context}) {
     switch (index) {
       case 0:
-        Get.to( MealPlanQuestionScreen(settCubit: SettingCubit.get(context),));
+        Get.to(MealPlanQuestionScreen(
+          settCubit: SettingCubit.get(context),
+        ));
         break;
       case 1:
         Get.to(const ForgetPasswordScreen());
@@ -72,19 +77,49 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  setQuestionModelAttributes({required MealPlanQuestionModel model}){
+  MealPlanQuestionModel getQuestionModelQuestionFromControllers() {
+    return MealPlanQuestionModel(
+        english: EnglishQuestion(
+          title: englishTitle.text,
+          question: englishQuestion.text,
+          answers: []
+        ),
+        arabic: ArabicQuestion(
+          title: arabicTitle.text,
+          question: arabicQuestion.text,
+          answers: []
+        ));
   }
 
-   addQuestion() async {
-     // var data = FirebaseFirestore.instance
-     //     .collection(StringManager.collectionQuestionsOfMealPlan);
-     //  await  data.add()
-     //     .then((value) {
-     //
-     // }).catchError((error){
-     //
-     // });
-   }
-
-
+  addQuestion() async {
+    MealPlanQuestionModel model=getQuestionModelQuestionFromControllers();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan);
+    emit(AddQuestionLoadingState());
+     await  data.add(model.toJson())
+        .then((value) {
+       emit(AddQuestionSuccessState());
+       getAllQuestions();
+    }).catchError((error){
+       emit(AddQuestionErrorState());
+       debugPrint(error);
+    });
+     Get.back();
+  }
+  getAllQuestions() async {
+    questionsModel.clear();
+    emit(GetQuestionsLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionQuestionsOfMealPlan);
+    await  data.get()
+        .then((value) {
+          value.docs.forEach((element) {
+            questionsModel.add(MealPlanQuestionModel.fromJson(json: element.data()));
+          });
+      emit(GetQuestionsSuccessState());
+    }).catchError((error){
+      emit(GetQuestionsErrorState());
+      debugPrint(error);
+    });
+  }
 }

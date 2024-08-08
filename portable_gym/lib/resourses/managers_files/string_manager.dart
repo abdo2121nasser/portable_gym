@@ -172,16 +172,25 @@ class StringManager
 
   static const String collectionQuestionsOfMealPlan='meal plan questions collection';
 
-  static const String mealPlanQuestionsTitle='title';
-  static const String mealPlanQuestionsAnswer='answer';
-  static const String mealPlanQuestionsQuestion='question';
-  static const String mealPlanQuestionsText='text';
-  static const String mealPlanQuestionsValue='value';
+  static const String englishMealPlanQuestion='english meal plan question';
+  static const String arabicMealPlanQuestion='arabic meal plan question';
 
-  static const String englishQuestionTitle='title';
-  static const String englishQuestionsQuestion='question';
-  static const String arabicQuestionTitle='العنوان';
-  static const String arabicQuestionsQuestion='السؤال';
+  static const String questionsTitle='title';
+  static const String questionsAnswer='answer';
+  static const String questionsQuestion='question';
+  static const String questionsText='text';
+  static const String questionsValue='value';
+
+  // static const String arabicQuestionsTitle='arabic title';
+  // static const String arabicQuestionsAnswer='arabic answer';
+  // static const String arabicQuestionsQuestion='arabic question';
+  // static const String arabicQuestionsText='arabic text';
+  // static const String arabicQuestionsValue='arabic value';
+
+  static const String englishQuestionTitleLable='title';
+  static const String englishQuestionsQuestionLable='question';
+  static const String arabicQuestionTitleLable='العنوان';
+  static const String arabicQuestionsQuestionLable='السؤال';
 
 
 

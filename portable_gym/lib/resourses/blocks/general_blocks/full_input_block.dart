@@ -31,24 +31,19 @@ class FullInputBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            !isArabicTabView &&
-                    Localizations.localeOf(context).toString() == 'ar'
-                ? Spacer()
-                : SizedBox(),
-            isArabicTabView &&
-                    Localizations.localeOf(context).toString() == 'en'
-                ? Spacer()
-                : SizedBox(),
-            Text(
-              lable,
-              style: getSemiBoldStyle(
-                  fontSize: FontSize.s16,
-                  color: color,
-                  fontFamily: FontFamily.kPoppinsFont),
-            ),
-          ],
+        Directionality(
+          textDirection: isArabicTabView ? TextDirection.rtl : TextDirection.ltr,
+          child: Row(
+            children: [
+              Text(
+                lable,
+                style: getSemiBoldStyle(
+                    fontSize: FontSize.s16,
+                    color: color,
+                    fontFamily: FontFamily.kPoppinsFont),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: AppVerticalSize.s5,
