@@ -10,6 +10,8 @@ import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/food_main_element_screen.dart';
 
+import '../../../../../cubits/favourite_cubit/favourite_cubit.dart';
+import '../../../../../cubits/profile_cubit/profile_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/meals_types_list_block.dart';
 import '../../../../../resourses/blocks/general_blocks/daily_activity_block.dart';
@@ -30,56 +32,60 @@ class NutritionScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider(
-  create: (context) => NutritionCubit()..getDailyRecipeCategory(),
-  child: BlocConsumer<NutritionCubit, NutritionState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var nutCubit = NutritionCubit.get(context);
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: ColorManager.kBlackColor,
-          appBar: GeneralAppBarBlock(title:S.of(context).nutrition,
-         actions:  [
-           Padding(
-             padding:
-             EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
-             child: InkWell(
-                 onTap: () {
-                   Get.to(FoodMainElementScreen(nutCubit: nutCubit,));
-                 },
-                 child: const Icon(
-                   Icons.psychology_rounded,
-                   color: ColorManager.kLimeGreenColor,
-                 )),
-           )
-         ],
-          ),
-          body: Column(
-            children: [
-              HorizontalCategoryListBlock(
-                  currentLevel: nutCubit.currentPlane,
-                  numberOfLevels:  nutCubit.planBodies.length,
-                  lables: nutCubit.getMealPlaneLabel(context: context),
-                  changeLevel: (index) {
-                    nutCubit.changeCurrentPlane(index: index);
-                  }),
-              nutCubit.planBodies[nutCubit.currentPlane],
-            ],
-          ),
-          floatingActionButton:nutCubit.currentPlane==1? FloatingActionButtonBlock(
-            function: (){
-              showAlertRecipeBox(
-                  context: context,
-                  tabBar: recipeTabBar,
-                  tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
-                  buttonFunction: nutCubit.processOfAddRecipes,
-                  title: S.of(context).recipe,
-                  buttonLable:  S.of(context).addRecipe);
-            }
-          ):null,
-        );
-      },
-    ),
-);
+      create: (context) => NutritionCubit()..getDailyRecipeCategory(),
+      child: BlocConsumer<NutritionCubit, NutritionState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var nutCubit = NutritionCubit.get(context);
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: ColorManager.kBlackColor,
+            appBar: GeneralAppBarBlock(
+              title: S.of(context).nutrition,
+              actions: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppHorizontalSize.s22),
+                  child: InkWell(
+                      onTap: () {
+                        Get.to(FoodMainElementScreen(
+                          nutCubit: nutCubit,
+                        ));
+                      },
+                      child: const Icon(
+                        Icons.psychology_rounded,
+                        color: ColorManager.kLimeGreenColor,
+                      )),
+                )
+              ],
+            ),
+            body: Column(
+              children: [
+                HorizontalCategoryListBlock(
+                    currentLevel: nutCubit.currentPlane,
+                    numberOfLevels: nutCubit.planBodies.length,
+                    lables: nutCubit.getMealPlaneLabel(context: context),
+                    changeLevel: (index) {
+                      nutCubit.changeCurrentPlane(index: index);
+                    }),
+                nutCubit.planBodies[nutCubit.currentPlane],
+              ],
+            ),
+            floatingActionButton: nutCubit.currentPlane == 1
+                ? FloatingActionButtonBlock(function: () {
+                    showAlertRecipeBox(
+                        context: context,
+                        tabBar: recipeTabBar,
+                        tabBarView: nutCubit.getRecipeTabBarViews(
+                            nutritionCubit: nutCubit),
+                        buttonFunction: nutCubit.processOfAddRecipes,
+                        title: S.of(context).recipe,
+                        buttonLable: S.of(context).addRecipe);
+                  })
+                : null,
+          );
+        },
+      ),
+    );
   }
 }

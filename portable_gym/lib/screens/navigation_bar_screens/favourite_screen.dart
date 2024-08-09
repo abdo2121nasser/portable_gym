@@ -10,24 +10,29 @@ class FavouriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FavouriteCubit, FavouriteState>(
-      listener: (context, state) {
-      },
-      builder: (context, state) {
-        var favCubit = FavouriteCubit.get(context);
-        return Column(
-          children: [
-            HorizontalCategoryListBlock(
-                currentLevel: favCubit.currentCategory,
-                numberOfLevels: favCubit.getFavouriteCategories(context).length,
-                lables: favCubit.getFavouriteCategories(context),
-                changeLevel: (index) {
-                  favCubit.changeCurrentCategory(index: index);
-                }),
-            favCubit.categories[favCubit.currentCategory]
-          ],
-        );
-      },
+    return BlocProvider(
+      create: (context)  =>  FavouriteCubit()..getUserDocId(),
+      child: BlocConsumer<FavouriteCubit, FavouriteState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var favCubit = FavouriteCubit.get(context);
+          return Column(
+            children: [
+              HorizontalCategoryListBlock(
+                  currentLevel: favCubit.currentCategory,
+                  numberOfLevels: favCubit
+                      .getFavouriteCategories(context)
+                      .length,
+                  lables: favCubit.getFavouriteCategories(context),
+                  changeLevel: (index) {
+                    favCubit.changeCurrentCategory(index: index);
+                  }),
+              state is GetUserDocIdLoadingState ? const Center(child: CircularProgressIndicator()):
+              favCubit.categories[favCubit.currentCategory]
+            ],
+          );
+        },
+      ),
     );
   }
 }

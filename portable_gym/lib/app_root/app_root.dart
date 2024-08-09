@@ -40,32 +40,24 @@ class PortableGym extends StatelessWidget {
             child: ScreenUtilInit(
               designSize: const Size(393, 852),
               builder: (context, child) =>
-                  MultiBlocProvider(
-                    providers: [
-                  //    BlocProvider(create: (context) => AuthenticationCubit()),
-                    //  BlocProvider(create: (context) => SettingCubit()),
-                      BlocProvider(create: (context) =>  FavouriteCubit()..getUserDocId()),
-
+                  GetMaterialApp(
+                    locale: const Locale('en'),
+                    localizationsDelegates: const [
+                      S.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
                     ],
-                    child: GetMaterialApp(
-                      locale: const Locale('en'),
-                      localizationsDelegates: const [
-                        S.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: S.delegate.supportedLocales,
-                      debugShowCheckedModeBanner: false,
-                      theme: getAppTheme(),
-                      // home: MainNavigationBarScreen(),
-                      //home: ProfileScreen(),
-                      home: FirebaseAuth.instance.currentUser == null
-                          ? const LoginScreen()
-                          : const MainNavigationBarScreen(),
-                      //   home: SetUpScreen(email: 'email'),
-                      // home: LoginScreen(),
-                    ),
+                    supportedLocales: S.delegate.supportedLocales,
+                    debugShowCheckedModeBanner: false,
+                    theme: getAppTheme(),
+                    // home: MainNavigationBarScreen(),
+                    //home: ProfileScreen(),
+                    home: FirebaseAuth.instance.currentUser == null
+                        ? const LoginScreen()
+                        : const MainNavigationBarScreen(),
+                    //   home: SetUpScreen(email: 'email'),
+                    // home: LoginScreen(),
                   ),
             ),
           ),

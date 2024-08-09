@@ -17,6 +17,7 @@ part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(FavouriteInitial());
+
   static FavouriteCubit get(context) => BlocProvider.of(context);
   late final String userDocId;
   int currentCategory = 0;

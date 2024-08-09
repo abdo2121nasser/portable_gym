@@ -53,7 +53,8 @@ class RecipeGridSquareBlock extends StatelessWidget {
                     color: ColorManager.kPurpleColor,
                   ),
                 )
-              : GridView.builder(
+              :
+          GridView.builder(
                   padding: EdgeInsets.symmetric(
                       horizontal: AppHorizontalSize.s22,
                       vertical: AppVerticalSize.s14),

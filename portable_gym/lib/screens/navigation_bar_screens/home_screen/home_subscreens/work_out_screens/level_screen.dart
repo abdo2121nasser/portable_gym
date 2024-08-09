@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
@@ -9,8 +9,6 @@ import '../../../../../resourses/blocks/general_blocks/floating_action_button_bl
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_training_items_block.dart';
 import '../../../../../resourses/managers_files/alert_box_manager.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
-import '../../../../../resourses/managers_files/font_manager.dart';
-import '../../../../../resourses/managers_files/style_manager.dart';
 
 class LevelScreen extends StatelessWidget {
   final String bodyCategory;
@@ -33,7 +31,9 @@ class LevelScreen extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocProvider.value(
+    return BlocProvider(
+  create: (context) => FavouriteCubit()..getUserDocId(),
+  child: BlocProvider.value(
       value: workCubit
         ..getTraining(
             bodyCategory: bodyCategory, isDailyCategory: isDailyCategory),
@@ -50,7 +50,8 @@ class LevelScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
-                state is GetTrainingLoadingState
+                state is GetTrainingLoadingState ||
+                state is GetUserDocIdLoadingState
                     ? const Expanded(
                         child: Align(
                             alignment: Alignment.center,
@@ -90,6 +91,7 @@ class LevelScreen extends StatelessWidget {
           );
         },
       ),
-    );
+    ),
+);
   }
 }
