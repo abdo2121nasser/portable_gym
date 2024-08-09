@@ -9,6 +9,7 @@ import 'app_root/app_root.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+
   Bloc.observer = MyBlocObserver();
  // DioHelper.init();
   WidgetsFlutterBinding.ensureInitialized();

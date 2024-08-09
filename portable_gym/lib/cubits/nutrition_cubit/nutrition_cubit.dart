@@ -600,3 +600,4 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 }
+

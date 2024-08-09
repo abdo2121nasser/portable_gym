@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/meal_plan_questions_screen.dart';
@@ -27,6 +28,19 @@ class SettingCubit extends Cubit<SettingState> {
   TextEditingController arabicQuestion = TextEditingController();
   TextEditingController englishAnswer = TextEditingController();
   TextEditingController arabicAnswer = TextEditingController();
+
+ Future<String> getUserDocId() async {
+    // emit(GetUserDocIdLoadingState());
+   return await const FlutterSecureStorage()
+        .read(key: StringManager.userDocId)
+        .then((value) {
+     return value!;
+      // emit(GetUserDocIdSuccessState());
+    }).catchError((error) {
+      // emit(GetUserDocIdErrorState());
+      debugPrint(error);
+    });
+  }
 
   getSettingOptionsLables({
     required context,
@@ -90,8 +104,7 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  changeAnswerValue(
-      {required questionIndex, required int answerIndex, required bool value}) {
+  changeAnswerValue({required questionIndex, required int answerIndex, required bool value}) {
     for (int i = 0;
         i < questionsModel[questionIndex].english.answers.length;
         i++) {
@@ -263,8 +276,7 @@ class SettingCubit extends Cubit<SettingState> {
     });
   }
 
-  deleteAnswer(
-      {required MealPlanQuestionModel model, required int index}) async {
+  deleteAnswer({required MealPlanQuestionModel model, required int index}) async {
     model.english.answers.removeAt(index);
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionQuestionsOfMealPlan)
@@ -279,4 +291,41 @@ class SettingCubit extends Cubit<SettingState> {
       debugPrint(error);
     });
   }
+  //-------------------------------trainer side---------------------------------
+
+  Map<String,dynamic> getMealPlanRequestMap({required String userDocId}){
+    List<Map<String,dynamic>> questions=[];
+    questionsModel.forEach((element) {
+      questions.add(element.toJson());
+    });
+  Map<String,dynamic> map;
+  map={
+    StringManager.mealPlanData: questions,
+    StringManager.userDocId:userDocId
+  };
+  return map;
+
+  }
+
+  createMealPlan() async {
+    String userDocId=await getUserDocId();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionMealPlansRequests);
+    emit(CreateMealPlanLoadingState());
+    await data.add(
+        getMealPlanRequestMap(userDocId: userDocId)
+    ).then((value) {
+      emit(CreateMealPlanSuccessState());
+    }).catchError((error) {
+      emit(CreateMealPlanErrorState());
+      debugPrint(error);
+    });
+    Get.back();
+
+
+  }
+
+
+
+
 }

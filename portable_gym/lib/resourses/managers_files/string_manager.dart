@@ -194,6 +194,8 @@ class StringManager
   static const String arabicQuestionsQuestionLable='السؤال';
   static const String arabicQuestionsAnswerLable='الاجابه';
 
+  static const String collectionMealPlansRequests='meal plan requests collection';
+  static const String mealPlanData='meal plan data';
 
 
 
