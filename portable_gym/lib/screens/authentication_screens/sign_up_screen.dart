@@ -13,15 +13,16 @@ import '../../resourses/blocks/general_blocks/full_input_block.dart';
 import '../../resourses/blocks/general_blocks/general_button_block.dart';
 
 class SignUpScreen extends StatelessWidget {
-
-  const SignUpScreen({super.key, });
+  final AuthenticationCubit authCubit;
+  const SignUpScreen({super.key,required this.authCubit });
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+    return BlocProvider.value(
+      value: authCubit,
+  child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {},
       builder: (context, state) {
-         var authCubit = AuthenticationCubit.get(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
 
@@ -132,6 +133,7 @@ class SignUpScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ),
+);
   }
 }

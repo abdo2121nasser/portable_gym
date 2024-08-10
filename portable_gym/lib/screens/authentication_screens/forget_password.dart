@@ -17,7 +17,9 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+    return BlocProvider(
+  create: (context) => AuthenticationCubit(),
+  child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {},
       builder: (context, state) {
           var authCubit = AuthenticationCubit.get(context);
@@ -88,6 +90,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ),
+);
   }
 }
