@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 import '../setting_models/meal_plan_question_model.dart';
@@ -35,4 +36,9 @@ class MealPlanRequestModel {
       StringManager.userNickName: userNickName,
     };
   }
+  // LanguageClassQuestions getLanguageClass({required context,required MealPlanQuestionModel model}) {
+  //   return Localizations.localeOf(context).toString() == 'ar'
+  //       ? model.arabic
+  //       : model.english;
+  // }
 }
