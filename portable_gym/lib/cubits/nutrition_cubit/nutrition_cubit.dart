@@ -8,6 +8,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_block
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/food_main_element_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_recipe_tab_bar_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../generated/l10n.dart';
@@ -30,6 +31,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   List<RecipeModel> recipeModels = [];
   List<FoodElementModel> foodElementModels = [];
   DailyRecipeCardModel? dailyRecipeCardModel;
+  List<MealPlanRequestModel> requestsModels=[];
 
   List<Widget> planBodies = [const MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
@@ -599,5 +601,25 @@ class NutritionCubit extends Cubit<NutritionState> {
       debugPrint(error.toString());
     });
   }
+
+  getAllMealPlanRequests() async {
+    requestsModels.clear();
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionMealPlansRequests);
+    emit(GetAllMealPlanRequestsLoadingState());
+   await data.get().then((value) {
+      value.docs.forEach((element) {
+        requestsModels.add(MealPlanRequestModel.fromJson(json: element.data(), docId: element.id));
+      });
+      emit(GetAllMealPlanRequestsSuccessState());
+    }).catchError((error){
+     emit(GetAllMealPlanRequestsErrorState());
+     debugPrint(error);
+    });
+
+  }
+
+
+
 }
 

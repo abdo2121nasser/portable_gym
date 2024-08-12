@@ -7,7 +7,7 @@ import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/screens/authentication_screens/forget_password.dart';
+import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
 import 'package:portable_gym/screens/authentication_screens/sign_up_screen.dart';
 
 import '../../generated/l10n.dart';
@@ -90,7 +90,6 @@ class LoginScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Get.to(const ForgetPasswordScreen());
-                              authCubit.close();
                             },
                             child: Text(S.of(context).forgetPassword,
                                 style: getMediumStyle(

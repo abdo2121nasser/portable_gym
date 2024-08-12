@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/meal_plan_questions_screen.dart';
-import 'package:portable_gym/screens/authentication_screens/forget_password.dart';
+import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/profile_blocks/settings_blocks/setting_tab_bar_views/arabic_question_tab_bar_view.dart';
@@ -293,7 +293,7 @@ class SettingCubit extends Cubit<SettingState> {
   }
   //-------------------------------trainer side---------------------------------
 
-  Map<String,dynamic> getMealPlanRequestMap({required String userDocId}){
+  Map<String,dynamic> getMealPlanRequestMap({required String userDocId,required String nickName}){
     List<Map<String,dynamic>> questions=[];
     questionsModel.forEach((element) {
       questions.add(element.toJson());
@@ -301,19 +301,20 @@ class SettingCubit extends Cubit<SettingState> {
   Map<String,dynamic> map;
   map={
     StringManager.mealPlanData: questions,
-    StringManager.userDocId:userDocId
+    StringManager.userDocId:userDocId,
+    StringManager.userNickName:nickName
   };
   return map;
 
   }
 
-  createMealPlan() async {
+  createMealPlan({required String nickName}) async {
     String userDocId=await getUserDocId();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionMealPlansRequests);
     emit(CreateMealPlanLoadingState());
     await data.add(
-        getMealPlanRequestMap(userDocId: userDocId)
+        getMealPlanRequestMap(userDocId: userDocId,nickName: nickName)
     ).then((value) {
       emit(CreateMealPlanSuccessState());
     }).catchError((error) {
@@ -321,8 +322,6 @@ class SettingCubit extends Cubit<SettingState> {
       debugPrint(error);
     });
     Get.back();
-
-
   }
 
 

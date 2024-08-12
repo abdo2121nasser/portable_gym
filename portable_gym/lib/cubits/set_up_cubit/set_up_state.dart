@@ -24,3 +24,7 @@ class CreateProfileErrorState extends SetUpState {}
 class UploadImageFileLoadingState extends SetUpState {}
 class UploadImageFileSuccessState extends SetUpState {}
 class UploadImageFileErrorState extends SetUpState {}
+
+class SaveUserDataDocIdLoadingState extends SetUpState {}
+class SaveUserDataDocIdSuccessState extends SetUpState {}
+class SaveUserDataDocIdErrorState extends   SetUpState {}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 
@@ -12,7 +13,8 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 
 class MealPlanCreationScreen extends StatelessWidget {
-  const MealPlanCreationScreen({super.key});
+  final String userNickName;
+  const MealPlanCreationScreen({super.key,required this.userNickName});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class MealPlanCreationScreen extends StatelessWidget {
               GeneralButtonBlock(
                   lable: S.of(context).create,
                   function: () {
-                    settCubit.createMealPlan();
+                    settCubit.createMealPlan(nickName: userNickName);
                   },
                   backgroundColor: ColorManager.kPurpleColor,
                   textStyle: getMediumStyle(

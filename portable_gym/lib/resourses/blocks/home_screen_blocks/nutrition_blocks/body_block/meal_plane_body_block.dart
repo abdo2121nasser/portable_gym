@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/admin_view_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/has_no_meal_planblock.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/user_view_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/daily_recipe_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/meal_plan_creation_screen.dart';
@@ -22,77 +26,31 @@ class MealPlaneBodyBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TabBar dailyRecipeCategoryTabBar = TabBar(
-      tabs: [
-        Tab(text: S.of(context).englishWord),
-        Tab(text: S.of(context).arabicWord)
-      ],
-      indicatorColor: Colors.blue,
-      labelColor: Colors.blue,
-      unselectedLabelColor: Colors.grey,
-    );
     return BlocProvider.value(
       value: NutritionCubit.get(context),
-      child: BlocConsumer<NutritionCubit, NutritionState>(
+      child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var nutCubit = NutritionCubit.get(context);
+          return BlocConsumer<NutritionCubit, NutritionState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              var nutCubit = NutritionCubit.get(context);
+              var profCubit = ProfileCubit.get(context);
 
-          return Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // state is GetDailyRecipeCardLoadingState
-                //     ? SizedBox(height: AppVerticalSize.s5,)
-                //     : Padding(
-                //         padding:
-                //             EdgeInsets.symmetric(vertical: AppVerticalSize.s22),
-                //         child: InkWell(
-                //           onTap: (){
-                //             nutCubit.changeCurrentMealType(index: 0,isDailyRecipe: true);
-                //           Get.to(DailyRecipeScreen(nutCubit: nutCubit,));
-                //           },
-                //           onLongPress: (){
-                //             nutCubit.setDailyRecipeCategoryAttributes();
-                //             showAlertDailyRecipeCategoryBox(
-                //               context: context,
-                //               tabBar: dailyRecipeCategoryTabBar,
-                //               tabBarView: nutCubit.getDailyRecipeCategoryTabBarViews(nutritionCubit: nutCubit),
-                //               title: S.of(context).recipeOfDay,
-                //               buttonLable: S.of(context).edit,
-                //               buttonFunction: (){
-                //                 nutCubit.editDailyRecipeCategory();
-                //               }
-                //             );
-                //           },
-                //           child: DailyActivityBlock(
-                //             title: S.of(context).recipeOfDay,
-                //             isDailyTraining: false,
-                //             dailyRecipeCardModel: nutCubit.dailyRecipeCardModel,
-                //           ),
-                //         ),
-                //       ),
-                // MealsTypesListBlock(
-                //   lables: nutCubit.getMealTypeLables(context: context),
-                // ),
-                //todo uncommite it when it ready to have meal plan
-                Text(S.of(context).createMealPlanMassage,
-                    style: getMediumStyle(
-                        fontSize: FontSize.s20,
-                        color: ColorManager.kWhiteColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-                GeneralButtonBlock(
-                    lable: S.of(context).create,
-                    function: () {
-                      Get.to(()=> MealPlanCreationScreen());
-                    },
-                    backgroundColor: ColorManager.kPurpleColor,
-                    textStyle: getMediumStyle(
-                        fontSize: FontSize.s20,
-                        color: ColorManager.kWhiteColor,
-                        fontFamily: FontFamily.kPoppinsFont)),
-              ],
-            ),
+              return state is GetUserDocIdLoadingState ||
+                      profCubit.profileModel == null
+                  ? const Expanded(
+                    child: Align(
+                alignment: Alignment.center,
+                        child: CircularProgressIndicator(
+                          color: ColorManager.kPurpleColor,
+                        ),
+                      ),
+                  )
+                  : profCubit.profileModel!.isClient
+                      ? const HadNoMealPlanBlock()
+                      : const AdminViewBlock();
+            },
           );
         },
       ),

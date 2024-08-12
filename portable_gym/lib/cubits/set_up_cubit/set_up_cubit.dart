@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
@@ -324,6 +325,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       getToastMessage(
         message: 'successfully Created',
       );
+      saveUserDocId(userDocId: value.id);
       Get.offAll(const MainNavigationBarScreen());
     }).catchError((error) {
       getToastMessage(
@@ -331,6 +333,17 @@ class SetUpCubit extends Cubit<SetUpState> {
       );
       emit(CreateProfileErrorState());
       debugPrint(error.toString());
+    });
+  }
+  saveUserDocId({required String userDocId}) async {
+    emit(SaveUserDataDocIdLoadingState());
+    await const FlutterSecureStorage()
+        .write(key: StringManager.userDocId, value: userDocId)
+        .then((value) {
+      emit(SaveUserDataDocIdSuccessState());
+    }).catchError((error) {
+      emit(SaveUserDataDocIdErrorState());
+      debugPrint(error);
     });
   }
 }

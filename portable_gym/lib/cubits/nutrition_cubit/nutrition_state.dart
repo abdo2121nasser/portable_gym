@@ -61,3 +61,7 @@ class GetDailyRecipesLoadingState extends NutritionState {}
 class GetDailyRecipesSuccessState extends NutritionState {}
 class GetDailyRecipesErrorState extends NutritionState {}
 
+class GetAllMealPlanRequestsLoadingState extends NutritionState {}
+class GetAllMealPlanRequestsSuccessState extends NutritionState {}
+class GetAllMealPlanRequestsErrorState extends NutritionState {}
+

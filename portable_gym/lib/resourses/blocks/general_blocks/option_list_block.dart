@@ -25,14 +25,14 @@ class OptionsListBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Expanded(
       child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
+          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22,vertical: AppVerticalSize.s5),
           itemBuilder: (context, index) => InkWell(
               onTap: (){
                 onClickFunction(index,context);
               },
               child: OptionBlock(lable: lables[index],
               icon: icons[index],)),
-          separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s10,),
+          separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s16,),
           itemCount: lables.length),
     )
     ;
