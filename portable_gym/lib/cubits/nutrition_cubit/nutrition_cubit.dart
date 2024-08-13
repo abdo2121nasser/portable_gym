@@ -29,9 +29,13 @@ class NutritionCubit extends Cubit<NutritionState> {
   static NutritionCubit get(context) => BlocProvider.of(context);
 
   List<RecipeModel> recipeModels = [];
+  List<RecipeModel> breakfastMealPlanRecipeModels = [];
+  List<RecipeModel> dinnerMealPlanRecipeModels = [];
+  List<RecipeModel> lunchMealPlanRecipeModels = [];
+  List<RecipeModel> snacksMealPlanRecipeModels = [];
   List<FoodElementModel> foodElementModels = [];
   DailyRecipeCardModel? dailyRecipeCardModel;
-  List<MealPlanRequestModel> requestsModels=[];
+  List<MealPlanRequestModel> requestsModels = [];
 
   List<Widget> planBodies = [const MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
@@ -602,24 +606,101 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
+//-----------------------------meal plan---------------------------------------
+  void addMealPlanRecipe({required RecipeModel model}) {
+    switch (currentMealType) {
+      case 0:
+        breakfastMealPlanRecipeModels.add(model);
+        emit(AddMealPlanBreakfastState());
+        return;
+      case 1:
+        lunchMealPlanRecipeModels.add(model);
+        emit(AddMealPlanLunchState());
+        return;
+      case 2:
+        dinnerMealPlanRecipeModels.add(model);
+        emit(AddMealPlanDinnerState());
+        return;
+      case 3:
+        snacksMealPlanRecipeModels.add(model);
+        emit(AddMealPlanSnacksState());
+        return;
+    }
+  }
+  void deleteMealPlanRecipe({required RecipeModel model}) {
+    switch (currentMealType) {
+      case 0:
+        breakfastMealPlanRecipeModels.remove(model);
+        emit(DeleteMealPlanBreakfastState());
+        return;
+      case 1:
+        lunchMealPlanRecipeModels.remove(model);
+        emit(DeleteMealPlanLunchState());
+        return;
+      case 2:
+        dinnerMealPlanRecipeModels.remove(model);
+        emit(DeleteMealPlanDinnerState());
+        return;
+      case 3:
+        snacksMealPlanRecipeModels.remove(model);
+        emit(DeleteMealPlanSnacksState());
+        return;
+    }
+  }
+  bool isMealPlanRecipeSelected({required RecipeModel model}) {
+    switch (currentMealType) {
+      case 0:
+        print(breakfastMealPlanRecipeModels.length);
+
+        for(int i =0;i<breakfastMealPlanRecipeModels.length;i++)
+          {
+            if( breakfastMealPlanRecipeModels[i].docId==model.docId) {
+              return true;
+            }
+          }
+        return false;
+
+      case 1:
+       for(int i =0;i<lunchMealPlanRecipeModels.length;i++)
+        {
+          if( lunchMealPlanRecipeModels[i].docId==model.docId) {
+            return true;
+          }
+        }
+        return false;
+        case 2:
+      for(int i =0;i<dinnerMealPlanRecipeModels.length;i++)
+      {
+        if( dinnerMealPlanRecipeModels[i].docId==model.docId) {
+          return true;
+        }
+      }
+      return false;
+      default:
+      for(int i =0;i<snacksMealPlanRecipeModels.length;i++)
+      {
+        if( snacksMealPlanRecipeModels[i].docId==model.docId) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
   getAllMealPlanRequests() async {
     requestsModels.clear();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionMealPlansRequests);
     emit(GetAllMealPlanRequestsLoadingState());
-   await data.get().then((value) {
+    await data.get().then((value) {
       value.docs.forEach((element) {
-        requestsModels.add(MealPlanRequestModel.fromJson(json: element.data(), docId: element.id));
+        requestsModels.add(MealPlanRequestModel.fromJson(
+            json: element.data(), docId: element.id));
       });
       emit(GetAllMealPlanRequestsSuccessState());
-    }).catchError((error){
-     emit(GetAllMealPlanRequestsErrorState());
-     debugPrint(error);
+    }).catchError((error) {
+      emit(GetAllMealPlanRequestsErrorState());
+      debugPrint(error);
     });
-
   }
-
-
-
 }
-
