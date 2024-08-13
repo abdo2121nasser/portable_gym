@@ -27,6 +27,8 @@ class SquareElementBlock extends StatelessWidget {
   final bool isVideo;
   final bool isTraining;
   final bool hasFavouriteIcon;
+  final bool hasSelectIcon;
+  final bool isSelected;
 
   const SquareElementBlock({
     super.key,
@@ -41,7 +43,9 @@ class SquareElementBlock extends StatelessWidget {
     this.addFavouriteFunction,
     this.isVideo = false,
     this.isTraining = false,
-    this.hasFavouriteIcon=true
+    this.hasFavouriteIcon=true,
+    this.hasSelectIcon=false,
+    this.isSelected=false,
   });
 
   @override
@@ -179,7 +183,7 @@ class SquareElementBlock extends StatelessWidget {
                                 ? ColorManager.kLimeGreenColor
                                 : ColorManager.kBlackColor,
                           ),
-                        ):SizedBox(),
+                        ):const SizedBox(),
                         canBeDeleted
                             ? const SizedBox()
                             : Padding(
@@ -195,19 +199,17 @@ class SquareElementBlock extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                        hasSelectIcon?
+                        Icon(
+                          isSelected?
+                          Icons.check_box_rounded:
+                          Icons.check_box_outline_blank_rounded,
+                          color:  isSelected?
+                               ColorManager.kLimeGreenColor
+                              : ColorManager.kWhiteColor,
+                        ):const SizedBox()
                       ],
                     ),
-                    // SizedBox(
-                    //   height: constrain.maxHeight * 0.28,
-                    // ),
-                    // Container(
-                    //     decoration: const BoxDecoration(
-                    //         color: ColorManager.kPurpleColor,
-                    //         shape: BoxShape.circle),
-                    //     child: const Icon(
-                    //       Icons.play_arrow_rounded,
-                    //       color: ColorManager.kWhiteColor,
-                    //     ))
                   ],
                 ),
               ),

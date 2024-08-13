@@ -34,7 +34,9 @@ class AdminViewBlock extends StatelessWidget {
               icons: List<IconData>.generate(nutCubit.requestsModels.length, (index) => Icons.person,growable: true),
               lables: List<String>.generate(nutCubit.requestsModels.length, (index) => nutCubit.requestsModels[index].userNickName,growable: true),
               onClickFunction: (index, context) {
-                       Get.to(AnswersOfQuestionsScreen(model: nutCubit.requestsModels[index].questions,));
+                       Get.to(AnswersOfQuestionsScreen(model: nutCubit.requestsModels[index].questions,
+                       nutCubit: NutritionCubit.get(context),
+                       ));
               },
             ),
           ],

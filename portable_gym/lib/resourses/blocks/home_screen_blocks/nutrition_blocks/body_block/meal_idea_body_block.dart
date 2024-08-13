@@ -11,6 +11,7 @@ import '../recipe_grid_square_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 
 class MealIdeaBodyBlock extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
