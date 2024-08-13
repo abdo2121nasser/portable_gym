@@ -40,6 +40,6 @@ class DeleteAnswerLoadingState extends SettingState {}
 class DeleteAnswerSuccessState extends SettingState {}
 class DeleteAnswerErrorState extends SettingState {}
 
-class CreateMealPlanLoadingState extends SettingState {}
-class CreateMealPlanSuccessState extends SettingState {}
-class CreateMealPlanErrorState extends SettingState {}
+class CreateMealPlanRequestLoadingState extends SettingState {}
+class CreateMealPlanRequestSuccessState extends SettingState {}
+class CreateMealPlanRequestErrorState extends SettingState {}

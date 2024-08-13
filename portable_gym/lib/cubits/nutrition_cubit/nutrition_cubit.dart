@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_plane_body_block.dart';
@@ -10,6 +11,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_block
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/nutraition_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
@@ -82,6 +84,15 @@ class NutritionCubit extends Cubit<NutritionState> {
   TextEditingController dailyRecipeCategoryImageLinkController =
       TextEditingController();
 
+  Future<String> getUserDocId() async {
+    return await const FlutterSecureStorage()
+        .read(key: StringManager.userDocId)
+        .then((value) {
+      return value!;
+    }).catchError((error) {
+      debugPrint(error);
+    });
+  }
   TabBarView getFoodMainElementTabBarViews(
       {required NutritionCubit nutritionCubit}) {
     return TabBarView(children: [
@@ -627,6 +638,7 @@ class NutritionCubit extends Cubit<NutritionState> {
         return;
     }
   }
+
   void deleteMealPlanRecipe({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
@@ -647,43 +659,40 @@ class NutritionCubit extends Cubit<NutritionState> {
         return;
     }
   }
+
   bool isMealPlanRecipeSelected({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
         print(breakfastMealPlanRecipeModels.length);
 
-        for(int i =0;i<breakfastMealPlanRecipeModels.length;i++)
-          {
-            if( breakfastMealPlanRecipeModels[i].docId==model.docId) {
-              return true;
-            }
-          }
-        return false;
-
-      case 1:
-       for(int i =0;i<lunchMealPlanRecipeModels.length;i++)
-        {
-          if( lunchMealPlanRecipeModels[i].docId==model.docId) {
+        for (int i = 0; i < breakfastMealPlanRecipeModels.length; i++) {
+          if (breakfastMealPlanRecipeModels[i].docId == model.docId) {
             return true;
           }
         }
         return false;
-        case 2:
-      for(int i =0;i<dinnerMealPlanRecipeModels.length;i++)
-      {
-        if( dinnerMealPlanRecipeModels[i].docId==model.docId) {
-          return true;
+
+      case 1:
+        for (int i = 0; i < lunchMealPlanRecipeModels.length; i++) {
+          if (lunchMealPlanRecipeModels[i].docId == model.docId) {
+            return true;
+          }
         }
-      }
-      return false;
+        return false;
+      case 2:
+        for (int i = 0; i < dinnerMealPlanRecipeModels.length; i++) {
+          if (dinnerMealPlanRecipeModels[i].docId == model.docId) {
+            return true;
+          }
+        }
+        return false;
       default:
-      for(int i =0;i<snacksMealPlanRecipeModels.length;i++)
-      {
-        if( snacksMealPlanRecipeModels[i].docId==model.docId) {
-          return true;
+        for (int i = 0; i < snacksMealPlanRecipeModels.length; i++) {
+          if (snacksMealPlanRecipeModels[i].docId == model.docId) {
+            return true;
+          }
         }
-      }
-      return false;
+        return false;
     }
   }
 
@@ -700,6 +709,51 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(GetAllMealPlanRequestsSuccessState());
     }).catchError((error) {
       emit(GetAllMealPlanRequestsErrorState());
+      debugPrint(error);
+    });
+  }
+
+  Map<String, dynamic> getMealPlanMap() {
+    List<Map<String, dynamic>> breakfast = [];
+    List<Map<String, dynamic>> lunch = [];
+    List<Map<String, dynamic>> dinner = [];
+    List<Map<String, dynamic>> snacks = [];
+    breakfastMealPlanRecipeModels.forEach((element) {
+      breakfast.add(element.toJson());
+    });
+    lunchMealPlanRecipeModels.forEach((element) {
+      lunch.add(element.toJson());
+    });
+    dinnerMealPlanRecipeModels.forEach((element) {
+      dinner.add(element.toJson());
+    });
+    snacksMealPlanRecipeModels.forEach((element) {
+      snacks.add(element.toJson());
+    });
+
+    Map<String, dynamic> map;
+    map = {
+      StringManager.mealPlanData: {
+        StringManager.breakfastMealPlan: breakfast,
+        StringManager.lunchMealPlan: lunch,
+        StringManager.dinnerMealPlan: dinner,
+        StringManager.snacksMealPlan: snacks,
+      }
+    };
+    return map;
+  }
+
+  createMealPlan() async {
+    emit(CreateMealPlanLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(await getUserDocId());
+
+    await data.update(getMealPlanMap()).then((value) {
+      emit(CreateMealPlanSuccessState());
+     // Get.offAll();
+    }).catchError((error) {
+      emit(CreateMealPlanErrorState());
       debugPrint(error);
     });
   }

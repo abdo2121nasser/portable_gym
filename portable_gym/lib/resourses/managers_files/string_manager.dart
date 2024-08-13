@@ -196,6 +196,10 @@ class StringManager
 
   static const String collectionMealPlansRequests='meal plan requests collection';
   static const String mealPlanData='meal plan data';
+  static const String breakfastMealPlan='breakfast';
+  static const String lunchMealPlan='lunch';
+  static const String dinnerMealPlan='dinner';
+  static const String snacksMealPlan='snacks';
 
 
 

@@ -308,17 +308,17 @@ class SettingCubit extends Cubit<SettingState> {
 
   }
 
-  createMealPlan({required String nickName}) async {
+  createMealPlanRequest({required String nickName}) async {
     String userDocId=await getUserDocId();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionMealPlansRequests);
-    emit(CreateMealPlanLoadingState());
+    emit(CreateMealPlanRequestLoadingState());
     await data.add(
         getMealPlanRequestMap(userDocId: userDocId,nickName: nickName)
     ).then((value) {
-      emit(CreateMealPlanSuccessState());
+      emit(CreateMealPlanRequestSuccessState());
     }).catchError((error) {
-      emit(CreateMealPlanErrorState());
+      emit(CreateMealPlanRequestErrorState());
       debugPrint(error);
     });
     Get.back();

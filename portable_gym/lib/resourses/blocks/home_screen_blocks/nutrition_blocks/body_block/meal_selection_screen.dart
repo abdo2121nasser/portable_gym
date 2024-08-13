@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../managers_files/color_manager.dart';
+import '../../../../managers_files/font_manager.dart';
+import '../../../../managers_files/style_manager.dart';
 import '../../../../managers_files/values_manager.dart';
 import '../../../../models/nutrition_models/recipe_model.dart';
 import '../../../general_blocks/general_app_bar_block.dart';
+import '../../../general_blocks/general_button_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 import '../recipe_grid_square_block.dart';
 import '../select_square_grid_view_block.dart';
@@ -53,6 +58,15 @@ class MealSelectionScreen extends StatelessWidget {
         )
             :
         const SelectSquareGridViewBlock(),
+        GeneralButtonBlock(lable: S.of(context).create,
+            function:(){
+          nutCubit.createMealPlan();
+            },
+            backgroundColor: ColorManager.kPurpleColor,
+            textStyle:  getMediumStyle(
+                fontSize: FontSize.s20,
+                color: ColorManager.kWhiteColor,
+                fontFamily: FontFamily.kPoppinsFont))
 
       ],
     ),

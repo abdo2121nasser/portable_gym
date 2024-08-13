@@ -20,9 +20,9 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 
 class NutritionScreen extends StatelessWidget {
-  final ProfileCubit profCubit;
+  final ProfileCubit? profCubit;
 
-  const NutritionScreen({super.key, required this.profCubit});
+  const NutritionScreen({super.key,  this.profCubit});
   @override
   Widget build(BuildContext context) {
     final TabBar recipeTabBar = TabBar(
@@ -35,7 +35,7 @@ class NutritionScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider.value(
-      value: profCubit,
+      value: profCubit!,
   child: BlocProvider(
       create: (context) => NutritionCubit()..getDailyRecipeCategory(),
       child: BlocConsumer<NutritionCubit, NutritionState>(
