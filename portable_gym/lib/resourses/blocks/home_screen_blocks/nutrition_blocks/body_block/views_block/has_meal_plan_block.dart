@@ -31,8 +31,6 @@ class HasMealPlanBlock extends StatelessWidget {
       builder: (context, state) {
         var nutCubit = NutritionCubit.get(context);
         return
-          nutCubit.mealPlanModel==null?
-              const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,),)):
           Expanded(
           child: Column(
             children: [
@@ -72,8 +70,11 @@ class HasMealPlanBlock extends StatelessWidget {
                   ),
                 ),
               ),
+              nutCubit.mealPlanModel==null?
+              const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,),)):
               MealsTypesListBlock(
                 lables: nutCubit.getMealTypeLables(context: context),
+                model: nutCubit.mealPlanModel!,
               ),
             ],
           ),

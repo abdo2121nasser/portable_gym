@@ -3,6 +3,7 @@ import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart
 import '../../managers_files/string_manager.dart';
 
 class MealPlanModel {
+
   List<RecipeModel> breakfast = [];
   List<RecipeModel> dinner = [];
   List<RecipeModel> lunch = [];
@@ -35,3 +36,5 @@ class MealPlanModel {
         ));
   }
 }
+
+
