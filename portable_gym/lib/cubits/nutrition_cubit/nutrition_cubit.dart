@@ -27,7 +27,9 @@ import '../../resourses/models/nutrition_models/food_element_model.dart';
 part 'nutrition_state.dart';
 
 class NutritionCubit extends Cubit<NutritionState> {
-  NutritionCubit() : super(NutritionInitial());
+  NutritionCubit() : super(NutritionInitial()){
+    getUserDocId();
+  }
   static NutritionCubit get(context) => BlocProvider.of(context);
 
   List<RecipeModel> recipeModels = [];
@@ -49,6 +51,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   int currentPlane = 0;
   int currentMealType = 0;
   bool hasMealPlan=false;
+late  String userDocId;
   TextEditingController englishNameController = TextEditingController();
   TextEditingController englishCaloriesController = TextEditingController();
   TextEditingController englishProteinController = TextEditingController();
@@ -84,14 +87,19 @@ class NutritionCubit extends Cubit<NutritionState> {
   TextEditingController dailyRecipeCategoryImageLinkController =
       TextEditingController();
 
-  Future<String> getUserDocId() async {
-    return await const FlutterSecureStorage()
+   getUserDocId() async {
+     emit(GetNutritionUserDocIdLoadingState());
+     await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
-      return value!;
-    }).catchError((error) {
+      userDocId= value!;
+      emit(GetNutritionUserDocIdSuccessState());
+
+     }).catchError((error) {
       debugPrint(error);
-    });
+      emit(GetNutritionUserDocIdErrorState());
+
+     });
   }
   TabBarView getFoodMainElementTabBarViews(
       {required NutritionCubit nutritionCubit}) {
@@ -647,11 +655,11 @@ class NutritionCubit extends Cubit<NutritionState> {
     };
     return map;
   }
-  getHasMealPlan() async {
+  void getHasMealPlan() async {
     emit(HasMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .doc(await getUserDocId());
+        .doc(userDocId);
    await data.get().then((value) {
      hasMealPlan=value.data()!.containsKey(StringManager.mealPlanData);
      emit(HasMealPlanSuccessState());
@@ -705,7 +713,6 @@ class NutritionCubit extends Cubit<NutritionState> {
   bool isMealPlanRecipeSelected({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
-        print(breakfastMealPlanRecipeModels.length);
 
         for (int i = 0; i < breakfastMealPlanRecipeModels.length; i++) {
           if (breakfastMealPlanRecipeModels[i].docId == model.docId) {
@@ -755,13 +762,11 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-
-
   createMealPlan() async {
     emit(CreateMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .doc(await getUserDocId());
+        .doc(userDocId);
 
     await data.update(getMealPlanMap()).then((value) {
       emit(CreateMealPlanSuccessState());
@@ -772,4 +777,9 @@ class NutritionCubit extends Cubit<NutritionState> {
       debugPrint(error);
     });
   }
+
+  getUserMealPlan(){
+
+  }
+
 }

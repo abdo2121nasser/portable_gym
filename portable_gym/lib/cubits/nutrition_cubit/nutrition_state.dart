@@ -13,6 +13,10 @@ class SetFoodMainElement extends NutritionState {}
 class ClearFoodMainElement extends NutritionState {}
 class SetDailyRecipeCategoryAttributes extends NutritionState {}
 
+class GetNutritionUserDocIdLoadingState extends NutritionState {}
+class GetNutritionUserDocIdSuccessState extends NutritionState {}
+class GetNutritionUserDocIdErrorState   extends NutritionState {}
+
 class AddNewRecipeLoadingState extends NutritionState {}
 class AddNewRecipeSuccessState extends NutritionState {}
 class AddNewRecipeErrorState extends NutritionState {}
