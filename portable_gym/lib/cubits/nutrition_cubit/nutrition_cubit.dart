@@ -23,6 +23,7 @@ import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views
 import '../../resourses/managers_files/toast_massage_manager.dart';
 import '../../resourses/models/nutrition_models/daily_recipe_card_model.dart';
 import '../../resourses/models/nutrition_models/food_element_model.dart';
+import '../../resourses/models/nutrition_models/meal_plan_model.dart';
 
 part 'nutrition_state.dart';
 
@@ -40,7 +41,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   List<FoodElementModel> foodElementModels = [];
   DailyRecipeCardModel? dailyRecipeCardModel;
   List<MealPlanRequestModel> requestsModels = [];
-
+  MealPlanModel? mealPlanModel;
   List<Widget> planBodies = [const MealPlaneBodyBlock(), MealIdeaBodyBlock()];
   List<bool> mealTypeCheckBoxes = [
     false,
@@ -663,6 +664,9 @@ late  String userDocId;
    await data.get().then((value) {
      hasMealPlan=value.data()!.containsKey(StringManager.mealPlanData);
      emit(HasMealPlanSuccessState());
+     if(hasMealPlan) {
+       getUserMealPlan();
+     }
     }).catchError((error){
      emit(HasMealPlanErrorState());
      print(error);
@@ -778,7 +782,18 @@ late  String userDocId;
     });
   }
 
-  getUserMealPlan(){
+  getUserMealPlan() async {
+    emit(GetMealPlanLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId);
+    await data.get().then((value) {
+      mealPlanModel=MealPlanModel.fromJson(value.data()!);
+      emit(GetMealPlanSuccessState());
+    }).catchError((error) {
+      emit(GetMealPlanErrorState());
+      debugPrint(error);
+    });
 
   }
 

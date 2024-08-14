@@ -31,7 +31,6 @@ class MealsTypesListBlock extends StatelessWidget {
                       child: Row(
                         children: [
                           //HorizontalSquareBlock(),
-                         //todo uncomment it when it ready to read payed recipes
                         ],
                       )),
                 ],

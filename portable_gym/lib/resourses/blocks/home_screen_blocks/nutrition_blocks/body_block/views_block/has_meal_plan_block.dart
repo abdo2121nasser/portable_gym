@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 
 import '../../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
 import '../../../../../../generated/l10n.dart';
@@ -29,7 +30,10 @@ class HasMealPlanBlock extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var nutCubit = NutritionCubit.get(context);
-        return Expanded(
+        return
+          nutCubit.mealPlanModel==null?
+              const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,),)):
+          Expanded(
           child: Column(
             children: [
               state is GetDailyRecipeCardLoadingState
