@@ -48,7 +48,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   ];
   int currentPlane = 0;
   int currentMealType = 0;
-
+  bool hasMealPlan=false;
   TextEditingController englishNameController = TextEditingController();
   TextEditingController englishCaloriesController = TextEditingController();
   TextEditingController englishProteinController = TextEditingController();
@@ -618,6 +618,48 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
 //-----------------------------meal plan---------------------------------------
+  Map<String, dynamic> getMealPlanMap() {
+    List<Map<String, dynamic>> breakfast = [];
+    List<Map<String, dynamic>> lunch = [];
+    List<Map<String, dynamic>> dinner = [];
+    List<Map<String, dynamic>> snacks = [];
+    breakfastMealPlanRecipeModels.forEach((element) {
+      breakfast.add(element.toJson());
+    });
+    lunchMealPlanRecipeModels.forEach((element) {
+      lunch.add(element.toJson());
+    });
+    dinnerMealPlanRecipeModels.forEach((element) {
+      dinner.add(element.toJson());
+    });
+    snacksMealPlanRecipeModels.forEach((element) {
+      snacks.add(element.toJson());
+    });
+
+    Map<String, dynamic> map;
+    map = {
+      StringManager.mealPlanData: {
+        StringManager.breakfastMealPlan: breakfast,
+        StringManager.lunchMealPlan: lunch,
+        StringManager.dinnerMealPlan: dinner,
+        StringManager.snacksMealPlan: snacks,
+      }
+    };
+    return map;
+  }
+  getHasMealPlan() async {
+    emit(HasMealPlanLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(await getUserDocId());
+   await data.get().then((value) {
+     hasMealPlan=value.data()!.containsKey(StringManager.mealPlanData);
+     emit(HasMealPlanSuccessState());
+    }).catchError((error){
+     emit(HasMealPlanErrorState());
+     print(error);
+    });
+  }
   void addMealPlanRecipe({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
@@ -713,35 +755,7 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  Map<String, dynamic> getMealPlanMap() {
-    List<Map<String, dynamic>> breakfast = [];
-    List<Map<String, dynamic>> lunch = [];
-    List<Map<String, dynamic>> dinner = [];
-    List<Map<String, dynamic>> snacks = [];
-    breakfastMealPlanRecipeModels.forEach((element) {
-      breakfast.add(element.toJson());
-    });
-    lunchMealPlanRecipeModels.forEach((element) {
-      lunch.add(element.toJson());
-    });
-    dinnerMealPlanRecipeModels.forEach((element) {
-      dinner.add(element.toJson());
-    });
-    snacksMealPlanRecipeModels.forEach((element) {
-      snacks.add(element.toJson());
-    });
 
-    Map<String, dynamic> map;
-    map = {
-      StringManager.mealPlanData: {
-        StringManager.breakfastMealPlan: breakfast,
-        StringManager.lunchMealPlan: lunch,
-        StringManager.dinnerMealPlan: dinner,
-        StringManager.snacksMealPlan: snacks,
-      }
-    };
-    return map;
-  }
 
   createMealPlan() async {
     emit(CreateMealPlanLoadingState());
@@ -751,7 +765,8 @@ class NutritionCubit extends Cubit<NutritionState> {
 
     await data.update(getMealPlanMap()).then((value) {
       emit(CreateMealPlanSuccessState());
-     // Get.offAll();
+      Get.back();
+      Get.back();
     }).catchError((error) {
       emit(CreateMealPlanErrorState());
       debugPrint(error);

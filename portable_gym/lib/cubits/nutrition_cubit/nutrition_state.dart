@@ -65,6 +65,10 @@ class GetAllMealPlanRequestsLoadingState extends NutritionState {}
 class GetAllMealPlanRequestsSuccessState extends NutritionState {}
 class GetAllMealPlanRequestsErrorState extends NutritionState {}
 
+class HasMealPlanLoadingState extends NutritionState {}
+class HasMealPlanSuccessState extends NutritionState {}
+class HasMealPlanErrorState extends NutritionState {}
+
 class CreateMealPlanLoadingState extends NutritionState {}
 class CreateMealPlanSuccessState extends NutritionState {}
 class CreateMealPlanErrorState extends NutritionState {}

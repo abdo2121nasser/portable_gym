@@ -6,7 +6,7 @@ import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/admin_view_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/has_no_meal_planblock.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/has_no_meal_plan_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/user_view_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/daily_recipe_screen.dart';
@@ -47,8 +47,8 @@ class MealPlaneBodyBlock extends StatelessWidget {
                         ),
                       ),
                   )
-                  : profCubit.profileModel!.isClient
-                      ? const HadNoMealPlanBlock()
+                  : !profCubit.profileModel!.isClient
+                      ? const UserViewBlock()
                       : const AdminViewBlock();
             },
           );

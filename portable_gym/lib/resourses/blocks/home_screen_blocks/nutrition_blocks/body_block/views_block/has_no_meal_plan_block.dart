@@ -19,15 +19,14 @@ import '../../meals_types_list_block.dart';
 
 
 
-class HadNoMealPlanBlock extends StatelessWidget {
-  const HadNoMealPlanBlock({super.key});
+class HasNoMealPlanBlock extends StatelessWidget {
+  const HasNoMealPlanBlock({super.key});
 
   @override
   Widget build(BuildContext context) {
 
     return BlocConsumer<NutritionCubit, NutritionState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         var nutCubit=NutritionCubit.get(context);
