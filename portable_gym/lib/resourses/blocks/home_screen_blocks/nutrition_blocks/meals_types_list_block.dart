@@ -19,7 +19,7 @@ class MealsTypesListBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
+          padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s5),
           itemBuilder: (context, index) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

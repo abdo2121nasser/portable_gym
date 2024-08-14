@@ -28,7 +28,7 @@ import '../../resourses/models/nutrition_models/meal_plan_model.dart';
 part 'nutrition_state.dart';
 
 class NutritionCubit extends Cubit<NutritionState> {
-  NutritionCubit() : super(NutritionInitial()){
+  NutritionCubit() : super(NutritionInitial()) {
     getUserDocId();
   }
   static NutritionCubit get(context) => BlocProvider.of(context);
@@ -51,8 +51,8 @@ class NutritionCubit extends Cubit<NutritionState> {
   ];
   int currentPlane = 0;
   int currentMealType = 0;
-  bool hasMealPlan=false;
-late  String userDocId;
+  bool hasMealPlan = false;
+  late String userDocId;
   TextEditingController englishNameController = TextEditingController();
   TextEditingController englishCaloriesController = TextEditingController();
   TextEditingController englishProteinController = TextEditingController();
@@ -88,20 +88,19 @@ late  String userDocId;
   TextEditingController dailyRecipeCategoryImageLinkController =
       TextEditingController();
 
-   getUserDocId() async {
-     emit(GetNutritionUserDocIdLoadingState());
-     await const FlutterSecureStorage()
+  getUserDocId() async {
+    emit(GetNutritionUserDocIdLoadingState());
+    await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
-      userDocId= value!;
+      userDocId = value!;
       emit(GetNutritionUserDocIdSuccessState());
-
-     }).catchError((error) {
+    }).catchError((error) {
       debugPrint(error);
       emit(GetNutritionUserDocIdErrorState());
-
-     });
+    });
   }
+
   TabBarView getFoodMainElementTabBarViews(
       {required NutritionCubit nutritionCubit}) {
     return TabBarView(children: [
@@ -656,22 +655,24 @@ late  String userDocId;
     };
     return map;
   }
+
   void getHasMealPlan() async {
     emit(HasMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(userDocId);
-   await data.get().then((value) {
-     hasMealPlan=value.data()!.containsKey(StringManager.mealPlanData);
-     emit(HasMealPlanSuccessState());
-     if(hasMealPlan) {
-       getUserMealPlan();
-     }
-    }).catchError((error){
-     emit(HasMealPlanErrorState());
-     print(error);
+    await data.get().then((value) {
+      hasMealPlan = value.data()!.containsKey(StringManager.mealPlanData);
+      emit(HasMealPlanSuccessState());
+      if (hasMealPlan) {
+        getUserMealPlan();
+      }
+    }).catchError((error) {
+      emit(HasMealPlanErrorState());
+      print(error);
     });
   }
+
   void addMealPlanRecipe({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
@@ -717,7 +718,6 @@ late  String userDocId;
   bool isMealPlanRecipeSelected({required RecipeModel model}) {
     switch (currentMealType) {
       case 0:
-
         for (int i = 0; i < breakfastMealPlanRecipeModels.length; i++) {
           if (breakfastMealPlanRecipeModels[i].docId == model.docId) {
             return true;
@@ -782,13 +782,15 @@ late  String userDocId;
       debugPrint(error);
     });
   }
-  deleteRequest({required String requestDocId}){
-     emit(DeleteMealPlanRequestLoadingState());
+
+  deleteRequest({required String requestDocId}) {
+    emit(DeleteMealPlanRequestLoadingState());
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionMealPlansRequests).doc(requestDocId);
+        .collection(StringManager.collectionMealPlansRequests)
+        .doc(requestDocId);
     data.delete().then((value) {
       emit(DeleteMealPlanRequestSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(DeleteMealPlanRequestErrorState());
       debugPrint(error);
     });
@@ -800,13 +802,11 @@ late  String userDocId;
         .collection(StringManager.collectionUserProfiles)
         .doc(userDocId);
     await data.get().then((value) {
-      mealPlanModel=MealPlanModel.fromJson(value.data()!);
+      mealPlanModel = MealPlanModel.fromJson(value.data()!);
       emit(GetMealPlanSuccessState());
     }).catchError((error) {
       emit(GetMealPlanErrorState());
       debugPrint(error);
     });
-
   }
-
 }

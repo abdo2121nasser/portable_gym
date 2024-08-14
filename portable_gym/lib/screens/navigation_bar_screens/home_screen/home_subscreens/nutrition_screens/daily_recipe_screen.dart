@@ -72,20 +72,22 @@ class DailyRecipeScreen extends StatelessWidget {
                       )),
                 )
                     :
-                RecipeGridSquareBlock(
-                  recipeModels: nutCubit.recipeModels,
-                  editFunction: (docId) {
-                    nutCubit.editRecipe(docId: docId,isDailyRecipe: true);
-                  },
-                  setAttributes: (RecipeModel model){
-                    nutCubit.setRecipeAttributes(model: model);
-                  },
-                  deleteFunction: (docId){
-                    nutCubit.deleteRecipe(docId: docId,isDailyRecipe: true);
-                  },
-                  tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
-                  hasFavouriteIcon: false,
+                Expanded(
+                  child: RecipeGridSquareBlock(
+                    recipeModels: nutCubit.recipeModels,
+                    editFunction: (docId) {
+                      nutCubit.editRecipe(docId: docId,isDailyRecipe: true);
+                    },
+                    setAttributes: (RecipeModel model){
+                      nutCubit.setRecipeAttributes(model: model);
+                    },
+                    deleteFunction: (docId){
+                      nutCubit.deleteRecipe(docId: docId,isDailyRecipe: true);
+                    },
+                    tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
+                    hasFavouriteIcon: false,
 
+                  ),
                 ),
               ],
             ),

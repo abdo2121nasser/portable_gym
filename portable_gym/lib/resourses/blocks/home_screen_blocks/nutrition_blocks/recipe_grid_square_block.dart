@@ -40,7 +40,8 @@ class RecipeGridSquareBlock extends StatelessWidget {
       labelColor: Colors.blue,
       unselectedLabelColor: Colors.grey,
     );
-    return BlocConsumer<FavouriteCubit, FavouriteState>(
+    return hasFavouriteIcon?
+      BlocConsumer<FavouriteCubit, FavouriteState>(
       listener: (context, state) {},
       builder: (context, state) {
         var favCubit = FavouriteCubit.get(context);
@@ -118,6 +119,48 @@ class RecipeGridSquareBlock extends StatelessWidget {
                 ),
         );
       },
-    );
+    ):
+    GridView.builder(
+      padding: EdgeInsets.symmetric(
+          horizontal: AppHorizontalSize.s22,
+          vertical: AppVerticalSize.s14),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          childAspectRatio: (1 / .8),
+          mainAxisSpacing: 15),
+      itemBuilder: (context, index) =>InkWell(
+          onTap: () {
+            Get.to(RecipeDetailsScreen(
+                recipeModel: recipeModels[index]));
+          },
+          onLongPress: () {
+            setAttributes(recipeModels[index]);
+            showAlertRecipeBox(
+                context: context,
+                tabBar: recipeTabBar,
+                tabBarView: tabBarView,
+                buttonFunction: () {
+                  editFunction(recipeModels[index].docId);
+                },
+                title: S.of(context).recipe,
+                buttonLable: S.of(context).editRecipe);
+          },
+          child: SquareElementBlock(
+            title: recipeModels[index]
+                .getLanguageClass(context)
+                .name!,
+            subValue: recipeModels[index]
+                .getLanguageClass(context)
+                .calories!,
+            imageLink: recipeModels[index].imageLink,
+            deleteFunction: () {
+              deleteFunction(recipeModels[index].docId);
+            },
+            hasFavouriteIcon: false,
+          )),
+      itemCount: recipeModels.length,
+    )
+    ;
   }
 }

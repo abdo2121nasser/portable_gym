@@ -37,7 +37,7 @@ class DailyActivityBlock extends StatelessWidget {
       }
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.32,
+      height: MediaQuery.of(context).size.height * 0.25,
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.05,
           vertical: MediaQuery.of(context).size.height * 0.03),
