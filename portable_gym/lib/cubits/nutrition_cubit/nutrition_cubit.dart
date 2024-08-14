@@ -94,6 +94,7 @@ class NutritionCubit extends Cubit<NutritionState> {
         .read(key: StringManager.userDocId)
         .then((value) {
       userDocId = value!;
+      getHasMealPlan();
       emit(GetNutritionUserDocIdSuccessState());
     }).catchError((error) {
       debugPrint(error);
@@ -672,6 +673,19 @@ class NutritionCubit extends Cubit<NutritionState> {
       print(error);
     });
   }
+  Future<bool> hasMealPlanRequest() async {
+    try {
+      var data = await FirebaseFirestore.instance
+          .collection(StringManager.collectionMealPlansRequests)
+          .where(StringManager.userDocId, isEqualTo: userDocId)
+          .get();
+      return data.docs.isNotEmpty;
+    } catch (error) {
+      debugPrint('Error checking meal plan request: $error');
+      return false;
+    }
+  }
+
 
   void addMealPlanRecipe({required RecipeModel model}) {
     switch (currentMealType) {
@@ -790,6 +804,7 @@ class NutritionCubit extends Cubit<NutritionState> {
         .doc(requestDocId);
     data.delete().then((value) {
       emit(DeleteMealPlanRequestSuccessState());
+      getAllMealPlanRequests();
     }).catchError((error) {
       emit(DeleteMealPlanRequestErrorState());
       debugPrint(error);

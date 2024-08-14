@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
         "createMealPlanMassage":
             MessageLookupByLibrary.simpleMessage("ask your owen meal plan"),
+        "createRequestSuccessMessage": MessageLookupByLibrary.simpleMessage(
+            "your request has been sent\nplease wait till the couch create your plan"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "dinner": MessageLookupByLibrary.simpleMessage("Dinner"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),

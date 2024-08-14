@@ -19,23 +19,19 @@ class UserViewBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: NutritionCubit.get(context)
-        ..getHasMealPlan(),
-      child: BlocConsumer<NutritionCubit, NutritionState>(
-        listener: (context, state) {
-        },
-        builder: (context, state) {
-          var nutCubit=NutritionCubit.get(context);
-          return
-            state is HasMealPlanLoadingState?
-            const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,))):
-                nutCubit.hasMealPlan?
-                    const HasMealPlanBlock():
-                const HasNoMealPlanBlock()
-            ;
-        },
-      ),
+    return BlocConsumer<NutritionCubit, NutritionState>(
+      listener: (context, state) {
+      },
+      builder: (context, state) {
+        var nutCubit=NutritionCubit.get(context);
+        return
+          state is HasMealPlanLoadingState?
+          const Expanded(child: Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,))):
+              nutCubit.hasMealPlan?
+                  const HasMealPlanBlock():
+              const HasNoMealPlanBlock()
+          ;
+      },
     );
   }
 }

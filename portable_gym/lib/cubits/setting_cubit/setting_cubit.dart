@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/meal_plan_questions_screen.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
 
@@ -308,7 +309,7 @@ class SettingCubit extends Cubit<SettingState> {
 
   }
 
-  createMealPlanRequest({required String nickName}) async {
+  createMealPlanRequest({required String nickName,required context}) async {
     String userDocId=await getUserDocId();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionMealPlansRequests);
@@ -317,6 +318,7 @@ class SettingCubit extends Cubit<SettingState> {
         getMealPlanRequestMap(userDocId: userDocId,nickName: nickName)
     ).then((value) {
       emit(CreateMealPlanRequestSuccessState());
+      getToastMessage(message: S.of(context).success);
     }).catchError((error) {
       emit(CreateMealPlanRequestErrorState());
       debugPrint(error);

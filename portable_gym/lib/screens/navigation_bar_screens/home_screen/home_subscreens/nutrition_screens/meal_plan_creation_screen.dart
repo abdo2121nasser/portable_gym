@@ -37,7 +37,7 @@ class MealPlanCreationScreen extends StatelessWidget {
               GeneralButtonBlock(
                   lable: S.of(context).create,
                   function: () {
-                    settCubit.createMealPlanRequest(nickName: userNickName);
+                    settCubit.createMealPlanRequest(nickName: userNickName,context: context);
                   },
                   backgroundColor: ColorManager.kPurpleColor,
                   textStyle: getMediumStyle(

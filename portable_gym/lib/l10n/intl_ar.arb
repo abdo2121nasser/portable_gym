@@ -135,7 +135,9 @@
   "workoutLog": "سجل التمارين",
   "charts": "المخططات",
   "chooseDate": "اختر تاريخ",
-  "activities": "الانشطه"
+  "activities": "الانشطه",
+  "createRequestSuccessMessage": "تم ارسال طلبك بنجاح\nرجأ انتظر حتي يقوم المدرب بي انشاء الخطه"
+
 
 
 }

@@ -1209,6 +1209,16 @@ class S {
       args: [],
     );
   }
+
+  /// `your request has been sent\nplease wait till the couch create your plan`
+  String get createRequestSuccessMessage {
+    return Intl.message(
+      'your request has been sent\nplease wait till the couch create your plan',
+      name: 'createRequestSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
