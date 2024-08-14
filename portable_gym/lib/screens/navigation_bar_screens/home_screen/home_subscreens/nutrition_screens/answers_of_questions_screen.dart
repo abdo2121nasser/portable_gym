@@ -14,11 +14,12 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 
 class AnswersOfQuestionsScreen extends StatelessWidget {
+  final String requestDocId;
   final List<MealPlanQuestionModel> model;
   final NutritionCubit nutCubit;
 
 
-  const AnswersOfQuestionsScreen({super.key, required this.model,required this.nutCubit});
+  const AnswersOfQuestionsScreen({super.key, required this.model,required this.nutCubit,required this.requestDocId});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,9 @@ class AnswersOfQuestionsScreen extends StatelessWidget {
           ),
           GeneralButtonBlock(lable: S.of(context).create,
               function:(){
-            Get.to(MealSelectionScreen(nutCubit: nutCubit,));
+            Get.to(MealSelectionScreen(nutCubit: nutCubit,
+            requestDocId: requestDocId,
+            ));
               },
               backgroundColor: ColorManager.kPurpleColor,
               textStyle:  getMediumStyle(

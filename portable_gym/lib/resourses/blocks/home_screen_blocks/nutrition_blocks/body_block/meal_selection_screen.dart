@@ -19,8 +19,9 @@ import '../select_square_grid_view_block.dart';
 
 
 class MealSelectionScreen extends StatelessWidget {
+  final String requestDocId;
   final NutritionCubit nutCubit;
-  const MealSelectionScreen({super.key,required this.nutCubit});
+  const MealSelectionScreen({super.key,required this.nutCubit,required this.requestDocId});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class MealSelectionScreen extends StatelessWidget {
         const SelectSquareGridViewBlock(),
         GeneralButtonBlock(lable: S.of(context).create,
             function:(){
-          nutCubit.createMealPlan();
+          nutCubit.createMealPlan(requestDocId: requestDocId);
             },
             backgroundColor: ColorManager.kPurpleColor,
             textStyle:  getMediumStyle(

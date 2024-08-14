@@ -766,7 +766,7 @@ late  String userDocId;
     });
   }
 
-  createMealPlan() async {
+  createMealPlan({required String requestDocId}) async {
     emit(CreateMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
@@ -774,10 +774,22 @@ late  String userDocId;
 
     await data.update(getMealPlanMap()).then((value) {
       emit(CreateMealPlanSuccessState());
+      deleteRequest(requestDocId: requestDocId);
       Get.back();
       Get.back();
     }).catchError((error) {
       emit(CreateMealPlanErrorState());
+      debugPrint(error);
+    });
+  }
+  deleteRequest({required String requestDocId}){
+     emit(DeleteMealPlanRequestLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionMealPlansRequests).doc(requestDocId);
+    data.delete().then((value) {
+      emit(DeleteMealPlanRequestSuccessState());
+    }).catchError((error){
+      emit(DeleteMealPlanRequestErrorState());
       debugPrint(error);
     });
   }
