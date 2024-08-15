@@ -52,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
         break;
 
       default:
-        Get.to(const AskTrainerScreen());
+        Get.to( AskTrainerScreen(profCubit: profCubit,));
         break;
 
 
