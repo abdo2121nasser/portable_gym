@@ -84,7 +84,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
     else if(index==1)
       {
-        Get.to(()=> const SettingScreen());
+        Get.to(()=>  SettingScreen(profCubit: ProfileCubit.get(context),));
       }
   }
 

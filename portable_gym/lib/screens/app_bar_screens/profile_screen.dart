@@ -52,13 +52,15 @@ class ProfileScreen extends StatelessWidget {
                   profCubit.isProfileLowerBlock &&
                           profCubit.profileModel != null
                       ? const ProfileLowerBlock()
-                      :  OptionsListBlock(
+                      :  Expanded(
+                        child: OptionsListBlock(
                     lables: profCubit.getProfileOptionsLables(context: context),
                     icons: profCubit.getProfileOptionsIcons(),
                     onClickFunction: (index,context){
-                      ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
+                        ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
                     },
-                  )
+                  ),
+                      )
                 ],
               ),
               profCubit.profileModel != null

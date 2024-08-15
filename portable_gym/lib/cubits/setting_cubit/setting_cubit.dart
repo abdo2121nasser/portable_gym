@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:portable_gym/app_root/app_root.dart';
+import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/meal_plan_questions_screen.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
@@ -43,18 +46,21 @@ class SettingCubit extends Cubit<SettingState> {
     });
   }
 
+
   getSettingOptionsLables({
     required context,
   }) {
     return [
+      if(ProfileCubit.get(context).profileModel!.isClient==false)
       S.of(context).changeMealPlanQuestions,
       S.of(context).resetPassword,
     ];
   }
 
-  getSettingOptionsIcons() {
+  getSettingOptionsIcons({required context}) {
     return [
-      Icons.person,
+      if(ProfileCubit.get(context).profileModel!.isClient==false)
+        Icons.question_mark_outlined,
       Icons.lock_reset_outlined,
     ];
   }
@@ -92,9 +98,12 @@ class SettingCubit extends Cubit<SettingState> {
     required int index,
     required context
   }) {
-    switch (index) {
+    if(ProfileCubit.get(context).profileModel!.isClient) {
+      index++;
+    }
+      switch (index) {
+
       case 0:
-        //there was a context here to pass the setting cubit
         Get.to(MealPlanQuestionScreen(
           settCubit: SettingCubit.get(context),
         ));
@@ -140,7 +149,7 @@ class SettingCubit extends Cubit<SettingState> {
       // add answer
       return model
         ..english.answers.add(Answer(text: englishAnswer.text, value: false))
-        ..arabic.answers.add(Answer(text: englishAnswer.text, value: false));
+        ..arabic.answers.add(Answer(text: arabicAnswer.text, value: false));
     }
     if (isEditQuestion) {
       //edit question

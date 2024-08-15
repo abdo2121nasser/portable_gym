@@ -103,7 +103,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
               crossAxisCount: 2,
               // mainAxisExtent: 140,
               crossAxisSpacing: 0,
-              childAspectRatio: (2.5 / 0.38),
+              childAspectRatio: (2.5 / 0.46),
               mainAxisSpacing: 15),
           itemBuilder: (context, index) => !isClientView &&
                   index == model.getLanguageClass(context).answers.length

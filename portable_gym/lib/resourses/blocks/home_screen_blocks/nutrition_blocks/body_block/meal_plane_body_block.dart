@@ -49,7 +49,7 @@ class MealPlaneBodyBlock extends StatelessWidget {
                         ),
                       ),
                   )
-                  : !profCubit.profileModel!.isClient
+                  : profCubit.profileModel!.isClient
                       ? const UserViewBlock()
                       : const AdminViewBlock();
             },

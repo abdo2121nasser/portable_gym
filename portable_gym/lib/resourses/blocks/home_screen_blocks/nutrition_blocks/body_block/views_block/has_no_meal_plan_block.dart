@@ -57,7 +57,7 @@ class HasNoMealPlanBlock extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 20), // Add some spacing
+                    const SizedBox(height: 20), // Add some spacing
                     GeneralButtonBlock(
                       lable: S.of(context).create,
                       function: () {

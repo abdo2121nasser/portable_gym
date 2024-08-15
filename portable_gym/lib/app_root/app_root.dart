@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:portable_gym/cubits/language_cubit/language_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
 import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
@@ -40,25 +41,31 @@ class PortableGym extends StatelessWidget {
             child: ScreenUtilInit(
               designSize: const Size(393, 852),
               builder: (context, child) =>
-                  GetMaterialApp(
-                    locale: const Locale('en'),
-                    localizationsDelegates: const [
-                      S.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    supportedLocales: S.delegate.supportedLocales,
-                    debugShowCheckedModeBanner: false,
-                    theme: getAppTheme(),
-                    // home: MainNavigationBarScreen(),
-                    //home: ProfileScreen(),
+                  BlocConsumer<LanguageCubit, LanguageState>(
+                    listener: (context, state) {
+                    },
+                    builder: (context, state) {
+                      return GetMaterialApp(
+                        locale:const Locale('en'),
+                        localizationsDelegates: const [
+                          S.delegate,
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalCupertinoLocalizations.delegate,
+                        ],
+                        supportedLocales: S.delegate.supportedLocales,
+                        debugShowCheckedModeBanner: false,
+                        theme: getAppTheme(),
+                        // home: MainNavigationBarScreen(),
+                        //home: ProfileScreen(),
 
-                    home: FirebaseAuth.instance.currentUser == null
-                        ? const LoginScreen()
-                        : const MainNavigationBarScreen(),
-                    //   home: SetUpScreen(email: 'email'),
-                    // home: LoginScreen(),
+                        home: FirebaseAuth.instance.currentUser == null
+                            ? const LoginScreen()
+                            : const MainNavigationBarScreen(),
+                        //   home: SetUpScreen(email: 'email'),
+                        // home: LoginScreen(),
+                      );
+                    },
                   ),
             ),
           ),
