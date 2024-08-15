@@ -6,12 +6,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_plane_body_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/food_main_element_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_recipe_tab_bar_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/nutraition_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
