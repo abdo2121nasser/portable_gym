@@ -700,6 +700,16 @@ class S {
     );
   }
 
+  /// `Ask Trainer`
+  String get askTrainer {
+    return Intl.message(
+      'Ask Trainer',
+      name: 'askTrainer',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `see all`
   String get seeAll {
     return Intl.message(

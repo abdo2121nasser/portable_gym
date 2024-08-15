@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/top_menu_element_block.dart';
+import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 
 import '../../managers_files/color_manager.dart';
 import '../../managers_files/values_manager.dart';

@@ -10,6 +10,7 @@ import '../../../resourses/blocks/general_blocks/section_title_block.dart';
 import '../../../resourses/blocks/home_screen_blocks/top_menu_block.dart';
 import '../../../resourses/blocks/home_screen_blocks/weekly_challanges_block.dart';
 import '../../../resourses/blocks/general_blocks/square_element _block.dart';
+import '../../../resourses/managers_files/image_manager.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

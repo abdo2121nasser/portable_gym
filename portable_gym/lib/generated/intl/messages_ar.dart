@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("عربي"),
+        "askTrainer": MessageLookupByLibrary.simpleMessage("اسئل المدرب"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "beginner": MessageLookupByLibrary.simpleMessage("مبدء"),
         "birthDate": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),

@@ -6,7 +6,8 @@ class ImageManager
   static const kPenIconImage='assets/images/pen_icon.png';
   static const kWeightImage='assets/images/weight.png';
   static const kProgressTrackingImage='assets/images/progress.png';
-  static const kNutraitionImage='assets/images/nutraition.png';
-  static const kTrainningImage='assets/images/tainning.png';
+  static const kNutritionImage='assets/images/nutraition.png';
+  static const kTrainingImage='assets/images/tainning.png';
+  static const kAskImage='assets/images/ask.png';
   static const kCrownImage='assets/images/crown.png';
 }

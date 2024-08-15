@@ -11,6 +11,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_sub
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/work_out_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../screens/navigation_bar_screens/home_screen/home_subscreens/ask_trainer_screens/ask_trainer_screen.dart';
 
 part 'home_state.dart';
 
@@ -20,9 +21,9 @@ class HomeCubit extends Cubit<HomeState> {
   getTopMenuImages({required int index}) {
     List<String> images = [
       ImageManager.kWeightImage,
-      ImageManager.kNutraitionImage,
+      ImageManager.kNutritionImage,
       ImageManager.kProgressTrackingImage,
-      ImageManager.kWeightImage,
+      ImageManager.kAskImage,
     ];
     return images[index];
   }
@@ -32,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
       S.of(context).workOut,
       S.of(context).nutrition,
       S.of(context).progressTrack,
-      S.of(context).weight,
+      S.of(context).askTrainer,
     ];
     return lables[index];
   }
@@ -51,6 +52,8 @@ class HomeCubit extends Cubit<HomeState> {
         break;
 
       default:
+        Get.to(const AskTrainerScreen());
+        break;
 
 
     }

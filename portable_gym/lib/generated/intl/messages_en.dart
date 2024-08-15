@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "askTrainer": MessageLookupByLibrary.simpleMessage("Ask Trainer"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "beginner": MessageLookupByLibrary.simpleMessage("Beginner"),
         "birthDate": MessageLookupByLibrary.simpleMessage("Date of birth"),
