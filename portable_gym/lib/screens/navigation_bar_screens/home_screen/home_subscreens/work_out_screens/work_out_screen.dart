@@ -75,6 +75,7 @@ class WorkOutScreen extends StatelessWidget {
                           onTap: () {
                             Get.to(LevelScreen(
                               bodyCategory: '',
+                              title:workCubit.dailyDodyCategoryModel!.getLanguageClass(context).title!,
                               isDailyCategory: true,
                               workCubit: workCubit,
                             ));

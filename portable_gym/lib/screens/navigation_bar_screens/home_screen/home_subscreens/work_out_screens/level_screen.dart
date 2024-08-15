@@ -14,10 +14,12 @@ class LevelScreen extends StatelessWidget {
   final String bodyCategory;
   final bool isDailyCategory;
   final WorkOutCubit workCubit;
+  final String  title;
 
-  LevelScreen(
-      {required this.bodyCategory,
+  const LevelScreen(
+      {super.key, required this.bodyCategory,
       required this.workCubit,
+        required this.title,
       this.isDailyCategory = false});
 
   @override
@@ -44,7 +46,7 @@ class LevelScreen extends StatelessWidget {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: GeneralAppBarBlock(
-              title: bodyCategory,
+              title: title,
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

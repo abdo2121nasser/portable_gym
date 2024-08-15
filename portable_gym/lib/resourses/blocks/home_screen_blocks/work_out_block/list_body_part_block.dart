@@ -38,6 +38,7 @@ class ListBodyPartBlock extends StatelessWidget {
                   onTap: () {
                     Get.to(LevelScreen(
                       bodyCategory: bodyCategoryModel[index].english!.title!,
+                      title:  bodyCategoryModel[index].getLanguageClass(context).title!,
                       workCubit: WorkOutCubit.get(context),
                     ));
                   },
