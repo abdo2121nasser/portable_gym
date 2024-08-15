@@ -354,6 +354,7 @@ class SettingCubit extends Cubit<SettingState> {
       debugPrint(error);
     });
     Get.back();
+    Get.back();
   }
 
   createMealPlanRequestProcess({required String nickName,required context}){

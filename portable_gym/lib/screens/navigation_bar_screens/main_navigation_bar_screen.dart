@@ -26,100 +26,100 @@ class MainNavigationBarScreen extends StatelessWidget {
             create: (context) => ProfileCubit()..getUserDocId()),
       ],
       child: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return BlocConsumer<MainNavigationBarCubit,
-              MainNavigationBarState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              var profCubit = ProfileCubit.get(context);
-              var navCubit = MainNavigationBarCubit.get(context);
-              return Scaffold(
-                resizeToAvoidBottomInset: false,
-                backgroundColor: ColorManager.kBlackColor,
-                appBar: AppBar(
-                  toolbarHeight: AppVerticalSize.s80,
+          listener: (context, state) {},
+          builder: (context, state) {
+            return BlocConsumer<MainNavigationBarCubit,
+                MainNavigationBarState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                var profCubit = ProfileCubit.get(context);
+                var navCubit = MainNavigationBarCubit.get(context);
+                return Scaffold(
+                  resizeToAvoidBottomInset: false,
                   backgroundColor: ColorManager.kBlackColor,
-                  automaticallyImplyLeading: false,
-                  title: profCubit.profileModel != null
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    profCubit.profileModel!.nickName,
-                                    style: getBoldStyle(
-                                        fontSize: FontSize.s20,
-                                        color: ColorManager.kPurpleColor,
-                                        fontFamily:
-                                            FontFamily.kPoppinsFont),
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: AppVerticalSize.s5,
-                            ),
-                            Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    S.of(context).subTitle,
-                                    style: getMediumStyle(
-                                        fontSize: FontSize.s14,
-                                        color: ColorManager.kWhiteColor,
-                                        fontFamily:
-                                            FontFamily.kLeagueSpartanFont),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      : const CircularProgressIndicator(
-                          color: ColorManager.kLightPurpleColor,
-                        ),
-                  actions: profCubit.profileModel != null
-                      ? [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AppHorizontalSize.s18),
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(ProfileScreen(
-                                  profCubit: profCubit,
-                                ));
-                              },
-                              child: const Icon(
-                                Icons.person,
-                                color: ColorManager.kPurpleColor,
+                  appBar: AppBar(
+                    toolbarHeight: AppVerticalSize.s80,
+                    backgroundColor: ColorManager.kBlackColor,
+                    automaticallyImplyLeading: false,
+                    title: profCubit.profileModel != null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      profCubit.profileModel!.nickName,
+                                      style: getBoldStyle(
+                                          fontSize: FontSize.s20,
+                                          color: ColorManager.kPurpleColor,
+                                          fontFamily:
+                                              FontFamily.kPoppinsFont),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ),
+                              SizedBox(
+                                height: AppVerticalSize.s5,
+                              ),
+                              Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      S.of(context).subTitle,
+                                      style: getMediumStyle(
+                                          fontSize: FontSize.s14,
+                                          color: ColorManager.kWhiteColor,
+                                          fontFamily:
+                                              FontFamily.kLeagueSpartanFont),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           )
-                        ]
-                      : null,
-                ),
-                bottomNavigationBar: BottomNavigationBar(
-                  onTap: (newIndex) =>
-                      navCubit.changeCurrentScreen(index: newIndex),
-                  currentIndex: navCubit.currentIndex,
-                  backgroundColor: ColorManager.kLightPurpleColor,
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  type: BottomNavigationBarType.fixed, // Fixed
+                        : const CircularProgressIndicator(
+                            color: ColorManager.kLightPurpleColor,
+                          ),
+                    actions: profCubit.profileModel != null
+                        ? [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: AppHorizontalSize.s18),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(ProfileScreen(
+                                    profCubit: profCubit,
+                                  ));
+                                },
+                                child: const Icon(
+                                  Icons.person,
+                                  color: ColorManager.kPurpleColor,
+                                ),
+                              ),
+                            )
+                          ]
+                        : null,
+                  ),
+                  bottomNavigationBar: BottomNavigationBar(
+                    onTap: (newIndex) =>
+                        navCubit.changeCurrentScreen(index: newIndex),
+                    currentIndex: navCubit.currentIndex,
+                    backgroundColor: ColorManager.kLightPurpleColor,
+                    showSelectedLabels: false,
+                    showUnselectedLabels: false,
+                    type: BottomNavigationBarType.fixed, // Fixed
 
-                  items: navCubit.items,
-                ),
-                body: navCubit.screens[navCubit.currentIndex],
-              );
-            },
-          );
-        },
-      ),
+                    items: navCubit.items,
+                  ),
+                  body: navCubit.screens[navCubit.currentIndex],
+                );
+              },
+            );
+          },
+        ),
     );
   }
 }

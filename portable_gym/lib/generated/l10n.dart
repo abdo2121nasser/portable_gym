@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `go to Arabic`
+  String get language {
+    return Intl.message(
+      'go to Arabic',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get login {
     return Intl.message(

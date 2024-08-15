@@ -1,5 +1,8 @@
 class StringManager
 {
+  static const String localLanguage='language';
+
+
   static const String trueWord='true';
   static const String falseWord='false';
   static const String gmailPattern='@gmail.com';

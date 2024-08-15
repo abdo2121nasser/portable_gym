@@ -92,9 +92,9 @@ class NutritionScreen extends StatelessWidget {
               body: RefreshIndicator(
                 onRefresh: () async {
                   await Future.delayed(const Duration(seconds: 0))
-                      .then((value) {
+                      .then((value)  {
                     if (profCubit!.profileModel != null &&
-                        profCubit!.profileModel!.isClient) {
+                        !profCubit!.profileModel!.isClient) {
                       nutCubit.getAllMealPlanRequests();
                     }
                   });

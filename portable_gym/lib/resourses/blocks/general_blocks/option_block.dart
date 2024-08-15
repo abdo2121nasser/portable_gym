@@ -6,42 +6,49 @@ import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
 
 class OptionBlock extends StatelessWidget {
-  final  String lable;
+  final String lable;
   final IconData icon;
+  final Switch? mySwitch;
 
-  const OptionBlock({super.key, required this.lable,required this.icon});
+  const OptionBlock(
+      {super.key, required this.lable, required this.icon, this.mySwitch});
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Container(
-                padding: EdgeInsets.all(AppVerticalSize.s5),
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ColorManager.kPurpleColor
-                ),
-                child:  Icon(icon,color: ColorManager.kWhiteColor,)),
-            Padding(
-              padding:  EdgeInsets.only(left: AppHorizontalSize.s16),
-              child: Text(
-                lable,
-                style: getRegularStyle(
-                    fontSize: FontSize.s20,
+        Flexible(
+          child: Row(
+            children: [
+              Container(
+                  padding: EdgeInsets.all(AppVerticalSize.s5),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: ColorManager.kPurpleColor),
+                  child: Icon(
+                    icon,
                     color: ColorManager.kWhiteColor,
-                    fontFamily: FontFamily.kLeagueSpartanFont),
+                  )),
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal:  AppHorizontalSize.s16),
+                  child: Text(
+                    lable,
+                    style: getRegularStyle(
+                        fontSize: FontSize.s20,
+                        color: ColorManager.kWhiteColor,
+                        fontFamily: FontFamily.kLeagueSpartanFont),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        const Icon(
-          Icons.arrow_right,
-          color: ColorManager.kLimeGreenColor,
-        ),
-
-
+        mySwitch == null
+            ? const Icon(
+                Icons.arrow_right,
+                color: ColorManager.kLimeGreenColor,
+              )
+            : mySwitch!,
       ],
     );
   }

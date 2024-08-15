@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "intermediate": MessageLookupByLibrary.simpleMessage("متوسط"),
         "kCal": MessageLookupByLibrary.simpleMessage("سعرات"),
         "kg": MessageLookupByLibrary.simpleMessage("KG"),
+        "language": MessageLookupByLibrary.simpleMessage("اذهب الي الانجليزي"),
         "lb": MessageLookupByLibrary.simpleMessage("LB"),
         "letsGo": MessageLookupByLibrary.simpleMessage("لنبدء "),
         "letsStart": MessageLookupByLibrary.simpleMessage("يلا نبدأ"),
