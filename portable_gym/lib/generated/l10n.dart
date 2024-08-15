@@ -1219,6 +1219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `sorry, but you should solve all questions`
+  String get mealPlanRequestsErrorMassage {
+    return Intl.message(
+      'sorry, but you should solve all questions',
+      name: 'mealPlanRequestsErrorMassage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

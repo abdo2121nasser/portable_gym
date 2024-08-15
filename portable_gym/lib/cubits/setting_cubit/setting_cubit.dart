@@ -303,6 +303,27 @@ class SettingCubit extends Cubit<SettingState> {
   }
   //-------------------------------trainer side---------------------------------
 
+ bool validateRequests(){
+   bool valid=false;
+   for(int i=0;i<questionsModel.length;i++)
+     {
+       questionsModel[i].english.answers.forEach((element) {
+         if(element.value==true) {
+           valid=true;
+           return;
+         }
+       });
+       if(valid == true)
+         {
+           valid=false;
+         }
+       else{
+         return false;
+       }
+     }
+   return true;
+  }
+
   Map<String,dynamic> getMealPlanRequestMap({required String userDocId,required String nickName}){
     List<Map<String,dynamic>> questions=[];
     questionsModel.forEach((element) {
@@ -335,7 +356,15 @@ class SettingCubit extends Cubit<SettingState> {
     Get.back();
   }
 
-
+  createMealPlanRequestProcess({required String nickName,required context}){
+   if(validateRequests())
+     {
+       createMealPlanRequest(nickName: nickName,context: context);
+     }
+   else{
+getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
+   }
+  }
 
 
 }

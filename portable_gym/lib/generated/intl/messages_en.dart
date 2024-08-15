@@ -107,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lunch": MessageLookupByLibrary.simpleMessage("Lunch"),
         "mealIdea": MessageLookupByLibrary.simpleMessage("meal idea"),
         "mealPlan": MessageLookupByLibrary.simpleMessage("meal plan"),
+        "mealPlanRequestsErrorMassage": MessageLookupByLibrary.simpleMessage(
+            "sorry, but you should solve all questions"),
         "minute": MessageLookupByLibrary.simpleMessage("M"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("minute"),
         "musclesMassGain":

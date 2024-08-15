@@ -106,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lunch": MessageLookupByLibrary.simpleMessage("الغداء"),
         "mealIdea": MessageLookupByLibrary.simpleMessage("افكار للوجبات"),
         "mealPlan": MessageLookupByLibrary.simpleMessage("خطط للوجبات"),
+        "mealPlanRequestsErrorMassage": MessageLookupByLibrary.simpleMessage(
+            "اسف, لكن يجب عليك حل جميع الاسئله"),
         "minute": MessageLookupByLibrary.simpleMessage("د"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("دقيقه"),
         "musclesMassGain": MessageLookupByLibrary.simpleMessage("كسب عضلاط"),
