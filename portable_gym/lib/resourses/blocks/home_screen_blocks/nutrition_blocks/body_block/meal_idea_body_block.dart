@@ -11,6 +11,8 @@ import '../recipe_grid_square_block.dart';
 import '../../work_out_block/horizontal_category_list_block.dart';
 
 class MealIdeaBodyBlock extends StatelessWidget {
+  const MealIdeaBodyBlock({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +40,11 @@ class MealIdeaBodyBlock extends StatelessWidget {
                     ),
                     state is GetFilteredRecipesLoadingState ||
                         state is GetUserDocIdLoadingState
-                        ? Expanded(
+                        ? const Expanded(
                       child: Align(
                           alignment: Alignment.center,
                           child: CircularProgressIndicator(
-                            color: ColorManager.kBlue,
+                            color: ColorManager.kPurpleColor,
                           )),
                     )
                         :

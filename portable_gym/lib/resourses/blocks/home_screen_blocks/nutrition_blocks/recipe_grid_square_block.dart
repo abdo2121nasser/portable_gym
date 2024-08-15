@@ -20,6 +20,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
   final TabBarView tabBarView;
   final bool hasFavouriteIcon;
 
+
   const RecipeGridSquareBlock(
       {super.key,
       required this.recipeModels,
