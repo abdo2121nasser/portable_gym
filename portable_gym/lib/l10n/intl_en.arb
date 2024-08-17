@@ -122,6 +122,8 @@
   "chooseDate": "Choose Date",
   "activities": "Activities",
    "createRequestSuccessMessage": "your request has been sent\nplease wait till the couch create your plan",
-  "mealPlanRequestsErrorMassage": "sorry, but you should solve all questions"
+  "mealPlanRequestsErrorMassage": "sorry, but you should solve all questions",
+
+  "hintMessage": "type your message"
 }
 

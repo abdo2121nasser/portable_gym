@@ -239,14 +239,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     await FirebaseAuth.instance.signOut().then((value) {
       getToastMessage(message: S.of(context).success);
       deleteAllLocalStoredData();
-      Get.offAll(LoginScreen());
+      Get.offAll(const LoginScreen());
     }).catchError((error) {
       getToastMessage(message: S.of(context).somethingWentWrong);
       debugPrint(error);
     });
   }
   deleteAllLocalStoredData() async {
-  await  const FlutterSecureStorage().deleteAll();
+  await  const FlutterSecureStorage().delete(key: StringManager.userDocId);
   }
 
 //------------------------------logout------------------------------------------

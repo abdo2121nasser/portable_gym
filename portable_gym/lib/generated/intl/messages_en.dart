@@ -88,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgotten Password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "height": MessageLookupByLibrary.simpleMessage("Height"),
+        "hintMessage":
+            MessageLookupByLibrary.simpleMessage("type your message"),
         "hour": MessageLookupByLibrary.simpleMessage("H"),
         "howOldAreYou":
             MessageLookupByLibrary.simpleMessage("How Old Are You?"),

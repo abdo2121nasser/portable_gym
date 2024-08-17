@@ -204,7 +204,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .doc(profileModel!.docIc)
+        .doc(profileModel!.docId)
         .update({
       StringManager.userFullName: fullNameController.text,
       StringManager.userNickName: nickNameController.text,

@@ -12,13 +12,19 @@ class GeneralTextFormField extends StatelessWidget {
   final bool multiLine;
   final bool isArabic;
   final bool readOnly;
-  GeneralTextFormField(
-      {this.onlyInteger = false,
+  final String? hint;
+  final Icon? suffixIcon;
+  final VoidCallback? sendMessageFunction;
+  const GeneralTextFormField(
+      {super.key, this.onlyInteger = false,
       required this.controller,
       this.enableBorder = false,
       this.multiLine = false,
       this.isArabic = false,
-      this.readOnly=false
+      this.readOnly=false,
+        this.hint,
+        this.suffixIcon,
+        this.sendMessageFunction
       });
 
   @override
@@ -42,6 +48,7 @@ class GeneralTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: ColorManager.kWhiteColor,
         filled: true,
+        hintText: hint,
         enabledBorder: enableBorder
             ? OutlineInputBorder(
                 borderRadius:
@@ -53,11 +60,16 @@ class GeneralTextFormField extends StatelessWidget {
         focusedBorder: enableBorder
             ? OutlineInputBorder(
                 borderRadius:
-                    BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+                BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
                 borderSide: BorderSide(
                     width: AppHorizontalSize.s1_5,
                     color: ColorManager.kBlackColor))
             : null,
+        suffixIcon:suffixIcon!=null? InkWell(
+            onTap: (){
+             sendMessageFunction!();
+            },
+            child: suffixIcon):null
       ),
     );
   }

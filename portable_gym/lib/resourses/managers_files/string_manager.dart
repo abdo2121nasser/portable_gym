@@ -205,6 +205,12 @@ class StringManager
   static const String snacksMealPlan='snacks';
 
 
+  static const String collectionMessages='messages';
+  static const String message='message';
+  static const String senderAndReceiverDocId='sender and receiver doc id';
+  static const String senderDocId='sender doc id';
+  static const String messageDate='date';
+
 
 
 

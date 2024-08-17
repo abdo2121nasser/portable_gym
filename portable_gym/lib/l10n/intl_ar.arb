@@ -141,8 +141,9 @@
   "chooseDate": "اختر تاريخ",
   "activities": "الانشطه",
   "createRequestSuccessMessage": "تم ارسال طلبك بنجاح\nرجأ انتظر حتي يقوم المدرب بي انشاء الخطه",
-  "mealPlanRequestsErrorMassage": "اسف, لكن يجب عليك حل جميع الاسئله"
+  "mealPlanRequestsErrorMassage": "اسف, لكن يجب عليك حل جميع الاسئله",
 
+  "hintMessage": "اكتب رسالتك"
 
 
 }

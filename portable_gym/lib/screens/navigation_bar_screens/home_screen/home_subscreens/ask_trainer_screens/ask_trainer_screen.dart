@@ -19,11 +19,11 @@ class AskTrainerScreen extends StatelessWidget {
     return BlocProvider.value(
       value: profCubit,
       child: BlocProvider(
-        create: (context) => AskTrainerCubit()..getAllAdmins(),
+        create: (context) => AskTrainerCubit()..getAllFilteredUsers(myDocId: profCubit.userDocId,isUserAdmin: profCubit.profileModel!.isClient),
         child: BlocConsumer<AskTrainerCubit, AskTrainerState>(
           listener: (context, state) {},
           builder: (context, state) {
-            var askCubit=AskTrainerCubit.get(context);
+            var askCubit = AskTrainerCubit.get(context);
             return Scaffold(
               appBar: GeneralAppBarBlock(
                 title: S.of(context).askTrainer,
@@ -31,10 +31,26 @@ class AskTrainerScreen extends StatelessWidget {
               body: Column(
                 children: [
                   OptionsListBlock(
-                      lables:getAdminsLableList(models: askCubit.adminsProfileModels),
-                      icons: List<IconData>.generate(getAdminsLableList(models: askCubit.adminsProfileModels).length, (index) =>  Icons.person,growable: true),
-                      onClickFunction: (index,context){
-                         Get.to(ChatScreen());
+                      lables: getAdminsLableList(
+                          models: askCubit.profileModels),
+                      icons: List<IconData>.generate(
+                          getAdminsLableList(
+                                  models: askCubit.profileModels)
+                              .length,
+                          (index) => Icons.person,
+                          growable: true),
+                      onClickFunction: (index, context) {
+                        Get.to(ChatScreen(
+                          askCubit: askCubit,
+                          profCubit: profCubit,
+                          receiverModel: askCubit.profileModels[index],
+                        ));
+                        askCubit.receiveStreamMessages(
+                            receiverDocId: profCubit.userDocId,
+                            senderDocId:
+                                askCubit.profileModels[index].docId,
+                );
+
                       })
                 ],
               ),
@@ -44,9 +60,10 @@ class AskTrainerScreen extends StatelessWidget {
       ),
     );
   }
-  List<String> getAdminsLableList({required List<ProfileModel> models}){
-    List<String> lables=[];
-    models.forEach((element) { 
+
+  List<String> getAdminsLableList({required List<ProfileModel> models}) {
+    List<String> lables = [];
+    models.forEach((element) {
       lables.add(element.nickName);
     });
     return lables;

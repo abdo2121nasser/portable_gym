@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class ProfileModel {
-  final String docIc;
+  final String docId;
   final String fullName;
   final String nickName;
   final String email;
@@ -18,7 +18,7 @@ class ProfileModel {
   final bool isClient;
 
   ProfileModel(
-      {required this.docIc,
+      {required this.docId,
       required this.fullName,
       required this.nickName,
       required this.email,
@@ -35,7 +35,7 @@ class ProfileModel {
   factory ProfileModel.fromJson(
       {required Map<String, dynamic> json, required String docId}) {
     return ProfileModel(
-        docIc: docId,
+        docId: docId,
         fullName: json[StringManager.userFullName],
         nickName: json[StringManager.userNickName],
         email: json[StringManager.userEmail],

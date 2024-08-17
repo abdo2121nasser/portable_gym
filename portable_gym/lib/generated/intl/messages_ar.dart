@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("نيسيت كلمه السر"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
         "height": MessageLookupByLibrary.simpleMessage("الطول"),
+        "hintMessage": MessageLookupByLibrary.simpleMessage("اكتب رسالتك"),
         "hour": MessageLookupByLibrary.simpleMessage("ث"),
         "howOldAreYou": MessageLookupByLibrary.simpleMessage("ما هو عمرك؟"),
         "intermediate": MessageLookupByLibrary.simpleMessage("متوسط"),
