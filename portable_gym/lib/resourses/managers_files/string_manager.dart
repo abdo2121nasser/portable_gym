@@ -207,6 +207,7 @@ class StringManager
 
   static const String collectionMessages='messages';
   static const String message='message';
+  static const String fileLink='file link';
   static const String senderAndReceiverDocId='sender and receiver doc id';
   static const String senderDocId='sender doc id';
   static const String messageDate='date';

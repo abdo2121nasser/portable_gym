@@ -14,18 +14,22 @@ class GeneralTextFormField extends StatelessWidget {
   final bool readOnly;
   final String? hint;
   final Icon? suffixIcon;
+  final Icon? prefixIcon;
   final VoidCallback? sendMessageFunction;
+  final VoidCallback? selectFileFunction;
   const GeneralTextFormField(
-      {super.key, this.onlyInteger = false,
+      {super.key,
+      this.onlyInteger = false,
       required this.controller,
       this.enableBorder = false,
       this.multiLine = false,
       this.isArabic = false,
-      this.readOnly=false,
-        this.hint,
-        this.suffixIcon,
-        this.sendMessageFunction
-      });
+      this.readOnly = false,
+      this.hint,
+      this.suffixIcon,
+        this.prefixIcon,
+      this.sendMessageFunction,
+      this.selectFileFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -46,30 +50,39 @@ class GeneralTextFormField extends StatelessWidget {
                   r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$')),
       ],
       decoration: InputDecoration(
-        fillColor: ColorManager.kWhiteColor,
-        filled: true,
-        hintText: hint,
-        enabledBorder: enableBorder
-            ? OutlineInputBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                borderSide: BorderSide(
-                    width: AppHorizontalSize.s1_5,
-                    color: ColorManager.kBlackColor))
-            : null,
-        focusedBorder: enableBorder
-            ? OutlineInputBorder(
-                borderRadius:
-                BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                borderSide: BorderSide(
-                    width: AppHorizontalSize.s1_5,
-                    color: ColorManager.kBlackColor))
-            : null,
-        suffixIcon:suffixIcon!=null? InkWell(
-            onTap: (){
-             sendMessageFunction!();
+          fillColor: ColorManager.kWhiteColor,
+          filled: true,
+          hintText: hint,
+          enabledBorder: enableBorder
+              ? OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+                  borderSide: BorderSide(
+                      width: AppHorizontalSize.s1_5,
+                      color: ColorManager.kBlackColor))
+              : null,
+          focusedBorder: enableBorder
+              ? OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
+                  borderSide: BorderSide(
+                      width: AppHorizontalSize.s1_5,
+                      color: ColorManager.kBlackColor))
+              : null,
+          suffixIcon: suffixIcon != null
+              ? InkWell(
+                  onTap: () {
+                    sendMessageFunction!();
+                  },
+                  child: suffixIcon)
+              : null,
+        prefixIcon: prefixIcon != null
+            ? InkWell(
+            onTap: () {
+              selectFileFunction!();
             },
-            child: suffixIcon):null
+            child: prefixIcon)
+            : null,
       ),
     );
   }

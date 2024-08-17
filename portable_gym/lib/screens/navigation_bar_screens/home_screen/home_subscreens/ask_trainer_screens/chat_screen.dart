@@ -83,10 +83,10 @@ class ChatScreen extends StatelessWidget {
                       hint: S.of(context).hintMessage,
                       suffixIcon: Icon(
                         Icons.send,
-                        color: ColorManager.kBlue,
+                        color: state is UploadFileLoadingState? ColorManager.kBlackColor:ColorManager.kBlue,
                       ),
-                      sendMessageFunction: () {
-                        askCubit.sendMessage(
+                      sendMessageFunction:state is UploadFileLoadingState? null: () {
+                        askCubit.sendMessageProcess(
                             senderDocId: profCubit.userDocId,
                             senderAndReceiverDocId:
                                 profCubit.userDocId + receiverModel.docId);
@@ -94,6 +94,14 @@ class ChatScreen extends StatelessWidget {
                             _scrollController.position.maxScrollExtent,
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.linear);
+                      },
+                      prefixIcon: state is UploadFileLoadingState? null:
+                      const Icon(
+                        Icons.attach_file,
+                        color: ColorManager.kBlackColor,
+                      ),
+                      selectFileFunction: (){
+                        askCubit.pickFile();
                       },
                     ),
 

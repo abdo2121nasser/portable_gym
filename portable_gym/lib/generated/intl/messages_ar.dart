@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "round": MessageLookupByLibrary.simpleMessage("جوله "),
         "second": MessageLookupByLibrary.simpleMessage("س"),
         "seeAll": MessageLookupByLibrary.simpleMessage("المذيد"),
+        "sendFileErrorMessage":
+            MessageLookupByLibrary.simpleMessage("يجب ان تختار ملفا اولا"),
         "settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
         "shapeBody": MessageLookupByLibrary.simpleMessage("تجسيم"),
         "signUp": MessageLookupByLibrary.simpleMessage("انشئ حساب"),

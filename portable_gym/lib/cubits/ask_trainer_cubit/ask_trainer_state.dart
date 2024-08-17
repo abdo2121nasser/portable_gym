@@ -16,3 +16,11 @@ class GetAllClientsErrorState extends AskTrainerState {}
 class SendMessageLoadingState extends AskTrainerState {}
 class SendMessageSuccessState extends AskTrainerState {}
 class SendMessageErrorState extends AskTrainerState {}
+
+class PickFileLoadingState extends AskTrainerState {}
+class PickFileSuccessState extends AskTrainerState {}
+class PickFileErrorState extends AskTrainerState {}
+
+class UploadFileLoadingState extends AskTrainerState {}
+class UploadFileSuccessState extends AskTrainerState {}
+class UploadFileErrorState extends AskTrainerState {}

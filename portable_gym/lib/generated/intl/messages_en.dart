@@ -147,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "round": MessageLookupByLibrary.simpleMessage("Round "),
         "second": MessageLookupByLibrary.simpleMessage("S"),
         "seeAll": MessageLookupByLibrary.simpleMessage("see all"),
+        "sendFileErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "you should choose file first"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "shapeBody": MessageLookupByLibrary.simpleMessage("Shape body"),
         "signUp": MessageLookupByLibrary.simpleMessage("SignUp"),

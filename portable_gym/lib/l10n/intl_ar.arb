@@ -143,7 +143,9 @@
   "createRequestSuccessMessage": "تم ارسال طلبك بنجاح\nرجأ انتظر حتي يقوم المدرب بي انشاء الخطه",
   "mealPlanRequestsErrorMassage": "اسف, لكن يجب عليك حل جميع الاسئله",
 
-  "hintMessage": "اكتب رسالتك"
+  "hintMessage": "اكتب رسالتك",
+  "sendFileErrorMessage": "يجب ان تختار ملفا اولا"
+
 
 
 }

@@ -1259,6 +1259,16 @@ class S {
       args: [],
     );
   }
+
+  /// `you should choose file first`
+  String get sendFileErrorMessage {
+    return Intl.message(
+      'you should choose file first',
+      name: 'sendFileErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
