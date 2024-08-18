@@ -125,6 +125,7 @@
   "mealPlanRequestsErrorMassage": "sorry, but you should solve all questions",
 
   "hintMessage": "type your message",
+  "file": "File",
   "sendFileErrorMessage": "you should choose file first"
 }
 

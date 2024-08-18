@@ -7,7 +7,7 @@ class DioHelper {
   static init(){
     dio=Dio(
         BaseOptions(
-          baseUrl: 'https://www.googleapis.com/upload/drive/v3/files?',
+          baseUrl: '',
           receiveDataWhenStatusError: true,
         )
     );

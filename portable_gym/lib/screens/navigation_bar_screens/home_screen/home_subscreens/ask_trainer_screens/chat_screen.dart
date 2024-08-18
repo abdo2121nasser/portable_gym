@@ -5,6 +5,8 @@ import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/file_box_block.dart';
+import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/linear_progress_indicator_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/message_chat_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
@@ -12,99 +14,61 @@ import 'package:portable_gym/resourses/models/ask_trainer_models/message_model.d
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
+import '../../../../../resourses/blocks/home_screen_blocks/ask_trainer_blocks/message_stream_builder_block.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   final AskTrainerCubit askCubit;
   final ProfileCubit profCubit;
   final ProfileModel receiverModel;
-  final _scrollController = ScrollController();
 
-  ChatScreen(
+  const ChatScreen(
       {super.key,
       required this.askCubit,
       required this.profCubit,
       required this.receiverModel});
 
   @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final _scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: profCubit,
+      value: widget.profCubit,
       child: BlocProvider.value(
-        value: askCubit,
+        value: widget.askCubit,
         child: BlocConsumer<AskTrainerCubit, AskTrainerState>(
           listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
               appBar: GeneralAppBarBlock(
-                title: receiverModel.nickName,
+                title: widget.receiverModel.nickName,
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    askCubit.messageStream == null
-                        ? const Expanded(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                            color: ColorManager.kPurpleColor,
-                          )))
-                        : StreamBuilder(
-                            stream: askCubit.messageStream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                List<dynamic> messageModels =
-                                    setMessageModels(snapshot);
-                                return Expanded(
-                                  child: ListView.separated(
-                                    controller: _scrollController,
-                                    itemBuilder: (context, index) {
-                                      return MessageChatBlock(
-                                        message: messageModels[index].message,
-                                        isSenderMessage:
-                                            messageModels[index].senderDocId ==
-                                                profCubit.userDocId,
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                      height: AppVerticalSize.s10,
-                                    ),
-                                    itemCount: messageModels.length,
-                                  ),
-                                );
-                              } else {
-                                return const SizedBox();
-                              }
-                            },
-                          ),
-                    GeneralTextFormField(
-                      controller: askCubit.messageController,
-                      hint: S.of(context).hintMessage,
-                      suffixIcon: Icon(
-                        Icons.send,
-                        color: state is UploadFileLoadingState? ColorManager.kBlackColor:ColorManager.kBlue,
-                      ),
-                      sendMessageFunction:state is UploadFileLoadingState? null: () {
-                        askCubit.sendMessageProcess(
-                            senderDocId: profCubit.userDocId,
-                            senderAndReceiverDocId:
-                                profCubit.userDocId + receiverModel.docId);
-                        _scrollController.animateTo(
-                            _scrollController.position.maxScrollExtent,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.linear);
-                      },
-                      prefixIcon: state is UploadFileLoadingState? null:
-                      const Icon(
-                        Icons.attach_file,
-                        color: ColorManager.kBlackColor,
-                      ),
-                      selectFileFunction: (){
-                        askCubit.pickFile();
-                      },
+                    getChatBody,
+                    getFileBoxBlock(state),
+                    LinearProgressIndicatorBlock(
+                        isLoading: state is UploadFileLoadingState||
+                            state is DownloadFileLoadingState
                     ),
-
+                    buildGeneralTextFormField(context, state),
                   ],
                 ),
               ),
@@ -113,6 +77,73 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  GeneralTextFormField buildGeneralTextFormField(
+      BuildContext context, AskTrainerState state) {
+    return GeneralTextFormField(
+      controller: widget.askCubit.messageController,
+      hint: S.of(context).hintMessage,
+      suffixIcon: Icon(
+        Icons.send,
+        color: state is UploadFileLoadingState
+            ? ColorManager.kBlackColor
+            : ColorManager.kBlue,
+      ),
+      sendMessageFunction: state is UploadFileLoadingState
+          ? null
+          : () {
+              sendMessage();
+            },
+      prefixIcon: state is UploadFileLoadingState
+          ? null
+          : const Icon(
+              Icons.attach_file,
+              color: ColorManager.kBlackColor,
+            ),
+      selectFileFunction: () {
+        widget.askCubit.pickFile();
+      },
+    );
+  }
+
+  Widget getFileBoxBlock(AskTrainerState state) {
+    return widget.askCubit.messageFile != null
+        ? FileBoxBlock(
+            hasSuffixIcon: state is! UploadFileLoadingState,
+            suffixIconFunction: () {
+              widget.askCubit.removeFileFromSendingState();
+            },
+          )
+        : const SizedBox();
+  }
+
+  Widget get getChatBody {
+    return widget.askCubit.messageStream == null
+        ? const Expanded(
+            child: Center(
+                child: CircularProgressIndicator(
+            color: ColorManager.kPurpleColor,
+          )))
+        : MessageStreamBuilderBlock(
+            scrollController: _scrollController,
+          );
+  }
+
+  void sendMessage() {
+    widget.askCubit.sendMessageProcess(
+        senderDocId: widget.profCubit.userDocId,
+        senderAndReceiverDocId:
+            widget.profCubit.userDocId + widget.receiverModel.docId);
+    getToLastMessage();
+  }
+
+  void getToLastMessage() {
+    _scrollController.animateTo(
+        //_scrollController.position.maxScrollExtent,
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.linear);
   }
 
   setMessageModels(AsyncSnapshot<dynamic> snapshot) {

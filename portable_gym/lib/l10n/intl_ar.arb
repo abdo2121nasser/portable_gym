@@ -144,6 +144,7 @@
   "mealPlanRequestsErrorMassage": "اسف, لكن يجب عليك حل جميع الاسئله",
 
   "hintMessage": "اكتب رسالتك",
+  "file": "ملف",
   "sendFileErrorMessage": "يجب ان تختار ملفا اولا"
 
 

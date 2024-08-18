@@ -78,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exercises": MessageLookupByLibrary.simpleMessage("تمارين"),
         "exploreDifferentWorkoutStyles": MessageLookupByLibrary.simpleMessage(
             "استكشف العديد من اساليب التمرين"),
+        "file": MessageLookupByLibrary.simpleMessage("ملف"),
         "fillYourProfile":
             MessageLookupByLibrary.simpleMessage("املاء صفحتك الشخصيه"),
         "foodMainElement":

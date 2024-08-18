@@ -1260,6 +1260,16 @@ class S {
     );
   }
 
+  /// `File`
+  String get file {
+    return Intl.message(
+      'File',
+      name: 'file',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `you should choose file first`
   String get sendFileErrorMessage {
     return Intl.message(
