@@ -122,7 +122,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   }) {
     String senderToReceiver = senderDocId + receiverDocId;
     String receiverToSender = receiverDocId + senderDocId;
-
     messageStream = FirebaseFirestore.instance
         .collection(StringManager.collectionMessages)
         .where(StringManager.senderAndReceiverDocId,
@@ -167,40 +166,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       debugPrint(error);
     });
   }
-  //String getFileName({required String url})=> url.split('?')[0].split('/').last;
-
-  // Future<void> downloadFileToDownloads({required String url}) async {
-  //   try{
-  //     emit(DownloadFileLoadingState());
-  //     String fileName=getFileName(url: url);
-  //     //download
-  //     final appStorage= await getApplicationDocumentsDirectory();
-  //     final file=File('${appStorage.path}/$fileName');
-  //     //download dio
-  //     Response response= await Dio().get(
-  //         url,
-  //         options: Options(
-  //             responseType: ResponseType.bytes,
-  //             followRedirects: false,
-  //             receiveTimeout: const Duration(seconds: 0)
-  //         )
-  //     );
-  //     final raf =file.openSync(mode: FileMode.write);
-  //     raf.writeFromSync(response.data);
-  //     print(raf.path);
-  //     print(file.path);
-  //     await raf.close();
-  //     emit(DownloadFileSuccessState());
-  //
-  //
-  //   }catch(error)
-  //   {
-  //     print(error);
-  //     emit(DownloadFileErrorState());
-  //
-  //   }
-  //
-  // }
 
   String getFileName({required String url}) => Uri.parse(url)
       .pathSegments
@@ -269,4 +234,5 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         senderDocId: senderDocId,
         senderAndReceiverDocId: senderAndReceiverDocId);
   }
+
 }

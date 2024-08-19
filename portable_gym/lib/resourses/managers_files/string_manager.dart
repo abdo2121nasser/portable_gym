@@ -204,6 +204,15 @@ class StringManager
   static const String dinnerMealPlan='dinner';
   static const String snacksMealPlan='snacks';
 
+  static const String collectionContacts='contacts';
+
+  static const String contactDocId1='document id 1';
+  static const String contactDocId2='document id 2';
+  static const String unReadDocId1MessageNo='unRead DocId1 Message No';
+  static const String unReadDocId2MessageNo='unRead DocId2 Message No';
+  static const String lastDateDocId1Sent='lastDate Doc Id 1 sent';
+  static const String lastDateDocId2Sent='lastDate Doc Id 2 sent';
+
 
   static const String collectionMessages='messages';
   static const String message='message';
