@@ -10,6 +10,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blo
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/message_chat_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/message_model.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import '../../../../../generated/l10n.dart';
@@ -20,11 +21,11 @@ class ChatScreen extends StatefulWidget {
   final AskTrainerCubit askCubit;
   final ProfileCubit profCubit;
   final ProfileModel receiverModel;
-  final String contactDocId;
+  final ContactMessageModel? contactModel;
 
   const ChatScreen(
       {super.key,
-        required this.contactDocId,
+        required this.contactModel,
       required this.askCubit,
       required this.profCubit,
       required this.receiverModel});
@@ -134,9 +135,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendMessage() {
     widget.askCubit.sendMessageProcess(
+      receiverDocId:widget.receiverModel.docId,
         senderDocId: widget.profCubit.userDocId,
-        senderAndReceiverDocId:
-            widget.profCubit.userDocId + widget.receiverModel.docId);
+
+);
     getToLastMessage();
   }
 

@@ -29,9 +29,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
   Stream? messageStream;
   List<ProfileModel> profileModels = [];
-  List<ProfileModel> chatWithMeBeforeModels = [];
-  List<ContactMessageModel> contactsModels = [];
-  ContactMessageModel? contactInformationModel;
   TextEditingController messageController = TextEditingController();
   File? messageFile;
   String? fileName;
@@ -83,8 +80,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
   Future<void> getAllClients({required String myDocId}) async {
     profileModels.clear();
-    chatWithMeBeforeModels.clear();
-    contactsModels.clear();
     emit(GetAllClientsLoadingState());
 
     var data = FirebaseFirestore.instance
@@ -108,13 +103,14 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
           docId2: element.id,
         );
         if (contactMap != null) {
-          chatWithMeBeforeModels.add(
-            ProfileModel.fromJson(json: element.data(), docId: element.id),
-          );
-          contactsModels.add(ContactMessageModel.fromJson(
+          var contactTemp = ContactMessageModel.fromJson(
             json: contactMap['data'],
             contactDocId: contactMap['id'],
-          ));
+          );
+          profileModels.add(
+            ProfileModel.fromJson(
+                json: element.data(), docId: element.id, contact: contactTemp),
+          );
         } else {
           profileModels.add(
             ProfileModel.fromJson(json: element.data(), docId: element.id),
@@ -278,32 +274,58 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
   sendMessageProcess(
       {required String senderDocId,
-      required String senderAndReceiverDocId,
-      String contactDocId = ''}) async {
+      required String receiverDocId,
+      ContactMessageModel? contactModel}) async {
     String message = messageController.text;
     messageController.clear();
+    updateContactInformationProcess(
+        senderDocId: senderDocId,
+        receiverDocId: receiverDocId,
+        contactModel: contactModel);
+
     if (messageFile != null) {
       await uploadFileToCloud();
     }
     sendMessage(
-        contactDocId: contactDocId,
+        contactDocId: contactModel!.contactDocId,
         message: message,
         senderDocId: senderDocId,
-        senderAndReceiverDocId: senderAndReceiverDocId);
+        senderAndReceiverDocId: senderDocId + receiverDocId);
   }
   //-----------------------------contacts--------------------------------
 
-  getContactInformation({required String contactDocId}) async {
-    emit(GetContactInformationLoadingState());
+  updateContactInformation({required ContactMessageModel model}) {
+    emit(CreateContactLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
-        .doc(contactDocId);
-    await data.get().then((value) {
-      contactInformationModel = ContactMessageModel.fromJson(json: value.data()!, contactDocId: value.id);
-      emit(GetContactInformationSuccessState());
-    }).catchError((error){
-      emit(GetContactInformationErrorState());
-    debugPrint(error);
+        .doc(model.contactDocId);
+    data.set(model.toJson()).then((value) {
+      emit(CreateContactSuccessState());
+    }).catchError((error) {
+      emit(CreateContactErrorState());
+
+      debugPrint(error);
     });
+  }
+
+  updateContactInformationProcess(
+      {required String senderDocId,
+      required String receiverDocId,
+      ContactMessageModel? contactModel}) {
+    if (contactModel == null) {
+      ContactMessageModel contact = ContactMessageModel(
+          docId1: senderDocId,
+          docId2: receiverDocId,
+          senderAndReceiverDocId: senderDocId + receiverDocId,
+          unReadMessagesNoDocId1: 0,
+          unReadMessagesNoDocId2: 1,
+          lastDateDocId1Sent: DateTime.now(),
+          lastDateDocId2Sent: DateTime.now(),
+          contactDocId: '');
+      updateContactInformation(model: contact);
+    }
+    else{
+      updateContactInformation(model: contactModel);
+    }
   }
 }

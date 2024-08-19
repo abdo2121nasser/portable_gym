@@ -5,6 +5,7 @@ import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/option_list_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
+import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/ask_trainer_screens/chat_screen.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
@@ -44,24 +45,21 @@ class AskTrainerScreen extends StatelessWidget {
                         ))
                       : OptionsListBlock(
                           lables: getAdminsLableList(
-                              profileModels: askCubit.profileModels,
-                              chatWithMeModels:
-                                  askCubit.chatWithMeBeforeModels),
+                            profileModels: askCubit.profileModels,
+                          ),
                           icons: List<IconData>.generate(
                               getAdminsLableList(
-                                      profileModels: askCubit.profileModels,
-                                      chatWithMeModels:
-                                          askCubit.chatWithMeBeforeModels)
-                                  .length,
+                                profileModels: askCubit.profileModels,
+                              ).length,
                               (index) => Icons.person,
                               growable: true),
-                          onClickFunction: (index, context) {
-                            if(index>=askCubit.contactsModels.length)
-                              {
-                                // await create new contact
-                              }
+                          onClickFunction: (index, context) async {
+                            // if(askCubit.profileModels[index].contactMessageModel==null)
+                            //   {
+                            //     askCubit.createContact(model: model);
+                            //   }
                             Get.to(ChatScreen(
-                              contactDocId: '',
+                              contactModel:askCubit.profileModels[index].contactMessageModel,
                               askCubit: askCubit,
                               profCubit: profCubit,
                               receiverModel: askCubit.profileModels[index],
@@ -82,13 +80,9 @@ class AskTrainerScreen extends StatelessWidget {
 
   List<String> getAdminsLableList({
     required List<ProfileModel> profileModels,
-    required List<ProfileModel> chatWithMeModels,
   }) {
     List<String> lables = [];
     profileModels.forEach((element) {
-      lables.add(element.nickName);
-    });
-    chatWithMeModels.forEach((element) {
       lables.add(element.nickName);
     });
     return lables;

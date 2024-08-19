@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 
 class ProfileModel {
   final String docId;
@@ -16,6 +17,7 @@ class ProfileModel {
   final int age;
   final bool isPremium;
   final bool isClient;
+  final ContactMessageModel? contactMessageModel;
 
   ProfileModel(
       {required this.docId,
@@ -30,10 +32,12 @@ class ProfileModel {
       required this.height,
       required this.age,
       required this.isPremium,
-      required this.isClient});
+      required this.isClient,
+      this.contactMessageModel
+      });
 
   factory ProfileModel.fromJson(
-      {required Map<String, dynamic> json, required String docId}) {
+      {required Map<String, dynamic> json, required String docId,ContactMessageModel? contact}) {
     return ProfileModel(
         docId: docId,
         fullName: json[StringManager.userFullName],
@@ -47,6 +51,8 @@ class ProfileModel {
         height: json[StringManager.userHeight],
         age: json[StringManager.userAge],
         isPremium: json[StringManager.userIsPremium],
-        isClient: json[StringManager.userIsClint]);
+        isClient: json[StringManager.userIsClint],
+    contactMessageModel: contact
+    );
   }
 }
