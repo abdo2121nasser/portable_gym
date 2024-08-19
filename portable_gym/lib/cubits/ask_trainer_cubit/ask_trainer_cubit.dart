@@ -33,6 +33,25 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   String? fileName;
   String fileLink = '';
 
+  Future<String?> hasChatWithMeBefore({
+    required String docId1,
+    required String docId2,
+  }) async {
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .where(StringManager.senderAndReceiverDocId,
+            whereIn: [docId1 + docId2, docId2 + docId1]).limit(1);
+    await data.get().then((value) {
+      if (value.docs.isNotEmpty) {
+        return value.docs.first;
+      } else {
+        return null;
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   getAllAdmins({required String myDocId}) async {
     profileModels.clear();
     emit(GetAllAdminsLoadingState());
@@ -234,5 +253,4 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         senderDocId: senderDocId,
         senderAndReceiverDocId: senderAndReceiverDocId);
   }
-
 }
