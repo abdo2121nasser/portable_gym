@@ -17,7 +17,7 @@ class ProfileModel {
   final int age;
   final bool isPremium;
   final bool isClient;
-  final ContactMessageModel? contactMessageModel;
+    ContactMessageModel? contactMessageModel;
 
   ProfileModel(
       {required this.docId,

@@ -25,14 +25,17 @@ part 'ask_trainer_state.dart';
 
 class AskTrainerCubit extends Cubit<AskTrainerState> {
   AskTrainerCubit() : super(AskTrainerInitial());
+
   static AskTrainerCubit get(context) => BlocProvider.of(context);
 
   Stream? messageStream;
+  Stream? contactStream;
   List<ProfileModel> profileModels = [];
   TextEditingController messageController = TextEditingController();
   File? messageFile;
   String? fileName;
   String fileLink = '';
+
   Future<Map<String, dynamic>?> hasChatWithMeBefore({
     required String docId1,
     required String docId2,
@@ -127,6 +130,10 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       getAllClients(myDocId: myDocId);
     }
   }
+  editProfileModel({required int index, required ContactMessageModel model}) {
+    profileModels[index].contactMessageModel = model;
+    emit(EditProfileModelState());
+  }
 
   //-----------------------------messages------------------------------
 
@@ -167,19 +174,15 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     });
   }
 
-  receiveStreamMessages({
-    required String senderDocId,
-    required String receiverDocId,
-  }) {
-    String senderToReceiver = senderDocId + receiverDocId;
-    String receiverToSender = receiverDocId + senderDocId;
-    messageStream = FirebaseFirestore.instance
+  receiveStreamMessages({required String contactDocId})  {
+   messageStream= FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .doc(contactDocId)
         .collection(StringManager.collectionMessages)
-        .where(StringManager.senderAndReceiverDocId,
-            whereIn: [senderToReceiver, receiverToSender])
         .orderBy(StringManager.messageDate, descending: true)
         .snapshots();
   }
+
 
 //-------------------------------files-------------------------------------
   removeFileFromSendingState() {
@@ -275,57 +278,58 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   sendMessageProcess(
       {required String senderDocId,
       required String receiverDocId,
-      ContactMessageModel? contactModel}) async {
+      required ContactMessageModel contactModel}) async {
     String message = messageController.text;
     messageController.clear();
-    updateContactInformationProcess(
-        senderDocId: senderDocId,
-        receiverDocId: receiverDocId,
-        contactModel: contactModel);
-
+    await updateContactInformation(model: contactModel);
     if (messageFile != null) {
       await uploadFileToCloud();
     }
+
     sendMessage(
-        contactDocId: contactModel!.contactDocId,
+        contactDocId: contactModel.contactDocId,
         message: message,
         senderDocId: senderDocId,
         senderAndReceiverDocId: senderDocId + receiverDocId);
   }
+
   //-----------------------------contacts--------------------------------
 
+  // streamContactInformation({
+  //   required String senderDocId,
+  // }) {
+  //   contactStream = FirebaseFirestore.instance
+  //       .collection(StringManager.collectionContacts)
+  //       .where(StringManager.senderAndReceiverDocId, whereIn: [
+  //     senderDocId]).orderBy(StringManager.lastDate,descending: true)
+  //       .snapshots();
+  // }
+
   updateContactInformation({required ContactMessageModel model}) {
-    emit(CreateContactLoadingState());
+    emit(UpdateContactLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
         .doc(model.contactDocId);
     data.set(model.toJson()).then((value) {
-      emit(CreateContactSuccessState());
+      emit(UpdateContactSuccessState());
     }).catchError((error) {
-      emit(CreateContactErrorState());
-
+      emit(UpdateContactErrorState());
       debugPrint(error);
     });
   }
 
-  updateContactInformationProcess(
-      {required String senderDocId,
-      required String receiverDocId,
-      ContactMessageModel? contactModel}) {
-    if (contactModel == null) {
-      ContactMessageModel contact = ContactMessageModel(
-          docId1: senderDocId,
-          docId2: receiverDocId,
-          senderAndReceiverDocId: senderDocId + receiverDocId,
-          unReadMessagesNoDocId1: 0,
-          unReadMessagesNoDocId2: 1,
-          lastDateDocId1Sent: DateTime.now(),
-          lastDateDocId2Sent: DateTime.now(),
-          contactDocId: '');
-      updateContactInformation(model: contact);
-    }
-    else{
-      updateContactInformation(model: contactModel);
-    }
+  Future<ContactMessageModel> createContact(
+      {required ContactMessageModel model}) async {
+    emit(CreateContactLoadingState());
+    var data =
+        FirebaseFirestore.instance.collection(StringManager.collectionContacts);
+    await data.add(model.toJson()).then((value) {
+      model.contactDocId = value.id;
+      emit(CreateContactSuccessState());
+    }).catchError((error) {
+      emit(CreateContactErrorState());
+      debugPrint(error);
+    });
+    return model;
   }
 }

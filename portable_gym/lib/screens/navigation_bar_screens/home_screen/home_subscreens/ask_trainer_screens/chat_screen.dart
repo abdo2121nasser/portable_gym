@@ -21,7 +21,7 @@ class ChatScreen extends StatefulWidget {
   final AskTrainerCubit askCubit;
   final ProfileCubit profCubit;
   final ProfileModel receiverModel;
-  final ContactMessageModel? contactModel;
+  final ContactMessageModel contactModel;
 
   const ChatScreen(
       {super.key,
@@ -96,6 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
       sendMessageFunction: state is UploadFileLoadingState
           ? null
           : () {
+
               sendMessage();
             },
       prefixIcon: state is UploadFileLoadingState
@@ -137,9 +138,10 @@ class _ChatScreenState extends State<ChatScreen> {
     widget.askCubit.sendMessageProcess(
       receiverDocId:widget.receiverModel.docId,
         senderDocId: widget.profCubit.userDocId,
+      contactModel: widget.contactModel
 
 );
-    getToLastMessage();
+   // getToLastMessage();
   }
 
   void getToLastMessage() {

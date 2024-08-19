@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
 class ContactMessageModel {
-  final String contactDocId;
+   String contactDocId;
   final String docId1;
   final String docId2;
   final String senderAndReceiverDocId;
   final int unReadMessagesNoDocId1;
   final int unReadMessagesNoDocId2;
-  final DateTime lastDateDocId1Sent;
-  final DateTime lastDateDocId2Sent;
+  final DateTime lastDate;
 
   ContactMessageModel(
       {required this.docId1,
@@ -17,8 +16,7 @@ class ContactMessageModel {
       required this.senderAndReceiverDocId,
       required this.unReadMessagesNoDocId1,
       required this.unReadMessagesNoDocId2,
-      required this.lastDateDocId1Sent,
-      required this.lastDateDocId2Sent,
+      required this.lastDate,
       required this.contactDocId});
 
   factory ContactMessageModel.fromJson(
@@ -29,10 +27,8 @@ class ContactMessageModel {
         senderAndReceiverDocId: json[StringManager.senderAndReceiverDocId],
         unReadMessagesNoDocId1: json[StringManager.unReadDocId1MessageNo],
         unReadMessagesNoDocId2: json[StringManager.unReadDocId2MessageNo],
-        lastDateDocId1Sent:
-            (json[StringManager.lastDateDocId1Sent] as Timestamp).toDate(),
-        lastDateDocId2Sent:
-            (json[StringManager.lastDateDocId2Sent] as Timestamp).toDate(),
+        lastDate:
+            (json[StringManager.lastDate] as Timestamp).toDate(),
         contactDocId: contactDocId);
   }
 
@@ -43,8 +39,7 @@ class ContactMessageModel {
       StringManager.senderAndReceiverDocId: senderAndReceiverDocId,
       StringManager.unReadDocId1MessageNo: unReadMessagesNoDocId1,
       StringManager.unReadDocId2MessageNo: unReadMessagesNoDocId2,
-      StringManager.lastDateDocId1Sent: Timestamp.fromDate(lastDateDocId1Sent),
-      StringManager.lastDateDocId2Sent: Timestamp.fromDate(lastDateDocId2Sent),
+      StringManager.lastDate: Timestamp.fromDate(lastDate),
     };
   }
 }

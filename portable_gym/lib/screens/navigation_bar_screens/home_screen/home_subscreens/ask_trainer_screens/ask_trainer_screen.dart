@@ -53,22 +53,34 @@ class AskTrainerScreen extends StatelessWidget {
                               ).length,
                               (index) => Icons.person,
                               growable: true),
-                          onClickFunction: (index, context) async {
-                            // if(askCubit.profileModels[index].contactMessageModel==null)
-                            //   {
-                            //     askCubit.createContact(model: model);
-                            //   }
-                            Get.to(ChatScreen(
-                              contactModel:askCubit.profileModels[index].contactMessageModel,
-                              askCubit: askCubit,
-                              profCubit: profCubit,
-                              receiverModel: askCubit.profileModels[index],
-                            ));
-                            askCubit.receiveStreamMessages(
-                              receiverDocId: profCubit.userDocId,
-                              senderDocId: askCubit.profileModels[index].docId,
-                            );
-                          }),
+                      onClickFunction: (index, context) async {
+                        ContactMessageModel? model = askCubit.profileModels[index].contactMessageModel;
+                        if (model == null) {
+                          ContactMessageModel contact = ContactMessageModel(
+                            docId1: profCubit.userDocId,
+                            docId2: askCubit.profileModels[index].docId,
+                            senderAndReceiverDocId: profCubit.userDocId + askCubit.profileModels[index].docId,
+                            unReadMessagesNoDocId1: 0,
+                            unReadMessagesNoDocId2: 1,
+                            lastDate: DateTime.now(),
+                            contactDocId: '',
+                          );
+                          model = await askCubit.createContact(model: contact);
+                          askCubit.editProfileModel(index: index, model: model);
+                        }
+                        print('--------------------');
+                        print(askCubit.profileModels[index].contactMessageModel!.contactDocId.toString() + '-----------------');
+
+                        askCubit.receiveStreamMessages(contactDocId: model.contactDocId);
+                        Get.to(ChatScreen(
+                          contactModel: askCubit.profileModels[index].contactMessageModel!,
+                          askCubit: askCubit,
+                          profCubit: profCubit,
+                          receiverModel: askCubit.profileModels[index],
+                        ));
+                      }
+
+                          ),
                 ],
               ),
             );

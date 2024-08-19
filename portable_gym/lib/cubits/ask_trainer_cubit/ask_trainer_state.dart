@@ -5,6 +5,7 @@ abstract class AskTrainerState {}
 
 class AskTrainerInitial extends AskTrainerState {}
 class RemoveFileFromSendingState extends AskTrainerState {}
+class EditProfileModelState extends AskTrainerState {}
 
 class GetAllAdminsLoadingState extends AskTrainerState {}
 class GetAllAdminsSuccessState extends AskTrainerState {}
@@ -33,6 +34,10 @@ class DownloadFileErrorState extends AskTrainerState {}
 class CreateContactLoadingState extends AskTrainerState {}
 class CreateContactSuccessState extends AskTrainerState {}
 class CreateContactErrorState extends AskTrainerState {}
+
+class UpdateContactLoadingState extends AskTrainerState {}
+class UpdateContactSuccessState extends AskTrainerState {}
+class UpdateContactErrorState extends AskTrainerState {}
 
 class GetContactInformationLoadingState extends AskTrainerState {}
 class GetContactInformationSuccessState extends AskTrainerState {}
