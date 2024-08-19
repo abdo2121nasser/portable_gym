@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
+import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/resourses/services/dio_service.dart';
 
@@ -28,28 +29,35 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
   Stream? messageStream;
   List<ProfileModel> profileModels = [];
+  List<ProfileModel> chatWithMeBeforeModels = [];
+  List<ContactMessageModel> contactsModels = [];
   TextEditingController messageController = TextEditingController();
   File? messageFile;
   String? fileName;
   String fileLink = '';
-
-  Future<String?> hasChatWithMeBefore({
+  Future<Map<String, dynamic>?> hasChatWithMeBefore({
     required String docId1,
     required String docId2,
   }) async {
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionContacts)
-        .where(StringManager.senderAndReceiverDocId,
-            whereIn: [docId1 + docId2, docId2 + docId1]).limit(1);
-    await data.get().then((value) {
-      if (value.docs.isNotEmpty) {
-        return value.docs.first;
+    try {
+      var data = FirebaseFirestore.instance
+          .collection(StringManager.collectionContacts)
+          .where(StringManager.senderAndReceiverDocId,
+              whereIn: [docId1 + docId2, docId2 + docId1]).limit(1);
+
+      var querySnapshot = await data.get();
+      if (querySnapshot.docs.isNotEmpty) {
+        return {
+          'data': querySnapshot.docs.first.data(),
+          'id': querySnapshot.docs.first.id
+        };
       } else {
         return null;
       }
-    }).catchError((error) {
-      print(error);
-    });
+    } catch (error) {
+      print("Error in hasChatWithMeBefore: $error");
+      return null;
+    }
   }
 
   getAllAdmins({required String myDocId}) async {
@@ -72,24 +80,46 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     });
   }
 
-  getAllClients({required String myDocId}) async {
+  Future<void> getAllClients({required String myDocId}) async {
     profileModels.clear();
+    chatWithMeBeforeModels.clear();
+    contactsModels.clear();
     emit(GetAllClientsLoadingState());
+
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .where(StringManager.userIsClint, isEqualTo: true);
-    await data.get().then((value) {
-      value.docs.forEach((element) {
-        if (element.id != myDocId) {
-          profileModels.add(
-              ProfileModel.fromJson(json: element.data(), docId: element.id));
-        }
-      });
+    await data.get().then((value) async {
+      await saveModelsData(value, myDocId);
       emit(GetAllClientsSuccessState());
     }).catchError((error) {
       emit(GetAllClientsErrorState());
-      debugPrint(error);
+      debugPrint("Error in getAllClients: $error");
     });
+  }
+
+  Future<void> saveModelsData(QuerySnapshot<Map<String, dynamic>> value, String myDocId) async {
+      for (var element in value.docs) {
+      if (element.id != myDocId) {
+        Map<String, dynamic>? contactMap = await hasChatWithMeBefore(
+          docId1: myDocId,
+          docId2: element.id,
+        );
+        if (contactMap != null) {
+          chatWithMeBeforeModels.add(
+            ProfileModel.fromJson(json: element.data(), docId: element.id),
+          );
+          contactsModels.add(ContactMessageModel.fromJson(
+            json: contactMap['data'],
+            contactDocId: contactMap['id'],
+          ));
+        } else {
+          profileModels.add(
+            ProfileModel.fromJson(json: element.data(), docId: element.id),
+          );
+        }
+      }
+    }
   }
 
   getAllFilteredUsers({required String myDocId, required bool isUserAdmin}) {
