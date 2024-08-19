@@ -56,7 +56,12 @@ class AskTrainerScreen extends StatelessWidget {
                               (index) => Icons.person,
                               growable: true),
                           onClickFunction: (index, context) {
+                            if(index>=askCubit.contactsModels.length)
+                              {
+                                // await create new contact
+                              }
                             Get.to(ChatScreen(
+                              contactDocId: '',
                               askCubit: askCubit,
                               profCubit: profCubit,
                               receiverModel: askCubit.profileModels[index],
@@ -65,7 +70,7 @@ class AskTrainerScreen extends StatelessWidget {
                               receiverDocId: profCubit.userDocId,
                               senderDocId: askCubit.profileModels[index].docId,
                             );
-                          })
+                          }),
                 ],
               ),
             );

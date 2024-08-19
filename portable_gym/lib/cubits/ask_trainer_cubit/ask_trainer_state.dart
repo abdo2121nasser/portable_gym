@@ -29,3 +29,7 @@ class UploadFileErrorState extends AskTrainerState {}
 class DownloadFileLoadingState extends AskTrainerState {}
 class DownloadFileSuccessState extends AskTrainerState {}
 class DownloadFileErrorState extends AskTrainerState {}
+
+class GetContactInformationLoadingState extends AskTrainerState {}
+class GetContactInformationSuccessState extends AskTrainerState {}
+class GetContactInformationErrorState extends AskTrainerState {}

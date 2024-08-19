@@ -31,6 +31,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   List<ProfileModel> profileModels = [];
   List<ProfileModel> chatWithMeBeforeModels = [];
   List<ContactMessageModel> contactsModels = [];
+  ContactMessageModel? contactInformationModel;
   TextEditingController messageController = TextEditingController();
   File? messageFile;
   String? fileName;
@@ -98,8 +99,9 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     });
   }
 
-  Future<void> saveModelsData(QuerySnapshot<Map<String, dynamic>> value, String myDocId) async {
-      for (var element in value.docs) {
+  Future<void> saveModelsData(
+      QuerySnapshot<Map<String, dynamic>> value, String myDocId) async {
+    for (var element in value.docs) {
       if (element.id != myDocId) {
         Map<String, dynamic>? contactMap = await hasChatWithMeBefore(
           docId1: myDocId,
@@ -131,6 +133,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   }
 
   //-----------------------------messages------------------------------
+
   MessageModel setMessageModel(
       {required String senderDocId,
       required String senderAndReceiverDocId,
@@ -146,10 +149,13 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   sendMessage(
       {required String senderDocId,
       required String senderAndReceiverDocId,
-      required String message}) async {
+      required String message,
+      required String contactDocId}) async {
     emit(SendMessageLoadingState());
-    var data =
-        FirebaseFirestore.instance.collection(StringManager.collectionMessages);
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .doc(contactDocId)
+        .collection(StringManager.collectionMessages);
     await data
         .add(setMessageModel(
       message: message,
@@ -216,10 +222,8 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     });
   }
 
-  String getFileName({required String url}) => Uri.parse(url)
-      .pathSegments
-      .last
-      .split('?')[0]; // Extract file name from URL
+  String getFileName({required String url}) =>
+      Uri.parse(url).pathSegments.last.split('?')[0];
 
   Future<void> downloadFileToDownloads(
       {required String url, required context}) async {
@@ -270,17 +274,36 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     }
   }
 
+  //------------------------------- process -----------------------------
+
   sendMessageProcess(
       {required String senderDocId,
-      required String senderAndReceiverDocId}) async {
+      required String senderAndReceiverDocId,
+      String contactDocId = ''}) async {
     String message = messageController.text;
     messageController.clear();
     if (messageFile != null) {
       await uploadFileToCloud();
     }
     sendMessage(
+        contactDocId: contactDocId,
         message: message,
         senderDocId: senderDocId,
         senderAndReceiverDocId: senderAndReceiverDocId);
+  }
+  //-----------------------------contacts--------------------------------
+
+  getContactInformation({required String contactDocId}) async {
+    emit(GetContactInformationLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .doc(contactDocId);
+    await data.get().then((value) {
+      contactInformationModel = ContactMessageModel.fromJson(json: value.data()!, contactDocId: value.id);
+      emit(GetContactInformationSuccessState());
+    }).catchError((error){
+      emit(GetContactInformationErrorState());
+    debugPrint(error);
+    });
   }
 }

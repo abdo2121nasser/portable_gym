@@ -20,9 +20,11 @@ class ChatScreen extends StatefulWidget {
   final AskTrainerCubit askCubit;
   final ProfileCubit profCubit;
   final ProfileModel receiverModel;
+  final String contactDocId;
 
   const ChatScreen(
       {super.key,
+        required this.contactDocId,
       required this.askCubit,
       required this.profCubit,
       required this.receiverModel});
