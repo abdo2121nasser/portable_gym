@@ -22,33 +22,42 @@ class OptionBlock extends StatelessWidget {
       children: [
         Flexible(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  padding: EdgeInsets.all(AppVerticalSize.s5),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: ColorManager.kPurpleColor),
-                  child: Icon(
-                    icon,
-                    color: ColorManager.kWhiteColor,
-                  )),
-              Flexible(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal:  AppHorizontalSize.s16),
-                  child: Text(
-                    lable,
-                    style: getRegularStyle(
-                        fontSize: FontSize.s20,
-                        color: ColorManager.kWhiteColor,
-                        fontFamily: FontFamily.kLeagueSpartanFont),
-                  ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(AppVerticalSize.s5),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: ColorManager.kPurpleColor),
+                        child: Icon(
+                          icon,
+                          color: ColorManager.kWhiteColor,
+                        )),
+                    Flexible(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal:  AppHorizontalSize.s16),
+                        child: Text(
+                          lable,
+                          style: getRegularStyle(
+                              fontSize: FontSize.s20,
+                              color: ColorManager.kWhiteColor,
+                              fontFamily: FontFamily.kLeagueSpartanFont),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-
-              subValue!=null ?  Container(
-                    padding: EdgeInsets.all(AppVerticalSize.s5,),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: ColorManager.kLightPurpleColor),
-                    child: Text(subValue!),
+               if(subValue!=null && subValue!='0')
+              const Spacer(),
+              subValue!=null && subValue!='0' ?
+              Container(
+                padding: EdgeInsets.all(AppVerticalSize.s5,),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: ColorManager.kLightPurpleColor),
+                child: Text(subValue!),
 
               ):const SizedBox()
             ],
@@ -56,9 +65,9 @@ class OptionBlock extends StatelessWidget {
         ),
         mySwitch == null
             ? const Icon(
-                Icons.arrow_right,
-                color: ColorManager.kLimeGreenColor,
-              )
+          Icons.arrow_right,
+          color: ColorManager.kLimeGreenColor,
+        )
             : mySwitch!,
       ],
     );

@@ -17,52 +17,49 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/ask_trainer_blocks/message_stream_builder_block.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends StatelessWidget {
   final AskTrainerCubit askCubit;
   final ProfileCubit profCubit;
   final ProfileModel receiverModel;
-  final ContactMessageModel contactModel;
+  ContactMessageModel contactModel;
 
-  const ChatScreen(
+  ChatScreen(
       {super.key,
       required this.contactModel,
       required this.askCubit,
       required this.profCubit,
       required this.receiverModel});
 
-  @override
-  State<ChatScreen> createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: widget.profCubit,
+      value: profCubit,
       child: BlocProvider.value(
-        value: widget.askCubit,
+        value: askCubit,
         child: BlocConsumer<AskTrainerCubit, AskTrainerState>(
           listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
               appBar: GeneralAppBarBlock(
-                title: widget.receiverModel.nickName,
+                title: receiverModel.nickName,
                 titleFunction: () async {
                   Get.back();
-                  if (widget.contactModel.docId1 ==
-                      widget.profCubit.userDocId) {
-                    if (widget.contactModel.unReadMessagesNoDocId2 != 0) {
-                      widget.contactModel.unReadMessagesNoDocId2 = 0;
-                      widget.askCubit
-                          .updateContactInformation(model: widget.contactModel);
+                 contactModel = askCubit
+                      .setContactAttributes(profile: receiverModel);
+                  if (contactModel.docId1 ==
+                      profCubit.userDocId) {
+                    if (contactModel.unReadMessagesNoDocId1 != 0) {
+                      contactModel.unReadMessagesNoDocId1 = 0;
+                      askCubit.updateUnreadedContact(
+                          model: contactModel, isDocId1: true);
                     }
                   } else {
-                    if (widget.contactModel.unReadMessagesNoDocId1 != 0) {
-                      widget.contactModel.unReadMessagesNoDocId1 = 0;
-                      widget.askCubit
-                          .updateContactInformation(model: widget.contactModel);
+                    if (contactModel.unReadMessagesNoDocId2 != 0) {
+                      contactModel.unReadMessagesNoDocId2 = 0;
+                      askCubit.updateUnreadedContact(
+                          model: contactModel, isDocId1: false);
                     }
                   }
                 },
@@ -91,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
   GeneralTextFormField buildGeneralTextFormField(
       BuildContext context, AskTrainerState state) {
     return GeneralTextFormField(
-      controller: widget.askCubit.messageController,
+      controller: askCubit.messageController,
       hint: S.of(context).hintMessage,
       suffixIcon: Icon(
         Icons.send,
@@ -103,8 +100,6 @@ class _ChatScreenState extends State<ChatScreen> {
           ? null
           : () {
               sendMessage();
-              print(widget.contactModel.unReadMessagesNoDocId1);
-              print(widget.contactModel.unReadMessagesNoDocId2);
             },
       prefixIcon: state is UploadFileLoadingState
           ? null
@@ -113,24 +108,24 @@ class _ChatScreenState extends State<ChatScreen> {
               color: ColorManager.kBlackColor,
             ),
       selectFileFunction: () {
-        widget.askCubit.pickFile();
+        askCubit.pickFile();
       },
     );
   }
 
   Widget getFileBoxBlock(AskTrainerState state) {
-    return widget.askCubit.messageFile != null
+    return askCubit.messageFile != null
         ? FileBoxBlock(
             hasSuffixIcon: state is! UploadFileLoadingState,
             suffixIconFunction: () {
-              widget.askCubit.removeFileFromSendingState();
+              askCubit.removeFileFromSendingState();
             },
           )
         : const SizedBox();
   }
 
   Widget get getChatBody {
-    return widget.askCubit.messageStream == null
+    return askCubit.messageStream == null
         ? const Expanded(
             child: Center(
                 child: CircularProgressIndicator(
@@ -142,21 +137,19 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> sendMessage() async {
-
-    await widget.askCubit.sendMessageProcess(
-        receiverDocId: widget.receiverModel.docId,
-        senderDocId: widget.profCubit.userDocId,
-        contactModel: widget.contactModel);
-    print(widget.contactModel.unReadMessagesNoDocId1);
-    print(widget.contactModel.unReadMessagesNoDocId2);
-    setState(() {});
-
+    contactModel =
+        askCubit.setContactAttributes(profile: receiverModel);
+    await askCubit.sendMessageProcess(
+        receiverDocId: receiverModel.docId,
+        senderDocId: profCubit.userDocId,
+        contactModel: updateContactModel(model: contactModel),
+        isDocId1: contactModel.docId1 != profCubit.userDocId);
     getToLastMessage();
   }
 
   ContactMessageModel updateContactModel({required ContactMessageModel model}) {
     model.lastDate = DateTime.now();
-    if (model.docId1 == widget.profCubit.userDocId) {
+    if (model.docId1 == profCubit.userDocId) {
       model.unReadMessagesNoDocId2++;
     } else {
       model.unReadMessagesNoDocId1++;

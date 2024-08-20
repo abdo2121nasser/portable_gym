@@ -44,6 +44,10 @@ class UpdateContactLoadingState extends AskTrainerState {}
 class UpdateContactSuccessState extends AskTrainerState {}
 class UpdateContactErrorState extends AskTrainerState {}
 
+class UpdateUnreadContactLoadingState extends AskTrainerState {}
+class UpdateUnreadContactSuccessState extends AskTrainerState {}
+class UpdateUnreadContactErrorState extends AskTrainerState {}
+
 class GetContactInformationLoadingState extends AskTrainerState {}
 class GetContactInformationSuccessState extends AskTrainerState {}
 class GetContactInformationErrorState extends AskTrainerState {}

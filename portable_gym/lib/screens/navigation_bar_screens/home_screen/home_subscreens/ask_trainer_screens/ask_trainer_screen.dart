@@ -46,7 +46,6 @@ class AskTrainerScreen extends StatelessWidget {
                       ),
                     );
                   } else if(snapshot.hasData) {
-                    print(askCubit.profileModels.length);
                   var profiles=  askCubit.saveModelsData(snapshot.data!, profCubit.userDocId);
                     return OptionsListBlock(
                       lables: getAdminsLableList(
@@ -82,12 +81,12 @@ class AskTrainerScreen extends StatelessWidget {
 
                         if (model.docId1 == profCubit.userDocId) {
                           model.unReadMessagesNoDocId1 = 0;
-                          await askCubit.updateContactInformation(
+                          await askCubit.setContactInformation(
                               model: profiles[index]
                                   .contactMessageModel!);
                         } else {
                           model.unReadMessagesNoDocId2 = 0;
-                          await askCubit.updateContactInformation(
+                          await askCubit.setContactInformation(
                               model: profiles[index]
                                   .contactMessageModel!);
                         }

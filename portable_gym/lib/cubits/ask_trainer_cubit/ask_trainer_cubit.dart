@@ -31,68 +31,11 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   Stream? messageStream;
   Stream<QuerySnapshot<Map<String, dynamic>>>? contactStream;
   List<ProfileModel> profileModels = [];
+  List<ProfileModel> contactsProfileModels = [];
   TextEditingController messageController = TextEditingController();
   File? messageFile;
   String? fileName;
   String fileLink = '';
-
-  //
-  // Future<void> getAllClients({required String myDocId}) async {
-  //   profileModels.clear();
-  //   emit(GetAllClientsLoadingState());
-  //
-  //   var data = FirebaseFirestore.instance
-  //       .collection(StringManager.collectionUserProfiles)
-  //       .where(StringManager.userIsClint, isEqualTo: true);
-  //   await data.get().then((value) async {
-  //     await saveModelsData(value, myDocId);
-  //     emit(GetAllClientsSuccessState());
-  //   }).catchError((error) {
-  //     emit(GetAllClientsErrorState());
-  //     debugPrint("Error in getAllClients: $error");
-  //   });
-  // }
-  // getAllAdmins({required String myDocId}) async {
-  //   profileModels.clear();
-  //   emit(GetAllAdminsLoadingState());
-  //   var data = FirebaseFirestore.instance
-  //       .collection(StringManager.collectionUserProfiles)
-  //       .where(StringManager.userIsClint, isEqualTo: false);
-  //   await data.get().then((value) async {
-  //
-  //     await saveModelsData(value, myDocId);
-  //
-  //     emit(GetAllAdminsSuccessState());
-  //   }).catchError((error) {
-  //     emit(GetAllAdminsErrorState());
-  //     debugPrint(error);
-  //   });
-  // }
-
-  Future<Map<String, dynamic>?> hasChatWithMeBefore({
-    required String docId1,
-    required String docId2,
-  }) async {
-    try {
-      var data = FirebaseFirestore.instance
-          .collection(StringManager.collectionContacts)
-          .where(StringManager.senderAndReceiverDocId,
-              whereIn: [docId1 + docId2, docId2 + docId1]).limit(1);
-
-      var querySnapshot = await data.get();
-      if (querySnapshot.docs.isNotEmpty) {
-        return {
-          'data': querySnapshot.docs.first.data(),
-          'id': querySnapshot.docs.first.id
-        };
-      } else {
-        return null;
-      }
-    } catch (error) {
-      print("Error in hasChatWithMeBefore: $error");
-      return null;
-    }
-  }
 
 
 
@@ -101,7 +44,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     List<ProfileModel> profilesWithContact = [];
     List<ProfileModel> profilesWithNoContact = [];
     List<ProfileModel> tempProfiles = [];
-    print(value.docs.length.toString() + '---------------------------------');
     for (var element in value.docs) {
       ContactMessageModel contact = ContactMessageModel.fromJson(
         json: element.data(),
@@ -121,7 +63,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       for(var profile in profileModels) {
           if(!profilesWithContact.contains(profile))
             {
-              print(true);
               profilesWithNoContact.add(profile);
             }
         }
@@ -129,53 +70,8 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     }
     tempProfiles.addAll(profilesWithContact);
     tempProfiles.addAll(profilesWithNoContact);
-    print(profileModels.length.toString()+' djsjdflkdjflkdjf');
-
-
-
-    // // Initialize a local list to avoid race conditions
-    // List<ProfileModel> localProfileModels = [];
-    //
-    // // Process each document
-    // for (var element in value.docs) {
-    //   if (element.id != myDocId) {
-    //     try {
-    //       Map<String, dynamic>? contactMap = await hasChatWithMeBefore(
-    //         docId1: myDocId,
-    //         docId2: element.id,
-    //       );
-    //
-    //       ProfileModel profile;
-    //
-    //       if (contactMap != null) {
-    //         var contactTemp = ContactMessageModel.fromJson(
-    //           json: contactMap['data'],
-    //           contactDocId: contactMap['id'],
-    //         );
-    //
-    //         // Add profile with contact
-    //         profile = ProfileModel.fromJson(
-    //           json: element.data(),
-    //           docId: element.id,
-    //           contact: contactTemp,
-    //         );
-    //       } else {
-    //         // Add profile without contact
-    //         profile = ProfileModel.fromJson(
-    //           json: element.data(),
-    //           docId: element.id,
-    //         );
-    //       }
-    //
-    //       localProfileModels.add(profile);
-    //     } catch (e) {
-    //       print('Error processing document ${element.id}: $e');
-    //     }
-    //   }
-    // }
-    //
-    return sortingProfileModel(profileModels);
-
+    contactsProfileModels =sortingProfileModel(profileModels);
+return  contactsProfileModels;
   }
 
   List<ProfileModel> sortingProfileModel(List<ProfileModel> localProfileModels) {
@@ -236,7 +132,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         .collection(StringManager.collectionContacts)
         .orderBy(StringManager.lastDate, descending: true)
         .snapshots();
-    print('-------------------------');
   }
 
   getAllFilteredUsers(
@@ -402,10 +297,12 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   sendMessageProcess(
       {required String senderDocId,
       required String receiverDocId,
-      required ContactMessageModel contactModel}) async {
+      required ContactMessageModel contactModel,
+     required bool   isDocId1
+      }) async {
     String message = messageController.text;
     messageController.clear();
-    await updateContactInformation(model: contactModel);
+ await updateUnreadedContact(model: contactModel,isDocId1: isDocId1);
     if (messageFile != null) {
       await uploadFileToCloud();
     }
@@ -428,8 +325,12 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   //     senderDocId]).orderBy(StringManager.lastDate,descending: true)
   //       .snapshots();
   // }
-
-  updateContactInformation({required ContactMessageModel model}) async {
+ContactMessageModel setContactAttributes({required ProfileModel profile}){
+  int index= contactsProfileModels.indexOf(profile);
+  profile.contactMessageModel=contactsProfileModels[index].contactMessageModel;
+  return profile.contactMessageModel!;
+  }
+  setContactInformation({required ContactMessageModel model}) async {
     emit(UpdateContactLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
@@ -438,6 +339,18 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(UpdateContactSuccessState());
     }).catchError((error) {
       emit(UpdateContactErrorState());
+      debugPrint(error);
+    });
+  }
+  updateUnreadedContact({required ContactMessageModel model,required bool isDocId1}) async {
+    emit(UpdateUnreadContactLoadingState());
+    var data = FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .doc(model.contactDocId);
+    await data.update(model.toJsonUnreadNumber(isDocId1: isDocId1)).then((value) {
+      emit(UpdateUnreadContactSuccessState());
+    }).catchError((error) {
+      emit(UpdateUnreadContactErrorState());
       debugPrint(error);
     });
   }

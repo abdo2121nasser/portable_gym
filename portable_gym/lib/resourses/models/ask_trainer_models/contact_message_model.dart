@@ -42,4 +42,14 @@ class ContactMessageModel {
       StringManager.lastDate:lastDate,
     };
   }
+   Map<String, dynamic> toJsonUnreadNumber({required bool isDocId1}) {
+     return {
+       if(isDocId1)
+       StringManager.unReadDocId1MessageNo: unReadMessagesNoDocId1,
+       if(!isDocId1)
+       StringManager.unReadDocId2MessageNo: unReadMessagesNoDocId2,
+       StringManager.lastDate:lastDate,
+     };
+   }
+
 }

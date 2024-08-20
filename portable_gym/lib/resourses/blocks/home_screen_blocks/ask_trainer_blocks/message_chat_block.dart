@@ -68,8 +68,8 @@ class MessageChatBlock extends StatelessWidget {
               ),
               child: Text(
                 message,
-                style: getMediumStyle(
-                  fontSize: FontSize.s16,
+                style: getRegularStyle(
+                  fontSize: FontSize.s14,
                   color: ColorManager.kWhiteColor,
                   fontFamily: FontFamily.kPoppinsFont,
                 ),
