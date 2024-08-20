@@ -12,10 +12,12 @@ import '../../managers_files/values_manager.dart';
 class OptionsListBlock extends StatelessWidget {
 
   final List<String> lables;
+  final List<String?>? subValues;
   final List<IconData> icons;
   final Function(int,BuildContext) onClickFunction;
    const OptionsListBlock({super.key,
      required this.lables,
+     this.subValues,
      required this.icons,
      required this.onClickFunction});
 
@@ -31,6 +33,7 @@ class OptionsListBlock extends StatelessWidget {
               onClickFunction(index,context);
             },
             child: OptionBlock(lable: lables[index],
+            subValue: subValues?[index],
             icon: icons[index],)),
         separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s16,),
         itemCount: lables.length)

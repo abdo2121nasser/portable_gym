@@ -7,11 +7,14 @@ import '../../managers_files/style_manager.dart';
 
 class OptionBlock extends StatelessWidget {
   final String lable;
+  final String? subValue;
   final IconData icon;
   final Switch? mySwitch;
 
   const OptionBlock(
-      {super.key, required this.lable, required this.icon, this.mySwitch});
+      {super.key, required this.lable,
+        this.subValue,
+        required this.icon, this.mySwitch});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,6 +43,14 @@ class OptionBlock extends StatelessWidget {
                   ),
                 ),
               ),
+
+              subValue!=null ?  Container(
+                    padding: EdgeInsets.all(AppVerticalSize.s5,),
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: ColorManager.kLightPurpleColor),
+                    child: Text(subValue!),
+
+              ):const SizedBox()
             ],
           ),
         ),

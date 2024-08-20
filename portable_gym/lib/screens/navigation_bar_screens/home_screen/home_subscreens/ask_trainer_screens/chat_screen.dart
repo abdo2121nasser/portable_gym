@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
-import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/file_box_block.dart';
@@ -37,16 +36,6 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _scrollController = ScrollController();
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +51,20 @@ class _ChatScreenState extends State<ChatScreen> {
                 title: widget.receiverModel.nickName,
                 titleFunction: () async {
                   Get.back();
-                  if (widget. contactModel.docId1 != widget.profCubit.userDocId) {
-                    widget. contactModel.unReadMessagesNoDocId2=0;
+                  if (widget.contactModel.docId1 ==
+                      widget.profCubit.userDocId) {
+                    if (widget.contactModel.unReadMessagesNoDocId2 != 0) {
+                      widget.contactModel.unReadMessagesNoDocId2 = 0;
+                      widget.askCubit
+                          .updateContactInformation(model: widget.contactModel);
+                    }
                   } else {
-                    widget. contactModel.unReadMessagesNoDocId1=0;
+                    if (widget.contactModel.unReadMessagesNoDocId1 != 0) {
+                      widget.contactModel.unReadMessagesNoDocId1 = 0;
+                      widget.askCubit
+                          .updateContactInformation(model: widget.contactModel);
+                    }
                   }
-                  widget. askCubit.updateContactInformation(model:   widget. contactModel);
-                  // widget.askCubit.getAllFilteredUsers(
-                  //     myDocId:widget.profCubit.userDocId,
-                  //     isUserAdmin: widget.profCubit.profileModel!.isClient);
                 },
               ),
               body: Padding(
@@ -109,6 +103,8 @@ class _ChatScreenState extends State<ChatScreen> {
           ? null
           : () {
               sendMessage();
+              print(widget.contactModel.unReadMessagesNoDocId1);
+              print(widget.contactModel.unReadMessagesNoDocId2);
             },
       prefixIcon: state is UploadFileLoadingState
           ? null
@@ -145,21 +141,25 @@ class _ChatScreenState extends State<ChatScreen> {
           );
   }
 
-  void sendMessage() {
-    widget.askCubit.sendMessageProcess(
+  Future<void> sendMessage() async {
+
+    await widget.askCubit.sendMessageProcess(
         receiverDocId: widget.receiverModel.docId,
         senderDocId: widget.profCubit.userDocId,
-        contactModel: updateContactModel(model: widget.contactModel)
-    );
+        contactModel: widget.contactModel);
+    print(widget.contactModel.unReadMessagesNoDocId1);
+    print(widget.contactModel.unReadMessagesNoDocId2);
+    setState(() {});
+
     getToLastMessage();
   }
 
   ContactMessageModel updateContactModel({required ContactMessageModel model}) {
     model.lastDate = DateTime.now();
     if (model.docId1 == widget.profCubit.userDocId) {
-      model.unReadMessagesNoDocId2 = model.unReadMessagesNoDocId2 + 1;
+      model.unReadMessagesNoDocId2++;
     } else {
-      model.unReadMessagesNoDocId1 = model.unReadMessagesNoDocId1 + 1;
+      model.unReadMessagesNoDocId1++;
     }
     return model;
   }

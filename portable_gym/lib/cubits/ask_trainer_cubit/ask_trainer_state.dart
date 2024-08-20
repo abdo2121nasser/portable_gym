@@ -9,6 +9,9 @@ class EditProfileModelState extends AskTrainerState {}
 class ClearProfileModelsState extends AskTrainerState {}
 class SaveProfileModelsState extends AskTrainerState {}
 
+class SaveProfileModelsLoadingState extends AskTrainerState {}
+class SaveProfileModelsSuccessState extends AskTrainerState {}
+
 class GetAllAdminsLoadingState extends AskTrainerState {}
 class GetAllAdminsSuccessState extends AskTrainerState {}
 class GetAllAdminsErrorState extends AskTrainerState {}

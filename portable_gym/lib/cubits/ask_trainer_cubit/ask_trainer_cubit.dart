@@ -36,7 +36,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   String? fileName;
   String fileLink = '';
 
-
   //
   // Future<void> getAllClients({required String myDocId}) async {
   //   profileModels.clear();
@@ -82,13 +81,11 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
       var querySnapshot = await data.get();
       if (querySnapshot.docs.isNotEmpty) {
-
         return {
           'data': querySnapshot.docs.first.data(),
           'id': querySnapshot.docs.first.id
         };
       } else {
-
         return null;
       }
     } catch (error) {
@@ -96,97 +93,169 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       return null;
     }
   }
-  Future<List<ProfileModel>> saveModelsData(
-      QuerySnapshot<Map<String, dynamic>> value, String myDocId) async {
-    print('Initial profileModels length: ${profileModels.length}');
 
-    // Initialize a local list to avoid race conditions
-    List<ProfileModel> localProfileModels = [];
 
-    // Process each document
+
+  List<ProfileModel> saveModelsData(
+      QuerySnapshot<Map<String, dynamic>> value, String myDocId)  {
+    List<ProfileModel> profilesWithContact = [];
+    List<ProfileModel> profilesWithNoContact = [];
+    List<ProfileModel> tempProfiles = [];
+    print(value.docs.length.toString() + '---------------------------------');
     for (var element in value.docs) {
-      if (element.id != myDocId) {
-        try {
-          Map<String, dynamic>? contactMap = await hasChatWithMeBefore(
-            docId1: myDocId,
-            docId2: element.id,
-          );
-
-          ProfileModel profile;
-
-          if (contactMap != null) {
-            var contactTemp = ContactMessageModel.fromJson(
-              json: contactMap['data'],
-              contactDocId: contactMap['id'],
-            );
-
-            // Add profile with contact
-            profile = ProfileModel.fromJson(
-              json: element.data(),
-              docId: element.id,
-              contact: contactTemp,
-            );
-          } else {
-            // Add profile without contact
-            profile = ProfileModel.fromJson(
-              json: element.data(),
-              docId: element.id,
-            );
+      ContactMessageModel contact = ContactMessageModel.fromJson(
+        json: element.data(),
+        contactDocId: element.id,
+      );
+    if(contact.senderAndReceiverDocId.contains(myDocId)) {
+        for (var profile in profileModels) {
+          if(profile.docId==contact.docId1 || profile.docId==contact.docId2) {
+            profile.contactMessageModel = contact;
+            profilesWithContact.add(profile);
+            break;
           }
-
-          localProfileModels.add(profile);
-        } catch (e) {
-          print('Error processing document ${element.id}: $e');
         }
       }
-    }
 
-    // Sort profiles
+    //---------no contact
+      for(var profile in profileModels) {
+          if(!profilesWithContact.contains(profile))
+            {
+              print(true);
+              profilesWithNoContact.add(profile);
+            }
+        }
+
+    }
+    tempProfiles.addAll(profilesWithContact);
+    tempProfiles.addAll(profilesWithNoContact);
+    print(profileModels.length.toString()+' djsjdflkdjflkdjf');
+
+
+
+    // // Initialize a local list to avoid race conditions
+    // List<ProfileModel> localProfileModels = [];
+    //
+    // // Process each document
+    // for (var element in value.docs) {
+    //   if (element.id != myDocId) {
+    //     try {
+    //       Map<String, dynamic>? contactMap = await hasChatWithMeBefore(
+    //         docId1: myDocId,
+    //         docId2: element.id,
+    //       );
+    //
+    //       ProfileModel profile;
+    //
+    //       if (contactMap != null) {
+    //         var contactTemp = ContactMessageModel.fromJson(
+    //           json: contactMap['data'],
+    //           contactDocId: contactMap['id'],
+    //         );
+    //
+    //         // Add profile with contact
+    //         profile = ProfileModel.fromJson(
+    //           json: element.data(),
+    //           docId: element.id,
+    //           contact: contactTemp,
+    //         );
+    //       } else {
+    //         // Add profile without contact
+    //         profile = ProfileModel.fromJson(
+    //           json: element.data(),
+    //           docId: element.id,
+    //         );
+    //       }
+    //
+    //       localProfileModels.add(profile);
+    //     } catch (e) {
+    //       print('Error processing document ${element.id}: $e');
+    //     }
+    //   }
+    // }
+    //
+    return sortingProfileModel(profileModels);
+
+  }
+
+  List<ProfileModel> sortingProfileModel(List<ProfileModel> localProfileModels) {
     localProfileModels.sort((a, b) {
-      if (a.contactMessageModel == null && b.contactMessageModel == null) return 0;
+      if (a.contactMessageModel == null && b.contactMessageModel == null) {
+        return 0;
+      }
       if (a.contactMessageModel == null) return 1;
       if (b.contactMessageModel == null) return -1;
-      return b.contactMessageModel!.lastDate.compareTo(a.contactMessageModel!.lastDate);
+      return b.contactMessageModel!.lastDate
+          .compareTo(a.contactMessageModel!.lastDate);
     });
-
-    profileModels.clear();
-    profileModels.addAll(localProfileModels);
-
-    print('Final profileModels length: ${profileModels.length}');
-    return profileModels;
+    return localProfileModels;
   }
 
-
-
-  getAllAdminsStream({required String myDocId}) async {
+  getAllAdmins({required String myDocId}) async {
     profileModels.clear();
- contactStream = FirebaseFirestore.instance
+    emit(GetAllAdminsLoadingState());
+    FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .where(StringManager.userIsClint, isEqualTo: false)
-     .snapshots();
-
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        profileModels.add(
+            ProfileModel.fromJson(json: element.data(), docId: element.id));
+      });
+      emit(GetAllAdminsSuccessState());
+    }).catchError((error) {
+      emit(GetAllAdminsErrorState());
+      debugPrint(error);
+    });
   }
-  getAllClientsStream({required String myDocId}) async {
+
+  getAllClients({required String myDocId}) async {
     profileModels.clear();
- contactStream = FirebaseFirestore.instance
+    emit(GetAllClientsLoadingState());
+    FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .where(StringManager.userIsClint, isEqualTo: true).snapshots();
-
+        .where(StringManager.userIsClint, isEqualTo: true)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        profileModels.add(
+            ProfileModel.fromJson(json: element.data(), docId: element.id));
+      });
+      emit(GetAllClientsSuccessState());
+    }).catchError((error) {
+      emit(GetAllClientsErrorState());
+      debugPrint(error);
+    });
   }
 
-  getAllFilteredUsers({required String myDocId, required bool isUserAdmin}) {
+  getAllContactStream({
+    required String myDocId,
+  }) async {
+    contactStream = FirebaseFirestore.instance
+        .collection(StringManager.collectionContacts)
+        .orderBy(StringManager.lastDate, descending: true)
+        .snapshots();
+    print('-------------------------');
+  }
+
+  getAllFilteredUsers(
+      {required String myDocId, required bool isUserAdmin}) async {
     clearProfileModels();
     if (isUserAdmin) {
-      getAllAdminsStream(myDocId: myDocId);
+      await getAllAdmins(myDocId: myDocId);
     } else {
-      getAllClientsStream(myDocId: myDocId);
+      await getAllClients(myDocId: myDocId);
     }
+    await getAllContactStream(myDocId: myDocId);
   }
+
   editProfileModel({required int index, required ContactMessageModel model}) {
     profileModels[index].contactMessageModel = model;
     emit(EditProfileModelState());
   }
-  clearProfileModels(){
+
+  clearProfileModels() {
     profileModels.clear();
     emit(ClearProfileModelsState());
   }
@@ -203,7 +272,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         senderDocId: senderDocId,
         senderAndReceiverDocId: senderAndReceiverDocId,
         messageDate: DateTime.now());
-
   }
 
   sendMessage(
@@ -231,15 +299,14 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     });
   }
 
-  receiveStreamMessages({required String contactDocId})  {
-   messageStream= FirebaseFirestore.instance
+  receiveStreamMessages({required String contactDocId}) {
+    messageStream = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
         .doc(contactDocId)
         .collection(StringManager.collectionMessages)
         .orderBy(StringManager.messageDate, descending: true)
         .snapshots();
   }
-
 
 //-------------------------------files-------------------------------------
   removeFileFromSendingState() {
@@ -343,7 +410,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       await uploadFileToCloud();
     }
 
-    sendMessage(
+    await sendMessage(
         contactDocId: contactModel.contactDocId,
         message: message,
         senderDocId: senderDocId,
@@ -362,12 +429,12 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   //       .snapshots();
   // }
 
-  updateContactInformation({required ContactMessageModel model}) {
+  updateContactInformation({required ContactMessageModel model}) async {
     emit(UpdateContactLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
         .doc(model.contactDocId);
-    data.set(model.toJson()).then((value) {
+    await data.set(model.toJson()).then((value) {
       emit(UpdateContactSuccessState());
     }).catchError((error) {
       emit(UpdateContactErrorState());

@@ -37,84 +37,73 @@ class AskTrainerScreen extends StatelessWidget {
               body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                 stream: askCubit.contactStream,
                 builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                    snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.kPurpleColor,
                       ),
                     );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data == null) {
-                    return const Center(child: Text('No contacts found'));
-                  } else {
-                    return FutureBuilder<List<ProfileModel>>(
-                      future: askCubit.saveModelsData(snapshot.data!, profCubit.userDocId),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<ProfileModel>> futureSnapshot) {
-                        if (futureSnapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: ColorManager.kPurpleColor,
-                            ),
+                  } else if(snapshot.hasData) {
+                    print(askCubit.profileModels.length);
+                  var profiles=  askCubit.saveModelsData(snapshot.data!, profCubit.userDocId);
+                    return OptionsListBlock(
+                      lables: getAdminsLableList(
+                          profileModels: profiles),
+                      subValues:getUnreadMessagesNumberList(profileModels: profiles),
+                      icons: List<IconData>.generate(
+                        profiles.length,
+                            (index) => Icons.person,
+                        growable: true,
+                      ),
+                      onClickFunction: (index, context) async {
+                        ContactMessageModel? model = profiles[index].contactMessageModel;
+                        if (model == null) {
+                          ContactMessageModel contact =
+                          ContactMessageModel(
+                            docId1: profCubit.userDocId,
+                            docId2: profiles[index].docId,
+                            senderAndReceiverDocId: profCubit.userDocId +
+                                profiles[index].docId,
+                            unReadMessagesNoDocId1: 0,
+                            unReadMessagesNoDocId2: 1,
+                            lastDate: DateTime.now(),
+                            contactDocId: '',
                           );
+                          model = await askCubit.createContact(
+                              model: contact);
+                          askCubit.editProfileModel(
+                              index: index, model: model);
                         }
-                        else if (futureSnapshot.hasData) {
-                          // Ensure profileModels is sorted and updated
 
-                          askCubit.profileModels = futureSnapshot.data!;
-                          askCubit.sortProfileModels(models: askCubit.profileModels);
+                        askCubit.receiveStreamMessages(
+                            contactDocId: model.contactDocId);
 
-                          return OptionsListBlock(
-                            lables: getAdminsLableList(profileModels: askCubit.profileModels),
-                            icons: List<IconData>.generate(
-                              askCubit.profileModels.length,
-                                  (index) => Icons.person,
-                              growable: true,
-                            ),
-                            onClickFunction: (index, context) async {
-                              ContactMessageModel? model = askCubit.profileModels[index].contactMessageModel;
-                              if (model == null) {
-                                ContactMessageModel contact = ContactMessageModel(
-                                  docId1: profCubit.userDocId,
-                                  docId2: askCubit.profileModels[index].docId,
-                                  senderAndReceiverDocId: profCubit.userDocId + askCubit.profileModels[index].docId,
-                                  unReadMessagesNoDocId1: 0,
-                                  unReadMessagesNoDocId2: 1,
-                                  lastDate: DateTime.now(),
-                                  contactDocId: '',
-                                );
-                                model = await askCubit.createContact(model: contact);
-                                askCubit.editProfileModel(index: index, model: model);
-                              }
-
-                              askCubit.receiveStreamMessages(contactDocId: model.contactDocId);
-
-                              if (model.docId1 != profCubit.userDocId) {
-                                model.unReadMessagesNoDocId2 = 0;
-                                askCubit.updateContactInformation(model: askCubit.profileModels[index].contactMessageModel!);
-                              } else {
-                                model.unReadMessagesNoDocId1 = 0;
-                                askCubit.updateContactInformation(model: askCubit.profileModels[index].contactMessageModel!);
-                              }
-
-
-                              // Navigate to the chat screen
-                              Get.to(ChatScreen(
-                                contactModel: askCubit.profileModels[index].contactMessageModel!,
-                                askCubit: askCubit,
-                                profCubit: profCubit,
-                                receiverModel: askCubit.profileModels[index],
-                              ));
-                            },
-                          );
+                        if (model.docId1 == profCubit.userDocId) {
+                          model.unReadMessagesNoDocId1 = 0;
+                          await askCubit.updateContactInformation(
+                              model: profiles[index]
+                                  .contactMessageModel!);
+                        } else {
+                          model.unReadMessagesNoDocId2 = 0;
+                          await askCubit.updateContactInformation(
+                              model: profiles[index]
+                                  .contactMessageModel!);
                         }
-                        else{
-                          return const Center(child: Text('No contacts found'));
-                        }
+
+                        // Navigate to the chat screen
+                        Get.to(ChatScreen(
+                          contactModel: profiles[index].contactMessageModel!,
+                          askCubit: askCubit,
+                          profCubit: profCubit,
+                          receiverModel: profiles[index],
+                        ));
                       },
                     );
+                  }
+                  else{
+                    return const Center(child: Text('No contacts found'));
                   }
                 },
               ),
@@ -129,5 +118,22 @@ class AskTrainerScreen extends StatelessWidget {
     required List<ProfileModel> profileModels,
   }) {
     return profileModels.map((element) => element.nickName).toList();
+  }
+
+  List<String?> getUnreadMessagesNumberList({
+    required List<ProfileModel> profileModels,
+  }) {
+    return profileModels
+        .map((element) {
+      if(element.contactMessageModel!=null) {
+        return profCubit.userDocId != element.contactMessageModel!.docId1
+            ? element.contactMessageModel!.unReadMessagesNoDocId2.toString()
+            : element.contactMessageModel!.unReadMessagesNoDocId1.toString();
+      }
+      else {
+        return null;
+      }
+    })
+        .toList();
   }
 }
