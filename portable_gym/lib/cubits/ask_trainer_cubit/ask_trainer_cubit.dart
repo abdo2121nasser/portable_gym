@@ -37,10 +37,8 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   String? fileName;
   String fileLink = '';
 
-
-
   List<ProfileModel> saveModelsData(
-      QuerySnapshot<Map<String, dynamic>> value, String myDocId)  {
+      QuerySnapshot<Map<String, dynamic>> value, String myDocId) {
     List<ProfileModel> profilesWithContact = [];
     List<ProfileModel> profilesWithNoContact = [];
     List<ProfileModel> tempProfiles = [];
@@ -49,32 +47,31 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         json: element.data(),
         contactDocId: element.id,
       );
-    if(contact.senderAndReceiverDocId.contains(myDocId)) {
+      if (contact.senderAndReceiverDocId.contains(myDocId)) {
         for (var profile in profileModels) {
-          if(profile.docId==contact.docId1 || profile.docId==contact.docId2) {
+          if (profile.docId == contact.docId1 ||
+              profile.docId == contact.docId2) {
             profile.contactMessageModel = contact;
             profilesWithContact.add(profile);
             break;
           }
         }
       }
-
-    //---------no contact
-      for(var profile in profileModels) {
-          if(!profilesWithContact.contains(profile))
-            {
-              profilesWithNoContact.add(profile);
-            }
+      //---------no contact
+      for (var profile in profileModels) {
+        if (!profilesWithContact.contains(profile)) {
+          profilesWithNoContact.add(profile);
         }
-
+      }
     }
     tempProfiles.addAll(profilesWithContact);
     tempProfiles.addAll(profilesWithNoContact);
-    contactsProfileModels =sortingProfileModel(profileModels);
-return  contactsProfileModels;
+    contactsProfileModels = sortingProfileModel(profileModels);
+    return contactsProfileModels;
   }
 
-  List<ProfileModel> sortingProfileModel(List<ProfileModel> localProfileModels) {
+  List<ProfileModel> sortingProfileModel(
+      List<ProfileModel> localProfileModels) {
     localProfileModels.sort((a, b) {
       if (a.contactMessageModel == null && b.contactMessageModel == null) {
         return 0;
@@ -298,11 +295,10 @@ return  contactsProfileModels;
       {required String senderDocId,
       required String receiverDocId,
       required ContactMessageModel contactModel,
-     required bool   isDocId1
-      }) async {
+      required bool isDocId1}) async {
     String message = messageController.text;
     messageController.clear();
- await updateUnreadedContact(model: contactModel,isDocId1: isDocId1);
+    await updateUnreadedContact(model: contactModel, isDocId1: isDocId1);
     if (messageFile != null) {
       await uploadFileToCloud();
     }
@@ -316,20 +312,13 @@ return  contactsProfileModels;
 
   //-----------------------------contacts--------------------------------
 
-  // streamContactInformation({
-  //   required String senderDocId,
-  // }) {
-  //   contactStream = FirebaseFirestore.instance
-  //       .collection(StringManager.collectionContacts)
-  //       .where(StringManager.senderAndReceiverDocId, whereIn: [
-  //     senderDocId]).orderBy(StringManager.lastDate,descending: true)
-  //       .snapshots();
-  // }
-ContactMessageModel setContactAttributes({required ProfileModel profile}){
-  int index= contactsProfileModels.indexOf(profile);
-  profile.contactMessageModel=contactsProfileModels[index].contactMessageModel;
-  return profile.contactMessageModel!;
+  ContactMessageModel setContactAttributes({required ProfileModel profile}) {
+    int index = contactsProfileModels.indexOf(profile);
+    profile.contactMessageModel =
+        contactsProfileModels[index].contactMessageModel;
+    return profile.contactMessageModel!;
   }
+
   setContactInformation({required ContactMessageModel model}) async {
     emit(UpdateContactLoadingState());
     var data = FirebaseFirestore.instance
@@ -342,12 +331,16 @@ ContactMessageModel setContactAttributes({required ProfileModel profile}){
       debugPrint(error);
     });
   }
-  updateUnreadedContact({required ContactMessageModel model,required bool isDocId1}) async {
+
+  updateUnreadedContact(
+      {required ContactMessageModel model, required bool isDocId1}) async {
     emit(UpdateUnreadContactLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionContacts)
         .doc(model.contactDocId);
-    await data.update(model.toJsonUnreadNumber(isDocId1: isDocId1)).then((value) {
+    await data
+        .update(model.toJsonUnreadNumber(isDocId1: isDocId1))
+        .then((value) {
       emit(UpdateUnreadContactSuccessState());
     }).catchError((error) {
       emit(UpdateUnreadContactErrorState());

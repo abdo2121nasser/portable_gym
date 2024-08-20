@@ -13,11 +13,13 @@ class OptionsListBlock extends StatelessWidget {
 
   final List<String> lables;
   final List<String?>? subValues;
+  final List<String?>? images;
   final List<IconData> icons;
   final Function(int,BuildContext) onClickFunction;
    const OptionsListBlock({super.key,
      required this.lables,
      this.subValues,
+     this.images,
      required this.icons,
      required this.onClickFunction});
 
@@ -34,7 +36,8 @@ class OptionsListBlock extends StatelessWidget {
             },
             child: OptionBlock(lable: lables[index],
             subValue: subValues?[index],
-            icon: icons[index],)),
+            image: images?[index],
+            icon: icons.isNotEmpty? icons[index]:Icons.ice_skating,)),
         separatorBuilder: (context, index) => SizedBox(height: AppVerticalSize.s16,),
         itemCount: lables.length)
     ;

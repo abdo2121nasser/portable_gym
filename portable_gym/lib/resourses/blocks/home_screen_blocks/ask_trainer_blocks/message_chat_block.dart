@@ -18,15 +18,17 @@ class MessageChatBlock extends StatelessWidget {
     required this.message,
     this.fileLink,
     required this.isSenderMessage,
-    this.isDownloadingState=false,
+    this.isDownloadingState = false,
   });
 
   @override
   Widget build(BuildContext context) {
     var askCubit = AskTrainerCubit.get(context);
+    var textDirection = Directionality.of(context); // Get the current text direction
+
     return Row(
       mainAxisAlignment:
-          !isSenderMessage ? MainAxisAlignment.start : MainAxisAlignment.end,
+      !isSenderMessage ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Column(
           crossAxisAlignment: !isSenderMessage
@@ -39,7 +41,8 @@ class MessageChatBlock extends StatelessWidget {
                 suffixIcon:
                 const Icon(Icons.download, color: ColorManager.kBlackColor),
                 suffixIconFunction: () {
-                  askCubit.downloadFileToDownloads(url: fileLink!,context: context);
+                  askCubit.downloadFileToDownloads(
+                      url: fileLink!, context: context);
                 },
                 hasConstraints: true,
               ),
@@ -58,12 +61,20 @@ class MessageChatBlock extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(AppRadiusSize.s14),
                   bottomLeft: Radius.circular(AppRadiusSize.s14),
-                  topRight: !isSenderMessage
+                  topRight: textDirection == TextDirection.ltr
+                      ? (!isSenderMessage
                       ? Radius.circular(AppRadiusSize.s14)
-                      : const Radius.circular(0),
-                  topLeft: isSenderMessage
+                      : const Radius.circular(0))
+                      : (isSenderMessage
                       ? Radius.circular(AppRadiusSize.s14)
-                      : const Radius.circular(0),
+                      : const Radius.circular(0)),
+                  topLeft: textDirection == TextDirection.ltr
+                      ? (isSenderMessage
+                      ? Radius.circular(AppRadiusSize.s14)
+                      : const Radius.circular(0))
+                      : (!isSenderMessage
+                      ? Radius.circular(AppRadiusSize.s14)
+                      : const Radius.circular(0)),
                 ),
               ),
               child: Text(

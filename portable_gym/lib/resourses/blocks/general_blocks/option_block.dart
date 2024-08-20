@@ -8,12 +8,14 @@ import '../../managers_files/style_manager.dart';
 class OptionBlock extends StatelessWidget {
   final String lable;
   final String? subValue;
+  final String? image;
   final IconData icon;
   final Switch? mySwitch;
 
   const OptionBlock(
       {super.key, required this.lable,
         this.subValue,
+        this.image,
         required this.icon, this.mySwitch});
   @override
   Widget build(BuildContext context) {
@@ -28,16 +30,20 @@ class OptionBlock extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
+        width: AppHorizontalSize.s50,
+                        height: AppVerticalSize.s44,
                         padding: EdgeInsets.all(AppVerticalSize.s5),
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle, color: ColorManager.kPurpleColor),
-                        child: Icon(
+                        child: image!=null?
+                            Image.network(image!):
+                        Icon(
                           icon,
                           color: ColorManager.kWhiteColor,
                         )),
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal:  AppHorizontalSize.s16),
+                        padding: EdgeInsets.symmetric(horizontal:  AppHorizontalSize.s10),
                         child: Text(
                           lable,
                           style: getRegularStyle(
