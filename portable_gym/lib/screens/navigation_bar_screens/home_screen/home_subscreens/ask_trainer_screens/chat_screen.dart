@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
@@ -25,7 +26,7 @@ class ChatScreen extends StatefulWidget {
 
   const ChatScreen(
       {super.key,
-        required this.contactModel,
+      required this.contactModel,
       required this.askCubit,
       required this.profCubit,
       required this.receiverModel});
@@ -59,6 +60,18 @@ class _ChatScreenState extends State<ChatScreen> {
             return Scaffold(
               appBar: GeneralAppBarBlock(
                 title: widget.receiverModel.nickName,
+                titleFunction: () async {
+                  Get.back();
+                  if (widget. contactModel.docId1 != widget.profCubit.userDocId) {
+                    widget. contactModel.unReadMessagesNoDocId2=0;
+                  } else {
+                    widget. contactModel.unReadMessagesNoDocId1=0;
+                  }
+                  widget. askCubit.updateContactInformation(model:   widget. contactModel);
+                  // widget.askCubit.getAllFilteredUsers(
+                  //     myDocId:widget.profCubit.userDocId,
+                  //     isUserAdmin: widget.profCubit.profileModel!.isClient);
+                },
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
@@ -68,9 +81,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     getChatBody,
                     getFileBoxBlock(state),
                     LinearProgressIndicatorBlock(
-                        isLoading: state is UploadFileLoadingState||
-                            state is DownloadFileLoadingState
-                    ),
+                        isLoading: state is UploadFileLoadingState ||
+                            state is DownloadFileLoadingState),
                     buildGeneralTextFormField(context, state),
                   ],
                 ),
@@ -96,7 +108,6 @@ class _ChatScreenState extends State<ChatScreen> {
       sendMessageFunction: state is UploadFileLoadingState
           ? null
           : () {
-
               sendMessage();
             },
       prefixIcon: state is UploadFileLoadingState
@@ -136,20 +147,26 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendMessage() {
     widget.askCubit.sendMessageProcess(
-      receiverDocId:widget.receiverModel.docId,
+        receiverDocId: widget.receiverModel.docId,
         senderDocId: widget.profCubit.userDocId,
-      contactModel: widget.contactModel
+        contactModel: updateContactModel(model: widget.contactModel)
+    );
+    getToLastMessage();
+  }
 
-);
-   // getToLastMessage();
+  ContactMessageModel updateContactModel({required ContactMessageModel model}) {
+    model.lastDate = DateTime.now();
+    if (model.docId1 == widget.profCubit.userDocId) {
+      model.unReadMessagesNoDocId2 = model.unReadMessagesNoDocId2 + 1;
+    } else {
+      model.unReadMessagesNoDocId1 = model.unReadMessagesNoDocId1 + 1;
+    }
+    return model;
   }
 
   void getToLastMessage() {
-    _scrollController.animateTo(
-        //_scrollController.position.maxScrollExtent,
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.linear);
+    _scrollController.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
   }
 
   setMessageModels(AsyncSnapshot<dynamic> snapshot) {

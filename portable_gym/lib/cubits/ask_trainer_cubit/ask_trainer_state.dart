@@ -6,6 +6,8 @@ abstract class AskTrainerState {}
 class AskTrainerInitial extends AskTrainerState {}
 class RemoveFileFromSendingState extends AskTrainerState {}
 class EditProfileModelState extends AskTrainerState {}
+class ClearProfileModelsState extends AskTrainerState {}
+class SaveProfileModelsState extends AskTrainerState {}
 
 class GetAllAdminsLoadingState extends AskTrainerState {}
 class GetAllAdminsSuccessState extends AskTrainerState {}

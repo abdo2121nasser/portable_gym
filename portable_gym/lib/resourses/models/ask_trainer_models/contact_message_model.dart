@@ -6,9 +6,9 @@ class ContactMessageModel {
   final String docId1;
   final String docId2;
   final String senderAndReceiverDocId;
-  final int unReadMessagesNoDocId1;
-  final int unReadMessagesNoDocId2;
-  final DateTime lastDate;
+   int unReadMessagesNoDocId1;
+   int unReadMessagesNoDocId2;
+   DateTime lastDate;
 
   ContactMessageModel(
       {required this.docId1,
@@ -39,7 +39,7 @@ class ContactMessageModel {
       StringManager.senderAndReceiverDocId: senderAndReceiverDocId,
       StringManager.unReadDocId1MessageNo: unReadMessagesNoDocId1,
       StringManager.unReadDocId2MessageNo: unReadMessagesNoDocId2,
-      StringManager.lastDate: Timestamp.fromDate(lastDate),
+      StringManager.lastDate:lastDate,
     };
   }
 }
