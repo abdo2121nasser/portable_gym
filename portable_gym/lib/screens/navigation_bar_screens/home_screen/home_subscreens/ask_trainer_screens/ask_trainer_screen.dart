@@ -68,8 +68,6 @@ class AskTrainerScreen extends StatelessWidget {
                           model = await askCubit.createContact(model: contact);
                           askCubit.editProfileModel(index: index, model: model);
                         }
-                        print('--------------------');
-                        print(askCubit.profileModels[index].contactMessageModel!.contactDocId.toString() + '-----------------');
 
                         askCubit.receiveStreamMessages(contactDocId: model.contactDocId);
                         Get.to(ChatScreen(

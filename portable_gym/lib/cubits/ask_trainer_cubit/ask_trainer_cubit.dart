@@ -48,11 +48,16 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
       var querySnapshot = await data.get();
       if (querySnapshot.docs.isNotEmpty) {
+        print('not empty');
+        print(docId1);
+        print(docId2);
         return {
           'data': querySnapshot.docs.first.data(),
           'id': querySnapshot.docs.first.id
         };
       } else {
+        print(' empty');
+
         return null;
       }
     } catch (error) {
@@ -67,13 +72,10 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .where(StringManager.userIsClint, isEqualTo: false);
-    await data.get().then((value) {
-      value.docs.forEach((element) {
-        if (element.id != myDocId) {
-          profileModels.add(
-              ProfileModel.fromJson(json: element.data(), docId: element.id));
-        }
-      });
+    await data.get().then((value) async {
+
+          await saveModelsData(value, myDocId);
+
       emit(GetAllAdminsSuccessState());
     }).catchError((error) {
       emit(GetAllAdminsErrorState());
