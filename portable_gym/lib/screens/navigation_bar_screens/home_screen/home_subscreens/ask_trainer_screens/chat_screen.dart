@@ -70,10 +70,11 @@ class ChatScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     getChatBody,
-                    getFileBoxBlock(state),
+                  getFileBoxBlock(state),
                     LinearProgressIndicatorBlock(
                         isLoading: state is UploadFileLoadingState ||
-                            state is DownloadFileLoadingState),
+                            state is DownloadFileLoadingState
+                    ),
                     buildGeneralTextFormField(context, state),
                   ],
                 ),
@@ -99,7 +100,9 @@ class ChatScreen extends StatelessWidget {
       sendMessageFunction: state is UploadFileLoadingState
           ? null
           : () {
-              sendMessage();
+        if(askCubit.messageController.text.isNotEmpty || askCubit.messageFile!=null) {
+          sendMessage();
+        }
             },
       prefixIcon: state is UploadFileLoadingState
           ? null
@@ -117,9 +120,11 @@ class ChatScreen extends StatelessWidget {
     return askCubit.messageFile != null
         ? FileBoxBlock(
             hasSuffixIcon: state is! UploadFileLoadingState,
+            isChatFile: false,
             suffixIconFunction: () {
               askCubit.removeFileFromSendingState();
             },
+      fileName: askCubit.fileName!,
           )
         : const SizedBox();
   }

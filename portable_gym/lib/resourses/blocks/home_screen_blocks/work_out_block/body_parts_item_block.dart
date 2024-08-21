@@ -56,16 +56,16 @@ class BodyPartItemBlock extends StatelessWidget {
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
                         )),
-                    SizedBox(
-                        width: AppHorizontalSize.s90,
-                        height: AppVerticalSize.s22,
-                        child: RecordedUnitBlock(
-                          icon: Icons.local_fire_department,
-                          mesuaringUnit: S.of(context).kCal,
-                          unitValue: languageModel.calories!,
-                          iconColor: ColorManager.kBlackColor,
-                          textColor: ColorManager.kBlackColor,
-                        )),
+                    // SizedBox(
+                    //     width: AppHorizontalSize.s90,
+                    //     height: AppVerticalSize.s22,
+                    //     child: RecordedUnitBlock(
+                    //       icon: Icons.local_fire_department,
+                    //       mesuaringUnit: S.of(context).kCal,
+                    //       unitValue: languageModel.calories!,
+                    //       iconColor: ColorManager.kBlackColor,
+                    //       textColor: ColorManager.kBlackColor,
+                    //     )),
                     SizedBox(
                         width: AppHorizontalSize.s90,
                         height: AppVerticalSize.s22,

@@ -136,16 +136,16 @@ class DailyActivityBlock extends StatelessWidget {
                                                 bodyCategoryModel!.second!,
                                               )),
                                             )),
-                                        SizedBox(
-                                            width: AppHorizontalSize.s90,
-                                            height: AppVerticalSize.s22,
-                                            child: RecordedUnitBlock(
-                                              icon: Icons.local_fire_department,
-                                              mesuaringUnit: S.of(context).kCal,
-                                              unitValue: isDailyTraining
-                                                  ? languageModel.calories!
-                                                  : '50',
-                                            )),
+                                        // SizedBox(
+                                        //     width: AppHorizontalSize.s90,
+                                        //     height: AppVerticalSize.s22,
+                                        //     child: RecordedUnitBlock(
+                                        //       icon: Icons.local_fire_department,
+                                        //       mesuaringUnit: S.of(context).kCal,
+                                        //       unitValue: isDailyTraining
+                                        //           ? languageModel.calories!
+                                        //           : '50',
+                                        //     )),
                                         SizedBox(
                                             width: AppHorizontalSize.s90,
                                             height: AppVerticalSize.s22,

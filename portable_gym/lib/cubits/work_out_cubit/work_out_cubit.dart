@@ -571,7 +571,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryEnglishTitleController.text = model.english!.title!;
     bodyCategoryEnglishNumberOfExercisesController.text =
         model.english!.numberOfExercises!;
-    bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
+ //   bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
     bodyCategoryImageLinkController.text = model.imageLink!;
     if(model.downloadFileLink!=null) {
       bodyCategoryDownloadFilesLinkController.text=model.downloadFileLink!;
@@ -579,7 +579,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryArabicTitleController.text = model.arabic!.title!;
     bodyCategoryArabicNumberOfExercisesController.text =
         model.arabic!.numberOfExercises!;
-    bodyCategoryArabicCaloriesController.text = model.arabic!.calories!;
+  //  bodyCategoryArabicCaloriesController.text = model.arabic!.calories!;
     bodyCategoryTotalTime = DateTime(
       0,
       0,
@@ -595,12 +595,12 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     return BodyCategoryModel(
             english: BodyCategoryEnglish(
                 title: bodyCategoryEnglishTitleController.text,
-                calories: bodyCategoryEnglishCaloriesController.text,
+              //  calories: bodyCategoryEnglishCaloriesController.text,
                 numberOfExercises:
                     bodyCategoryEnglishNumberOfExercisesController.text),
             arabic: BodyCategoryArabic(
                 title: bodyCategoryArabicTitleController.text,
-                calories: bodyCategoryArabicCaloriesController.text,
+              //  calories: bodyCategoryArabicCaloriesController.text,
                 numberOfExercises:
                     bodyCategoryArabicNumberOfExercisesController.text),
             imageLink: bodyCategoryImageLinkController.text,

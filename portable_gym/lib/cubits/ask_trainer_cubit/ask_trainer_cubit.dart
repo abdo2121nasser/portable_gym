@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
@@ -240,6 +241,13 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   String getFileName({required String url}) =>
       Uri.parse(url).pathSegments.last.split('?')[0];
 
+  Future<bool> isFileDownloaded({required String fileName}) async {
+    final downloadsPath = await getExternalStorageDirectory();
+    final filePath = '/storage/emulated/0/Download/$fileName';
+    final file = File(filePath);
+    return await file.exists();
+  }
+
   Future<void> downloadFileToDownloads(
       {required String url, required context}) async {
     try {
@@ -286,6 +294,31 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(DownloadFileErrorState());
       debugPrint('Error downloading file: $error');
       getToastMessage(message: S.of(context).somethingWentWrong);
+    }
+  }
+
+  downloadProcess({required String url, required context}) async {
+    var isDownloaded = await isFileDownloaded(fileName: getFileName(url: url));
+    if (isDownloaded) {
+      openFile(fileName: getFileName(url: url));
+    } else {
+      downloadFileToDownloads(url: url, context: context);
+    }
+  }
+
+  Future<void> openFile({required String fileName}) async {
+    try {
+      // Get the Downloads directory path
+      final downloadsDir = await getExternalStorageDirectory();
+      final filePath = '/storage/emulated/0/Download/$fileName';
+      final file = File(filePath);
+      // Open the file
+      final result = await OpenFile.open(filePath);
+      if (result.type != ResultType.done) {
+        debugPrint('Error opening file: ${result.message}');
+      }
+    } catch (error) {
+      debugPrint('Error opening file: $error');
     }
   }
 

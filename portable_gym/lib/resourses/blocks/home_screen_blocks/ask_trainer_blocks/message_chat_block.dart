@@ -38,12 +38,19 @@ class MessageChatBlock extends StatelessWidget {
             if (fileLink!.isNotEmpty)
               FileBoxBlock(
                 hasSuffixIcon: true,
+                isChatFile: true,
+                fileName: askCubit.getFileName(url: fileLink!),
                 suffixIcon:
                 const Icon(Icons.download, color: ColorManager.kBlackColor),
-                suffixIconFunction: () {
-                  askCubit.downloadFileToDownloads(
-                      url: fileLink!, context: context);
+                suffixIconFunction: () async {
+                 // await askCubit.downloadFileToDownloads(
+                 //      url: fileLink!, context: context);
+             //  var x= await   askCubit.isFileDownloaded(fileName:  askCubit.getFileName(url: fileLink!));
+             // print(x);
+                  print('click');
+                  askCubit.downloadProcess(url: fileLink!, context: context);
                 },
+                isDownloaded: askCubit.isFileDownloaded(fileName: askCubit.getFileName(url: fileLink!)),
                 hasConstraints: true,
               ),
             Container(

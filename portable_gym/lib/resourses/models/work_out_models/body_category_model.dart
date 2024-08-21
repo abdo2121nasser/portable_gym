@@ -49,11 +49,11 @@ class BodyCategoryModel {
       bool isDailyBodyCategory = false}) {
     return {
       StringManager.bodyCategoryEnglishTitle: english!.title,
-      StringManager.bodyCategoryEnglishCalories: english!.calories,
+   //   StringManager.bodyCategoryEnglishCalories: english!.calories,
       StringManager.bodyCategoryEnglishNumberOfExercises:
           english!.numberOfExercises,
       StringManager.bodyCategoryArabicTitle: arabic!.title,
-      StringManager.bodyCategoryArabicCalories: arabic!.calories,
+ //     StringManager.bodyCategoryArabicCalories: arabic!.calories,
       StringManager.bodyCategoryArabicNumberOfExercises:
           arabic!.numberOfExercises,
       StringManager.bodyCategoryImageLink: imageLink,
@@ -75,12 +75,12 @@ class BodyCategoryModel {
 
 abstract class BodyCategoryLanguageClass {
   final String? title;
-  final String? calories;
+//  final String? calories;
   final String? numberOfExercises;
 
   BodyCategoryLanguageClass({
     required this.title,
-    required this.calories,
+  //  required this.calories,
     required this.numberOfExercises,
   });
 }
@@ -88,17 +88,17 @@ abstract class BodyCategoryLanguageClass {
 class BodyCategoryEnglish extends BodyCategoryLanguageClass {
   BodyCategoryEnglish({
     required String? title,
-    required String? calories,
+ //   required String? calories,
     required String? numberOfExercises,
   }) : super(
             title: title,
-            calories: calories,
+         //   calories: calories,
             numberOfExercises: numberOfExercises);
 
   factory BodyCategoryEnglish.fromJson({required Map<String, dynamic> json}) {
     return BodyCategoryEnglish(
       title: json[StringManager.bodyCategoryEnglishTitle],
-      calories: json[StringManager.bodyCategoryEnglishCalories],
+   //   calories: json[StringManager.bodyCategoryEnglishCalories],
       numberOfExercises:
           json[StringManager.bodyCategoryEnglishNumberOfExercises],
     );
@@ -108,17 +108,17 @@ class BodyCategoryEnglish extends BodyCategoryLanguageClass {
 class BodyCategoryArabic extends BodyCategoryLanguageClass {
   BodyCategoryArabic({
     required String? title,
-    required String? calories,
+   // required String? calories,
     required String? numberOfExercises,
   }) : super(
             title: title,
-            calories: calories,
+      //      calories: calories,
             numberOfExercises: numberOfExercises);
 
   factory BodyCategoryArabic.fromJson({required Map<String, dynamic> json}) {
     return BodyCategoryArabic(
       title: json[StringManager.bodyCategoryArabicTitle],
-      calories: json[StringManager.bodyCategoryArabicCalories],
+  //    calories: json[StringManager.bodyCategoryArabicCalories],
       numberOfExercises:
           json[StringManager.bodyCategoryArabicNumberOfExercises],
     );
