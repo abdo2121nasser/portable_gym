@@ -9,6 +9,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_sub
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 
 import '../../../cubits/favourite_cubit/favourite_cubit.dart';
+import '../../../generated/l10n.dart';
 import '../../managers_files/values_manager.dart';
 import '../general_blocks/square_element _block.dart';
 import 'package:intl/intl.dart';
@@ -39,26 +40,19 @@ class GridViewResourcesBlock extends StatelessWidget {
                 mainAxisSpacing: 15),
             itemBuilder: (context, index) {
               var model;
-              var time;
               if (isTrainingModel) {
                 model = trainingModel![index];
-                time = DateFormat('HH:mm:ss').format(DateTime(
-                  0,
-                  0,
-                  0,
-                  model.hour!,
-                  model.minute!,
-                  model.second!,
-                ));
               } else {
                 model = recipeModel![index];
               }
               return FutureBuilder(
-                  future:isTrainingModel? favCubit.isTrainingIsFavourite(
-                    trainingDocId: model.docId!,
-                  ):favCubit.isRecipeIsFavourite(
-                    recipeDocId: model.docId!,
-                  ),
+                  future: isTrainingModel
+                      ? favCubit.isTrainingIsFavourite(
+                          trainingDocId: model.docId!,
+                        )
+                      : favCubit.isRecipeIsFavourite(
+                          recipeDocId: model.docId!,
+                        ),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting ||
                         snapshot.hasData == false) {
@@ -75,7 +69,9 @@ class GridViewResourcesBlock extends StatelessWidget {
                           child: SquareElementBlock(
                             title: model.getLanguageClass(context).name,
                             subValue: isTrainingModel
-                                ? time
+                                ?
+                            '${S.of(context).rest} ${S.of(context).from} ${trainingModel![index].startPeriod} '
+                                '${S.of(context).to} ${trainingModel![index].endPeriod!}'
                                 : model.getLanguageClass(context).calories,
                             imageLink: isTrainingModel
                                 ? model.videoLink!
@@ -85,26 +81,21 @@ class GridViewResourcesBlock extends StatelessWidget {
                             hasFavouriteIcon: true,
                             isFavouriteItem: snapshot.data!,
                             addFavouriteFunction: () {
-                              if(isTrainingModel)
-                                {
-                                  favCubit.addFavouritTraining(trainingModel: model);
-                                }
-                              else{
-                                favCubit.addFavouriteRecipe(
-                                    recipeModel: model);
+                              if (isTrainingModel) {
+                                favCubit.addFavouritTraining(
+                                    trainingModel: model);
+                              } else {
+                                favCubit.addFavouriteRecipe(recipeModel: model);
                               }
-
                             },
                             deleteFavouriteFunction: () {
-                              if(isTrainingModel)
-                                {
-                                  favCubit.deleteFavouriteTrainings(trainingDocId: model.docId);
-                                }
-                              else{
+                              if (isTrainingModel) {
+                                favCubit.deleteFavouriteTrainings(
+                                    trainingDocId: model.docId);
+                              } else {
                                 favCubit.deleteFavouriteRecipe(
                                     recipeDocId: model.docId);
                               }
-
                             },
                             isTraining: isTrainingModel,
                           ));

@@ -21,6 +21,7 @@ class StringManager
   static const String trainingEnglishLableInstruction='Instructions';
   static const String trainingEnglishLableVideoLink='video link';
   static const String trainingEnglishLableIsPaid='Paid';
+
   static const String trainingArabicLableName='الاسم';
   static const String trainingArabicLablePeriod='المده';
   static const String trainingArabicLableNumberOfRepetation='عدد التكرار';
@@ -62,9 +63,9 @@ class StringManager
   static const String trainingPriority='priority';
   static const String trainingBodyCategory='body category';
   static const String trainingIsPaid='is paid';
-  static const String trainingHourPeriod='training hour period';
-  static const String trainingMinutePeriod='training minute period';
-  static const String trainingSecondPeriod='training second period';
+  static const String trainingStartPeriod='start period';
+  static const String trainingEndPeriod='end period';
+
 
   static const String collectionDailyBodyCategory='daily body category';
 

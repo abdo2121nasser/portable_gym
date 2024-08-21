@@ -23,10 +23,9 @@ class RoundItemBlock extends StatelessWidget {
       required this.trainingModel,
       required this.deleteFunction,
       required this.addToFavouriteFunction,
-        required this.deleteFavouriteFunction,
+      required this.deleteFavouriteFunction,
       required this.isTrainingFavourite,
-     required this.isDailyTraining
-      });
+      required this.isDailyTraining});
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +52,9 @@ class RoundItemBlock extends StatelessWidget {
                   size: AppVerticalSize.s55,
                 ),
               ),
-              SizedBox(
-                width: AppHorizontalSize.s10,
-              ),
+              // SizedBox(
+              //   width: AppHorizontalSize.s10,
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,18 +83,12 @@ class RoundItemBlock extends StatelessWidget {
                     height: AppVerticalSize.s5,
                   ),
                   SizedBox(
-                      width: AppHorizontalSize.s100,
+                      width: AppHorizontalSize.s120,
                       child: RecordedUnitBlock(
                         icon: Icons.timer,
                         mesuaringUnit: '',
-                        unitValue: DateFormat('HH:mm:ss').format(DateTime(
-                          0,
-                          0,
-                          0,
-                          trainingModel.hour!,
-                          trainingModel.minute!,
-                          trainingModel.second!,
-                        )),
+                        unitValue:
+                            '${S.of(context).rest} ${S.of(context).from} ${trainingModel.startPeriod} ${S.of(context).to} ${trainingModel.endPeriod!}',
                         textColor: ColorManager.kLightPurpleColor,
                         iconColor: ColorManager.kLightPurpleColor,
                       )),
@@ -118,14 +111,20 @@ class RoundItemBlock extends StatelessWidget {
                       child: Image.asset(ImageManager.kCrownImage)),
                 )
               : const SizedBox(),
-       !isDailyTraining?   Flexible(
-            child: InkWell(
-                onTap:isTrainingFavourite?deleteFavouriteFunction: addToFavouriteFunction,
-                child: Icon(
-                 isTrainingFavourite? Icons.star_rounded:Icons.star_border,
-                  color: ColorManager.kPurpleColor,
-                )),
-          ):SizedBox(),
+          !isDailyTraining
+              ? Flexible(
+                  child: InkWell(
+                      onTap: isTrainingFavourite
+                          ? deleteFavouriteFunction
+                          : addToFavouriteFunction,
+                      child: Icon(
+                        isTrainingFavourite
+                            ? Icons.star_rounded
+                            : Icons.star_border,
+                        color: ColorManager.kPurpleColor,
+                      )),
+                )
+              : SizedBox(),
           InkWell(
               onTap: deleteFunction,
               child: Icon(

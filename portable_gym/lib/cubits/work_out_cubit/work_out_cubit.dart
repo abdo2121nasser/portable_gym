@@ -69,6 +69,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
   TextEditingController trainingArabicInstructionController =
       TextEditingController();
+  TextEditingController trainingStartPeriodController = TextEditingController();
+  TextEditingController trainingEndPeriodController = TextEditingController();
 
   TextEditingController trainingVideoLinkController = TextEditingController();
   bool trainingIsPaid = false;
@@ -292,8 +294,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingArabicInstructionController.text = model.arabic!.instructions!;
     trainingPriorityController.text = model.priority.toString();
     trainingVideoLinkController.text = model.videoLink!;
-    trainingPeriod =
-        DateTime(0, 0, 0, model.hour!, model.minute!, model.second!);
+    trainingEndPeriodController.text=model.endPeriod!;
+    trainingStartPeriodController.text=model.startPeriod!;
     trainingIsPaid = model.isPaid!;
     emit(SetTrainingControllersState());
   }
@@ -316,9 +318,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             bodyCategory: bodyCategory,
             videoLink: trainingVideoLinkController.text,
             priority: int.parse(trainingPriorityController.text),
-            hour: trainingPeriod.hour,
-            minute: trainingPeriod.minute,
-            second: trainingPeriod.second,
+           startPeriod: trainingStartPeriodController.text,
+           endPeriod: trainingEndPeriodController.text,
             isPaid: trainingIsPaid,
             docId: '')
         .toJson();

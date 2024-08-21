@@ -6,6 +6,7 @@ import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/favourite_models/favourite_recipe_model.dart';
@@ -35,16 +36,6 @@ class FavouriteGridViewBlock extends StatelessWidget {
             childAspectRatio: (1 / .8),
             mainAxisSpacing: 15),
         itemBuilder: (context, index) {
-          var time = favouriteTrainingModels == null
-              ? null
-              : DateFormat('HH:mm:ss').format(DateTime(
-                  0,
-                  0,
-                  0,
-                  favouriteTrainingModels![index].hour!,
-                  favouriteTrainingModels![index].minute!,
-                  favouriteTrainingModels![index].second!,
-                ));
           return InkWell(
               onTap: () {
                 if (favouriteTrainingModels != null) {
@@ -54,28 +45,28 @@ class FavouriteGridViewBlock extends StatelessWidget {
                             arabic: favouriteTrainingModels![index].arabic,
                             videoLink:
                                 favouriteTrainingModels![index].videoLink,
-                            hour: favouriteTrainingModels![index].hour,
-                            minute: favouriteTrainingModels![index].minute!,
-                            second: favouriteTrainingModels![index].second!,
+                            startPeriod:
+                                favouriteTrainingModels![index].startPeriod,
+                            endPeriod:
+                                favouriteTrainingModels![index].endPeriod,
                             docId: null,
                             bodyCategory: null,
                             isPaid: null,
                             level: null,
                             priority: null),
                       ));
+                } else {
+                  Get.to(RecipeDetailsScreen(
+                      recipeModel: RecipeModel(
+                          english: favouriteRecipeModels![index].english,
+                          arabic: favouriteRecipeModels![index].arabic,
+                          docId: favouriteRecipeModels![index].recipeDocId,
+                          imageLink: favouriteRecipeModels![index].imageLink,
+                          isSnacks: false,
+                          isDinner: false,
+                          isBreakfast: false,
+                          isLunch: false)));
                 }
-                else {
-                    Get.to(RecipeDetailsScreen(recipeModel: RecipeModel(
-                      english: favouriteRecipeModels![index].english,
-                      arabic: favouriteRecipeModels![index].arabic,
-                      docId:favouriteRecipeModels![index].recipeDocId,
-                      imageLink: favouriteRecipeModels![index].imageLink,
-                      isSnacks: false,
-                      isDinner: false,
-                      isBreakfast: false,
-                      isLunch: false
-                    )));
-                  }
               },
               child: SquareElementBlock(
                 canBeDeleted: true,
@@ -85,8 +76,16 @@ class FavouriteGridViewBlock extends StatelessWidget {
                     favouriteTrainingModels![index]
                         .getLanguageClass(context)
                         .name!,
-                subValue: time ?? 'ahmed',
+                subValue: favouriteTrainingModels != null
+                    ?
+                '${S.of(context).rest} ${S.of(context).from} ${favouriteTrainingModels![index].startPeriod} '
+                    '${S.of(context).to} ${favouriteTrainingModels![index].endPeriod!}'
+
+                  : favouriteRecipeModels![index]
+                        .getLanguageClass(context)
+                        .calories!,
                 isFavouriteItem: true,
+                isTraining: favouriteTrainingModels!=null,
                 imageLink: favouriteTrainingModels?[index].videoLink ??
                     favouriteRecipeModels![index].imageLink,
                 isVideo: favouriteTrainingModels != null,

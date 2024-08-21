@@ -8,9 +8,8 @@ class FavouriteTrainingModel {
   final TrainingEnglish english;
   final TrainingArabic? arabic;
   final String? videoLink;
-  final int? hour;
-  final int? minute;
-  final int? second;
+  final String? startPeriod;
+  final String? endPeriod;
   final String? docId;
   final String? trainingDocId;
 
@@ -18,9 +17,8 @@ class FavouriteTrainingModel {
     required this.english,
     required this.arabic,
     required this.videoLink,
-    required this.hour,
-    required this.minute,
-    required this.second,
+    required this.startPeriod,
+    required this.endPeriod,
     required this.docId,
     required this.trainingDocId,
   });
@@ -28,9 +26,8 @@ class FavouriteTrainingModel {
   factory FavouriteTrainingModel.fromJson({required Map<String, dynamic> json,required String docId}) {
     return FavouriteTrainingModel(
         videoLink:convertGoogleDriveLinkToStreamable(json[StringManager.trainingVideoLink]),
-        hour: json[StringManager.trainingHourPeriod],
-        minute: json[StringManager.trainingMinutePeriod],
-        second: json[StringManager.trainingSecondPeriod],
+        startPeriod:json[StringManager.trainingStartPeriod] ,
+        endPeriod:json[StringManager.trainingEndPeriod] ,
         english: TrainingEnglish.fromJson(json: json),
         arabic: TrainingArabic.fromJson(json: json),
         docId: docId,

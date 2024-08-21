@@ -86,9 +86,8 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       StringManager.trainingArabicInstruction:
           trainingModel.arabic!.instructions,
       StringManager.trainingVideoLink: trainingModel.videoLink,
-      StringManager.trainingHourPeriod: trainingModel.hour,
-      StringManager.trainingMinutePeriod: trainingModel.minute,
-      StringManager.trainingSecondPeriod: trainingModel.second,
+      StringManager.trainingStartPeriod: trainingModel.startPeriod,
+      StringManager.trainingEndPeriod: trainingModel.endPeriod,
       StringManager.trainingDocId: trainingModel.docId,
     }).then((value) async {
       emit(AddFavouriteTrainingSuccessState());

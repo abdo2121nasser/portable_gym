@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل نسيت كلمه السر"),
         "forgottenPassword":
             MessageLookupByLibrary.simpleMessage("نيسيت كلمه السر"),
+        "from": MessageLookupByLibrary.simpleMessage("من"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم كامل"),
         "height": MessageLookupByLibrary.simpleMessage("الطول"),
         "hintMessage": MessageLookupByLibrary.simpleMessage("اكتب رسالتك"),
@@ -139,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reputation": MessageLookupByLibrary.simpleMessage("التكرار "),
         "reputationShort": MessageLookupByLibrary.simpleMessage("عدد"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("غير كلمه السر"),
+        "rest": MessageLookupByLibrary.simpleMessage("الراحه"),
         "round": MessageLookupByLibrary.simpleMessage("جوله "),
         "second": MessageLookupByLibrary.simpleMessage("س"),
         "seeAll": MessageLookupByLibrary.simpleMessage("المذيد"),
@@ -162,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("مكان الاسم الحركي فارغ!!"),
         "thePasswordFieldIsEmpty":
             MessageLookupByLibrary.simpleMessage("خانه كلمه السر فارغه"),
+        "to": MessageLookupByLibrary.simpleMessage("الي"),
         "trainingOfDay": MessageLookupByLibrary.simpleMessage("تمرين اليوم"),
         "trainingTime": MessageLookupByLibrary.simpleMessage("وقت التدريب"),
         "uploadBodyCategory":

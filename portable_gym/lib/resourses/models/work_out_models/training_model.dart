@@ -9,10 +9,10 @@ class TrainingModel {
   final String? videoLink;
   final String? bodyCategory;
   final bool?  isPaid;
-  final int? hour;
-  final int? minute;
-  final int? second;
   final int? priority;
+  final String? startPeriod;
+  final String? endPeriod;
+
   final String? docId;
 
   TrainingModel({
@@ -22,10 +22,9 @@ class TrainingModel {
     required this.videoLink,
     required this.bodyCategory,
     required this.isPaid,
-    required this.hour,
-    required this.minute,
-    required this.second,
     required this.priority,
+    required this.startPeriod,
+    required this.endPeriod,
     required this.docId
   });
 
@@ -35,12 +34,11 @@ class TrainingModel {
       videoLink:convertGoogleDriveLinkToStreamable( json[StringManager.trainingVideoLink]),
       bodyCategory: json[StringManager.trainingBodyCategory],
       isPaid: json[StringManager.trainingIsPaid],
-      hour: json[StringManager.trainingHourPeriod],
-      minute: json[StringManager.trainingMinutePeriod],
-      second: json[StringManager.trainingSecondPeriod],
       priority: json[StringManager.trainingPriority],
       english: TrainingEnglish.fromJson(json: json),
       arabic: TrainingArabic.fromJson(json: json),
+        startPeriod:json[StringManager.trainingStartPeriod]??'' ,
+        endPeriod:json[StringManager.trainingEndPeriod]??'' ,
         docId: docId
 
     );
@@ -63,10 +61,9 @@ class TrainingModel {
       arabic!.instructions,
       StringManager.trainingVideoLink: videoLink,
       StringManager.trainingPriority: priority  ,
-      StringManager.trainingHourPeriod: hour,
-      StringManager.trainingMinutePeriod:minute,
-      StringManager.trainingSecondPeriod:second,
-      StringManager.trainingIsPaid: isPaid
+      StringManager.trainingIsPaid: isPaid,
+      StringManager.trainingStartPeriod: startPeriod,
+      StringManager.trainingEndPeriod: endPeriod,
     };
 }
 

@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forget Password"),
         "forgottenPassword":
             MessageLookupByLibrary.simpleMessage("Forgotten Password"),
+        "from": MessageLookupByLibrary.simpleMessage("From"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "height": MessageLookupByLibrary.simpleMessage("Height"),
         "hintMessage":
@@ -145,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reputation": MessageLookupByLibrary.simpleMessage("repetition "),
         "reputationShort": MessageLookupByLibrary.simpleMessage("Rep"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "rest": MessageLookupByLibrary.simpleMessage("rest"),
         "round": MessageLookupByLibrary.simpleMessage("Round "),
         "second": MessageLookupByLibrary.simpleMessage("S"),
         "seeAll": MessageLookupByLibrary.simpleMessage("see all"),
@@ -168,6 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "the nick name field is empty!!"),
         "thePasswordFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
             "the password field is empty!!"),
+        "to": MessageLookupByLibrary.simpleMessage("To"),
         "trainingOfDay":
             MessageLookupByLibrary.simpleMessage("training of the day"),
         "trainingTime": MessageLookupByLibrary.simpleMessage("Training Time"),

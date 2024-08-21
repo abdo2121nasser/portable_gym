@@ -840,6 +840,36 @@ class S {
     );
   }
 
+  /// `From`
+  String get from {
+    return Intl.message(
+      'From',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get to {
+    return Intl.message(
+      'To',
+      name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `rest`
+  String get rest {
+    return Intl.message(
+      'rest',
+      name: 'rest',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `English`
   String get englishWord {
     return Intl.message(

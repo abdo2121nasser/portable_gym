@@ -97,6 +97,9 @@
   "hour": "ث",
   "minute": "د",
   "second": "س",
+  "from": "من",
+  "to": "الي",
+  "rest": "الراحه",
   "englishWord":"اجليش",
   "arabicWord": "عربي",
 

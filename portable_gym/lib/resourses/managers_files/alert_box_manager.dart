@@ -7,6 +7,7 @@ import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../blocks/home_screen_blocks/work_out_block/from_to_period_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 
 class AlertBodyCategoryBox extends StatelessWidget {
@@ -135,7 +136,9 @@ class AlertTrainingBox extends StatelessWidget {
                         height: AppVerticalSize.s10,
                       ),
                       Expanded(child: tabBarView),
-                      PeriodPickerBlock(workCubit: workOutCubit),
+                     // PeriodPickerBlock(workCubit: workOutCubit),
+                      FromToPeriodBlock(workCubit: workOutCubit),
+
                       GeneralButtonBlock(
                           lable: buttonLable,
                           function: buttonFunction,

@@ -17,7 +17,6 @@ class ExerciseDetailBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var languageModel=trainingModel.getLanguageClass(context);
-    DateTime dateTime=DateTime(0,0,0,trainingModel.hour!,trainingModel.minute!,trainingModel.second!,);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
       padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s22),
@@ -69,11 +68,12 @@ class ExerciseDetailBlock extends StatelessWidget {
               children: [
                 SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: RecordedUnitBlock(
                       icon: Icons.timer,
                       mesuaringUnit:'',
-                      unitValue:DateFormat('HH:mm:ss').format(dateTime),
+                      unitValue:
+                      '${S.of(context).rest} ${S.of(context).from} ${trainingModel.startPeriod} ${S.of(context).to} ${trainingModel.endPeriod!}',
                       textColor: ColorManager.kBlackColor,
                       iconColor: ColorManager.kBlackColor,
                     )),
