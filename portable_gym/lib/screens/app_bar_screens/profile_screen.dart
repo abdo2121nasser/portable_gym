@@ -68,17 +68,16 @@ class ProfileScreen extends StatelessWidget {
                       )
                 ],
               ),
-              profCubit.profileModel != null
-                  ? Positioned(
+           Positioned(
                       top: MediaQuery.of(context).size.height * 0.28,
                       left: AppHorizontalSize.s22,
                       right: AppHorizontalSize.s22,
                       child: ProfileTrainingInformationBlock(
-                        age: profCubit.profileModel!.age,
-                        weight: profCubit.profileModel!.weight,
-                        height: profCubit.profileModel!.height,
+                        age: profileModel.age,
+                        weight: profileModel.weight,
+                        height: profileModel.height,
                       ))
-                  : const SizedBox(),
+
             ],
           ),
         );
