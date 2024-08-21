@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
 
 
   const ProfileScreen({super.key,required this.profCubit,required this.profileModel,
-   this.isMyProfileScreen=false});
+   this.isMyProfileScreen=true});
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,9 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                     height: AppVerticalSize.s65,
                   ),
-                  profCubit.isProfileLowerBlock &&
-                          profCubit.profileModel != null
-
-                      ? const ProfileLowerBlock()
+                  isMyProfileScreen?
+                  profCubit.isProfileLowerBlock
+                      ?  ProfileLowerBlock(profileModel: profileModel,)
                       :  Expanded(
                         child: OptionsListBlock(
                     lables: profCubit.getProfileOptionsLables(context: context),
@@ -65,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                         ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
                     },
                   ),
-                      )
+                      ): ProfileLowerBlock(profileModel: profileModel,)
                 ],
               ),
            Positioned(

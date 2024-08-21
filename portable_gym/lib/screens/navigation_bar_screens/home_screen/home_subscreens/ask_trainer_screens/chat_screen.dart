@@ -69,7 +69,12 @@ class ChatScreen extends StatelessWidget {
                       onPressed: () {
                         Get.to(ProfileScreen(
                             profileModel: receiverModel,
-                            profCubit: profCubit));
+                            profCubit: profCubit,
+                          isMyProfileScreen: false,
+
+                        )
+
+                        );
                       },
                       icon: Icon(
                         Icons.person,

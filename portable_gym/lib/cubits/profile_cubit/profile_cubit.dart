@@ -112,15 +112,15 @@ class ProfileCubit extends Cubit<ProfileState> {
     ];
   }
 
-  setProfileControllers() {
-    fullNameController.text = profileModel!.fullName;
-    nickNameController.text = profileModel!.nickName;
-    emailController.text = profileModel!.email;
-    phoneController.text = profileModel!.phone;
-    ageController.text = profileModel!.age.toString();
-    weightController.text = profileModel!.weight.toString();
-    heightController.text = profileModel!.height.toString();
-    imageLink = profileModel!.imageLink;
+  setProfileControllers({required ProfileModel profileModel}) {
+    fullNameController.text = profileModel.fullName;
+    nickNameController.text = profileModel.nickName;
+    emailController.text = profileModel.email;
+    phoneController.text = profileModel.phone;
+    ageController.text = profileModel.age.toString();
+    weightController.text = profileModel.weight.toString();
+    heightController.text = profileModel.height.toString();
+    imageLink = profileModel.imageLink;
     emit(SetProfileControllersValuesState());
   }
   //todo setting screen is not made
@@ -189,7 +189,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       profileModel =
           ProfileModel.fromJson(json: value.data()!, docId: value.id);
       emit(GetUserDataSuccessState());
-      setProfileControllers();
+      setProfileControllers(profileModel: profileModel!);
     }).catchError((error) {
       emit(GetUserDataErrorState());
       debugPrint(error);
