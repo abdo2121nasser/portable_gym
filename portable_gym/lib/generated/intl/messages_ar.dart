@@ -116,7 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minute": MessageLookupByLibrary.simpleMessage("د"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("دقيقه"),
         "musclesMassGain": MessageLookupByLibrary.simpleMessage("كسب عضلاط"),
-        "myProfile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
+        "myProfile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
                 "يجب علي الاسم الكامل الا يحتوي علي ارقام"),

@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "minuteWord": MessageLookupByLibrary.simpleMessage("minute"),
         "musclesMassGain":
             MessageLookupByLibrary.simpleMessage("Muscles Mass Gain"),
-        "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
+        "myProfile": MessageLookupByLibrary.simpleMessage("Profile"),
         "nameFieldShouldNotContainNumbers":
             MessageLookupByLibrary.simpleMessage(
                 "full name field should not contain numbers"),

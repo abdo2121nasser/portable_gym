@@ -590,10 +590,10 @@ class S {
     );
   }
 
-  /// `My Profile`
+  /// `Profile`
   String get myProfile {
     return Intl.message(
-      'My Profile',
+      'Profile',
       name: 'myProfile',
       desc: '',
       args: [],

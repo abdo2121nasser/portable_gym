@@ -91,6 +91,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                               child: InkWell(
                                 onTap: () {
                                   Get.to(ProfileScreen(
+                                    profileModel: profCubit.profileModel!,
                                     profCubit: profCubit,
                                   ));
                                 },

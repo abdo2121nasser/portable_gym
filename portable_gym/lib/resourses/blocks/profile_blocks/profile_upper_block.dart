@@ -13,9 +13,12 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import '../../../generated/l10n.dart';
 import '../../managers_files/font_manager.dart';
 import '../../managers_files/style_manager.dart';
+import '../../models/profile_models/profile_model.dart';
 
 class ProfileUpperBlock extends StatelessWidget {
-  const ProfileUpperBlock({super.key});
+  final ProfileModel profileModel;
+
+  const ProfileUpperBlock({super.key,required this.profileModel});
 
 
   @override
@@ -51,13 +54,13 @@ class ProfileUpperBlock extends StatelessWidget {
                   child: ProfilePhotoBlock(
                     image:profCubit.imageFile==null?
                     Image.network(
-                    profCubit.profileModel!.imageLink).image:
+                    profileModel.imageLink).image:
                         Image.file(profCubit.imageFile!).image
                     ,
                     isEditable: profCubit.isProfileLowerBlock,
                   ),
                 )),
-          PersonalInformationBlock(fullName: profCubit.profileModel!.fullName,email: profCubit.profileModel!.email),
+          PersonalInformationBlock(fullName: profileModel.fullName,email: profileModel.email),
           SizedBox(
             height: AppVerticalSize.s10,
           ),

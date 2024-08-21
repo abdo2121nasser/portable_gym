@@ -13,6 +13,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/message_model.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:portable_gym/screens/app_bar_screens/profile_screen.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/ask_trainer_blocks/message_stream_builder_block.dart';
@@ -44,12 +45,12 @@ class ChatScreen extends StatelessWidget {
             return Scaffold(
               appBar: GeneralAppBarBlock(
                 title: receiverModel.nickName,
+                titleColor: ColorManager.kPurpleColor,
                 titleFunction: () async {
                   Get.back();
-                 contactModel = askCubit
-                      .setContactAttributes(profile: receiverModel);
-                  if (contactModel.docId1 ==
-                      profCubit.userDocId) {
+                  contactModel =
+                      askCubit.setContactAttributes(profile: receiverModel);
+                  if (contactModel.docId1 == profCubit.userDocId) {
                     if (contactModel.unReadMessagesNoDocId1 != 0) {
                       contactModel.unReadMessagesNoDocId1 = 0;
                       askCubit.updateUnreadedContact(
@@ -63,6 +64,18 @@ class ChatScreen extends StatelessWidget {
                     }
                   }
                 },
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Get.to(ProfileScreen(
+                            profileModel: receiverModel,
+                            profCubit: profCubit));
+                      },
+                      icon: Icon(
+                        Icons.person,
+                        color: ColorManager.kPurpleColor,
+                      ))
+                ],
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
@@ -70,11 +83,10 @@ class ChatScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     getChatBody,
-                  getFileBoxBlock(state),
+                    getFileBoxBlock(state),
                     LinearProgressIndicatorBlock(
                         isLoading: state is UploadFileLoadingState ||
-                            state is DownloadFileLoadingState
-                    ),
+                            state is DownloadFileLoadingState),
                     buildGeneralTextFormField(context, state),
                   ],
                 ),
@@ -100,9 +112,10 @@ class ChatScreen extends StatelessWidget {
       sendMessageFunction: state is UploadFileLoadingState
           ? null
           : () {
-        if(askCubit.messageController.text.isNotEmpty || askCubit.messageFile!=null) {
-          sendMessage();
-        }
+              if (askCubit.messageController.text.isNotEmpty ||
+                  askCubit.messageFile != null) {
+                sendMessage();
+              }
             },
       prefixIcon: state is UploadFileLoadingState
           ? null
@@ -124,7 +137,7 @@ class ChatScreen extends StatelessWidget {
             suffixIconFunction: () {
               askCubit.removeFileFromSendingState();
             },
-      fileName: askCubit.fileName!,
+            fileName: askCubit.fileName!,
           )
         : const SizedBox();
   }
@@ -142,8 +155,7 @@ class ChatScreen extends StatelessWidget {
   }
 
   Future<void> sendMessage() async {
-    contactModel =
-        askCubit.setContactAttributes(profile: receiverModel);
+    contactModel = askCubit.setContactAttributes(profile: receiverModel);
     await askCubit.sendMessageProcess(
         receiverDocId: receiverModel.docId,
         senderDocId: profCubit.userDocId,

@@ -309,7 +309,6 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   Future<void> openFile({required String fileName}) async {
     try {
       // Get the Downloads directory path
-      final downloadsDir = await getExternalStorageDirectory();
       final filePath = '/storage/emulated/0/Download/$fileName';
       final file = File(filePath);
       // Open the file

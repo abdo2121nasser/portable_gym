@@ -7,6 +7,7 @@ import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/general_app_bar_block.dart';
@@ -19,9 +20,12 @@ import '../../resourses/managers_files/font_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
   final ProfileCubit profCubit;
+  final ProfileModel profileModel;
+  final bool isMyProfileScreen;
 
 
-  const ProfileScreen({super.key,required this.profCubit});
+  const ProfileScreen({super.key,required this.profCubit,required this.profileModel,
+   this.isMyProfileScreen=false});
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +49,13 @@ class ProfileScreen extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const ProfileUpperBlock(),
+                   ProfileUpperBlock(profileModel: profileModel),
                   SizedBox(
                     height: AppVerticalSize.s65,
                   ),
                   profCubit.isProfileLowerBlock &&
                           profCubit.profileModel != null
+
                       ? const ProfileLowerBlock()
                       :  Expanded(
                         child: OptionsListBlock(
