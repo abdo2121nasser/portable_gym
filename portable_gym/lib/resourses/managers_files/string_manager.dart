@@ -77,6 +77,7 @@ class StringManager
   static const String bodyCategoryEnglishCalories='english calories';
   static const String bodyCategoryEnglishNumberOfExercises='english number of exercises';
   static const String bodyCategoryImageLink='image link';
+  static const String bodyCategoryDownloadFilesLink='download file link';
   static const String bodyCategoryLevel='level';
   static const String bodyCategoryArabicTitle='arabic title';
   static const String bodyCategoryArabicCalories='arabic calories';

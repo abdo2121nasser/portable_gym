@@ -7,6 +7,7 @@ class BodyCategoryModel {
   final BodyCategoryArabic? arabic;
   final String? level;
   final String? imageLink;
+  final String? downloadFileLink;
   final int? hour;
   final int? minute;
   final int? second;
@@ -17,6 +18,7 @@ class BodyCategoryModel {
       required this.arabic,
       required this.level,
       required this.imageLink,
+      this.downloadFileLink,
       required this.hour,
       required this.minute,
       required this.second,
@@ -33,11 +35,18 @@ class BodyCategoryModel {
         second: json[StringManager.bodyCategoryTotalTimeSecond],
         english: BodyCategoryEnglish.fromJson(json: json),
         arabic: BodyCategoryArabic.fromJson(json: json),
+        downloadFileLink:
+            json[StringManager.bodyCategoryDownloadFilesLink] != null
+                ? convertGoogleDriveLinkToStreamable(
+                    json[StringManager.bodyCategoryDownloadFilesLink])
+                : null,
         docId: docId);
   }
 
   Map<String, dynamic> toJson(
-      {bool isAddFunction = true, String? bodyCategoryLevel}) {
+      {bool isAddFunction = true,
+      String? bodyCategoryLevel,
+      bool isDailyBodyCategory = false}) {
     return {
       StringManager.bodyCategoryEnglishTitle: english!.title,
       StringManager.bodyCategoryEnglishCalories: english!.calories,
@@ -48,6 +57,8 @@ class BodyCategoryModel {
       StringManager.bodyCategoryArabicNumberOfExercises:
           arabic!.numberOfExercises,
       StringManager.bodyCategoryImageLink: imageLink,
+      if (isDailyBodyCategory)
+        StringManager.bodyCategoryDownloadFilesLink: downloadFileLink,
       if (isAddFunction) StringManager.bodyCategoryLevel: bodyCategoryLevel,
       StringManager.bodyCategoryTotalTimeHour: hour,
       StringManager.bodyCategoryTotalTimeMinute: minute,

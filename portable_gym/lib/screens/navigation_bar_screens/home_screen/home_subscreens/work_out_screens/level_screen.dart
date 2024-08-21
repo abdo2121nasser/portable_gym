@@ -13,6 +13,7 @@ import '../../../../../resourses/managers_files/color_manager.dart';
 
 class LevelScreen extends StatelessWidget {
   final String bodyCategory;
+  final String? downloadLink;
   final bool isDailyCategory;
   final WorkOutCubit workCubit;
   final String title;
@@ -20,6 +21,7 @@ class LevelScreen extends StatelessWidget {
   const LevelScreen(
       {super.key,
       required this.bodyCategory,
+      this.downloadLink,
       required this.workCubit,
       required this.title,
       this.isDailyCategory = false});
@@ -49,22 +51,20 @@ class LevelScreen extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: GeneralAppBarBlock(
                 title: title,
-                actions: isDailyCategory
+                actions: isDailyCategory && downloadLink != null
                     ? [
-                  IconButton(
-                    onPressed: () async {
-                      final Uri url = Uri.parse('https://www.google.com.eg/');
-                      if (await canLaunchUrl(url)) {
-                        await launchUrl(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    },
-                    icon: const Icon(Icons.download),
-                  )
-                  //todo fix
-
-                ]
+                        IconButton(
+                          onPressed: () async {
+                            final Uri url = Uri.parse(downloadLink!);
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          icon: const Icon(Icons.download),
+                        )
+                      ]
                     : [],
               ),
               body: Column(

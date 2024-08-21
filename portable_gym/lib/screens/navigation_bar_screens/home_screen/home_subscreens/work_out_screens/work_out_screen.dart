@@ -76,6 +76,7 @@ class WorkOutScreen extends StatelessWidget {
                             Get.to(LevelScreen(
                               bodyCategory: '',
                               title:workCubit.dailyDodyCategoryModel!.getLanguageClass(context).title!,
+                              downloadLink:workCubit.dailyDodyCategoryModel!.downloadFileLink,
                               isDailyCategory: true,
                               workCubit: workCubit,
                             ));
@@ -90,7 +91,7 @@ class WorkOutScreen extends StatelessWidget {
                               title: S.of(context).editBodyCategory,
                               buttonLable: S.of(context).uploadBodyCategory,
                               tabBar: bodyCategoryTabBar,
-                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit,isDailyBodyCategory: true),
+                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit,isDailyBodyCategory: true,),
                               buttonFunction: () {
                                 workCubit.editBodyCategory(
                                     docId: workCubit

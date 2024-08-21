@@ -34,7 +34,7 @@ class EnglishBodyCategoryTabBarViewBlock extends StatelessWidget {
               separatorBuilder: (context, index) => SizedBox(
                     height: AppVerticalSize.s5,
                   ),
-              itemCount: lables.length);
+              itemCount: controllers.length);
         },
       ),
     );

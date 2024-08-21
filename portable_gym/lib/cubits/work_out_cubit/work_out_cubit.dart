@@ -73,7 +73,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   TextEditingController trainingVideoLinkController = TextEditingController();
   bool trainingIsPaid = false;
 
-  //-----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   TextEditingController bodyCategoryEnglishTitleController =
       TextEditingController();
   TextEditingController bodyCategoryEnglishNumberOfExercisesController =
@@ -538,6 +538,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryEnglishNumberOfExercisesController.clear();
     bodyCategoryEnglishCaloriesController.clear();
     bodyCategoryImageLinkController.clear();
+    bodyCategoryDownloadFilesLinkController.clear();
     bodyCategoryArabicTitleController.clear();
     bodyCategoryArabicNumberOfExercisesController.clear();
     bodyCategoryArabicCaloriesController.clear();
@@ -571,6 +572,9 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         model.english!.numberOfExercises!;
     bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
     bodyCategoryImageLinkController.text = model.imageLink!;
+    if(model.downloadFileLink!=null) {
+      bodyCategoryDownloadFilesLinkController.text=model.downloadFileLink!;
+    }
     bodyCategoryArabicTitleController.text = model.arabic!.title!;
     bodyCategoryArabicNumberOfExercisesController.text =
         model.arabic!.numberOfExercises!;
@@ -586,7 +590,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(SetBodyCategoryControllersState());
   }
 
-  Map<String, dynamic> getBodyCategoryMap({required bool isAddFunction}) {
+  Map<String, dynamic> getBodyCategoryMap({required bool isAddFunction,bool isDailyBodyCategory=false}) {
     return BodyCategoryModel(
             english: BodyCategoryEnglish(
                 title: bodyCategoryEnglishTitleController.text,
@@ -599,6 +603,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
                 numberOfExercises:
                     bodyCategoryArabicNumberOfExercisesController.text),
             imageLink: bodyCategoryImageLinkController.text,
+            downloadFileLink: bodyCategoryDownloadFilesLinkController.text,
             level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
             hour: bodyCategoryTotalTime.hour,
             minute: bodyCategoryTotalTime.minute,
@@ -606,6 +611,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             docId: '')
         .toJson(
             isAddFunction: isAddFunction,
+            isDailyBodyCategory: isDailyBodyCategory,
             bodyCategoryLevel:
                 getBodyCategoryLevelString(currentLevelIndex: currentLevel));
   }
@@ -655,7 +661,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             : StringManager.collectionBodyCategory);
     data
         .doc(docId)
-        .update(getBodyCategoryMap(isAddFunction: false))
+        .update(getBodyCategoryMap(isAddFunction: false,isDailyBodyCategory: isDailyCategory))
         .then((value) {
       emit(EditBodyCategorySuccessState());
       getToastMessage(
