@@ -51,17 +51,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     StringManager.trainingArabicLableVideoLink,
   ];
   //---------------------------------------
-  List<String> bodyCategoryEnglishLables = [
-    StringManager.bodyCategoryEnglishLableTitle,
-    StringManager.bodyCategoryEnglishLableCalories,
-    StringManager.bodyCategoryEnglishLableNumberOfExercises,
-    StringManager.bodyCategoryLableImageLink
-  ];
-  List<String> bodyCategoryArabicLables = [
-    StringManager.bodyCategoryArabicLableTitle,
-    StringManager.bodyCategoryArabicLableCalories,
-    StringManager.bodyCategoryArabicLableNumberOfExercises,
-  ];
+
   TextEditingController trainingEnglishNameController = TextEditingController();
   TextEditingController trainingEnglishNumberOfReputationController =
       TextEditingController();
@@ -92,6 +82,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
   TextEditingController bodyCategoryImageLinkController =
       TextEditingController();
+  TextEditingController bodyCategoryDownloadFilesLinkController =
+      TextEditingController();
   TextEditingController bodyCategoryArabicTitleController =
       TextEditingController();
   TextEditingController bodyCategoryArabicNumberOfExercisesController =
@@ -100,6 +92,24 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
 
 //---------------------------------------------------------------------------------------------------
+
+  getBodyCategoryEnglishLables({bool hasFileDownloadField=false}) {
+    return [
+      StringManager.bodyCategoryEnglishLableTitle,
+      StringManager.bodyCategoryEnglishLableCalories,
+      StringManager.bodyCategoryEnglishLableNumberOfExercises,
+      StringManager.bodyCategoryLableImageLink,
+      StringManager.bodyCategoryLableDownloadFilesLink,
+    ];
+  }
+
+  getBodyCategoryArabicLables({bool hasFileDownloadField=false}) {
+    return [
+      StringManager.bodyCategoryArabicLableTitle,
+      StringManager.bodyCategoryArabicLableCalories,
+      StringManager.bodyCategoryArabicLableNumberOfExercises,
+    ];
+  }
 
   TabBarView getTrainingTabBarView({required WorkOutCubit workOutCubit}) {
     return TabBarView(children: [
@@ -110,11 +120,12 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ]);
   }
 
-  TabBarView getBodyCategoryTabBarView({required WorkOutCubit workOutCubit}) {
+  TabBarView getBodyCategoryTabBarView({required WorkOutCubit workOutCubit,bool isDailyBodyCategory=false}) {
     return TabBarView(children: [
-      EnglishBodyCategoryTabBarViewBlock(workCubit: workOutCubit),
+      EnglishBodyCategoryTabBarViewBlock(workCubit: workOutCubit,isDailyBodyCategory: isDailyBodyCategory),
       ArabicBodyCategoryTabBarViewBlock(
         workCubit: workOutCubit,
+        isDailyBodyCategory: isDailyBodyCategory,
       )
     ]);
   }
@@ -156,23 +167,24 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ];
   }
 
-  getEnglishBodyCategoryControllers({required int index}) {
-    List<TextEditingController> controllers = [
+  List<TextEditingController> getEnglishBodyCategoryControllers({bool hasFileDownloadField=false}) {
+   return [
       bodyCategoryEnglishTitleController,
       bodyCategoryEnglishCaloriesController,
       bodyCategoryEnglishNumberOfExercisesController,
       bodyCategoryImageLinkController,
+     if(hasFileDownloadField)
+     bodyCategoryDownloadFilesLinkController
     ];
-    return controllers[index];
   }
 
-  getArabicBodyCategoryControllers({required int index}) {
-    List<TextEditingController> controllers = [
+  List<TextEditingController> getArabicBodyCategoryControllers() {
+   return  [
       bodyCategoryArabicTitleController,
       bodyCategoryArabicCaloriesController,
       bodyCategoryArabicNumberOfExercisesController,
     ];
-    return controllers[index];
+
   }
 
   setTrainingPeriod({required DateTime date}) {
@@ -582,13 +594,13 @@ class WorkOutCubit extends Cubit<WorkOutState> {
                 numberOfExercises:
                     bodyCategoryEnglishNumberOfExercisesController.text),
             arabic: BodyCategoryArabic(
-              title: bodyCategoryArabicTitleController.text,
-              calories:  bodyCategoryArabicCaloriesController.text,
-              numberOfExercises: bodyCategoryArabicNumberOfExercisesController.text
-            ),
+                title: bodyCategoryArabicTitleController.text,
+                calories: bodyCategoryArabicCaloriesController.text,
+                numberOfExercises:
+                    bodyCategoryArabicNumberOfExercisesController.text),
             imageLink: bodyCategoryImageLinkController.text,
-            level:  getBodyCategoryLevelString(currentLevelIndex: currentLevel),
-            hour:   bodyCategoryTotalTime.hour,
+            level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+            hour: bodyCategoryTotalTime.hour,
             minute: bodyCategoryTotalTime.minute,
             second: bodyCategoryTotalTime.second,
             docId: '')
@@ -616,6 +628,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     });
     Get.back();
   }
+
   // StringManager.bodyCategoryEnglishTitle:
   // bodyCategoryEnglishTitleController.text,
   // StringManager.bodyCategoryEnglishCalories:
@@ -640,7 +653,10 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         isDailyCategory
             ? StringManager.collectionDailyBodyCategory
             : StringManager.collectionBodyCategory);
-    data.doc(docId).update(getBodyCategoryMap(isAddFunction: false)).then((value) {
+    data
+        .doc(docId)
+        .update(getBodyCategoryMap(isAddFunction: false))
+        .then((value) {
       emit(EditBodyCategorySuccessState());
       getToastMessage(
         message: 'the category has been edited',

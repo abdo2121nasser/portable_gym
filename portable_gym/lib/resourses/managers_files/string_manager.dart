@@ -39,6 +39,7 @@ class StringManager
   static const String bodyCategoryEnglishLableCalories='calories';
   static const String bodyCategoryEnglishLableNumberOfExercises='number of exercises';
   static const String bodyCategoryLableImageLink='image link';
+  static const String bodyCategoryLableDownloadFilesLink='download file link';
   static const String bodyCategoryArabicLableTitle='العنوان';
   static const String bodyCategoryArabicLableCalories='الكالوريز';
   static const String bodyCategoryArabicLableNumberOfExercises='عدد التمارين';

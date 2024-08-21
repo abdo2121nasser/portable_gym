@@ -90,7 +90,7 @@ class WorkOutScreen extends StatelessWidget {
                               title: S.of(context).editBodyCategory,
                               buttonLable: S.of(context).uploadBodyCategory,
                               tabBar: bodyCategoryTabBar,
-                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit),
+                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit,isDailyBodyCategory: true),
                               buttonFunction: () {
                                 workCubit.editBodyCategory(
                                     docId: workCubit

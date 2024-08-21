@@ -7,36 +7,34 @@ import '../../../../managers_files/color_manager.dart';
 import '../../../../managers_files/values_manager.dart';
 import '../../../general_blocks/full_input_block.dart';
 
-
 class EnglishBodyCategoryTabBarViewBlock extends StatelessWidget {
-         final WorkOutCubit workCubit;
+  final WorkOutCubit workCubit;
+  final bool isDailyBodyCategory;
+  const EnglishBodyCategoryTabBarViewBlock(
+      {super.key, required this.workCubit, this.isDailyBodyCategory = false});
 
-         EnglishBodyCategoryTabBarViewBlock({required this.workCubit});
-
-         @override
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: workCubit,
       child: BlocConsumer<WorkOutCubit, WorkOutState>(
         listener: (context, state) {},
         builder: (context, state) {
-       //   var workCubit = WorkOutCubit.get(context);
+          var lables = workCubit.getBodyCategoryEnglishLables(hasFileDownloadField: isDailyBodyCategory);
+          var controllers = workCubit.getEnglishBodyCategoryControllers(hasFileDownloadField: isDailyBodyCategory);
           return ListView.separated(
-            // padding: EdgeInsets.only(bottom: AppVerticalSize.s10),
               shrinkWrap: true,
-              itemBuilder: (context, index) =>
-                  FullInputBlock(
-                    lable: workCubit.bodyCategoryEnglishLables[index],
+              itemBuilder: (context, index) => FullInputBlock(
+                    lable: lables[index],
                     color: ColorManager.kBlackColor,
-                    controller: workCubit.getEnglishBodyCategoryControllers(
-                        index: index),
+                    controller: controllers[index],
                     enableBorder: true,
-                    onlyInteger: index == 1 || index == 2 ? true : false,),
-              separatorBuilder: (context, index) =>
-                  SizedBox(
+                    onlyInteger: index == 1 || index == 2 ? true : false,
+                  ),
+              separatorBuilder: (context, index) => SizedBox(
                     height: AppVerticalSize.s5,
                   ),
-              itemCount: workCubit.bodyCategoryEnglishLables.length);
+              itemCount: lables.length);
         },
       ),
     );

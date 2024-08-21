@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/floating_action_button_block.dart';
@@ -14,12 +15,13 @@ class LevelScreen extends StatelessWidget {
   final String bodyCategory;
   final bool isDailyCategory;
   final WorkOutCubit workCubit;
-  final String  title;
+  final String title;
 
   const LevelScreen(
-      {super.key, required this.bodyCategory,
+      {super.key,
+      required this.bodyCategory,
       required this.workCubit,
-        required this.title,
+      required this.title,
       this.isDailyCategory = false});
 
   @override
@@ -34,66 +36,81 @@ class LevelScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider(
-  create: (context) => FavouriteCubit()..getUserDocId(),
-  child: BlocProvider.value(
-      value: workCubit
-        ..getTraining(
-            bodyCategory: bodyCategory, isDailyCategory: isDailyCategory),
-      child: BlocConsumer<WorkOutCubit, WorkOutState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          // var workCubit=WorkOutCubit.get(context);
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: GeneralAppBarBlock(
-              title: title,
-            ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //   TrainingOfDayBlock(trainingName: 'functional trainnning'),
-                state is GetTrainingLoadingState ||
-                state is GetUserDocIdLoadingState
-                    ? const Expanded(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.kPurpleColor,
-                            )),
-                      )
-                    : ListTrainingItemsBlock(
-                        trainingModels: workCubit.trainingModels,
-                        bodyCategory: bodyCategory,
-                  isDailyCategory: isDailyCategory,
-                      ),
-              ],
-            ),
-            floatingActionButton: FloatingActionButtonBlock(
-              function: () {
-                showAlertTrainingBox(
-                    context: context,
-                    workOutCubit: workCubit,
-                    title: S.of(context).addNewTraining,
-                    buttonLable: S.of(context).uploadTraining,
-                    tabBar: trainingTabBar,
-                    tabBarView: workCubit.getTrainingTabBarView(
-                        workOutCubit: workCubit),
-                    trainingPeriod: workCubit.trainingPeriod,
-                    buttonFunction: () {
-                      workCubit.processOfAddingTraining(
+      create: (context) => FavouriteCubit()..getUserDocId(),
+      child: BlocProvider.value(
+        value: workCubit
+          ..getTraining(
+              bodyCategory: bodyCategory, isDailyCategory: isDailyCategory),
+        child: BlocConsumer<WorkOutCubit, WorkOutState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            // var workCubit=WorkOutCubit.get(context);
+            return Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: GeneralAppBarBlock(
+                title: title,
+                actions: isDailyCategory
+                    ? [
+                  IconButton(
+                    onPressed: () async {
+                      final Uri url = Uri.parse('https://www.google.com.eg/');
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    icon: const Icon(Icons.download),
+                  )
+                  //todo fix
+
+                ]
+                    : [],
+              ),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  state is GetTrainingLoadingState ||
+                          state is GetUserDocIdLoadingState
+                      ? const Expanded(
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.kPurpleColor,
+                              )),
+                        )
+                      : ListTrainingItemsBlock(
+                          trainingModels: workCubit.trainingModels,
                           bodyCategory: bodyCategory,
-                          isDailyCategory: isDailyCategory
-                      );
-                    });
-                workCubit.clearTrainingAttributes();
-                // await pickImage();
-                //await google.uploadFileToGoogleDrive(imageFile!);
-              },
-            ),
-          );
-        },
+                          isDailyCategory: isDailyCategory,
+                        ),
+                ],
+              ),
+              floatingActionButton: FloatingActionButtonBlock(
+                function: () {
+                  showAlertTrainingBox(
+                      context: context,
+                      workOutCubit: workCubit,
+                      title: S.of(context).addNewTraining,
+                      buttonLable: S.of(context).uploadTraining,
+                      tabBar: trainingTabBar,
+                      tabBarView: workCubit.getTrainingTabBarView(
+                          workOutCubit: workCubit),
+                      trainingPeriod: workCubit.trainingPeriod,
+                      buttonFunction: () {
+                        workCubit.processOfAddingTraining(
+                            bodyCategory: bodyCategory,
+                            isDailyCategory: isDailyCategory);
+                      });
+                  workCubit.clearTrainingAttributes();
+                  // await pickImage();
+                  //await google.uploadFileToGoogleDrive(imageFile!);
+                },
+              ),
+            );
+          },
+        ),
       ),
-    ),
-);
+    );
   }
 }
