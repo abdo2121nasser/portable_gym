@@ -43,7 +43,7 @@ class ProfileModel {
       {required Map<String, dynamic> json,
       required String docId,
       ContactMessageModel? contact}) {
-
+     print(json[StringManager.profileQuestionsAnswer]);
     return ProfileModel(
         docId: docId,
         fullName: json[StringManager.userFullName],
@@ -58,7 +58,8 @@ class ProfileModel {
         age: json[StringManager.userAge],
         isPremium: json[StringManager.userIsPremium],
         isClient: json[StringManager.userIsClint],
-        questionModels: List<QuestionModel>.from(
+        questionModels:json[StringManager.profileQuestionsAnswer] ==null?[]:
+        List<QuestionModel>.from(
             json[StringManager.profileQuestionsAnswer]
                     [StringManager.questionsWithAnswer]
                 .map((x) => QuestionModel.fromJson(json: x,docId: ''))),

@@ -20,6 +20,7 @@ import '../../resourses/blocks/profile_blocks/profile_training_information_block
 import '../../resourses/blocks/profile_blocks/profile_upper_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
 import '../../resourses/managers_files/font_manager.dart';
+import '../navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answers_of_questions_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final ProfileCubit profCubit;
@@ -53,15 +54,28 @@ class ProfileScreen extends StatelessWidget {
                 if (profCubit.isProfileLowerBlock || isMyProfileScreen == false)
                   IconButton(
                       onPressed: () {
-                        Get.to(AnswerQuestionsScreen(
-                          userNickName: '',
-                          collection: StringManager.collectionUserProfiles,
-                          profileModel: profileModel,
-                        updateProfileQuestionsAnswersFunction: ( Map<String,dynamic> questionsMap){
-                          profCubit.editUserQuestionAnswers(questionsMap: questionsMap);
-                        },
+                        if (profCubit.isProfileLowerBlock && isMyProfileScreen == true) {
+                          Get.to(AnswerQuestionsScreen(
+                            userNickName: '',
+                            collection: StringManager.collectionUserProfiles,
+                            profileModel: profileModel,
+                            updateProfileQuestionsAnswersFunction: ( Map<String,dynamic> questionsMap){
+                              profCubit.editUserQuestionAnswers(questionsMap: questionsMap);
+                            },
 
-                        ));
+                          ));
+                        }
+                        else
+                          {
+                            Get.to(AnswersOfQuestionsScreen(
+                              model: profileModel.questionModels,
+                              isProfileViewOnly: true,
+                              nutCubit: null,
+                              clientDocId: '',
+                              requestDocId: '',
+                            ));
+                          }
+
                       },
                       icon: const Icon(
                         Icons.info,

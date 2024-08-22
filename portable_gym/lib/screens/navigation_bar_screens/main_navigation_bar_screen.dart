@@ -93,6 +93,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                                   Get.to(ProfileScreen(
                                     profileModel: profCubit.profileModel!,
                                     profCubit: profCubit,
+                                    isMyProfileScreen: true,
                                   ));
                                 },
                                 child: const Icon(

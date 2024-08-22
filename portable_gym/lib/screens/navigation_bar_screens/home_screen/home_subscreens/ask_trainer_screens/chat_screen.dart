@@ -76,7 +76,7 @@ class ChatScreen extends StatelessWidget {
 
                         );
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.person,
                         color: ColorManager.kPurpleColor,
                       ))

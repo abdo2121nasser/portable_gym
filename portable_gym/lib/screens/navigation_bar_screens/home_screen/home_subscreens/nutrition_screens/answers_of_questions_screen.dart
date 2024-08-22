@@ -17,14 +17,17 @@ class AnswersOfQuestionsScreen extends StatelessWidget {
   final String requestDocId;
   final String clientDocId;
   final List<QuestionModel> model;
-  final NutritionCubit nutCubit;
+  final bool isProfileViewOnly;
+  final NutritionCubit? nutCubit;
 
   const AnswersOfQuestionsScreen(
       {super.key,
       required this.model,
       required this.nutCubit,
       required this.clientDocId,
-      required this.requestDocId});
+      required this.requestDocId,
+      this.isProfileViewOnly=false
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +52,12 @@ class AnswersOfQuestionsScreen extends StatelessWidget {
                     ),
                 itemCount: model.length),
           ),
+          if(!isProfileViewOnly)
           GeneralButtonBlock(
               lable: S.of(context).create,
               function: () {
                 Get.to(MealSelectionScreen(
-                  nutCubit: nutCubit,
+                  nutCubit: nutCubit!,
                   requestDocId: requestDocId,
                   clientDocId: clientDocId,
                 ));
