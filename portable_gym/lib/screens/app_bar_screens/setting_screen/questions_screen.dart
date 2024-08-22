@@ -11,12 +11,15 @@ import '../../../resourses/blocks/general_blocks/general_button_block.dart';
 import '../../../resourses/blocks/home_screen_blocks/nutrition_blocks/list_questions_with_choices_block.dart';
 import '../../../resourses/managers_files/color_manager.dart';
 import '../../../resourses/managers_files/font_manager.dart';
+import '../../../resourses/managers_files/string_manager.dart';
 import '../../../resourses/managers_files/style_manager.dart';
 
-class MealPlanQuestionScreen extends StatelessWidget {
+class QuestionScreen extends StatelessWidget {
   final SettingCubit settCubit;
+  final String collection;
 
-  const MealPlanQuestionScreen({super.key, required this.settCubit});
+  const QuestionScreen(
+      {super.key, required this.settCubit, required this.collection});
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,13 @@ class MealPlanQuestionScreen extends StatelessWidget {
     );
 
     return BlocProvider.value(
-      value: settCubit..getAllQuestions(),
+      value: settCubit
+        ..getAllQuestions(
+            collection: collection),
       child: BlocConsumer<SettingCubit, SettingState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var settCubit=SettingCubit.get(context);
+          var settCubit = SettingCubit.get(context);
           return Scaffold(
             appBar: GeneralAppBarBlock(
               title: S.of(context).questions,
@@ -52,7 +57,8 @@ class MealPlanQuestionScreen extends StatelessWidget {
                         ),
                       )
                     : ListOfQuestionsWithChoicesBlock(
-                        model: settCubit.questionsModel,
+                        model: settCubit.questionModels,
+                        collection: collection,
                         addChoiceFunction: (model) {
                           settCubit.clearControllers();
                           showAlertQuestionBox(
@@ -61,7 +67,9 @@ class MealPlanQuestionScreen extends StatelessWidget {
                               tabBarView: settCubit.getQuestionsTabBarViews(
                                   isQuestion: false),
                               firstButtonFunction: () {
-                                settCubit.addAnswer(model: model);
+                                settCubit.addAnswer(
+                                    model: model,
+                                    collection: collection);
                               },
                               title: S.of(context).questions,
                               firstButtonLable: S.of(context).add,
@@ -79,7 +87,8 @@ class MealPlanQuestionScreen extends StatelessWidget {
                           tabBarView: settCubit.getQuestionsTabBarViews(
                               isQuestion: true),
                           firstButtonFunction: () {
-                            settCubit.addQuestion();
+                            settCubit.addQuestion(
+                                collection: collection);
                           },
                           title: S.of(context).questions,
                           firstButtonLable: S.of(context).add,

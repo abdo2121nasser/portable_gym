@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
-class MealPlanQuestionModel {
+class QuestionModel {
    EnglishQuestion english;
    ArabicQuestion arabic;
    final String docId;
 
-  MealPlanQuestionModel({
+  QuestionModel({
     required this.english,
     required this.arabic,
     required this.docId
   });
 
-  factory MealPlanQuestionModel.fromJson({required Map<String, dynamic> json,required String docId}) {
-    return MealPlanQuestionModel(
+  factory QuestionModel.fromJson({required Map<String, dynamic> json,required String docId}) {
+    return QuestionModel(
       english:
-          EnglishQuestion.fromJson(json: json[StringManager.englishMealPlanQuestion]),
+          EnglishQuestion.fromJson(json: json[StringManager.englishQuestion]),
       arabic:
-          ArabicQuestion.fromJson(json: json[StringManager.arabicMealPlanQuestion]),
+          ArabicQuestion.fromJson(json: json[StringManager.arabicQuestion]),
       docId: docId
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      StringManager.englishMealPlanQuestion: english.toJson(),
-      StringManager.arabicMealPlanQuestion: arabic.toJson(),
+      StringManager.englishQuestion: english.toJson(),
+      StringManager.arabicQuestion: arabic.toJson(),
     };
   }
 

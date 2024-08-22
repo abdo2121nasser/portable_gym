@@ -37,6 +37,7 @@ class AdminViewBlock extends StatelessWidget {
                 onClickFunction: (index, context) {
                          Get.to(AnswersOfQuestionsScreen(model: nutCubit.requestsModels[index].questions,
                          requestDocId: nutCubit.requestsModels[index].docId,
+                         clientDocId: nutCubit.requestsModels[index].userDocId,
                          nutCubit: NutritionCubit.get(context),
                          ));
                 },

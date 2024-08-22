@@ -671,6 +671,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       print(error);
     });
   }
+
   Future<bool> hasMealPlanRequest() async {
     try {
       var data = await FirebaseFirestore.instance
@@ -683,7 +684,6 @@ class NutritionCubit extends Cubit<NutritionState> {
       return false;
     }
   }
-
 
   void addMealPlanRecipe({required RecipeModel model}) {
     switch (currentMealType) {
@@ -764,7 +764,8 @@ class NutritionCubit extends Cubit<NutritionState> {
   getAllMealPlanRequests() async {
     requestsModels.clear();
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionMealPlansRequests);
+        .collection(StringManager.collectionMealPlansRequests)
+        .orderBy(StringManager.mealPlanRequestDate);
     emit(GetAllMealPlanRequestsLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
@@ -778,11 +779,11 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  createMealPlan({required String requestDocId}) async {
+  createMealPlan({required String requestDocId,required String clientDocId,}) async {
     emit(CreateMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .doc(userDocId);
+        .doc(clientDocId);
 
     await data.update(getMealPlanMap()).then((value) {
       emit(CreateMealPlanSuccessState());

@@ -5,6 +5,7 @@ import '../../../../generated/l10n.dart';
 import '../../../managers_files/alert_box_manager.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/string_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/setting_models/meal_plan_question_model.dart';
@@ -15,13 +16,15 @@ class QuestionWithChoicesBlock extends StatelessWidget {
   // final String title;
   // final String question;
   // final List<Answer> answers;
-  final MealPlanQuestionModel model;
-  final Function(MealPlanQuestionModel)? addChoiceFunction;
+  final QuestionModel model;
+  final String collection;
+  final Function(QuestionModel)? addChoiceFunction;
   final Function(bool, int)? checkBoxFunction;
   final bool isClientView;
   const QuestionWithChoicesBlock(
       {super.key,
       required this.model,
+        required this.collection,
       this.addChoiceFunction,
         this.checkBoxFunction,
       required this.isClientView});
@@ -58,13 +61,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                               tabBarView: settCubit.getQuestionsTabBarViews(
                                   isQuestion: true),
                               firstButtonFunction: () {
-                                settCubit.editQuestion(model: model);
+                                settCubit.editQuestion(model: model,collection:collection);
                               },
                               title: S.of(context).questions,
                               firstButtonLable: S.of(context).edit,
                               secondButtonLable: S.of(context).delete,
                               secondButtonFunction: () {
-                                settCubit.deleteQuestion(model: model);
+                                settCubit.deleteQuestion(model: model,collection:collection);
                               },
                               isSingleButton: false);
                         },
@@ -148,13 +151,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       tabBarView:
                           settCubit.getQuestionsTabBarViews(isQuestion: false),
                       firstButtonFunction: () {
-                        settCubit.editAnswer(model: model, index: index);
+                        settCubit.editAnswer(model: model, index: index,collection: collection);
                       },
                       title: S.of(context).questions,
                       firstButtonLable: S.of(context).edit,
                       secondButtonLable: S.of(context).delete,
                       secondButtonFunction: () {
-                        settCubit.deleteAnswer(model: model, index: index);
+                        settCubit.deleteAnswer(model: model, index: index,collection: collection);
                       },
                       isSingleButton: false,
                     );

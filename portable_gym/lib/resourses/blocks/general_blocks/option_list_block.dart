@@ -6,9 +6,6 @@ import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 
 import '../../managers_files/values_manager.dart';
 
-
-
-
 class OptionsListBlock extends StatelessWidget {
 
   final List<String> lables;

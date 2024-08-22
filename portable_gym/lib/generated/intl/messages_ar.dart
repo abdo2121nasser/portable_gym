@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "carbohydrate": MessageLookupByLibrary.simpleMessage("كاربوهايدريت"),
         "changeMealPlanQuestions":
             MessageLookupByLibrary.simpleMessage("تغيير اسئله خطط الوجبات"),
+        "changeSetUpQuestions":
+            MessageLookupByLibrary.simpleMessage("تغيير الاسئله الشخصيه"),
         "charts": MessageLookupByLibrary.simpleMessage("المخططات"),
         "chooseDate": MessageLookupByLibrary.simpleMessage("اختر تاريخ"),
         "confirmPassword":

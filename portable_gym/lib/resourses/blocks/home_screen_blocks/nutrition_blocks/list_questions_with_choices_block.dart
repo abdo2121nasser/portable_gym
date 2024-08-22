@@ -12,13 +12,15 @@ import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/general_button_block.dart';
 
 class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
-  final List<MealPlanQuestionModel> model;
-  final Function(MealPlanQuestionModel)? addChoiceFunction;
+  final String collection;
+  final List<QuestionModel> model;
+  final Function(QuestionModel)? addChoiceFunction;
 
   final bool isClientView;
 
   const ListOfQuestionsWithChoicesBlock(
       {required this.model,
+        required this.collection,
       this.addChoiceFunction,
       this.isClientView = true,
       super.key});
@@ -31,6 +33,7 @@ class ListOfQuestionsWithChoicesBlock extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s14),
           itemBuilder: (context, index) => QuestionWithChoicesBlock(
                 model: model[index],
+                collection: collection,
                 addChoiceFunction: (mod) {
                   addChoiceFunction!(mod);
                 },

@@ -15,11 +15,14 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 
 class AnswersOfQuestionsScreen extends StatelessWidget {
   final String requestDocId;
-  final List<MealPlanQuestionModel> model;
+  final String clientDocId;
+  final List<QuestionModel> model;
   final NutritionCubit nutCubit;
 
 
-  const AnswersOfQuestionsScreen({super.key, required this.model,required this.nutCubit,required this.requestDocId});
+  const AnswersOfQuestionsScreen({super.key, required this.model,required this.nutCubit,
+    required this.clientDocId,
+    required this.requestDocId});
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +53,7 @@ class AnswersOfQuestionsScreen extends StatelessWidget {
               function:(){
             Get.to(MealSelectionScreen(nutCubit: nutCubit,
             requestDocId: requestDocId,
+              clientDocId: clientDocId,
             ));
               },
               backgroundColor: ColorManager.kPurpleColor,

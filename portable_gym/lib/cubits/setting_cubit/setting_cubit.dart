@@ -9,7 +9,8 @@ import 'package:portable_gym/app_root/app_root.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
-import 'package:portable_gym/screens/app_bar_screens/setting_screen/meal_plan_questions_screen.dart';
+import 'package:portable_gym/resourses/models/nutrition_models/meal_plan_requests_model.dart';
+import 'package:portable_gym/screens/app_bar_screens/setting_screen/questions_screen.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
 
 import '../../generated/l10n.dart';
@@ -24,7 +25,7 @@ class SettingCubit extends Cubit<SettingState> {
   SettingCubit() : super(SettingInitial());
   static SettingCubit get(context) => BlocProvider.of(context);
 
-  List<MealPlanQuestionModel> questionsModel = [];
+  List<QuestionModel> questionModels = [];
 
   TextEditingController englishTitle = TextEditingController();
   TextEditingController englishQuestion = TextEditingController();
@@ -33,34 +34,34 @@ class SettingCubit extends Cubit<SettingState> {
   TextEditingController englishAnswer = TextEditingController();
   TextEditingController arabicAnswer = TextEditingController();
 
- Future<String> getUserDocId() async {
-    // emit(GetUserDocIdLoadingState());
-   return await const FlutterSecureStorage()
+  Future<String> getUserDocId() async {
+    return await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
-     return value!;
-      // emit(GetUserDocIdSuccessState());
+      return value!;
     }).catchError((error) {
-      // emit(GetUserDocIdErrorState());
       debugPrint(error);
     });
   }
-
 
   getSettingOptionsLables({
     required context,
   }) {
     return [
-      if(ProfileCubit.get(context).profileModel!.isClient==false)
-      S.of(context).changeMealPlanQuestions,
+      if (ProfileCubit.get(context).profileModel!.isClient == false)
+        S.of(context).changeMealPlanQuestions,
+      if (ProfileCubit.get(context).profileModel!.isClient == false)
+        S.of(context).changeSetUpQuestions,
       S.of(context).resetPassword,
     ];
   }
 
   getSettingOptionsIcons({required context}) {
     return [
-      if(ProfileCubit.get(context).profileModel!.isClient==false)
+      if (ProfileCubit.get(context).profileModel!.isClient == false)
         Icons.question_mark_outlined,
+      if (ProfileCubit.get(context).profileModel!.isClient == false)
+        Icons.person_pin,
       Icons.lock_reset_outlined,
     ];
   }
@@ -94,47 +95,51 @@ class SettingCubit extends Cubit<SettingState> {
     ]);
   }
 
-  settingNavigation({
-    required int index,
-    required context
-  }) {
-    if(ProfileCubit.get(context).profileModel!.isClient) {
-      index++;
+  settingNavigation({required int index, required context}) {
+    if (ProfileCubit.get(context).profileModel!.isClient) {
+      index += 2;
     }
-      switch (index) {
-
+    switch (index) {
       case 0:
-        Get.to(MealPlanQuestionScreen(
+        Get.to(QuestionScreen(
           settCubit: SettingCubit.get(context),
+          collection: StringManager.collectionQuestionsOfMealPlan,
         ));
         break;
       case 1:
+        Get.to(QuestionScreen(
+          settCubit: SettingCubit.get(context),
+          collection: StringManager.collectionQuestionsOfProfile,
+        ));
+        break;
+      case 2:
         Get.to(const ForgetPasswordScreen());
         break;
     }
   }
 
-  changeAnswerValue({required questionIndex, required int answerIndex, required bool value}) {
+  changeAnswerValue(
+      {required questionIndex, required int answerIndex, required bool value}) {
     for (int i = 0;
-        i < questionsModel[questionIndex].english.answers.length;
+        i < questionModels[questionIndex].english.answers.length;
         i++) {
-      questionsModel[questionIndex].english.answers[i].value = false;
-      questionsModel[questionIndex].arabic.answers[i].value = false;
+      questionModels[questionIndex].english.answers[i].value = false;
+      questionModels[questionIndex].arabic.answers[i].value = false;
     }
-    questionsModel[questionIndex].english.answers[answerIndex].value = value;
-    questionsModel[questionIndex].arabic.answers[answerIndex].value = value;
+    questionModels[questionIndex].english.answers[answerIndex].value = value;
+    questionModels[questionIndex].arabic.answers[answerIndex].value = value;
     emit(ChangeAnswerValueState());
   }
 
-  MealPlanQuestionModel? getQuestionModelQuestionFromControllers(
-      {MealPlanQuestionModel? model,
+  QuestionModel? getQuestionModelQuestionFromControllers(
+      {QuestionModel? model,
       bool isAddAnswer = false,
       bool isEditAnswer = false,
       bool isEditQuestion = false,
       int answerIndex = 0}) {
     if (model == null) {
       //add question
-      return MealPlanQuestionModel(
+      return QuestionModel(
           english: EnglishQuestion(
               title: englishTitle.text,
               question: englishQuestion.text,
@@ -166,7 +171,7 @@ class SettingCubit extends Cubit<SettingState> {
     }
   }
 
-  setControllersWithModel({required MealPlanQuestionModel model, int? index}) {
+  setControllersWithModel({required QuestionModel model, int? index}) {
     if (index == null) {
       englishTitle.text = model.english.title;
       englishQuestion.text = model.english.question;
@@ -188,62 +193,60 @@ class SettingCubit extends Cubit<SettingState> {
     arabicAnswer.clear();
   }
 
-  addQuestion() async {
-    MealPlanQuestionModel model = getQuestionModelQuestionFromControllers()!;
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan);
+  addQuestion({required String collection}) async {
+    QuestionModel model = getQuestionModelQuestionFromControllers()!;
+    var data = FirebaseFirestore.instance.collection(collection);
     emit(AddQuestionLoadingState());
     Get.back();
     await data.add(model.toJson()).then((value) {
       emit(AddQuestionSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(AddQuestionErrorState());
       debugPrint(error);
     });
   }
 
-  editQuestion({required MealPlanQuestionModel model}) async {
+  editQuestion(
+      {required QuestionModel model, required String collection}) async {
     model = getQuestionModelQuestionFromControllers(
         model: model, isEditQuestion: true)!;
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan)
-        .doc(model.docId);
+    var data =
+        FirebaseFirestore.instance.collection(collection).doc(model.docId);
     emit(EditQuestionLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
       emit(EditQuestionSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(EditQuestionErrorState());
       debugPrint(error);
     });
   }
 
-  deleteQuestion({required MealPlanQuestionModel model}) async {
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan)
-        .doc(model.docId);
+  deleteQuestion(
+      {required QuestionModel model, required String collection}) async {
+    var data =
+        FirebaseFirestore.instance.collection(collection).doc(model.docId);
     emit(DeleteQuestionLoadingState());
     Get.back();
     await data.delete().then((value) {
       emit(DeleteQuestionSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(DeleteQuestionErrorState());
       debugPrint(error);
     });
   }
 
-  getAllQuestions() async {
-    questionsModel.clear();
+  getAllQuestions({required String collection}) async {
+    questionModels.clear();
     emit(GetQuestionsLoadingState());
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan);
+    var data = FirebaseFirestore.instance.collection(collection);
     await data.get().then((value) {
       value.docs.forEach((element) {
-        questionsModel.add(MealPlanQuestionModel.fromJson(
-            json: element.data(), docId: element.id));
+        questionModels.add(
+            QuestionModel.fromJson(json: element.data(), docId: element.id));
       });
       emit(GetQuestionsSuccessState());
     }).catchError((error) {
@@ -252,50 +255,53 @@ class SettingCubit extends Cubit<SettingState> {
     });
   }
 
-  addAnswer({required MealPlanQuestionModel model}) async {
+  addAnswer({required QuestionModel model, required String collection}) async {
     model = getQuestionModelQuestionFromControllers(
         model: model, isAddAnswer: true)!;
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan)
-        .doc(model.docId);
+    var data =
+        FirebaseFirestore.instance.collection(collection).doc(model.docId);
     emit(AddAnswerLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
       emit(AddAnswerSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(AddAnswerErrorState());
       debugPrint(error);
     });
   }
 
-  editAnswer({required MealPlanQuestionModel model, required int index}) async {
+  editAnswer(
+      {required QuestionModel model,
+      required int index,
+      required String collection}) async {
     model = getQuestionModelQuestionFromControllers(
         model: model, answerIndex: index, isEditAnswer: true)!;
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan)
-        .doc(model.docId);
+    var data =
+        FirebaseFirestore.instance.collection(collection).doc(model.docId);
     emit(EditAnswerLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
       emit(EditAnswerSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(EditAnswerErrorState());
       debugPrint(error);
     });
   }
 
-  deleteAnswer({required MealPlanQuestionModel model, required int index}) async {
+  deleteAnswer(
+      {required QuestionModel model,
+      required int index,
+      required String collection}) async {
     model.english.answers.removeAt(index);
-    var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionQuestionsOfMealPlan)
-        .doc(model.docId);
+    var data =
+        FirebaseFirestore.instance.collection(collection).doc(model.docId);
     emit(DeleteAnswerLoadingState());
     Get.back();
     await data.update(model.toJson()).then((value) {
       emit(DeleteAnswerSuccessState());
-      getAllQuestions();
+      getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(DeleteAnswerErrorState());
       debugPrint(error);
@@ -303,50 +309,53 @@ class SettingCubit extends Cubit<SettingState> {
   }
   //-------------------------------trainer side---------------------------------
 
- bool validateRequests(){
-   bool valid=false;
-   for(int i=0;i<questionsModel.length;i++)
-     {
-       questionsModel[i].english.answers.forEach((element) {
-         if(element.value==true) {
-           valid=true;
-           return;
-         }
-       });
-       if(valid == true)
-         {
-           valid=false;
-         }
-       else{
-         return false;
-       }
-     }
-   return true;
+  bool validateRequests() {
+    bool valid = false;
+    for (int i = 0; i < questionModels.length; i++) {
+      questionModels[i].english.answers.forEach((element) {
+        if (element.value == true) {
+          valid = true;
+          return;
+        }
+      });
+      if (valid == true) {
+        valid = false;
+      } else {
+        return false;
+      }
+    }
+    return true;
   }
 
-  Map<String,dynamic> getMealPlanRequestMap({required String userDocId,required String nickName}){
-    List<Map<String,dynamic>> questions=[];
-    questionsModel.forEach((element) {
-      questions.add(element.toJson());
-    });
-  Map<String,dynamic> map;
-  map={
-    StringManager.mealPlanData: questions,
-    StringManager.userDocId:userDocId,
-    StringManager.userNickName:nickName
-  };
-  return map;
-
+  Map<String, dynamic> getMealPlanRequestMap(
+      {required String userDocId, required String nickName}) {
+    // List<Map<String, dynamic>> questions = [];
+    // questionModels.forEach((element) {
+    //   questions.add(element.toJson());
+    // });
+   return  MealPlanRequestModel(
+        questions: questionModels,
+        userDocId: userDocId,
+        docId: userDocId,
+        requestDate: DateTime.now(),
+        userNickName: nickName).toJson();
+    // Map<String, dynamic> map;
+    // map = {
+    //   StringManager.mealPlanData: questions,
+    //   StringManager.userDocId: userDocId,
+    //   StringManager.userNickName: nickName
+    // };
+    // return map;
   }
 
-  createMealPlanRequest({required String nickName,required context}) async {
-    String userDocId=await getUserDocId();
+  createMealPlanRequest({required String nickName, required context}) async {
+    String userDocId = await getUserDocId();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionMealPlansRequests);
     emit(CreateMealPlanRequestLoadingState());
-    await data.add(
-        getMealPlanRequestMap(userDocId: userDocId,nickName: nickName)
-    ).then((value) {
+    await data
+        .add(getMealPlanRequestMap(userDocId: userDocId, nickName: nickName))
+        .then((value) {
       emit(CreateMealPlanRequestSuccessState());
       getToastMessage(message: S.of(context).success);
     }).catchError((error) {
@@ -357,15 +366,11 @@ class SettingCubit extends Cubit<SettingState> {
     Get.back();
   }
 
-  createMealPlanRequestProcess({required String nickName,required context}){
-   if(validateRequests())
-     {
-       createMealPlanRequest(nickName: nickName,context: context);
-     }
-   else{
-getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
-   }
+  createMealPlanRequestProcess({required String nickName, required context}) {
+    if (validateRequests()) {
+      createMealPlanRequest(nickName: nickName, context: context);
+    } else {
+      getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
+    }
   }
-
-
 }

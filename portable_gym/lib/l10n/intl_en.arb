@@ -57,6 +57,7 @@
   "settings": "Settings",
   "logout": "Logout",
   "changeMealPlanQuestions": "Change Meal Plan Questions",
+  "changeSetUpQuestions": "Change Profile Questions",
   "questions": "Questions",
 
   "birthDate": "Date of birth",

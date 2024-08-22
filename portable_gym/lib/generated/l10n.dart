@@ -630,6 +630,16 @@ class S {
     );
   }
 
+  /// `Change Profile Questions`
+  String get changeSetUpQuestions {
+    return Intl.message(
+      'Change Profile Questions',
+      name: 'changeSetUpQuestions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Questions`
   String get questions {
     return Intl.message(

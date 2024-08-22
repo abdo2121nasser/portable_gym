@@ -177,9 +177,10 @@ class StringManager
 
 
   static const String collectionQuestionsOfMealPlan='meal plan questions collection';
+  static const String collectionQuestionsOfProfile='profile questions collection';
 
-  static const String englishMealPlanQuestion='english meal plan question';
-  static const String arabicMealPlanQuestion='arabic meal plan question';
+  static const String englishQuestion='english question';
+  static const String arabicQuestion='arabic question';
 
   static const String questionsTitle='title';
   static const String questionsAnswer='answer';
@@ -202,6 +203,7 @@ class StringManager
 
   static const String collectionMealPlansRequests='meal plan requests collection';
   static const String mealPlanData='meal plan data';
+  static const String mealPlanRequestDate='request date';
   static const String breakfastMealPlan='breakfast';
   static const String lunchMealPlan='lunch';
   static const String dinnerMealPlan='dinner';
