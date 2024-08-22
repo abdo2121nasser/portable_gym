@@ -9,7 +9,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/food_main_element_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/meal_plan_creation_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 
 import '../../../../../cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../../cubits/profile_cubit/profile_cubit.dart';
@@ -18,6 +18,7 @@ import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/meal
 import '../../../../../resourses/blocks/general_blocks/daily_activity_block.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
+import '../../../../../resourses/managers_files/string_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 
 class NutritionScreen extends StatelessWidget {
@@ -71,7 +72,8 @@ class NutritionScreen extends StatelessWidget {
                             profCubit!.profileModel != null) {
                           return InkWell(
                               onTap: () {
-                                Get.to(MealPlanCreationScreen(
+                                Get.to(AnswerQuestionsScreen(
+                                  collection: StringManager.collectionQuestionsOfMealPlan,
                                     userNickName:
                                         profCubit!.profileModel!.nickName));
                               },

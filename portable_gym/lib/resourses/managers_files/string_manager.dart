@@ -179,6 +179,9 @@ class StringManager
   static const String collectionQuestionsOfMealPlan='meal plan questions collection';
   static const String collectionQuestionsOfProfile='profile questions collection';
 
+  static const String profileQuestionsAnswer='profile questions answer';
+  static const String questionsWithAnswer='questions with answer';
+
   static const String englishQuestion='english question';
   static const String arabicQuestion='arabic question';
 

@@ -7,10 +7,11 @@ import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 
 import '../../../../../../generated/l10n.dart';
 import '../../../../../../screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/daily_recipe_screen.dart';
-import '../../../../../../screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/meal_plan_creation_screen.dart';
+import '../../../../../../screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 import '../../../../../managers_files/alert_box_manager.dart';
 import '../../../../../managers_files/color_manager.dart';
 import '../../../../../managers_files/font_manager.dart';
+import '../../../../../managers_files/string_manager.dart';
 import '../../../../../managers_files/style_manager.dart';
 import '../../../../../managers_files/values_manager.dart';
 import '../../../../general_blocks/daily_activity_block.dart';
@@ -61,7 +62,8 @@ class HasNoMealPlanBlock extends StatelessWidget {
                     GeneralButtonBlock(
                       lable: S.of(context).create,
                       function: () {
-                        Get.to(() => MealPlanCreationScreen(
+                        Get.to(() => AnswerQuestionsScreen(
+                          collection: StringManager.collectionQuestionsOfMealPlan,
                               userNickName: ProfileCubit.get(context)
                                   .profileModel!
                                   .nickName,

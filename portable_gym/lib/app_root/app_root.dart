@@ -12,6 +12,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_
 
 import '../generated/l10n.dart';
 import '../resourses/managers_files/string_manager.dart';
+import '../screens/set_up_screen.dart';
 
 
 class PortableGym extends StatelessWidget {
@@ -48,11 +49,11 @@ class PortableGym extends StatelessWidget {
                                  // home: MainNavigationBarScreen(),
                                  //home: ProfileScreen(),
 
-                                 home: FirebaseAuth.instance.currentUser == null
-                                     ? const LoginScreen()
-                                     : const MainNavigationBarScreen(),
-                                 //   home: SetUpScreen(email: 'email'),
-                                 // home: LoginScreen(),
+                                 // home: FirebaseAuth.instance.currentUser == null
+                                 //     ? const LoginScreen()
+                                 //     : const MainNavigationBarScreen(),
+                                  // home: SetUpScreen(email: 'email'),
+                                  home: LoginScreen(),
                                );
                              }
                              else{

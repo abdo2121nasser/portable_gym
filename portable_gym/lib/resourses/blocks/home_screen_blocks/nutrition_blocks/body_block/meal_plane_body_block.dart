@@ -10,7 +10,7 @@ import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_block
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/views_block/user_view_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/daily_recipe_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/meal_plan_creation_screen.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../managers_files/alert_box_manager.dart';

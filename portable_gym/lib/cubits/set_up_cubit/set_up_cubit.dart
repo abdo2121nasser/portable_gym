@@ -14,6 +14,7 @@ import 'package:meta/meta.dart';
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
+import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
@@ -62,7 +63,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   //----------------------------------------------
   var pickedFilename;
   File? imageFile;
-  String imageLink='';
+  String imageLink = '';
   //------------------------------------------
   List<Widget> getPageBody({required SetUpCubit setUpCubit}) {
     return [
@@ -70,8 +71,8 @@ class SetUpCubit extends Cubit<SetUpState> {
       AgeSetUpBlock(),
       WeightSetUpBlock(),
       HeightSetUpBlock(),
-      GoalSetUpBlock(),
-      ActivityLevelSetUpBlock(),
+      // GoalSetUpBlock(),
+      //  ActivityLevelSetUpBlock(),
       FillProfileSetUpBlock(
         setCubit: setUpCubit,
       )
@@ -89,7 +90,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   setUpForwardNavigation({required context}) {
-    if (currentPageBodyIndex == 6) {
+    if (currentPageBodyIndex == 4) {
       createProfileProcess(context: context);
     } else {
       incrementPageBodyIndex();
@@ -97,7 +98,6 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   setUpBackWardNavigation({required context}) {
-
     if (currentPageBodyIndex == 0) {
       Get.back();
     } else {
@@ -106,27 +106,21 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   String getTitle({required context}) {
-    switch (currentPageBodyIndex) {
-      case 0:
-        return S.of(context).whatsYourGender;
-      case 1:
-        return S.of(context).howOldAreYou;
-      case 2:
-        return S.of(context).whatsYourWeight;
-      case 3:
-        return S.of(context).whatsYourHeight;
-      case 4:
-        return S.of(context).whatsYourGoal;
-      case 5:
-        return S.of(context).physicalActivityLevel;
-      case 6:
-        return S.of(context).fillYourProfile;
-    }
-    return '';
+    List<String> lables = [
+      S.of(context).whatsYourGender,
+      S.of(context).howOldAreYou,
+      S.of(context).whatsYourWeight,
+      S.of(context).whatsYourHeight,
+      //S.of(context).whatsYourGoal,
+      //S.of(context).physicalActivityLevel,
+      S.of(context).fillYourProfile,
+    ];
+
+    return lables[currentPageBodyIndex];
   }
 
   String getButtonText({required context}) {
-    if (currentPageBodyIndex != 6) {
+    if (currentPageBodyIndex != 4) {
       return S.of(context).continued;
     } else {
       return S.of(context).start;
@@ -134,7 +128,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   Color getButtonColor({required context}) {
-    if (currentPageBodyIndex != 6) {
+    if (currentPageBodyIndex != 4) {
       return ColorManager.kBlackColor;
     } else {
       return ColorManager.kLimeGreenColor;
@@ -142,7 +136,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   Color getTextColor({required context}) {
-    if (currentPageBodyIndex != 6) {
+    if (currentPageBodyIndex != 4) {
       return ColorManager.kWhiteColor;
     } else {
       return ColorManager.kBlackColor;
@@ -156,35 +150,34 @@ class SetUpCubit extends Cubit<SetUpState> {
       S.of(context).advanced,
     ];
   }
- List<String> getGoals({ context,bool isStringManager=false})  {
 
-   if(isStringManager)
-     {
-       return [
-         StringManager.userWeightLoss,
-         StringManager.userWeightGain,
-         StringManager.userMusclesMassGain,
-         StringManager.userShapeBody,
-         StringManager.userOther,
-       ];
-     }
-   else {
-     return [
-      S.of(context).weightLoss,
-      S.of(context).weightGain,
-      S.of(context).musclesMassGain,
-      S.of(context).shapeBody,
-      S.of(context).other,
-    ];
-   }
+  List<String> getGoals({context, bool isStringManager = false}) {
+    if (isStringManager) {
+      return [
+        StringManager.userWeightLoss,
+        StringManager.userWeightGain,
+        StringManager.userMusclesMassGain,
+        StringManager.userShapeBody,
+        StringManager.userOther,
+      ];
+    } else {
+      return [
+        S.of(context).weightLoss,
+        S.of(context).weightGain,
+        S.of(context).musclesMassGain,
+        S.of(context).shapeBody,
+        S.of(context).other,
+      ];
+    }
   }
 
   changeCurrentActivityLevel({required int index}) {
     currentActivityLevel = index;
     emit(ChangeActivityLevelState());
   }
-  changeCurrentGoal({required int index}){
-    currentGoal=index;
+
+  changeCurrentGoal({required int index}) {
+    currentGoal = index;
     emit(ChangeGoalState());
   }
 
@@ -236,19 +229,21 @@ class SetUpCubit extends Cubit<SetUpState> {
     } else {
       emit(PickImageErrorState());
       debugPrint('no image selected');
-
     }
   }
-  uploadImage() async{
+
+  uploadImage() async {
     emit(UploadImageFileLoadingState());
- await  FirebaseStorage.instance.ref().child(imageFile!.path)
-       .putFile(imageFile!).
-    then((result) async {
-  imageLink=  await result.ref.getDownloadURL();
-    emit(UploadImageFileSuccessState());
-    }).catchError((error){
-     emit(UploadImageFileErrorState());
-     // debugPrint(error);
+    await FirebaseStorage.instance
+        .ref()
+        .child(imageFile!.path)
+        .putFile(imageFile!)
+        .then((result) async {
+      imageLink = await result.ref.getDownloadURL();
+      emit(UploadImageFileSuccessState());
+    }).catchError((error) {
+      emit(UploadImageFileErrorState());
+      // debugPrint(error);
     });
   }
   //------------------------profile--------------------------------------------
@@ -266,10 +261,12 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   bool validateProfile({required context}) {
-    if (nameValidation(name: fullName.text, context: context,isFullNameField: true) ==
+    if (nameValidation(
+                name: fullName.text, context: context, isFullNameField: true) ==
             StringManager.trueWord &&
         nameValidation(name: nickName.text, context: context) ==
-            StringManager.trueWord && imageFile!=null) {
+            StringManager.trueWord &&
+        imageFile != null) {
       return true;
     } else {
       return false;
@@ -277,29 +274,33 @@ class SetUpCubit extends Cubit<SetUpState> {
   }
 
   String getValidateError({required context}) {
-    String fullNameError =
-        nameValidation(name: fullName.text, context: context,isFullNameField: true);
+    String fullNameError = nameValidation(
+        name: fullName.text, context: context, isFullNameField: true);
     String nickNameError =
         nameValidation(name: nickName.text, context: context);
     if (fullNameError != StringManager.trueWord) {
       return fullNameError;
-    } else if(nickNameError != StringManager.trueWord)
+    } else if (nickNameError != StringManager.trueWord)
       return nickNameError;
     else
       return S.of(context).youShouldChooseProfilePhoto;
-
   }
 
   createProfileProcess({required context}) {
     if (validateProfile(context: context)) {
-      createProfile();
+      Get.to(AnswerQuestionsScreen(
+          userNickName: nickName.text,
+          collection: StringManager.collectionQuestionsOfProfile,
+          finishProfileSetupFunction: ( Map<String,dynamic> questionsMap)  {
+            createProfile(questionsMap: questionsMap);
+          }));
     } else {
       getToastMessage(message: getValidateError(context: context));
     }
   }
 
-  createProfile() async {
-   await uploadImage();
+ Future<void> createProfile({required Map<String,dynamic> questionsMap}) async {
+    await uploadImage();
     emit(CreateProfileLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles);
@@ -314,13 +315,12 @@ class SetUpCubit extends Cubit<SetUpState> {
       StringManager.userWeight: weight,
       StringManager.userLevel: activityLevels[currentActivityLevel],
       StringManager.userGoal: getGoals(isStringManager: true)[currentGoal],
-
-     StringManager.userImageLink:imageLink.toString(),
-     StringManager.userIsPremium:false,
-     StringManager.userIsClint:true
+      StringManager.userImageLink: imageLink.toString(),
+      StringManager.userIsPremium: false,
+      StringManager.userIsClint: true,
+      StringManager.profileQuestionsAnswer: questionsMap,
 
     }).then((value) {
-
       emit(CreateProfileSuccessState());
       getToastMessage(
         message: 'successfully Created',
@@ -335,6 +335,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       debugPrint(error.toString());
     });
   }
+
   saveUserDocId({required String userDocId}) async {
     emit(SaveUserDataDocIdLoadingState());
     await const FlutterSecureStorage()

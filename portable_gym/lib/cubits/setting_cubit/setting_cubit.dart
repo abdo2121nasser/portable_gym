@@ -329,23 +329,12 @@ class SettingCubit extends Cubit<SettingState> {
 
   Map<String, dynamic> getMealPlanRequestMap(
       {required String userDocId, required String nickName}) {
-    // List<Map<String, dynamic>> questions = [];
-    // questionModels.forEach((element) {
-    //   questions.add(element.toJson());
-    // });
    return  MealPlanRequestModel(
         questions: questionModels,
         userDocId: userDocId,
         docId: userDocId,
         requestDate: DateTime.now(),
         userNickName: nickName).toJson();
-    // Map<String, dynamic> map;
-    // map = {
-    //   StringManager.mealPlanData: questions,
-    //   StringManager.userDocId: userDocId,
-    //   StringManager.userNickName: nickName
-    // };
-    // return map;
   }
 
   createMealPlanRequest({required String nickName, required context}) async {
@@ -373,4 +362,5 @@ class SettingCubit extends Cubit<SettingState> {
       getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
     }
   }
+  //------------------------------finish profile setup -----------------------
 }
