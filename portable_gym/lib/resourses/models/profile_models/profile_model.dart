@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 
+import '../setting_models/question_model.dart';
+
 class ProfileModel {
   final String docId;
   final String fullName;
@@ -17,7 +19,8 @@ class ProfileModel {
   final int age;
   final bool isPremium;
   final bool isClient;
-    ContactMessageModel? contactMessageModel;
+  ContactMessageModel? contactMessageModel;
+  List<QuestionModel> questionModels;
 
   ProfileModel(
       {required this.docId,
@@ -33,11 +36,14 @@ class ProfileModel {
       required this.age,
       required this.isPremium,
       required this.isClient,
-      this.contactMessageModel
-      });
+      required this.questionModels,
+      this.contactMessageModel});
 
   factory ProfileModel.fromJson(
-      {required Map<String, dynamic> json, required String docId,ContactMessageModel? contact}) {
+      {required Map<String, dynamic> json,
+      required String docId,
+      ContactMessageModel? contact}) {
+
     return ProfileModel(
         docId: docId,
         fullName: json[StringManager.userFullName],
@@ -52,7 +58,10 @@ class ProfileModel {
         age: json[StringManager.userAge],
         isPremium: json[StringManager.userIsPremium],
         isClient: json[StringManager.userIsClint],
-    contactMessageModel: contact
-    );
+        questionModels: List<QuestionModel>.from(
+            json[StringManager.profileQuestionsAnswer]
+                    [StringManager.questionsWithAnswer]
+                .map((x) => QuestionModel.fromJson(json: x,docId: ''))),
+        contactMessageModel: contact);
   }
 }

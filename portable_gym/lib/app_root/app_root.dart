@@ -49,11 +49,11 @@ class PortableGym extends StatelessWidget {
                                  // home: MainNavigationBarScreen(),
                                  //home: ProfileScreen(),
 
-                                 // home: FirebaseAuth.instance.currentUser == null
-                                 //     ? const LoginScreen()
-                                 //     : const MainNavigationBarScreen(),
+                                 home: FirebaseAuth.instance.currentUser == null
+                                     ? const LoginScreen()
+                                     : const MainNavigationBarScreen(),
                                   // home: SetUpScreen(email: 'email'),
-                                  home: LoginScreen(),
+                                 // home: LoginScreen(),
                                );
                              }
                              else{

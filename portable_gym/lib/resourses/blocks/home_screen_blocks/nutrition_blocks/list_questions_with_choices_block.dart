@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/question_with_choices_block.dart';
-import 'package:portable_gym/resourses/models/setting_models/meal_plan_question_model.dart';
+import 'package:portable_gym/resourses/models/setting_models/question_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';

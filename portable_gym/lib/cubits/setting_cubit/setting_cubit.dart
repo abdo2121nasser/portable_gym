@@ -17,7 +17,7 @@ import '../../generated/l10n.dart';
 import '../../resourses/blocks/profile_blocks/settings_blocks/setting_tab_bar_views/arabic_question_tab_bar_view.dart';
 import '../../resourses/blocks/profile_blocks/settings_blocks/setting_tab_bar_views/english_question_tab_bar_view.dart';
 import '../../resourses/managers_files/string_manager.dart';
-import '../../resourses/models/setting_models/meal_plan_question_model.dart';
+import '../../resourses/models/setting_models/question_model.dart';
 
 part 'setting_state.dart';
 
@@ -329,12 +329,13 @@ class SettingCubit extends Cubit<SettingState> {
 
   Map<String, dynamic> getMealPlanRequestMap(
       {required String userDocId, required String nickName}) {
-   return  MealPlanRequestModel(
-        questions: questionModels,
-        userDocId: userDocId,
-        docId: userDocId,
-        requestDate: DateTime.now(),
-        userNickName: nickName).toJson();
+    return MealPlanRequestModel(
+            questions: questionModels,
+            userDocId: userDocId,
+            docId: userDocId,
+            requestDate: DateTime.now(),
+            userNickName: nickName)
+        .toJson();
   }
 
   createMealPlanRequest({required String nickName, required context}) async {
@@ -362,5 +363,10 @@ class SettingCubit extends Cubit<SettingState> {
       getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
     }
   }
-  //------------------------------finish profile setup -----------------------
+//-----------------------profile settings-----------------------------------
+  setQuestionsWithAnswers({required List<QuestionModel> models}) async {
+    questionModels.clear();
+    questionModels = models;
+    emit(SetQuestionsAnswersState());
+  }
 }

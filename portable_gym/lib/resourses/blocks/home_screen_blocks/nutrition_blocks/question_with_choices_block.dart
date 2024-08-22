@@ -8,7 +8,7 @@ import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/string_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
-import '../../../models/setting_models/meal_plan_question_model.dart';
+import '../../../models/setting_models/question_model.dart';
 import '../../general_blocks/check_box_block.dart';
 import '../../general_blocks/general_button_block.dart';
 

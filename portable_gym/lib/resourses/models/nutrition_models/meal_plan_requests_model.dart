@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 
-import '../setting_models/meal_plan_question_model.dart';
+import '../setting_models/question_model.dart';
 
 class MealPlanRequestModel {
   final List<QuestionModel> questions;
