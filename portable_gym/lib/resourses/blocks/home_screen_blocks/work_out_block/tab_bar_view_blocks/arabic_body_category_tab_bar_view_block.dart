@@ -32,6 +32,7 @@ class ArabicBodyCategoryTabBarViewBlock extends StatelessWidget {
                     controller: controllers[index],
                     enableBorder: true,
                     isArabicTabView: true,
+                    multiLine: true,
                     onlyInteger: index == 1 || index == 2 ? true : false,
                   ),
               separatorBuilder: (context, index) => SizedBox(

@@ -69,6 +69,8 @@ class LoginScreen extends StatelessWidget {
                         lable: S.of(context).email,
                         color: ColorManager.kBlackColor,
                         controller: authCubit.loginEmail,
+                        isNormalInput: true,
+
                       ),
                       SizedBox(
                         height: AppVerticalSize.s14,
@@ -78,6 +80,7 @@ class LoginScreen extends StatelessWidget {
                         lable: S.of(context).password,
                         color: ColorManager.kBlackColor,
                         controller: authCubit.loginPassword,
+                        isNormalInput: true,
                       ),
 
                       SizedBox(

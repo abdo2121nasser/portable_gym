@@ -270,7 +270,7 @@ class AlertFoodMainElementBox extends StatelessWidget {
               children: <Widget>[
                 tabBar,
                 SizedBox(
-                  height: AppVerticalSize.s265,
+                  height: AppVerticalSize.s360,
                   child: Column(
                     children: [
                       SizedBox(

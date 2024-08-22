@@ -21,6 +21,7 @@ class ListRecipeInputBlock extends StatelessWidget {
               controller: controllers[index],
           enableBorder: true,
           isArabicTabView: isArabicTabView,
+            multiLine: true,
             onlyInteger: index==1||index==2||index==3?true:false,
           ),
           separatorBuilder: (context, index) => SizedBox(

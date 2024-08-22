@@ -37,6 +37,7 @@ class PortableGym extends StatelessWidget {
                              if(snapshot.hasData ){
                                return    GetMaterialApp(
                                  locale:  Locale(snapshot.data!),
+                                // locale: Locale('en'),
                                  localizationsDelegates: const [
                                    S.delegate,
                                    GlobalMaterialLocalizations.delegate,
@@ -53,7 +54,7 @@ class PortableGym extends StatelessWidget {
                                      ? const LoginScreen()
                                      : const MainNavigationBarScreen(),
                                   // home: SetUpScreen(email: 'email'),
-                                 // home: LoginScreen(),
+                                //  home: LoginScreen(),
                                );
                              }
                              else{

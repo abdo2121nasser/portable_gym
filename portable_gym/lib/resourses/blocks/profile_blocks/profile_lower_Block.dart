@@ -54,6 +54,7 @@ class _ProfileLowerBlockState extends State<ProfileLowerBlock> {
                               color: ColorManager.kPurpleColor,
                               controller:
                                   profCubit.getProfileControllers()[index],
+                              isNormalInput: true,
                               onlyInteger: index > 3,
                               readOnly: profCubit.profileModel!.docId ==
                                       widget.profileModel.docId

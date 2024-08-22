@@ -11,7 +11,7 @@ import '../list_recipe_input_block.dart';
 class EnglishRecipeTabBarBlock extends StatelessWidget {
   NutritionCubit nutCubit;
 
-  EnglishRecipeTabBarBlock({required this.nutCubit});
+  EnglishRecipeTabBarBlock({super.key, required this.nutCubit});
 
   @override
   Widget build(BuildContext context) {

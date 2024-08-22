@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/color_manager.dart';
@@ -13,18 +14,22 @@ class FullInputBlock extends StatelessWidget {
   final TextEditingController controller;
   final bool enableBorder;
   final bool isArabicTabView;
+  final bool isNormalInput;
+  final bool multiLine;
   final bool onlyInteger;
   final bool readOnly;
 
-  FullInputBlock(
-      {required this.lable,
-      required this.color,
-      required this.controller,
-        this.readOnly=false,
-        this.enableBorder = false,
-      this.isArabicTabView = false,
-      this.onlyInteger=false,
-      });
+  const FullInputBlock({super.key,
+    required this.lable,
+    required this.color,
+    required this.controller,
+    this.readOnly = false,
+    this.enableBorder = false,
+    this.isArabicTabView = false,
+    this.isNormalInput = false,
+    this.multiLine = false,
+    this.onlyInteger = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +37,22 @@ class FullInputBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Directionality(
-          textDirection: isArabicTabView ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: isNormalInput == true
+              ? Get.locale!.languageCode.toString() == 'en'
+                  ? TextDirection.ltr
+                  : TextDirection.rtl
+              : isArabicTabView
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
           child: Row(
             children: [
               Text(
                 lable,
                 style: getSemiBoldStyle(
-                    fontSize: FontSize.s16,
-                    color: color,
-                    fontFamily: FontFamily.kPoppinsFont),
+                  fontSize: FontSize.s16,
+                  color: color,
+                  fontFamily: FontFamily.kPoppinsFont,
+                ),
               ),
             ],
           ),
@@ -51,10 +63,10 @@ class FullInputBlock extends StatelessWidget {
         GeneralTextFormField(
           controller: controller,
           enableBorder: enableBorder,
-           onlyInteger: onlyInteger,
+          onlyInteger: onlyInteger,
           isArabic: isArabicTabView,
           readOnly: readOnly,
-
+          multiLine: multiLine,
         ),
       ],
     );

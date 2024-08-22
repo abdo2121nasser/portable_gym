@@ -61,6 +61,8 @@ class FillProfileSetUpBlock extends StatelessWidget {
                                 context: context)[index],
                             readOnly: index==2,
                             onlyInteger: index==3,
+                            isNormalInput: true,
+
 
                           ),
                         ],

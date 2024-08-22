@@ -58,10 +58,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FullInputBlock(
-                      lable: S.of(context).enterYourEmail,
-                      color: ColorManager.kBlackColor,
-                      controller: authCubit.forgetPasswordEmail,
+                    SizedBox(
+                      height: AppVerticalSize.s104,
+                      child: FullInputBlock(
+                        lable: S.of(context).enterYourEmail,
+                        color: ColorManager.kBlackColor,
+                        controller: authCubit.forgetPasswordEmail,
+                        isNormalInput: true,
+                      ),
                     ),
 
                     SizedBox(

@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                         else
                           {
                             Get.to(AnswersOfQuestionsScreen(
-                              model: profileModel.questionModels,
+                              model:profileModel.questionModels,
                               isProfileViewOnly: true,
                               nutCubit: null,
                               clientDocId: '',

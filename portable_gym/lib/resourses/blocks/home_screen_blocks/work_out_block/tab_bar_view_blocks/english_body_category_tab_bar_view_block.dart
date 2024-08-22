@@ -28,6 +28,7 @@ class EnglishBodyCategoryTabBarViewBlock extends StatelessWidget {
                     lable: lables[index],
                     color: ColorManager.kBlackColor,
                     controller: controllers[index],
+                    multiLine: true,
                     enableBorder: true,
                     onlyInteger: index == 1 || index == 2 ? true : false,
                   ),

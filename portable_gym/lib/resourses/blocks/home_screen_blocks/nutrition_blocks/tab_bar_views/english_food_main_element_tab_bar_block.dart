@@ -31,6 +31,7 @@ value: nutCubit,
                   lable: StringManager.englishFoodMainElementDescription,
                   color: ColorManager.kBlackColor,
                   enableBorder: true,
+                  multiLine: true,
                   controller: nutCubit.englishMainElementDescriptionController),
             ],
           );

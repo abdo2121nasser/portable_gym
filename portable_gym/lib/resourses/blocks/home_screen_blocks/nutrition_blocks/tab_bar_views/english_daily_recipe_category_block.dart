@@ -34,6 +34,7 @@ class EnglishDailyRecipeCategoryBlock extends StatelessWidget {
                 lable: StringManager.englishRecipeImageLinkLable,
                 color: ColorManager.kBlackColor,
                 enableBorder: true,
+                multiLine: true,
                 controller:
                     nutCubit.dailyRecipeCategoryImageLinkController),
           ],

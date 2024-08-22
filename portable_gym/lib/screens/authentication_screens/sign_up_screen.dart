@@ -64,6 +64,8 @@ class SignUpScreen extends StatelessWidget {
                       lable: S.of(context).email,
                       color: ColorManager.kBlackColor,
                       controller: authCubit.registerEmail,
+                      isNormalInput: true,
+
                     ),
                     SizedBox(
                       height: AppVerticalSize.s14,
@@ -72,6 +74,8 @@ class SignUpScreen extends StatelessWidget {
                       lable: S.of(context).password,
                       color: ColorManager.kBlackColor,
                       controller: authCubit.registerPassword,
+                      isNormalInput: true,
+
                     ),
                     SizedBox(
                       height: AppVerticalSize.s14,
@@ -80,6 +84,7 @@ class SignUpScreen extends StatelessWidget {
                       lable: S.of(context).confirmPassword,
                       color: ColorManager.kBlackColor,
                       controller: authCubit.registerConfirmPassword,
+                      isNormalInput: true,
                     ),
                     SizedBox(
                       height: AppVerticalSize.s14,

@@ -108,6 +108,7 @@ class ChatScreen extends StatelessWidget {
     return GeneralTextFormField(
       controller: askCubit.messageController,
       hint: S.of(context).hintMessage,
+      multiLine: true,
       suffixIcon: Icon(
         Icons.send,
         color: state is UploadFileLoadingState

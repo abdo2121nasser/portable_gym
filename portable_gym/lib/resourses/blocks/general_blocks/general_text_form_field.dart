@@ -17,19 +17,21 @@ class GeneralTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   final VoidCallback? sendMessageFunction;
   final VoidCallback? selectFileFunction;
-  const GeneralTextFormField(
-      {super.key,
-      this.onlyInteger = false,
-      required this.controller,
-      this.enableBorder = false,
-      this.multiLine = false,
-      this.isArabic = false,
-      this.readOnly = false,
-      this.hint,
-      this.suffixIcon,
-        this.prefixIcon,
-      this.sendMessageFunction,
-      this.selectFileFunction});
+
+  const GeneralTextFormField({
+    super.key,
+    this.onlyInteger = false,
+    required this.controller,
+    this.enableBorder = false,
+    this.multiLine = false,
+    this.isArabic = false,
+    this.readOnly = false,
+    this.hint,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.sendMessageFunction,
+    this.selectFileFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,51 +39,56 @@ class GeneralTextFormField extends StatelessWidget {
       controller: controller,
       readOnly: readOnly,
       minLines: multiLine ? 1 : null,
-      maxLines: multiLine ? 2 : null,
+      maxLines: multiLine ? 5 : 1, // Set maxLines to 4 if multiline is enabled
       keyboardType: multiLine ? TextInputType.multiline : null,
       textAlign: isArabic ? TextAlign.end : TextAlign.start,
       inputFormatters: <TextInputFormatter>[
-        //if (onlyInteger) FilteringTextInputFormatter.digitsOnly,
         if (onlyInteger)
           FilteringTextInputFormatter.allow(
-              // RegExp(r'^[\u0660-\u0669\d]+$'),
-
-              RegExp(
-                  r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$')),
+            RegExp(r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$'),
+          ),
       ],
       decoration: InputDecoration(
-          fillColor: ColorManager.kWhiteColor,
-          filled: true,
-          hintText: hint,
-          enabledBorder: enableBorder
-              ? OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                  borderSide: BorderSide(
-                      width: AppHorizontalSize.s1_5,
-                      color: ColorManager.kBlackColor))
-              : null,
-          focusedBorder: enableBorder
-              ? OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(AppRadiusSize.s20)),
-                  borderSide: BorderSide(
-                      width: AppHorizontalSize.s1_5,
-                      color: ColorManager.kBlackColor))
-              : null,
-          suffixIcon: suffixIcon != null
-              ? InkWell(
-                  onTap: () {
-                    sendMessageFunction!();
-                  },
-                  child: suffixIcon)
-              : null,
+        fillColor: ColorManager.kWhiteColor,
+        filled: true,
+        hintText: hint,
+        enabledBorder: enableBorder
+            ? OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppRadiusSize.s20),
+          ),
+          borderSide: BorderSide(
+            width: AppHorizontalSize.s1_5,
+            color: ColorManager.kBlackColor,
+          ),
+        )
+            : null,
+        focusedBorder: enableBorder
+            ? OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppRadiusSize.s20),
+          ),
+          borderSide: BorderSide(
+            width: AppHorizontalSize.s1_5,
+            color: ColorManager.kBlackColor,
+          ),
+        )
+            : null,
+        suffixIcon: suffixIcon != null
+            ? InkWell(
+          onTap: () {
+            sendMessageFunction!();
+          },
+          child: suffixIcon,
+        )
+            : null,
         prefixIcon: prefixIcon != null
             ? InkWell(
-            onTap: () {
-              selectFileFunction!();
-            },
-            child: prefixIcon)
+          onTap: () {
+            selectFileFunction!();
+          },
+          child: prefixIcon,
+        )
             : null,
       ),
     );

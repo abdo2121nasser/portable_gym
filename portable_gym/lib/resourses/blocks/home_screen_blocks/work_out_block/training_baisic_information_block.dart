@@ -42,6 +42,7 @@ class TrainingBaisicInformationBlock extends StatelessWidget {
               color: ColorManager.kBlackColor,
               controller: trainingControllers[index],
               enableBorder: true,
+        multiLine: true,
         onlyInteger: index==1|| index==2 || index==3?true:false,
         isArabicTabView: isArabicTabView,),
         separatorBuilder: (context, index) => SizedBox(

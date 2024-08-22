@@ -34,6 +34,7 @@ class ArabicDailyRecipeCategoryBlock extends StatelessWidget {
                 color: ColorManager.kBlackColor,
                 enableBorder: true,
                 isArabicTabView: true,
+                multiLine: true,
                 controller: nutCubit.dailyRecipeCategoryImageLinkController),
           ],
         ));
