@@ -26,20 +26,22 @@ class ProfileScreen extends StatelessWidget {
   final ProfileModel profileModel;
   final bool isMyProfileScreen;
 
-
-  const ProfileScreen({super.key,required this.profCubit,required this.profileModel,
-   this.isMyProfileScreen=true});
+  const ProfileScreen(
+      {super.key,
+      required this.profCubit,
+      required this.profileModel,
+      this.isMyProfileScreen = true});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: profCubit,
-  child: BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: GeneralAppBarBlock(
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: GeneralAppBarBlock(
               title: S.of(context).myProfile,
               backgroundColor: ColorManager.kLightPurpleColor,
               titleColor: ColorManager.kWhiteColor,
@@ -47,52 +49,71 @@ class ProfileScreen extends StatelessWidget {
                 profCubit.profileScreenNavigation(
                     index: 0, isAppBar: true, context: context);
               },
-          actions: [
-            IconButton(onPressed: (){
-              Get.to( AnswerQuestionsScreen(userNickName: '', collection: StringManager.collectionUserProfiles,
-              profileModel: profileModel,
-              ));
-            }, icon:const Icon(Icons.details,color: ColorManager.kWhiteColor,) )
-          ],
-          ),
-          body: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                   ProfileUpperBlock(profileModel: profileModel),
-                  SizedBox(
-                    height: AppVerticalSize.s65,
-                  ),
-                  isMyProfileScreen?
-                  profCubit.isProfileLowerBlock
-                      ?  ProfileLowerBlock(profileModel: profileModel,)
-                      :  Expanded(
-                        child: OptionsListBlock(
-                    lables: profCubit.getProfileOptionsLables(context: context),
-                    icons: profCubit.getProfileOptionsIcons(),
-                    onClickFunction: (index,context){
-                        ProfileCubit.get(context).profileScreenNavigation(index: index,context: context);
-                    },
-                  ),
-                      ): ProfileLowerBlock(profileModel: profileModel,)
-                ],
-              ),
-           Positioned(
-                      top: MediaQuery.of(context).size.height * 0.28,
-                      left: AppHorizontalSize.s22,
-                      right: AppHorizontalSize.s22,
-                      child: ProfileTrainingInformationBlock(
-                        age: profileModel.age,
-                        weight: profileModel.weight,
-                        height: profileModel.height,
-                      ))
+              actions: [
+                if (profCubit.isProfileLowerBlock || isMyProfileScreen == false)
+                  IconButton(
+                      onPressed: () {
+                        Get.to(AnswerQuestionsScreen(
+                          userNickName: '',
+                          collection: StringManager.collectionUserProfiles,
+                          profileModel: profileModel,
+                        updateProfileQuestionsAnswersFunction: ( Map<String,dynamic> questionsMap){
+                          profCubit.editUserQuestionAnswers(questionsMap: questionsMap);
+                        },
 
-            ],
-          ),
-        );
-      },
-    ),
-);
+                        ));
+                      },
+                      icon: const Icon(
+                        Icons.info,
+                        color: ColorManager.kWhiteColor,
+                      ))
+              ],
+            ),
+            body: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ProfileUpperBlock(profileModel: profileModel),
+                    SizedBox(
+                      height: AppVerticalSize.s65,
+                    ),
+                    isMyProfileScreen
+                        ? profCubit.isProfileLowerBlock
+                            ? ProfileLowerBlock(
+                                profileModel: profileModel,
+                              )
+                            : Expanded(
+                                child: OptionsListBlock(
+                                  lables: profCubit.getProfileOptionsLables(
+                                      context: context),
+                                  icons: profCubit.getProfileOptionsIcons(),
+                                  onClickFunction: (index, context) {
+                                    ProfileCubit.get(context)
+                                        .profileScreenNavigation(
+                                            index: index, context: context);
+                                  },
+                                ),
+                              )
+                        : ProfileLowerBlock(
+                            profileModel: profileModel,
+                          )
+                  ],
+                ),
+                Positioned(
+                    top: MediaQuery.of(context).size.height * 0.28,
+                    left: AppHorizontalSize.s22,
+                    right: AppHorizontalSize.s22,
+                    child: ProfileTrainingInformationBlock(
+                      age: profileModel.age,
+                      weight: profileModel.weight,
+                      height: profileModel.height,
+                    ))
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -223,4 +223,21 @@ class ProfileCubit extends Cubit<ProfileState> {
       debugPrint(error);
     });
   }
+
+  Future<void> editUserQuestionAnswers({required Map<String,dynamic> questionsMap}) async {
+
+    emit(UpdateUserQuestionAnswerLoadingState());
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(profileModel!.docId)
+        .update({
+      StringManager.profileQuestionsAnswer: questionsMap
+    }).then((value) {
+      emit(UpdateUserQuestionAnswerSuccessState());
+      getUserData();
+    }).catchError((error) {
+      emit(UpdateUserQuestionAnswerErrorState());
+      debugPrint(error);
+    });
+  }
 }

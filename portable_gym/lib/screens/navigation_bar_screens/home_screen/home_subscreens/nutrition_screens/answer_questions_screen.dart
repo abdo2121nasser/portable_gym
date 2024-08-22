@@ -23,17 +23,19 @@ class AnswerQuestionsScreen extends StatelessWidget {
   final String collection;
   final ProfileModel? profileModel;
   final Function(Map<String, dynamic>)? finishProfileSetupFunction;
+  final Function(Map<String, dynamic>)? updateProfileQuestionsAnswersFunction;
   const AnswerQuestionsScreen(
       {super.key,
       required this.userNickName,
       required this.collection,
-        this.profileModel,
-      this.finishProfileSetupFunction});
+      this.profileModel,
+      this.finishProfileSetupFunction,
+      this.updateProfileQuestionsAnswersFunction});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>getCubit(collection: collection),
+      create: (context) => getCubit(collection: collection),
       child: BlocConsumer<SettingCubit, SettingState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -56,7 +58,8 @@ class AnswerQuestionsScreen extends StatelessWidget {
                         color: ColorManager.kPurpleColor,
                       )
                     : GeneralButtonBlock(
-                        lable: S.of(context).create,
+                        lable:StringManager.collectionUserProfiles ==
+                            collection?S.of(context).edit: S.of(context).create,
                         function: () async {
                           if (collection ==
                               StringManager.collectionQuestionsOfMealPlan) {
@@ -76,6 +79,11 @@ class AnswerQuestionsScreen extends StatelessWidget {
                                       .of(context)
                                       .mealPlanRequestsErrorMassage);
                             }
+                          } else if (StringManager.collectionUserProfiles ==
+                              collection) {
+                            updateProfileQuestionsAnswersFunction!(
+                                getQuestionsAnswerMap(
+                                    questions: settCubit.questionModels));
                           }
                         },
                         backgroundColor: ColorManager.kPurpleColor,
@@ -97,11 +105,13 @@ class AnswerQuestionsScreen extends StatelessWidget {
           List<dynamic>.from(questions.map((x) => x.toJson()))
     };
   }
- SettingCubit getCubit({required String collection}){
-    if(collection==StringManager.collectionUserProfiles) {
-      return SettingCubit()..setQuestionsWithAnswers(models: profileModel!.questionModels);
-    } else{
-   return   SettingCubit()..getAllQuestions(collection: collection);
+
+  SettingCubit getCubit({required String collection}) {
+    if (collection == StringManager.collectionUserProfiles) {
+      return SettingCubit()
+        ..setQuestionsWithAnswers(models: profileModel!.questionModels);
+    } else {
+      return SettingCubit()..getAllQuestions(collection: collection);
     }
   }
 }

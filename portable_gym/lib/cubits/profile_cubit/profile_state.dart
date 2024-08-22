@@ -34,3 +34,7 @@ class UploadImageFileErrorState extends   ProfileState {}
 class UpdateUserDataLoadingState extends ProfileState {}
 class UpdateUserDataSuccessState extends ProfileState {}
 class UpdateUserDataErrorState extends   ProfileState {}
+
+class UpdateUserQuestionAnswerLoadingState extends ProfileState {}
+class UpdateUserQuestionAnswerSuccessState extends ProfileState {}
+class UpdateUserQuestionAnswerErrorState extends   ProfileState {}
