@@ -229,6 +229,10 @@ class StringManager
   static const String messageDate='date';
 
 
+  static const String activityBox='my activity box';
+  static const String myDailyActivities='daily activities';
+
+
 
 
 

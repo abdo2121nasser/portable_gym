@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 
@@ -43,7 +44,6 @@ class ProfileModel {
       {required Map<String, dynamic> json,
       required String docId,
       ContactMessageModel? contact}) {
-     print(json[StringManager.profileQuestionsAnswer]);
     return ProfileModel(
         docId: docId,
         fullName: json[StringManager.userFullName],

@@ -113,6 +113,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   setProfileControllers({required ProfileModel profileModel}) {
+
     fullNameController.text = profileModel.fullName;
     nickNameController.text = profileModel.nickName;
     emailController.text = profileModel.email;
@@ -121,6 +122,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     weightController.text = profileModel.weight.toString();
     heightController.text = profileModel.height.toString();
     imageLink = profileModel.imageLink;
+
     emit(SetProfileControllersValuesState());
   }
   //todo setting screen is not made
@@ -147,7 +149,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
   Future<void> deleteImageOnCloud({required String imageUrl}) async {
     emit(DeleteImageFileOnCloudLoadingState());
-    FirebaseStorage.instance.refFromURL(imageUrl).delete()
+   await FirebaseStorage.instance.refFromURL(imageUrl).delete()
         .then((value) {
       emit(DeleteImageFileOnCloudSuccessState());
 

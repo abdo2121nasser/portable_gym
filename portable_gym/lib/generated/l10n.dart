@@ -1260,10 +1260,10 @@ class S {
     );
   }
 
-  /// `Activities`
+  /// `Activity`
   String get activities {
     return Intl.message(
-      'Activities',
+      'Activity',
       name: 'activities',
       desc: '',
       args: [],

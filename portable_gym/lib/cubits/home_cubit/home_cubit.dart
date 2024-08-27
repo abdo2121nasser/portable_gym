@@ -48,7 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
         Get.to(NutritionScreen(profCubit: profCubit,));
         break;
       case 2:
-        Get.to(ProgressTrackingScreen());
+        Get.to(ProgressTrackingScreen(profCubit: profCubit,));
         break;
 
       default:

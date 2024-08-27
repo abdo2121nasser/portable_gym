@@ -51,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                     index: 0, isAppBar: true, context: context);
               },
               actions: [
-                if (profCubit.isProfileLowerBlock || isMyProfileScreen == false)
+                if (profCubit.isProfileLowerBlock || (isMyProfileScreen == false && !profCubit.profileModel!.isClient))
                   IconButton(
                       onPressed: () {
                         if (profCubit.isProfileLowerBlock && isMyProfileScreen == true) {
