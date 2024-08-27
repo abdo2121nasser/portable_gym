@@ -24,7 +24,7 @@ class ProgressTrackingScreen extends StatelessWidget {
     return BlocProvider.value(
       value: profCubit,
       child: BlocProvider(
-        create: (context) => ProgressTrackingCubit(),
+        create: (context) => ProgressTrackingCubit(userDocId: profCubit.userDocId),
         child: BlocConsumer<ProgressTrackingCubit, ProgressTrackingState>(
           listener: (context, state) {},
           builder: (context, state) {

@@ -39,10 +39,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   navigateToTopMenuScreens({required int index,required ProfileCubit profCubit}) {
+    if(profCubit.profileModel==null) return;
     switch (index)
     {
       case 0:
-        Get.to(WorkOutScreen());
+        Get.to(WorkOutScreen(profileModel:profCubit.profileModel!,));
         break;
       case 1:
         Get.to(NutritionScreen(profCubit: profCubit,));

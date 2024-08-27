@@ -5,19 +5,39 @@ import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/font_manager.dart';
 import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
+import '../../../models/profile_models/profile_model.dart';
 import '../../../models/work_out_models/body_category_model.dart';
 import '../../general_blocks/recorded_unit_block.dart';
 import 'package:intl/intl.dart';
+
 class BodyPartItemBlock extends StatelessWidget {
+  final ProfileModel profileModel;
+  final bool isSelected;
+  final Function(BodyCategoryModel)  addToActivityOfDayList;
+  final Function(BodyCategoryModel)  deleteFromActivityOfDayList;
+
   final BodyCategoryModel bodyCategoryModel;
   final VoidCallback deleteFunction;
-  BodyPartItemBlock(
-      {required this.bodyCategoryModel, required this.deleteFunction});
+  const BodyPartItemBlock(
+      {super.key,
+        required this.profileModel,
+        required this.isSelected,
+        required this.addToActivityOfDayList,
+        required this.deleteFromActivityOfDayList,
+      required this.bodyCategoryModel,
+      required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
     var languageModel = bodyCategoryModel.getLanguageClass(context);
-    DateTime dateTime=DateTime(0,0,0,bodyCategoryModel.hour!,bodyCategoryModel.minute!,bodyCategoryModel.second!,);
+    DateTime dateTime = DateTime(
+      0,
+      0,
+      0,
+      bodyCategoryModel.hour!,
+      bodyCategoryModel.minute!,
+      bodyCategoryModel.second!,
+    );
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -51,8 +71,8 @@ class BodyPartItemBlock extends StatelessWidget {
                         height: AppVerticalSize.s22,
                         child: RecordedUnitBlock(
                           icon: Icons.timer,
-                          mesuaringUnit:'',
-                          unitValue:DateFormat('HH:mm:ss').format(dateTime),
+                          mesuaringUnit: '',
+                          unitValue: DateFormat('HH:mm:ss').format(dateTime),
                           iconColor: ColorManager.kBlackColor,
                           textColor: ColorManager.kBlackColor,
                         )),
@@ -90,7 +110,7 @@ class BodyPartItemBlock extends StatelessWidget {
                     Radius.circular(AppRadiusSize.s36),
                   ),
                   child: Image.network(
-                        bodyCategoryModel.imageLink!,
+                    bodyCategoryModel.imageLink!,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
@@ -112,26 +132,46 @@ class BodyPartItemBlock extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
-                  height: AppVerticalSize.s30,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppHorizontalSize.s10,vertical: AppVerticalSize.s5),
-                        child: InkWell(
-                          onTap: deleteFunction,
-                          child: Icon(
-                            Icons.delete,
-                            color: ColorManager.kRed,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+               Column(
+                 crossAxisAlignment: CrossAxisAlignment.end,
+                 children: [
+                 !profileModel.isClient?
+                 Padding(
+                     padding: EdgeInsets.symmetric(
+                         horizontal: AppHorizontalSize.s10,
+                         vertical: AppVerticalSize.s5),
+                     child: InkWell(
+                       onTap: deleteFunction,
+                       child: Icon(
+                         Icons.delete,
+                         color: ColorManager.kRed,
+                       ),
+                     ),
+                   ):
+                   Padding(
+                     padding: EdgeInsets.symmetric(
+                         horizontal: AppHorizontalSize.s10,
+                         vertical: AppVerticalSize.s5),
+                     child: InkWell(
+                       onTap: (){
+                         if(isSelected)
+                           {
+                             deleteFromActivityOfDayList(bodyCategoryModel);
+                           }
+                         else{
+                           addToActivityOfDayList(bodyCategoryModel);
+                         }
+
+                       },
+                       child: Icon(isSelected?
+                           Icons.radio_button_checked:
+                         Icons.radio_button_off_outlined,
+                         color:isSelected?ColorManager.kLimeGreenColor: ColorManager.kWhiteColor,
+                       ),
+                     ),
+                   ),
+                 ],
+               )
               ],
             );
           }),
@@ -139,5 +179,4 @@ class BodyPartItemBlock extends StatelessWidget {
       ),
     );
   }
-
 }

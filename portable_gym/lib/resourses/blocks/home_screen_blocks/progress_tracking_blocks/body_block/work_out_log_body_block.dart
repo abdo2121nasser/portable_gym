@@ -25,7 +25,7 @@ class WorkOutLogBodyBlock extends StatelessWidget {
       builder: (context, state) {
         var progCubit = ProgressTrackingCubit.get(context);
         var profCubit = ProfileCubit.get(context);
-        var activity = progCubit.getActivityOfDay(myDocId: profCubit.userDocId);
+        var activity = progCubit.getActivityOfDay();
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

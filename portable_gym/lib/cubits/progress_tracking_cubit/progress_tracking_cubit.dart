@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/progress_models/activity_model.dart';
+import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/progress_tracking_blocks/body_block/charts_body_block.dart';
@@ -14,14 +15,16 @@ import '../../resourses/blocks/home_screen_blocks/progress_tracking_blocks/body_
 part 'progress_tracking_state.dart';
 
 class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
-  ProgressTrackingCubit() : super(ProgressTrackingInitial())  {
-  activities= box.get(StringManager.myDailyActivities,defaultValue:[])!;
+  ProgressTrackingCubit({required this.userDocId})
+      : super(ProgressTrackingInitial()) {
+    activities = box.get(StringManager.myDailyActivities, defaultValue: [])!;
   }
   static ProgressTrackingCubit get(context) => BlocProvider.of(context);
 
-  List<Activity> activities=[];
-  var box=Hive.box<List<Activity>>(StringManager.activityBox);
+  List<Activity> activities = [];
+  var box = Hive.box<List<Activity>>(StringManager.activityBox);
   DateTime currentDate = DateTime.now();
+  late String userDocId;
   int currentBodyLevel = 0;
 
   getBodyLevelLables(context) {
@@ -52,31 +55,73 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
       emit(SelectDateTime());
     }
   }
-  addActivityOfDay(){
+
+ bool isActivityOfDay({required BodyCategoryModel model}) {
+    for (var element in activities) {
+      if (element.date.day == DateTime.now().day &&
+          element.date.month == DateTime.now().month &&
+          element.date.year == DateTime.now().year &&
+          element.englishCategoryName == model.english!.title! &&
+          element.userDocId == userDocId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+ void addActivityOfDay({required BodyCategoryModel model}) {
     emit(AddActivityOfDayLoadingState());
+    activities.add(Activity(
+        englishCategoryName: model.english!.title!,
+        arabicCategoryName: model.arabic!.title!,
+        date: DateTime.now(),
+        period: DateTime(
+          0,
+          0,
+          0,
+          model.hour!,
+          model.minute!,
+          model.second!,
+        ),
+        userDocId: userDocId));
     box.put(StringManager.myDailyActivities, activities).then((value) {
-      emit(AddActivityOfDayLoadingState());
-    }).catchError((error){
-      emit(AddActivityOfDayLoadingState());
-debugPrint(error);
+      emit(AddActivityOfDaySuccessState());
+    }).catchError((error) {
+      emit(AddActivityOfDayErrorState());
+      debugPrint(error.toString());
     });
   }
- Activity? getActivityOfDay({required String myDocId}) {
-    Activity activity;
-    for (var element in activities)
-      {
-        if(element.date.day==DateTime.now().day&&
-            element.date.month==DateTime.now().month&&
-            element.date.year==DateTime.now().year&&
-            element.userDocId==myDocId
-        )
-        {
-          return element;
-        }
+  void deleteActivityOfDay({required BodyCategoryModel model}) {
+    emit(DeleteActivityOfDayLoadingState());
+  for(var element in activities)
+    {
+      if(element.englishCategoryName==model.english!.title&&
+          element.date.day == DateTime.now().day &&
+          element.date.month == DateTime.now().month &&
+          element.date.year == DateTime.now().year &&
+          element.userDocId == userDocId
+      ){
+        activities.remove(element);
+        break;
       }
-    return null;
+    }
+    box.put(StringManager.myDailyActivities, activities).then((value) {
+      emit(DeleteActivityOfDaySuccessState());
+    }).catchError((error) {
+      emit(DeleteActivityOfDayErrorState());
+      debugPrint(error);
+    });
   }
 
-
-
+  Activity? getActivityOfDay() {
+    for (var element in activities) {
+      if (element.date.day == DateTime.now().day &&
+          element.date.month == DateTime.now().month &&
+          element.date.year == DateTime.now().year &&
+          element.userDocId == userDocId) {
+        return element;
+      }
+    }
+    return null;
+  }
 }

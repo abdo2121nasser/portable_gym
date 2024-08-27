@@ -2,17 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/level_screen.dart';
 
 import '../../../../../generated/l10n.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/body_parts_item_block.dart';
-import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/element_category_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 import '../../../../../resourses/blocks/general_blocks/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_body_part_block.dart';
@@ -24,6 +20,9 @@ import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/values_manager.dart';
 
 class WorkOutScreen extends StatelessWidget {
+  final ProfileModel profileModel;
+  const WorkOutScreen({super.key,required this.profileModel});
+
 
 
   @override
@@ -38,6 +37,8 @@ class WorkOutScreen extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
     );
     return BlocProvider(
+  create: (context) => ProgressTrackingCubit(userDocId:profileModel.docId),
+  child: BlocProvider(
       create: (context) => WorkOutCubit()
         ..getBodyCategories()
         ..getDailyBodyCategoryCard(),
@@ -45,6 +46,7 @@ class WorkOutScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var workCubit = WorkOutCubit.get(context);
+          var progCubit =ProgressTrackingCubit.get(context);
           return Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorManager.kBlackColor,
@@ -114,8 +116,7 @@ class WorkOutScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        S.of(context).letsGo +
-                            '${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel, isLable: true, context: context)}',
+                        '${S.of(context).letsGo}${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel, isLable: true, context: context)}',
                         textAlign: TextAlign.start,
                         style: getMediumStyle(
                             fontSize: FontSize.s20,
@@ -143,6 +144,16 @@ class WorkOutScreen extends StatelessWidget {
                       )
                     : ListBodyPartBlock(
                         bodyCategoryModel: workCubit.bodyCategoryModels,
+                  profileModel: profileModel,
+                  isSelectedFunction: (model){
+                         return progCubit.isActivityOfDay(model: model);
+                  },
+                  addToActivityOfDayList: (model){
+                          progCubit.addActivityOfDay(model: model);
+                  },
+                  deleteFromActivityOfDayList: (model){
+                          progCubit.deleteActivityOfDay(model: model);
+                  },
                       ),
               ],
             ),
@@ -163,6 +174,7 @@ class WorkOutScreen extends StatelessWidget {
           );
         },
       ),
-    );
+    ),
+);
   }
 }
