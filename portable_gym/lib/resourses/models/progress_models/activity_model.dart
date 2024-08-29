@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 part 'activity_model.g.dart';
 @HiveType(typeId: 0)
-class Activity {
+class Activity extends HiveObject{
   @HiveField(0)
   String englishCategoryName;
   @HiveField(1)

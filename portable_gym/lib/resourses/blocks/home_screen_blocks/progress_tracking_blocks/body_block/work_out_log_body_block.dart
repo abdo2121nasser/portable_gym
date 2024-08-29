@@ -13,6 +13,7 @@ import '../../../../managers_files/style_manager.dart';
 import '../full_personal_information_block.dart';
 import 'package:intl/intl.dart';
 
+import '../list_progress_activites_block.dart';
 import '../progress_activity_block.dart';
 
 class WorkOutLogBodyBlock extends StatelessWidget {
@@ -25,7 +26,6 @@ class WorkOutLogBodyBlock extends StatelessWidget {
       builder: (context, state) {
         var progCubit = ProgressTrackingCubit.get(context);
         var profCubit = ProfileCubit.get(context);
-        var activity = progCubit.getActivityOfDay();
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -52,7 +52,7 @@ class WorkOutLogBodyBlock extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        DateFormat('yyyy-MM-dd').format(progCubit.currentDate),
+                        DateFormat('dd-MM-yyyy').format(progCubit.currentDate),
                         style: getSemiBoldStyle(
                             fontSize: FontSize.s14,
                             color: ColorManager.kLimeGreenColor,
@@ -71,11 +71,9 @@ class WorkOutLogBodyBlock extends StatelessWidget {
                   SizedBox(
                     height: AppVerticalSize.s10,
                   ),
-                  activity != null
-                      ? ProgressActivityBlock(
-                          activity: activity,
-                        )
-                      : const SizedBox()
+                  ListProgressActivitiesBlock(
+                    activities: progCubit.getActivitiesOfDay(),
+                  )
                 ],
               ),
             )

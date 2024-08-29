@@ -149,8 +149,6 @@
 
   "hintMessage": "اكتب رسالتك",
   "file": "ملف",
-  "sendFileErrorMessage": "يجب ان تختار ملفا اولا"
-
-
-
+  "sendFileErrorMessage": "يجب ان تختار ملفا اولا",
+  "duration": "المده"
 }

@@ -130,6 +130,7 @@
 
   "hintMessage": "type your message",
   "file": "File",
-  "sendFileErrorMessage": "you should choose file first"
+  "sendFileErrorMessage": "you should choose file first",
+  "duration": "Duration"
 }
 

@@ -16,18 +16,18 @@ class ProgressActivityBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s14),
       decoration: BoxDecoration(
         color: ColorManager.kWhiteColor,
         borderRadius: BorderRadius.circular(AppRadiusSize.s22)
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            Icon(Icons.run_circle,color: ColorManager.kPurpleColor,size: AppVerticalSize.s65,),
           SizedBox(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   activity.getCategoryName(context),
@@ -52,7 +52,7 @@ class ProgressActivityBlock extends StatelessWidget {
                 const Icon(Icons.access_time_filled_outlined,color: ColorManager.kPurpleColor,),
               SizedBox(width: AppHorizontalSize.s5,),
                 Text(
-                  'Duration\n${DateFormat('HH:mm:ss').format(activity.period)}',
+                  '${S.of(context).duration}\n${DateFormat('HH:mm:ss').format(activity.period)}',
                   style: getMediumStyle(
                       fontSize: FontSize.s14,
                       color: ColorManager.kPurpleColor,

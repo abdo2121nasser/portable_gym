@@ -88,6 +88,7 @@ class ListBodyPartBlock extends StatelessWidget {
                     },
                     isSelected: isSelectedFunction(bodyCategoryModel[index]),
                     addToActivityOfDayList: (model){
+
                       addToActivityOfDayList(model);
                     },
                     deleteFromActivityOfDayList: (model){

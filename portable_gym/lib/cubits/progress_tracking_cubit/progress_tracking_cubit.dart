@@ -17,12 +17,13 @@ part 'progress_tracking_state.dart';
 class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
   ProgressTrackingCubit({required this.userDocId})
       : super(ProgressTrackingInitial()) {
-    activities = box.get(StringManager.myDailyActivities, defaultValue: [])!;
+    activities =
+        box.get(StringManager.myDailyActivities, defaultValue: []) ?? [];
   }
   static ProgressTrackingCubit get(context) => BlocProvider.of(context);
 
-  List<Activity> activities = [];
-  var box = Hive.box<List<Activity>>(StringManager.activityBox);
+  final box = Hive.box(StringManager.activityBox);
+  List<dynamic> activities = []; // list<Activity>
   DateTime currentDate = DateTime.now();
   late String userDocId;
   int currentBodyLevel = 0;
@@ -56,7 +57,7 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
     }
   }
 
- bool isActivityOfDay({required BodyCategoryModel model}) {
+  bool isActivityOfDay({required BodyCategoryModel model}) {
     for (var element in activities) {
       if (element.date.day == DateTime.now().day &&
           element.date.month == DateTime.now().month &&
@@ -69,7 +70,7 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
     return false;
   }
 
- void addActivityOfDay({required BodyCategoryModel model}) {
+  void addActivityOfDay({required BodyCategoryModel model}) {
     emit(AddActivityOfDayLoadingState());
     activities.add(Activity(
         englishCategoryName: model.english!.title!,
@@ -84,6 +85,7 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
           model.second!,
         ),
         userDocId: userDocId));
+
     box.put(StringManager.myDailyActivities, activities).then((value) {
       emit(AddActivityOfDaySuccessState());
     }).catchError((error) {
@@ -91,16 +93,15 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
       debugPrint(error.toString());
     });
   }
+
   void deleteActivityOfDay({required BodyCategoryModel model}) {
     emit(DeleteActivityOfDayLoadingState());
-  for(var element in activities)
-    {
-      if(element.englishCategoryName==model.english!.title&&
+    for (var element in activities) {
+      if (element.englishCategoryName == model.english!.title &&
           element.date.day == DateTime.now().day &&
           element.date.month == DateTime.now().month &&
           element.date.year == DateTime.now().year &&
-          element.userDocId == userDocId
-      ){
+          element.userDocId == userDocId) {
         activities.remove(element);
         break;
       }
@@ -109,19 +110,20 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
       emit(DeleteActivityOfDaySuccessState());
     }).catchError((error) {
       emit(DeleteActivityOfDayErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
-  Activity? getActivityOfDay() {
+  List<Activity> getActivitiesOfDay() {
+    List<Activity> tempActivities = [];
     for (var element in activities) {
-      if (element.date.day == DateTime.now().day &&
-          element.date.month == DateTime.now().month &&
-          element.date.year == DateTime.now().year &&
+      if (element.date.day == currentDate.day &&
+          element.date.month == currentDate.month &&
+          element.date.year == currentDate.year &&
           element.userDocId == userDocId) {
-        return element;
+        tempActivities.add(element);
       }
     }
-    return null;
+    return tempActivities;
   }
 }

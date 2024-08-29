@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "your request has been sent\nplease wait till the couch create your plan"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "dinner": MessageLookupByLibrary.simpleMessage("Dinner"),
+        "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editBodyCategory":
             MessageLookupByLibrary.simpleMessage("edit body category"),

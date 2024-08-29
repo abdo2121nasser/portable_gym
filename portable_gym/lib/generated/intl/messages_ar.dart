@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "تم ارسال طلبك بنجاح\nرجأ انتظر حتي يقوم المدرب بي انشاء الخطه"),
         "delete": MessageLookupByLibrary.simpleMessage("مسح"),
         "dinner": MessageLookupByLibrary.simpleMessage("العشاء"),
+        "duration": MessageLookupByLibrary.simpleMessage("المده"),
         "edit": MessageLookupByLibrary.simpleMessage("عدل"),
         "editBodyCategory":
             MessageLookupByLibrary.simpleMessage("تعديل تصنيف التمرين"),

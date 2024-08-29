@@ -159,6 +159,7 @@ class BodyPartItemBlock extends StatelessWidget {
                              deleteFromActivityOfDayList(bodyCategoryModel);
                            }
                          else{
+
                            addToActivityOfDayList(bodyCategoryModel);
                          }
 
