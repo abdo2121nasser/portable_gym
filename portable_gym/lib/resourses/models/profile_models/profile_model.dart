@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 
@@ -22,6 +19,7 @@ class ProfileModel {
   final bool isClient;
   ContactMessageModel? contactMessageModel;
   List<QuestionModel> questionModels;
+  final String deviceToken;
 
   ProfileModel(
       {required this.docId,
@@ -38,6 +36,7 @@ class ProfileModel {
       required this.isPremium,
       required this.isClient,
       required this.questionModels,
+        required this.deviceToken,
       this.contactMessageModel});
 
   factory ProfileModel.fromJson(
@@ -58,6 +57,7 @@ class ProfileModel {
         age: json[StringManager.userAge],
         isPremium: json[StringManager.userIsPremium],
         isClient: json[StringManager.userIsClint],
+        deviceToken: json[StringManager.deviceToken]??'',
         questionModels:json[StringManager.profileQuestionsAnswer] ==null?[]:
         List<QuestionModel>.from(
             json[StringManager.profileQuestionsAnswer]

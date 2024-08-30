@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
+import 'package:portable_gym/cubits/notification_cubit/notification_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_text_form_field.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/ask_trainer_blocks/file_box_block.dart';
@@ -35,69 +36,70 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: profCubit,
+    return BlocProvider(
+      create: (context) => NotificationCubit(),
       child: BlocProvider.value(
-        value: askCubit,
-        child: BlocConsumer<AskTrainerCubit, AskTrainerState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Scaffold(
-              appBar: GeneralAppBarBlock(
-                title: receiverModel.nickName,
-                titleColor: ColorManager.kPurpleColor,
-                titleFunction: () async {
-                  Get.back();
-                  contactModel =
-                      askCubit.setContactAttributes(profile: receiverModel);
-                  if (contactModel.docId1 == profCubit.userDocId) {
-                    if (contactModel.unReadMessagesNoDocId1 != 0) {
-                      contactModel.unReadMessagesNoDocId1 = 0;
-                      askCubit.updateUnreadedContact(
-                          model: contactModel, isDocId1: true);
+        value: profCubit,
+        child: BlocProvider.value(
+          value: askCubit,
+          child: BlocConsumer<AskTrainerCubit, AskTrainerState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Scaffold(
+                appBar: GeneralAppBarBlock(
+                  title: receiverModel.nickName,
+                  titleColor: ColorManager.kPurpleColor,
+                  titleFunction: () async {
+                    Get.back();
+                    contactModel =
+                        askCubit.setContactAttributes(profile: receiverModel);
+                    if (contactModel.docId1 == profCubit.userDocId) {
+                      if (contactModel.unReadMessagesNoDocId1 != 0) {
+                        contactModel.unReadMessagesNoDocId1 = 0;
+                        askCubit.updateUnreadedContact(
+                            model: contactModel, isDocId1: true);
+                      }
+                    } else {
+                      if (contactModel.unReadMessagesNoDocId2 != 0) {
+                        contactModel.unReadMessagesNoDocId2 = 0;
+                        askCubit.updateUnreadedContact(
+                            model: contactModel, isDocId1: false);
+                      }
                     }
-                  } else {
-                    if (contactModel.unReadMessagesNoDocId2 != 0) {
-                      contactModel.unReadMessagesNoDocId2 = 0;
-                      askCubit.updateUnreadedContact(
-                          model: contactModel, isDocId1: false);
-                    }
-                  }
-                },
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        Get.to(ProfileScreen(
+                  },
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          Get.to(ProfileScreen(
                             profileModel: receiverModel,
                             profCubit: profCubit,
-                          isMyProfileScreen: false,
-
-                        )
-
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.person,
-                        color: ColorManager.kPurpleColor,
-                      ))
-                ],
-              ),
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    getChatBody,
-                    getFileBoxBlock(state),
-                    LinearProgressIndicatorBlock(
-                        isLoading: state is UploadFileLoadingState ||
-                            state is DownloadFileLoadingState),
-                    buildGeneralTextFormField(context, state),
+                            isMyProfileScreen: false,
+                          ));
+                        },
+                        icon: const Icon(
+                          Icons.person,
+                          color: ColorManager.kPurpleColor,
+                        ))
                   ],
                 ),
-              ),
-            );
-          },
+                body: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: AppHorizontalSize.s8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      getChatBody,
+                      getFileBoxBlock(state),
+                      LinearProgressIndicatorBlock(
+                          isLoading: state is UploadFileLoadingState ||
+                              state is DownloadFileLoadingState),
+                      buildGeneralTextFormField(context, state),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -120,7 +122,7 @@ class ChatScreen extends StatelessWidget {
           : () {
               if (askCubit.messageController.text.isNotEmpty ||
                   askCubit.messageFile != null) {
-                sendMessage();
+                sendMessageProcess(context);
               }
             },
       prefixIcon: state is UploadFileLoadingState
@@ -160,13 +162,17 @@ class ChatScreen extends StatelessWidget {
           );
   }
 
-  Future<void> sendMessage() async {
+  Future<void> sendMessageProcess(context) async {
     contactModel = askCubit.setContactAttributes(profile: receiverModel);
     await askCubit.sendMessageProcess(
         receiverDocId: receiverModel.docId,
         senderDocId: profCubit.userDocId,
         contactModel: updateContactModel(model: contactModel),
         isDocId1: contactModel.docId1 != profCubit.userDocId);
+    await NotificationCubit.get(context).sendNotification(
+        senderName: profCubit.profileModel!.nickName,
+        receiverDeviceToken: receiverModel.deviceToken);
+
     getToLastMessage();
   }
 

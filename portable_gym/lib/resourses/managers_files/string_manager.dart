@@ -160,6 +160,7 @@ class StringManager
   static const String userIsPremium ='is premium';
   static const String userIsClint ='is client';
   static const String userGoal ='is client';
+  static const String deviceToken ='device token';
 
   static const String userWeightLoss = "Weight Loss";
   static const String userWeightGain = "Weight Gain";
