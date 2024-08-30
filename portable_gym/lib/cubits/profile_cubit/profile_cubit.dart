@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,10 +64,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       S.of(context).logout,
     ];
   }
+
   getProfileOptionsIcons() {
-    return
-      [Icons.person,Icons.settings,Icons.logout_outlined]
-    ;
+    return [Icons.person, Icons.settings, Icons.logout_outlined];
   }
 
   profileScreenNavigation(
@@ -81,11 +81,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ChangeToProfileLowerBlockState());
     } else if (index == 2) {
       showLogOutBottomSheet(context);
+    } else if (index == 1) {
+      Get.to(() => SettingScreen(
+            profCubit: ProfileCubit.get(context),
+          ));
     }
-    else if(index==1)
-      {
-        Get.to(()=>  SettingScreen(profCubit: ProfileCubit.get(context),));
-      }
   }
 
   getProfileControllers() {
@@ -113,7 +113,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   setProfileControllers({required ProfileModel profileModel}) {
-
     fullNameController.text = profileModel.fullName;
     nickNameController.text = profileModel.nickName;
     emailController.text = profileModel.email;
@@ -147,37 +146,39 @@ class ProfileCubit extends Cubit<ProfileState> {
       debugPrint('no image selected');
     }
   }
+
   Future<void> deleteImageOnCloud({required String imageUrl}) async {
     emit(DeleteImageFileOnCloudLoadingState());
-   await FirebaseStorage.instance.refFromURL(imageUrl).delete()
-        .then((value) {
+    await FirebaseStorage.instance.refFromURL(imageUrl).delete().then((value) {
       emit(DeleteImageFileOnCloudSuccessState());
-
-    }).catchError((error){
+    }).catchError((error) {
       emit(DeleteImageFileOnCloudErrorState());
     });
   }
- Future<void> uploadImage() async{
+
+  Future<void> uploadImage() async {
     emit(UploadImageFileLoadingState());
-    await  FirebaseStorage.instance.ref().child(imageFile!.path)
-        .putFile(imageFile!).
-    then((result) async {
-      imageLink=  await result.ref.getDownloadURL();
+    await FirebaseStorage.instance
+        .ref()
+        .child(imageFile!.path)
+        .putFile(imageFile!)
+        .then((result) async {
+      imageLink = await result.ref.getDownloadURL();
       emit(UploadImageFileSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(UploadImageFileErrorState());
-       debugPrint(error);
+      debugPrint(error);
     });
   }
 
   Future<void> updateImageOnCloud() async {
-    await   Future.delayed(const Duration(seconds: 0)).then((value) async {
-       await  deleteImageOnCloud(imageUrl: imageLink);
-       }).then((value) async {
-        await uploadImage();
-       }).catchError((error){
-         debugPrint(error);
-       });
+    await Future.delayed(const Duration(seconds: 0)).then((value) async {
+      await deleteImageOnCloud(imageUrl: imageLink);
+    }).then((value) async {
+      await uploadImage();
+    }).catchError((error) {
+      debugPrint(error);
+    });
   }
 
 //------------------------setUp functions---------------------------------
@@ -188,8 +189,15 @@ class ProfileCubit extends Cubit<ProfileState> {
         .doc(userDocId)
         .get()
         .then((value) async {
+      String? currentDeviceToken = await FirebaseMessaging.instance.getToken();
+      if (value.data()![StringManager.deviceToken] ??
+          '' != currentDeviceToken) {
+        await updateDeviceToken(deviceToken: currentDeviceToken!);
+        value.data()![StringManager.deviceToken]=currentDeviceToken;
+      }
       profileModel =
           ProfileModel.fromJson(json: value.data()!, docId: value.id);
+
       emit(GetUserDataSuccessState());
       setProfileControllers(profileModel: profileModel!);
     }).catchError((error) {
@@ -198,10 +206,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
- Future<void> editUserData() async {
-
+  Future<void> editUserData() async {
     emit(UpdateUserDataLoadingState());
-    if(imageFile!=null) {
+    if (imageFile != null) {
       await updateImageOnCloud();
     }
     await FirebaseFirestore.instance
@@ -214,10 +221,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       StringManager.userAge: int.parse(ageController.text),
       StringManager.userHeight: int.parse(heightController.text),
       StringManager.userWeight: int.parse(weightController.text),
-        StringManager.userImageLink:imageLink,
+      StringManager.userImageLink: imageLink,
     }).then((value) {
-      imageFile=null;
-      imageLink='';
+      imageFile = null;
+      imageLink = '';
       emit(UpdateUserDataSuccessState());
       getUserData();
     }).catchError((error) {
@@ -226,20 +233,30 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  Future<void> editUserQuestionAnswers({required Map<String,dynamic> questionsMap}) async {
-
+  Future<void> editUserQuestionAnswers(
+      {required Map<String, dynamic> questionsMap}) async {
     emit(UpdateUserQuestionAnswerLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(profileModel!.docId)
-        .update({
-      StringManager.profileQuestionsAnswer: questionsMap
-    }).then((value) {
+        .update({StringManager.profileQuestionsAnswer: questionsMap}).then(
+            (value) {
       emit(UpdateUserQuestionAnswerSuccessState());
       getUserData();
     }).catchError((error) {
       emit(UpdateUserQuestionAnswerErrorState());
       debugPrint(error);
     });
+  }
+
+  Future<void> updateDeviceToken({required String deviceToken}) async {
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(profileModel!.docId)
+        .update({StringManager.deviceToken: deviceToken})
+        .then((value) {})
+        .catchError((error) {
+          debugPrint(error);
+        });
   }
 }
