@@ -190,9 +190,9 @@ class ProfileCubit extends Cubit<ProfileState> {
         .get()
         .then((value) async {
       String? currentDeviceToken = await FirebaseMessaging.instance.getToken();
-      if (value.data()![StringManager.deviceToken] ??
-          '' != currentDeviceToken) {
-        await updateDeviceToken(deviceToken: currentDeviceToken!);
+      String? profileDeviceToken=value.data()![StringManager.deviceToken]??'';
+      if ( profileDeviceToken  != currentDeviceToken) {
+        await updateDeviceToken(userDocId: value.id,deviceToken: currentDeviceToken!);
         value.data()![StringManager.deviceToken]=currentDeviceToken;
       }
       profileModel =
@@ -202,7 +202,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       setProfileControllers(profileModel: profileModel!);
     }).catchError((error) {
       emit(GetUserDataErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -249,12 +249,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     });
   }
 
-  Future<void> updateDeviceToken({required String deviceToken}) async {
+  Future<void> updateDeviceToken({required String userDocId,required String deviceToken}) async {
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
-        .doc(profileModel!.docId)
+        .doc(userDocId)
         .update({StringManager.deviceToken: deviceToken})
-        .then((value) {})
+        .then((value) {
+    })
         .catchError((error) {
           debugPrint(error);
         });

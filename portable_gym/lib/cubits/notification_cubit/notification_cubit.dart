@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -13,20 +10,13 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
   static NotificationCubit get(context) => BlocProvider.of(context);
 
-
-
-
-  Future<void> sendNotification({required String senderName,required String receiverDeviceToken}) async {
-
-   try
-   {
-    await NotificationService.sendNotification(receiverName: senderName, receiverDeviceToken: receiverDeviceToken);
-   }
-   catch(error){
-     debugPrint(error.toString());
-   }
-
+  Future<void> sendNotification(
+      {required String senderName, required String receiverDeviceToken}) async {
+    try {
+      await NotificationService.sendNotification(
+          receiverName: senderName, receiverDeviceToken: receiverDeviceToken);
+    } catch (error) {
+      debugPrint(error.toString());
+    }
   }
-
-
 }
