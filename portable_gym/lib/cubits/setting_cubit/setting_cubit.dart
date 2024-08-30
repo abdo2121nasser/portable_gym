@@ -24,7 +24,7 @@ part 'setting_state.dart';
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit() : super(SettingInitial());
   static SettingCubit get(context) => BlocProvider.of(context);
-
+ bool isLoadingButton=false;
   List<QuestionModel> questionModels = [];
 
   TextEditingController englishTitle = TextEditingController();
@@ -43,6 +43,12 @@ class SettingCubit extends Cubit<SettingState> {
       debugPrint(error);
     });
   }
+
+  changeLoadingButton(){
+    isLoadingButton=!isLoadingButton;
+    emit(ChangeLoadingButtonState());
+  }
+
 
   getSettingOptionsLables({
     required context,

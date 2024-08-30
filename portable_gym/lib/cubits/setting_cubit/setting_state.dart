@@ -6,6 +6,7 @@ abstract class SettingState {}
 class SettingInitial extends SettingState {}
 class SetControllersWithModelState extends SettingState {}
 class ChangeAnswerValueState extends SettingState {}
+class ChangeLoadingButtonState extends SettingState {}
 class SetQuestionsAnswersState extends SettingState {}
 
 // class GetUserDocIdLoadingState extends SettingState {}

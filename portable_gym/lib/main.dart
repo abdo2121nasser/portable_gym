@@ -26,7 +26,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
 
   ]);
-
+ await NotificationService.init();
  await initializeFirebaseMessaging();
 // 'fnJiynhHThCWfsQs9QzwZ7:APA91bFptdHhpH5eGosIycReo6wreH5R84aoJffLHm36wm2B3uheIH1cBbxP7xYkn2bfXDDzwiDwrErdwZu722DRHhKHO01MbMcCo9RWwAVUpJMCJEAplq6wUbXRNUZ9PmOlFm7P-dz7');
 

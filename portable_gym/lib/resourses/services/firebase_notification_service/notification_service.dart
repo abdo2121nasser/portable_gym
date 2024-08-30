@@ -13,7 +13,7 @@ class NotificationService {
   static final Uri _url = Uri.parse(
       'https://fcm.googleapis.com/v1/projects/portable-gym-a5cee/messages:send');
 
-  static _init() async {
+  static init() async {
     final Map<String, dynamic> serviceAccount =
         SecretApiKeyManager.serviceAccountJson;
 
@@ -24,14 +24,17 @@ class NotificationService {
 
   static Future<void> sendNotification(
       {required String receiverDeviceToken,
-      required String receiverName}) async {
-   await _init();
+      required String title,
+     required String body
+      }) async {
+
 
     final Map<String, dynamic> message = {
       'message': {
         'token': receiverDeviceToken,
         'notification': {
-          'title': "you got message from $receiverName",
+          'title': title,
+          'body':body
         },
       },
     };
@@ -42,7 +45,5 @@ class NotificationService {
       },
       body: jsonEncode(message),
     );
-
-    _authClient.close();
   }
 }

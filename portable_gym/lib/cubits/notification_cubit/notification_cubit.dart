@@ -10,11 +10,15 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
   static NotificationCubit get(context) => BlocProvider.of(context);
 
+
   Future<void> sendNotification(
-      {required String senderName, required String receiverDeviceToken}) async {
+      {required String senderName, required String receiverDeviceToken,required String message}) async {
     try {
+
       await NotificationService.sendNotification(
-          receiverName: senderName, receiverDeviceToken: receiverDeviceToken);
+         title: "you got message from $senderName",
+          body: message,
+          receiverDeviceToken: receiverDeviceToken);
     } catch (error) {
       debugPrint(error.toString());
     }

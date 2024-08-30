@@ -6,6 +6,7 @@ import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 
 import '../../../../../cubits/set_up_cubit/set_up_cubit.dart';
+import '../../../../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../../../../resourses/blocks/general_blocks/general_button_block.dart';
@@ -37,7 +38,11 @@ class AnswerQuestionsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getCubit(collection: collection),
       child: BlocConsumer<SettingCubit, SettingState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is UpdateUserQuestionAnswerSuccessState) {
+            SettingCubit.get(context).changeLoadingButton();
+          }
+        },
         builder: (context, state) {
           var settCubit = SettingCubit.get(context);
           return Scaffold(
@@ -53,8 +58,8 @@ class AnswerQuestionsScreen extends StatelessWidget {
                   collection: collection,
                   isClientView: true,
                 ),
-                state is CreateProfileLoadingState
-                    ? const CircularProgressIndicator(
+              settCubit.isLoadingButton?
+                     const CircularProgressIndicator(
                         color: ColorManager.kPurpleColor,
                       )
                     : GeneralButtonBlock(
@@ -65,13 +70,16 @@ class AnswerQuestionsScreen extends StatelessWidget {
                               StringManager.collectionQuestionsOfMealPlan) {
                             settCubit.createMealPlanRequestProcess(
                                 nickName: userNickName, context: context);
-                          } else if (StringManager
+                            settCubit.changeLoadingButton();
+                          }
+                          else if (StringManager
                                   .collectionQuestionsOfProfile ==
                               collection) {
                             if (settCubit.validateRequests()) {
                               await finishProfileSetupFunction!(
                                   getQuestionsAnswerMap(
                                       questions: settCubit.questionModels));
+                              settCubit.changeLoadingButton();
                               //update profile
                             } else {
                               getToastMessage(
@@ -79,12 +87,15 @@ class AnswerQuestionsScreen extends StatelessWidget {
                                       .of(context)
                                       .mealPlanRequestsErrorMassage);
                             }
-                          } else if (StringManager.collectionUserProfiles ==
+                          }
+                          else if (StringManager.collectionUserProfiles ==
                               collection) {
                             updateProfileQuestionsAnswersFunction!(
                                 getQuestionsAnswerMap(
                                     questions: settCubit.questionModels));
+                            settCubit.changeLoadingButton();
                           }
+
                         },
                         backgroundColor: ColorManager.kPurpleColor,
                         textStyle: getMediumStyle(

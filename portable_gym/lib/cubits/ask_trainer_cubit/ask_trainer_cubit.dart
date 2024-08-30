@@ -321,11 +321,13 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
   //------------------------------- process -----------------------------
 
   sendMessageProcess(
-      {required String senderDocId,
-      required String receiverDocId,
+      {required ProfileModel senderModel,
+      required ProfileModel receiverModel,
       required ContactMessageModel contactModel,
-      required bool isDocId1}) async {
-    String message = messageController.text;
+      required bool isDocId1,
+      required Function(String) notifier
+      }) async {
+    String message=messageController.text;
     messageController.clear();
     await updateUnreadedContact(model: contactModel, isDocId1: isDocId1);
     if (messageFile != null) {
@@ -335,8 +337,12 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     await sendMessage(
         contactDocId: contactModel.contactDocId,
         message: message,
-        senderDocId: senderDocId,
-        senderAndReceiverDocId: senderDocId + receiverDocId);
+        senderDocId: senderModel.docId,
+        senderAndReceiverDocId: senderModel.docId + receiverModel.docId);
+    if(state is SendMessageSuccessState)
+      {
+       await notifier(message) ;
+      }
   }
 
   //-----------------------------contacts--------------------------------

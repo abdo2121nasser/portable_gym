@@ -162,16 +162,21 @@ class ChatScreen extends StatelessWidget {
           );
   }
 
-  Future<void> sendMessageProcess(context) async {
+  Future<void> sendMessageProcess(
+    context,
+  ) async {
     contactModel = askCubit.setContactAttributes(profile: receiverModel);
     await askCubit.sendMessageProcess(
-        receiverDocId: receiverModel.docId,
-        senderDocId: profCubit.userDocId,
+        receiverModel: receiverModel,
+        senderModel: profCubit.profileModel!,
         contactModel: updateContactModel(model: contactModel),
-        isDocId1: contactModel.docId1 != profCubit.userDocId);
-    await NotificationCubit.get(context).sendNotification(
-        senderName: profCubit.profileModel!.nickName,
-        receiverDeviceToken: receiverModel.deviceToken);
+        isDocId1: contactModel.docId1 != profCubit.userDocId,
+        notifier: (message) {
+          NotificationCubit.get(context).sendNotification(
+              senderName: profCubit.profileModel!.nickName,
+              message: message,
+              receiverDeviceToken: receiverModel.deviceToken);
+        });
 
     getToLastMessage();
   }
