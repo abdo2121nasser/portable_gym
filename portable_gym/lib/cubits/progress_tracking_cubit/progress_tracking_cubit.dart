@@ -31,12 +31,14 @@ class ProgressTrackingCubit extends Cubit<ProgressTrackingState> {
   getBodyLevelLables(context) {
     return [
       S.of(context).workoutLog,
-      S.of(context).charts,
+    //  S.of(context).charts,
     ];
   }
 
   getCurrentBody() {
-    return [const WorkOutLogBodyBlock(), const ChartsBodyBlock()];
+    return [const WorkOutLogBodyBlock(),
+    //  const ChartsBodyBlock()
+    ];
   }
 
   changeCurrentBodyIndex({required int index}) {

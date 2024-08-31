@@ -27,7 +27,7 @@ class _ProfileLowerBlockState extends State<ProfileLowerBlock> {
   void initState() {
     super.initState();
     ProfileCubit.get(context)
-        .setProfileControllers(profileModel: widget.profileModel);
+        .setProfileControllers(tempModel: widget.profileModel);
   }
 
   @override

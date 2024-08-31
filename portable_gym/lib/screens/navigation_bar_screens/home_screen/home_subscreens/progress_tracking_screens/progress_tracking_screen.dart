@@ -38,21 +38,22 @@ class ProgressTrackingScreen extends StatelessWidget {
               appBar: GeneralAppBarBlock(title: S
                   .of(context)
                   .progressTrack),
-              body: Column(
-                children: [
-                  HorizontalCategoryListBlock(
-                      currentLevel: progCubit.currentBodyLevel,
-                      numberOfLevels: lables.length,
-                      lables: lables,
-                      changeLevel: (index) {
-                        progCubit.changeCurrentBodyIndex(index: index);
-                      }),
-                  SizedBox(
-                    height: AppVerticalSize.s10,
-                  ),
-                 currentBody
-                ],
-              ),
+              // body: Column(
+              //   children: [
+              //     HorizontalCategoryListBlock(
+              //         currentLevel: progCubit.currentBodyLevel,
+              //         numberOfLevels: lables.length,
+              //         lables: lables,
+              //         changeLevel: (index) {
+              //           progCubit.changeCurrentBodyIndex(index: index);
+              //         }),
+              //     SizedBox(
+              //       height: AppVerticalSize.s10,
+              //     ),
+              //    currentBody
+              //   ],
+              // ),
+              body: currentBody,
             );
           },
         ),

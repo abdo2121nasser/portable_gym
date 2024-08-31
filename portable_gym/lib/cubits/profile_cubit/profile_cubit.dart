@@ -112,19 +112,18 @@ class ProfileCubit extends Cubit<ProfileState> {
     ];
   }
 
-  setProfileControllers({required ProfileModel profileModel}) {
-    fullNameController.text = profileModel.fullName;
-    nickNameController.text = profileModel.nickName;
-    emailController.text = profileModel.email;
-    phoneController.text = profileModel.phone;
-    ageController.text = profileModel.age.toString();
-    weightController.text = profileModel.weight.toString();
-    heightController.text = profileModel.height.toString();
-    imageLink = profileModel.imageLink;
+  setProfileControllers({required ProfileModel tempModel}) {
+    fullNameController.text = tempModel.fullName;
+    nickNameController.text = tempModel.nickName;
+    emailController.text = tempModel.email;
+    phoneController.text = tempModel.phone;
+    ageController.text = tempModel.age.toString();
+    weightController.text = tempModel.weight.toString();
+    heightController.text = tempModel.height.toString();
+    imageLink = tempModel.imageLink;
 
     emit(SetProfileControllersValuesState());
   }
-  //todo setting screen is not made
 
   void showLogOutBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
@@ -199,7 +198,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           ProfileModel.fromJson(json: value.data()!, docId: value.id);
 
       emit(GetUserDataSuccessState());
-      setProfileControllers(profileModel: profileModel!);
+      setProfileControllers(tempModel: profileModel!);
     }).catchError((error) {
       emit(GetUserDataErrorState());
       debugPrint(error.toString());
@@ -222,11 +221,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       StringManager.userHeight: int.parse(heightController.text),
       StringManager.userWeight: int.parse(weightController.text),
       StringManager.userImageLink: imageLink,
-    }).then((value) {
+    }).then((value) async {
       imageFile = null;
       imageLink = '';
       emit(UpdateUserDataSuccessState());
-      getUserData();
+     await getUserData();
     }).catchError((error) {
       emit(UpdateUserDataErrorState());
       debugPrint(error);

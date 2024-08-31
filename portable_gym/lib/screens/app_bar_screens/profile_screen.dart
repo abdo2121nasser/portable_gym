@@ -51,31 +51,32 @@ class ProfileScreen extends StatelessWidget {
                     index: 0, isAppBar: true, context: context);
               },
               actions: [
-                if (profCubit.isProfileLowerBlock || (isMyProfileScreen == false && !profCubit.profileModel!.isClient))
+                if (profCubit.isProfileLowerBlock ||
+                    (isMyProfileScreen == false &&
+                        !profCubit.profileModel!.isClient))
                   IconButton(
                       onPressed: () {
-                        if (profCubit.isProfileLowerBlock && isMyProfileScreen == true) {
+                        if (profCubit.isProfileLowerBlock &&
+                            isMyProfileScreen == true) {
                           Get.to(AnswerQuestionsScreen(
                             userNickName: '',
                             collection: StringManager.collectionUserProfiles,
                             profileModel: profileModel,
-                            updateProfileQuestionsAnswersFunction: ( Map<String,dynamic> questionsMap){
-                              profCubit.editUserQuestionAnswers(questionsMap: questionsMap);
+                            updateProfileQuestionsAnswersFunction:
+                                (Map<String, dynamic> questionsMap) {
+                              profCubit.editUserQuestionAnswers(
+                                  questionsMap: questionsMap);
                             },
-
+                          ));
+                        } else {
+                          Get.to(AnswersOfQuestionsScreen(
+                            model: profileModel.questionModels,
+                            isProfileViewOnly: true,
+                            nutCubit: null,
+                            clientDocId: '',
+                            requestDocId: '',
                           ));
                         }
-                        else
-                          {
-                            Get.to(AnswersOfQuestionsScreen(
-                              model:profileModel.questionModels,
-                              isProfileViewOnly: true,
-                              nutCubit: null,
-                              clientDocId: '',
-                              requestDocId: '',
-                            ));
-                          }
-
                       },
                       icon: const Icon(
                         Icons.info,
@@ -88,7 +89,10 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ProfileUpperBlock(profileModel: profileModel),
+                    isMyProfileScreen
+                        ? ProfileUpperBlock(
+                            profileModel: profCubit.profileModel!)
+                        : ProfileUpperBlock(profileModel: profileModel),
                     SizedBox(
                       height: AppVerticalSize.s65,
                     ),
@@ -119,9 +123,15 @@ class ProfileScreen extends StatelessWidget {
                     left: AppHorizontalSize.s22,
                     right: AppHorizontalSize.s22,
                     child: ProfileTrainingInformationBlock(
-                      age: profileModel.age,
-                      weight: profileModel.weight,
-                      height: profileModel.height,
+                      age: isMyProfileScreen
+                          ? profCubit.profileModel!.age
+                          : profileModel.age,
+                      weight: isMyProfileScreen
+                          ? profCubit.profileModel!.weight
+                          : profileModel.weight,
+                      height: isMyProfileScreen
+                          ? profCubit.profileModel!.height
+                          : profileModel.height,
                     ))
               ],
             ),

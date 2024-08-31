@@ -14,6 +14,7 @@ import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:portable_gym/resourses/models/ask_trainer_models/message_model.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:portable_gym/resourses/services/firebase_notification_service/notification_service.dart';
 import 'package:portable_gym/screens/app_bar_screens/profile_screen.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
@@ -173,7 +174,7 @@ class ChatScreen extends StatelessWidget {
         isDocId1: contactModel.docId1 != profCubit.userDocId,
         notifier: (message) {
           NotificationCubit.get(context).sendNotification(
-              senderName: profCubit.profileModel!.nickName,
+              title:"you got message from ${profCubit.profileModel!.nickName}",
               message: message,
               receiverDeviceToken: receiverModel.deviceToken);
         });

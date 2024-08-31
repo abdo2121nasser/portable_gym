@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/nutraition_screen.dart';
@@ -11,6 +10,7 @@ import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_sub
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/work_out_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/services/firebase_notification_service/notification_service.dart';
 import '../../screens/navigation_bar_screens/home_screen/home_subscreens/ask_trainer_screens/ask_trainer_screen.dart';
 
 part 'home_state.dart';
@@ -38,7 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
     return lables[index];
   }
 
-  navigateToTopMenuScreens({required int index,required ProfileCubit profCubit}) {
+  navigateToTopMenuScreens({required int index,required ProfileCubit profCubit}) async {
     if(profCubit.profileModel==null) return;
     switch (index)
     {
@@ -53,6 +53,7 @@ class HomeCubit extends Cubit<HomeState> {
         break;
 
       default:
+       await NotificationService.init();
         Get.to( AskTrainerScreen(profCubit: profCubit,));
         break;
 

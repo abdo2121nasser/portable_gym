@@ -22,25 +22,25 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           var homeCubit = HomeCubit.get(context);
           return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const TopMenuBlock(),
-              WeeklyChallangesBlock(
-                lable: 'Plank with hip twist',
-                title: S.of(context).weeklyChallenge,
-              ),
-              SectionTitleBlock(
-                sectionLable: S.of(context).recommendations,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.23,
-                child: Row(
-                  children: [
-                    //HorizontalSquareBlock(),
-                    //todo uncommint it
-                  ],
-                ),
-              ),
+              // WeeklyChallangesBlock(
+              //   lable: 'Plank with hip twist',
+              //   title: S.of(context).weeklyChallenge,
+              // ),
+              // SectionTitleBlock(
+              //   sectionLable: S.of(context).recommendations,
+              // ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.23,
+              //   child: Row(
+              //     children: [
+              //       //HorizontalSquareBlock(),
+              //       //todo uncommint it
+              //     ],
+              //   ),
+              // ),
             ],
           );
         },

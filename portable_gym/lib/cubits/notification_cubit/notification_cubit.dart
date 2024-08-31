@@ -12,11 +12,11 @@ class NotificationCubit extends Cubit<NotificationState> {
 
 
   Future<void> sendNotification(
-      {required String senderName, required String receiverDeviceToken,required String message}) async {
+      {required String title, required String receiverDeviceToken,required String message}) async {
     try {
 
       await NotificationService.sendNotification(
-         title: "you got message from $senderName",
+         title: title,
           body: message,
           receiverDeviceToken: receiverDeviceToken);
     } catch (error) {

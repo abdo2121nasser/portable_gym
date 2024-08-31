@@ -17,16 +17,21 @@ class TopMenuElementBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-    Expanded(child: Image.asset(image,color: ColorManager.kLightPurpleColor,)),
-         SizedBox(height: AppVerticalSize.s5,),
-         Text(
-          lable,
-          style: getLightStyle(
-              fontSize: FontSize.s12,
-              color: ColorManager.kLightPurpleColor,
-              fontFamily: FontFamily.kLeagueSpartanFont),
+    Expanded(
+        child: Image.asset(image,color: ColorManager.kLightPurpleColor,fit: BoxFit.fill,)),
+         SizedBox(height: AppVerticalSize.s12,),
+         Expanded(
+           child: Text(
+            lable,
+            style: getLightStyle(
+                fontSize: FontSize.s22,
+                color: ColorManager.kLightPurpleColor,
+                fontFamily: FontFamily.kLeagueSpartanFont),
+             textAlign: TextAlign.center,
         ),
+         ),
 
       ],
     );

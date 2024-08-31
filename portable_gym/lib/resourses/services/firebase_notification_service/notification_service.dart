@@ -5,7 +5,7 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'package:portable_gym/resourses/managers_files/secret_api_key_manager.dart';
 
 class NotificationService {
-  static late final AutoRefreshingAuthClient _authClient;
+  static late  AutoRefreshingAuthClient _authClient;
 
   static final List<String> _scopes = [
     'https://www.googleapis.com/auth/firebase.messaging'
@@ -14,6 +14,7 @@ class NotificationService {
       'https://fcm.googleapis.com/v1/projects/portable-gym-a5cee/messages:send');
 
   static init() async {
+
     final Map<String, dynamic> serviceAccount =
         SecretApiKeyManager.serviceAccountJson;
 
@@ -27,7 +28,6 @@ class NotificationService {
       required String title,
      required String body
       }) async {
-
 
     final Map<String, dynamic> message = {
       'message': {
@@ -45,5 +45,9 @@ class NotificationService {
       },
       body: jsonEncode(message),
     );
+  }
+
+static  close(){
+    _authClient.close();
   }
 }

@@ -10,6 +10,7 @@ import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/a
 import '../../../managers_files/color_manager.dart';
 import '../../../models/ask_trainer_models/contact_message_model.dart';
 import '../../../models/profile_models/profile_model.dart';
+import '../../../services/firebase_notification_service/notification_service.dart';
 import '../../general_blocks/option_list_block.dart';
 
 class ContactStreamBuilderBlock extends StatelessWidget {
@@ -40,7 +41,7 @@ class ContactStreamBuilderBlock extends StatelessWidget {
                 lables: getUsersLableList(profileModels: profiles),
                 subValues: getUnreadMessagesNumberList(
                     profileModels: profiles, myDocId: profCubit.userDocId),
-                icons: [],
+                icons: const [],
                 images: getAllImagesList(profileModels: profiles),
                 onClickFunction: (index, context) async {
                   ContactMessageModel? model =
@@ -72,7 +73,6 @@ class ContactStreamBuilderBlock extends StatelessWidget {
                     await askCubit.setContactInformation(
                         model: profiles[index].contactMessageModel!);
                   }
-
                   // Navigate to the chat screen
                   Get.to(ChatScreen(
                     contactModel: profiles[index].contactMessageModel!,

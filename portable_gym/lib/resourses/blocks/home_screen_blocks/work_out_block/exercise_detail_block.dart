@@ -33,7 +33,7 @@ class ExerciseDetailBlock extends StatelessWidget {
             child: Text(
               languageModel.name.toString(),
               style: getMediumStyle(
-                  fontSize: FontSize.s20,
+                  fontSize: FontSize.s18,
                   color: ColorManager.kBlackColor,
                   fontFamily: FontFamily.kPoppinsFont),
               textAlign: TextAlign.center,

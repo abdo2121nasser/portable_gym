@@ -27,7 +27,6 @@ class WorkOutLogBodyBlock extends StatelessWidget {
         var progCubit = ProgressTrackingCubit.get(context);
         var profCubit = ProfileCubit.get(context);
         return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FullPersonalInformationBlock(profileModel: profCubit.profileModel!),
             Padding(

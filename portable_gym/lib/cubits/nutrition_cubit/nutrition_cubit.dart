@@ -784,7 +784,6 @@ class NutritionCubit extends Cubit<NutritionState> {
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(clientDocId);
-
     await data.update(getMealPlanMap()).then((value) {
       emit(CreateMealPlanSuccessState());
       deleteRequest(requestDocId: requestDocId);

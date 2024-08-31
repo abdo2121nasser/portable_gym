@@ -16,45 +16,75 @@ class TopMenuBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var homeCubit=HomeCubit.get(context);
-    return  SizedBox(
-      height: MediaQuery.of(context).size.height*0.13,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ListView.separated(
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(
-                    vertical: AppVerticalSize.s12,
-                    horizontal: AppHorizontalSize.s22),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    InkWell(
-                      onTap: (){
-                        homeCubit.navigateToTopMenuScreens(index: index,profCubit: ProfileCubit.get(context));
-                      },
-                      child: TopMenuElementBlock(
-                        lable: homeCubit.getTopMenuLables(
-                            context: context, index: index),
-                        image:
-                        homeCubit.getTopMenuImages(index: index),
-                      ),
-                    ),
-                separatorBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width*0.045),
-                  child: VerticalDivider(
-                    color: ColorManager.kLightPurpleColor,
-                    thickness: AppHorizontalSize.s1_5,
-                    endIndent: AppVerticalSize.s12,
-                    indent: AppVerticalSize.s12,
-                  ),
-                ),
-                itemCount: 4),
-          ),
-          // Spacer(flex: 1,)
-        ],
-      ),
-    );
+    return  GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+        padding: EdgeInsets.symmetric(
+            vertical: AppVerticalSize.s12,
+            horizontal: AppHorizontalSize.s22),
+        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            // mainAxisExtent: 140,
+            crossAxisSpacing: MediaQuery.of(context).size.width*0.1,
+            childAspectRatio: (0.3 / 0.3),
+            mainAxisSpacing: MediaQuery.of(context).size.height*0.1),
+        itemBuilder: (context, index) =>
+            InkWell(
+              onTap: (){
+                homeCubit.navigateToTopMenuScreens(index: index,profCubit: ProfileCubit.get(context));
+              },
+              child: TopMenuElementBlock(
+                lable: homeCubit.getTopMenuLables(
+                    context: context, index: index),
+                image:
+                homeCubit.getTopMenuImages(index: index),
+              ),
+            ),
+        itemCount: 4) ;
   }
 }
+
+// SizedBox(
+// height: MediaQuery.of(context).size.height*0.13,
+// child: Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Expanded(
+// child: GridView.builder(
+// padding: EdgeInsets.symmetric(
+// vertical: AppVerticalSize.s12,
+// horizontal: AppHorizontalSize.s22),
+// gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+// crossAxisCount: 2,
+// // mainAxisExtent: 140,
+// crossAxisSpacing: 0,
+// childAspectRatio: (1.0 / 0.3),
+// mainAxisSpacing: 15),
+// itemBuilder: (context, index) =>
+// InkWell(
+// onTap: (){
+// homeCubit.navigateToTopMenuScreens(index: index,profCubit: ProfileCubit.get(context));
+// },
+// child: TopMenuElementBlock(
+// lable: homeCubit.getTopMenuLables(
+// context: context, index: index),
+// image:
+// homeCubit.getTopMenuImages(index: index),
+// ),
+// ),
+// // separatorBuilder: (context, index) => Padding(
+// //   padding: EdgeInsets.symmetric(
+// //       horizontal: MediaQuery.of(context).size.width*0.045),
+// //   child: VerticalDivider(
+// //     color: ColorManager.kLightPurpleColor,
+// //     thickness: AppHorizontalSize.s1_5,
+// //     endIndent: AppVerticalSize.s12,
+// //     indent: AppVerticalSize.s12,
+// //   ),
+// // ),
+// itemCount: 4),
+// ),
+// // Spacer(flex: 1,)
+// ],
+// ),
+// )
