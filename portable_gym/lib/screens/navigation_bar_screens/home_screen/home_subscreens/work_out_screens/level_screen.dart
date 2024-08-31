@@ -88,7 +88,7 @@ class LevelScreen extends StatelessWidget {
                         ),
                 ],
               ),
-              floatingActionButton:(profileModel.isPremium || profileModel.isClient==false)?
+              floatingActionButton:(profileModel.isClient==false)?
               FloatingActionButtonBlock(
                 function: () {
                   showAlertTrainingBox(

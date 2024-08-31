@@ -60,7 +60,7 @@ class ListBodyPartBlock extends StatelessWidget {
                       workCubit: WorkOutCubit.get(context),
                     ));
                   },
-                  onLongPress:(profileModel.isPremium || profileModel.isClient==false)?
+                  onLongPress:(profileModel.isClient==false)?
                       () {
                     workCubit.clearBodyCategoryAttributes();
                     workCubit.setBodyCategoryAttributes(

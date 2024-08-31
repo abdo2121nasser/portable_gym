@@ -18,13 +18,12 @@ class ListTrainingItemsBlock extends StatelessWidget {
   final bool isDailyCategory;
   final ProfileModel profileModel;
 
-  const ListTrainingItemsBlock({
-    super.key,
-    required this.trainingModels,
-    required this.bodyCategory,
-    required this.isDailyCategory,
-    required this.profileModel
-  });
+  const ListTrainingItemsBlock(
+      {super.key,
+      required this.trainingModels,
+      required this.bodyCategory,
+      required this.isDailyCategory,
+      required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
@@ -47,101 +46,112 @@ class ListTrainingItemsBlock extends StatelessWidget {
             var workCubit = WorkOutCubit.get(context);
             var favCubit = FavouriteCubit.get(context);
 
-            return
-            Expanded(
-              child: state is AddFavouriteTrainingLoadingState || state is DeleteFavouriteTrainingLoadingState?  const Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(
-                  color: ColorManager.kPurpleColor,
-                ),
-              ):
-              ListView.separated(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppHorizontalSize.s20,
-                  vertical: AppVerticalSize.s10,
-                ),
-                itemBuilder: (context, index) {
-                  return
-                  FutureBuilder<bool>(
-                    future: favCubit.isTrainingIsFavourite(
-                      trainingDocId: trainingModels[index].docId!,
-                    ),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const SizedBox();
-                      }  else {
-                        return InkWell(
-                          onTap: () {
-                            if(trainingModels[index].isPaid! && (profileModel.isPremium || profileModel.isClient==false)) {
-                              Get.to(ExerciseScreen(
-                              trainingModel: trainingModels[index],
-                            ));
-                            }
-                            else if(!trainingModels[index].isPaid! ){
-                              Get.to(ExerciseScreen(
-                                trainingModel: trainingModels[index],
-                              ));
-                            }
-                          },
-                          onLongPress:(profileModel.isPremium || profileModel.isClient==false)? () {
-                            workCubit.clearTrainingAttributes();
-                            workCubit.setTrainingAttributes(
-                              model: trainingModels[index],
-                            );
+            return Expanded(
+              child: state is AddFavouriteTrainingLoadingState ||
+                      state is DeleteFavouriteTrainingLoadingState
+                  ? const Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        color: ColorManager.kPurpleColor,
+                      ),
+                    )
+                  : ListView.separated(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppHorizontalSize.s20,
+                        vertical: AppVerticalSize.s10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return FutureBuilder<bool>(
+                          future: favCubit.isTrainingIsFavourite(
+                            trainingDocId: trainingModels[index].docId!,
+                          ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const SizedBox();
+                            } else {
+                              return InkWell(
+                                onTap: () {
+                                  if (trainingModels[index].isPaid! &&
+                                      (profileModel.isPremium ||
+                                          profileModel.isClient == false)) {
+                                    Get.to(ExerciseScreen(
+                                      trainingModel: trainingModels[index],
+                                    ));
+                                  } else if (!trainingModels[index].isPaid!) {
+                                    Get.to(ExerciseScreen(
+                                      trainingModel: trainingModels[index],
+                                    ));
+                                  }
+                                },
+                                onLongPress: (
+                                        profileModel.isClient == false)
+                                    ? () {
+                                        workCubit.clearTrainingAttributes();
+                                        workCubit.setTrainingAttributes(
+                                          model: trainingModels[index],
+                                        );
 
-                            showAlertTrainingBox(
-                              context: context,
-                              workOutCubit: workCubit,
-                              title: S.of(context).editTraining,
-                              buttonLable: S.of(context).uploadTraining,
-                              tabBar: trainingTabBar,
-                              tabBarView: workCubit.getTrainingTabBarView(
-                                workOutCubit: workCubit,
-                              ),
-                              trainingPeriod: workCubit.trainingPeriod,
-                              buttonFunction: () {
-                                workCubit.editTraining(
-                                  docId: trainingModels[index].docId!,
-                                  bodyCategory: bodyCategory,
-                                  isDailyCategory: isDailyCategory
-                                );
-                              },
-                            );
-                          }
-                          :null,
-                          child: RoundItemBlock(
-                            profileModel: profileModel,
-                            trainingModel: trainingModels[index],
-                            isDailyTraining: isDailyCategory,
-                            deleteFunction: () {
-                              workCubit.deleteTraining(
-                                docId: trainingModels[index].docId!,
-                                bodyCategory: bodyCategory,
-                                isDailyTraining: isDailyCategory
-                              );
-                            },
-                            addToFavouriteFunction: () async {
-                              favCubit.addFavouritTraining(
-                                trainingModel: await workCubit.getTrainingUsingDocId(
-                                  trainingDocId: trainingModels[index].docId!,
+                                        showAlertTrainingBox(
+                                          context: context,
+                                          workOutCubit: workCubit,
+                                          title: S.of(context).editTraining,
+                                          buttonLable:
+                                              S.of(context).uploadTraining,
+                                          tabBar: trainingTabBar,
+                                          tabBarView:
+                                              workCubit.getTrainingTabBarView(
+                                            workOutCubit: workCubit,
+                                          ),
+                                          trainingPeriod:
+                                              workCubit.trainingPeriod,
+                                          buttonFunction: () {
+                                            workCubit.editTraining(
+                                                docId: trainingModels[index]
+                                                    .docId!,
+                                                bodyCategory: bodyCategory,
+                                                isDailyCategory:
+                                                    isDailyCategory);
+                                          },
+                                        );
+                                      }
+                                    : null,
+                                child: RoundItemBlock(
+                                  profileModel: profileModel,
+                                  trainingModel: trainingModels[index],
+                                  isDailyTraining: isDailyCategory,
+                                  deleteFunction: () {
+                                    workCubit.deleteTraining(
+                                        docId: trainingModels[index].docId!,
+                                        bodyCategory: bodyCategory,
+                                        isDailyTraining: isDailyCategory);
+                                  },
+                                  addToFavouriteFunction: () async {
+                                    favCubit.addFavouritTraining(
+                                      trainingModel:
+                                          await workCubit.getTrainingUsingDocId(
+                                        trainingDocId:
+                                            trainingModels[index].docId!,
+                                      ),
+                                    );
+                                  },
+                                  deleteFavouriteFunction: () {
+                                    favCubit.deleteFavouriteTrainings(
+                                        trainingDocId:
+                                            trainingModels[index].docId!);
+                                  },
+                                  isTrainingFavourite: snapshot.data!,
                                 ),
                               );
-                            },
-                            deleteFavouriteFunction: (){
-                              favCubit.deleteFavouriteTrainings(trainingDocId: trainingModels[index].docId!);
-                            },
-                            isTrainingFavourite: snapshot.data!,
-                          ),
+                            }
+                          },
                         );
-                      }
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) => SizedBox(
-                  height: AppVerticalSize.s18,
-                ),
-                itemCount: trainingModels.length,
-              ),
+                      },
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: AppVerticalSize.s18,
+                      ),
+                      itemCount: trainingModels.length,
+                    ),
             );
           },
         );

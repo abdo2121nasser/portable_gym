@@ -85,7 +85,7 @@ class WorkOutScreen extends StatelessWidget {
                               workCubit: workCubit,
                             ));
                           },
-                          onLongPress: () {
+                          onLongPress:( profileModel.isClient==false)?  (){
                             workCubit.clearBodyCategoryAttributes();
                             workCubit.setBodyCategoryAttributes(
                                 model: workCubit.dailyDodyCategoryModel!);
@@ -103,7 +103,7 @@ class WorkOutScreen extends StatelessWidget {
                                     isDailyCategory: true);
                               },
                             );
-                          },
+                          }:null,
                           child: DailyActivityBlock(
                             bodyCategoryModel:
                                 workCubit.dailyDodyCategoryModel!,
@@ -160,7 +160,7 @@ class WorkOutScreen extends StatelessWidget {
                       ),
               ],
             ),
-            floatingActionButton: (profileModel.isPremium || profileModel.isClient==false)?
+            floatingActionButton: (profileModel.isClient==false)?
               FloatingActionButtonBlock(
               function: () {
                 workCubit.clearBodyCategoryAttributes();
