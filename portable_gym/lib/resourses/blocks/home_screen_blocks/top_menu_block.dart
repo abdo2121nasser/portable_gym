@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/top_menu_element_block.dart';
@@ -15,8 +16,13 @@ class TopMenuBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return  BlocConsumer<ProfileCubit, ProfileState>(
+  listener: (context, state) {
+  },
+  builder: (context, state) {
     var homeCubit=HomeCubit.get(context);
-    return  GridView.builder(
+    var profCubit=ProfileCubit.get(context);
+    return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
         padding: EdgeInsets.symmetric(
@@ -31,16 +37,23 @@ class TopMenuBlock extends StatelessWidget {
         itemBuilder: (context, index) =>
             InkWell(
               onTap: (){
-                homeCubit.navigateToTopMenuScreens(index: index,profCubit: ProfileCubit.get(context));
+                  homeCubit.navigateToTopMenuScreens(index: index,profCubit: ProfileCubit.get(context));
+
               },
               child: TopMenuElementBlock(
                 lable: homeCubit.getTopMenuLables(
                     context: context, index: index),
-                image:
-                homeCubit.getTopMenuImages(index: index),
+                image: profCubit.profileModel==null?
+                    ImageManager.kLockImage:
+                (profCubit.profileModel!.isPremium || profCubit.profileModel!.isClient==false) && index>1?
+                    homeCubit.getTopMenuImages(index: index):
+                    index<2?homeCubit.getTopMenuImages(index: index): ImageManager.kLockImage
+
               ),
             ),
-        itemCount: 4) ;
+        itemCount: 4);
+  },
+) ;
   }
 }
 

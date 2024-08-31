@@ -49,12 +49,16 @@ class HomeCubit extends Cubit<HomeState> {
         Get.to(NutritionScreen(profCubit: profCubit,));
         break;
       case 2:
-        Get.to(ProgressTrackingScreen(profCubit: profCubit,));
+        if(profCubit.profileModel!.isPremium || profCubit.profileModel!.isClient==false) {
+          Get.to(ProgressTrackingScreen(profCubit: profCubit,));
+        }
         break;
 
       default:
-       await NotificationService.init();
-        Get.to( AskTrainerScreen(profCubit: profCubit,));
+        if(profCubit.profileModel!.isPremium || profCubit.profileModel!.isClient==false) {
+          await NotificationService.init();
+
+        Get.to( AskTrainerScreen(profCubit: profCubit,));}
         break;
 
 
