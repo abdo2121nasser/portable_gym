@@ -138,11 +138,11 @@ class WorkOutScreen extends StatelessWidget {
                   ),
                 ),
                 state is GetBodyCategoryLoadingState
-                    ? Expanded(
+                    ? const Expanded(
                         child: Align(
                             alignment: Alignment.center,
                             child: CircularProgressIndicator(
-                              color: ColorManager.kBlue,
+                              color: ColorManager.kPurpleColor,
                             )),
                       )
                     : ListBodyPartBlock(
