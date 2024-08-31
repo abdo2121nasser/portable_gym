@@ -6,9 +6,9 @@ abstract class FavouriteState {}
 class FavouriteInitial extends FavouriteState {}
 class ChangeCurrentCategory extends FavouriteState {}
 
-class GetUserDocIdLoadingState extends FavouriteState {}
-class GetUserDocIdSuccessState extends FavouriteState {}
-class GetUserDocIdErrorState extends FavouriteState {}
+class FavouriteGetUserDocIdLoadingState extends FavouriteState {}
+class FavouriteGetUserDocIdSuccessState extends FavouriteState {}
+class FavouriteGetUserDocIdErrorState extends FavouriteState {}
 
 class AddFavouriteTrainingLoadingState extends FavouriteState {}
 class AddFavouriteTrainingSuccessState extends FavouriteState {}

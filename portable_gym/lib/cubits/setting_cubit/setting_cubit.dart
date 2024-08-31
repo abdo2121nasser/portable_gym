@@ -362,9 +362,9 @@ class SettingCubit extends Cubit<SettingState> {
     Get.back();
   }
 
-  createMealPlanRequestProcess({required String nickName, required context}) {
+  createMealPlanRequestProcess({required String nickName, required context}) async {
     if (validateRequests()) {
-      createMealPlanRequest(nickName: nickName, context: context);
+    await  createMealPlanRequest(nickName: nickName, context: context);
     } else {
       getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
     }

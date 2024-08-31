@@ -337,7 +337,7 @@ class AlertDailyRecipeCategoryBox extends StatelessWidget {
               children: <Widget>[
                 tabBar,
                 SizedBox(
-                  height: AppVerticalSize.s360,
+                  height: AppVerticalSize.s394,
                   child: Column(
                     children: [
                       SizedBox(

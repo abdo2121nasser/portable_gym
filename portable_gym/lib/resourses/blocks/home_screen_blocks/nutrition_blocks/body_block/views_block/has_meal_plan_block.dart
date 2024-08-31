@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 
 import '../../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
@@ -46,10 +47,11 @@ class HasMealPlanBlock extends StatelessWidget {
                     nutCubit.changeCurrentMealType(
                         index: 0, isDailyRecipe: true);
                     Get.to(DailyRecipeScreen(
+                      profileModel: ProfileCubit.get(context).profileModel!,
                       nutCubit: nutCubit,
                     ));
                   },
-                  onLongPress: () {
+                  onLongPress:(ProfileCubit.get(context).profileModel!.isClient==false)? () {
                     nutCubit.setDailyRecipeCategoryAttributes();
                     showAlertDailyRecipeCategoryBox(
                         context: context,
@@ -62,7 +64,7 @@ class HasMealPlanBlock extends StatelessWidget {
                         buttonFunction: () {
                           nutCubit.editDailyRecipeCategory();
                         });
-                  },
+                  }:null,
                   child: DailyActivityBlock(
                     title: S.of(context).recipeOfDay,
                     isDailyTraining: false,

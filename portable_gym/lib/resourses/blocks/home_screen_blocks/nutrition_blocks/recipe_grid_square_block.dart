@@ -7,6 +7,7 @@ import 'package:portable_gym/resourses/blocks/general_blocks/square_element%20_b
 import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
 import '../../../../generated/l10n.dart';
@@ -19,10 +20,12 @@ class RecipeGridSquareBlock extends StatelessWidget {
   final Function(String) deleteFunction;
   final TabBarView tabBarView;
   final bool hasFavouriteIcon;
+  final ProfileModel profileModel;
 
 
   const RecipeGridSquareBlock(
       {super.key,
+        required this.profileModel,
       required this.recipeModels,
       this.hasFavouriteIcon = true,
       required this.editFunction,
@@ -80,7 +83,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
                                 Get.to(RecipeDetailsScreen(
                                     recipeModel: recipeModels[index]));
                               },
-                              onLongPress: () {
+                              onLongPress:( profileModel.isClient==false)? () {
                                 setAttributes(recipeModels[index]);
                                 showAlertRecipeBox(
                                     context: context,
@@ -91,7 +94,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
                                     },
                                     title: S.of(context).recipe,
                                     buttonLable: S.of(context).editRecipe);
-                              },
+                              }:null,
                               child: SquareElementBlock(
                                 title: recipeModels[index]
                                     .getLanguageClass(context)
@@ -113,6 +116,8 @@ class RecipeGridSquareBlock extends StatelessWidget {
                                       recipeDocId: recipeModels[index].docId);
                                 },
                                 hasFavouriteIcon: hasFavouriteIcon,
+                                canBeDeleted: !(profileModel.isClient==false),
+
                               ));
                         }
                       }),
@@ -135,7 +140,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
             Get.to(RecipeDetailsScreen(
                 recipeModel: recipeModels[index]));
           },
-          onLongPress: () {
+          onLongPress:( profileModel.isClient==false)? () {
             setAttributes(recipeModels[index]);
             showAlertRecipeBox(
                 context: context,
@@ -146,7 +151,7 @@ class RecipeGridSquareBlock extends StatelessWidget {
                 },
                 title: S.of(context).recipe,
                 buttonLable: S.of(context).editRecipe);
-          },
+          }:null,
           child: SquareElementBlock(
             title: recipeModels[index]
                 .getLanguageClass(context)

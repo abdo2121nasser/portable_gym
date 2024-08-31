@@ -28,14 +28,14 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   List<FavouriteTrainingModel> favouriteTrainingModels = [];
   List<FavouriteRecipeModel> favouriteRecipeModels = [];
   getUserDocId() async {
-    emit(GetUserDocIdLoadingState());
+    emit(FavouriteGetUserDocIdLoadingState());
     await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
       userDocId = value!;
-      emit(GetUserDocIdSuccessState());
+      emit(FavouriteGetUserDocIdSuccessState());
     }).catchError((error) {
-      emit(GetUserDocIdErrorState());
+      emit(FavouriteGetUserDocIdErrorState());
       debugPrint(error);
     });
   }

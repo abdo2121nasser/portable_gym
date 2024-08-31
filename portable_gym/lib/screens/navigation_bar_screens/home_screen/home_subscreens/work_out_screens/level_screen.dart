@@ -6,6 +6,7 @@ import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_blo
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../cubits/profile_cubit/profile_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/floating_action_button_block.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/work_out_block/list_training_items_block.dart';

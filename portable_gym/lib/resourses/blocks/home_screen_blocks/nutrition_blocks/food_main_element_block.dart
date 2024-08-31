@@ -11,9 +11,9 @@ import '../../../managers_files/style_manager.dart';
 class FoodMainElementBlock extends StatelessWidget {
   final String title;
   final String content;
-  final VoidCallback deleteFunction;
+  final VoidCallback? deleteFunction;
 
-  FoodMainElementBlock({required this.title, required this.content,required this.deleteFunction});
+  const FoodMainElementBlock({super.key, required this.title, required this.content,required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,7 @@ class FoodMainElementBlock extends StatelessWidget {
             ],
           ),
         ),
+deleteFunction!=null?
 Align(
     alignment: Alignment.topRight,
     child: Padding(
@@ -49,7 +50,7 @@ Align(
       child: InkWell(
           onTap: deleteFunction,
           child: Icon(Icons.delete,color: ColorManager.kRed,)),
-    ))
+    )):const SizedBox()
       ],
     );
   }

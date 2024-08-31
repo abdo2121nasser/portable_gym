@@ -491,14 +491,15 @@ class NutritionCubit extends Cubit<NutritionState> {
         .doc(StringManager.dailyRecipeStaticDocId);
     data.update(getDailyRecipeCategoryMap()).then((value) {
       emit(EditDailyRecipeCardLoadingState());
-      getDailyRecipeCategory();
+      getDailyRecipeCategory(hasAccess: true);
     }).catchError((error) {
       emit(EditDailyRecipeCardLoadingState());
     });
     Get.back();
   }
 
-  getDailyRecipeCategory() async {
+  getDailyRecipeCategory({required bool hasAccess}) async {
+    if(!hasAccess) return;
     emit(GetDailyRecipeCardLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionDailyRecipe)

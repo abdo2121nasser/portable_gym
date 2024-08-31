@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/floating_action_button_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
@@ -18,10 +19,12 @@ import '../../../../../resourses/managers_files/color_manager.dart';
 import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/models/nutrition_models/recipe_model.dart';
+import '../../../../../resourses/models/profile_models/profile_model.dart';
 
 class DailyRecipeScreen extends StatelessWidget {
   NutritionCubit nutCubit;
-   DailyRecipeScreen({super.key,required this.nutCubit});
+  final ProfileModel profileModel;
+   DailyRecipeScreen({super.key,required this.nutCubit,required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class DailyRecipeScreen extends StatelessWidget {
                     :
                 Expanded(
                   child: RecipeGridSquareBlock(
+                    profileModel: profileModel,
                     recipeModels: nutCubit.recipeModels,
                     editFunction: (docId) {
                       nutCubit.editRecipe(docId: docId,isDailyRecipe: true);
@@ -91,7 +95,8 @@ class DailyRecipeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            floatingActionButton:FloatingActionButtonBlock(
+            floatingActionButton: (profileModel.isClient==false)?
+            FloatingActionButtonBlock(
                 function: (){
                   showAlertRecipeBox(
                       context: context,
@@ -103,7 +108,7 @@ class DailyRecipeScreen extends StatelessWidget {
                       title: S.of(context).recipe,
                       buttonLable:  S.of(context).addRecipe);
                 }
-            )
+            ):null
           );
         },
       ),
