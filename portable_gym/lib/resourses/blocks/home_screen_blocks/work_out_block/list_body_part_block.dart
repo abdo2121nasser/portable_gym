@@ -52,6 +52,7 @@ class ListBodyPartBlock extends StatelessWidget {
               itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     Get.to(LevelScreen(
+                      profileModel: profileModel,
                       bodyCategory: bodyCategoryModel[index].english!.title!,
                       title: bodyCategoryModel[index]
                           .getLanguageClass(context)
@@ -59,7 +60,8 @@ class ListBodyPartBlock extends StatelessWidget {
                       workCubit: WorkOutCubit.get(context),
                     ));
                   },
-                  onLongPress: () {
+                  onLongPress:(profileModel.isPremium || profileModel.isClient==false)?
+                      () {
                     workCubit.clearBodyCategoryAttributes();
                     workCubit.setBodyCategoryAttributes(
                         model: bodyCategoryModel[index]);
@@ -76,7 +78,8 @@ class ListBodyPartBlock extends StatelessWidget {
                             docId: bodyCategoryModel[index].docId!);
                       },
                     );
-                  },
+                  }
+                  :null,
                   child: BodyPartItemBlock(
                     bodyCategoryModel: bodyCategoryModel[index],
                     profileModel: profileModel,

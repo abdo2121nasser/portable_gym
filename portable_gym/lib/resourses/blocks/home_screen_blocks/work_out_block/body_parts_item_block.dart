@@ -148,6 +148,7 @@ class BodyPartItemBlock extends StatelessWidget {
                        ),
                      ),
                    ):
+                 (profileModel.isPremium || profileModel.isClient==false)?
                    Padding(
                      padding: EdgeInsets.symmetric(
                          horizontal: AppHorizontalSize.s10,
@@ -170,7 +171,7 @@ class BodyPartItemBlock extends StatelessWidget {
                          color:isSelected?ColorManager.kLimeGreenColor: ColorManager.kWhiteColor,
                        ),
                      ),
-                   ),
+                   ):const SizedBox(),
                  ],
                )
               ],

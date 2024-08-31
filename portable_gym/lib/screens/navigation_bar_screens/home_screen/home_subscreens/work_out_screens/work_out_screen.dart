@@ -41,7 +41,7 @@ class WorkOutScreen extends StatelessWidget {
   child: BlocProvider(
       create: (context) => WorkOutCubit()
         ..getBodyCategories()
-        ..getDailyBodyCategoryCard(),
+        ..getDailyBodyCategoryCard(hasAccess: (profileModel.isPremium || profileModel.isClient==false) ),
       child: BlocConsumer<WorkOutCubit, WorkOutState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -62,6 +62,7 @@ class WorkOutScreen extends StatelessWidget {
                     workCubit.changeCurrentLevel(newLevel: index);
                   },
                 ),
+                (profileModel.isPremium || profileModel.isClient==false)?
                 workCubit.dailyDodyCategoryModel == null
                     ? Expanded(
                         child: Align(
@@ -76,6 +77,7 @@ class WorkOutScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             Get.to(LevelScreen(
+                              profileModel: profileModel,
                               bodyCategory: '',
                               title:workCubit.dailyDodyCategoryModel!.getLanguageClass(context).title!,
                               downloadLink:workCubit.dailyDodyCategoryModel!.downloadFileLink,
@@ -108,7 +110,8 @@ class WorkOutScreen extends StatelessWidget {
                             title: S.of(context).trainingOfDay,
                           ),
                         ),
-                      ),
+                      )
+                :SizedBox(height: AppVerticalSize.s14),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
@@ -157,7 +160,8 @@ class WorkOutScreen extends StatelessWidget {
                       ),
               ],
             ),
-            floatingActionButton: FloatingActionButtonBlock(
+            floatingActionButton: (profileModel.isPremium || profileModel.isClient==false)?
+              FloatingActionButtonBlock(
               function: () {
                 workCubit.clearBodyCategoryAttributes();
 
@@ -170,7 +174,7 @@ class WorkOutScreen extends StatelessWidget {
                     tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit),
                     buttonFunction: workCubit.processOfAddingBodyCategory);
               },
-            ),
+            ):null,
           );
         },
       ),

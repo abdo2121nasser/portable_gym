@@ -3,6 +3,7 @@ import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/image_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
 
 import '../../../../generated/l10n.dart';
@@ -17,6 +18,7 @@ class RoundItemBlock extends StatelessWidget {
   final VoidCallback deleteFavouriteFunction;
   final bool isTrainingFavourite;
   final bool isDailyTraining;
+  final ProfileModel profileModel;
 
   const RoundItemBlock(
       {super.key,
@@ -25,7 +27,9 @@ class RoundItemBlock extends StatelessWidget {
       required this.addToFavouriteFunction,
       required this.deleteFavouriteFunction,
       required this.isTrainingFavourite,
-      required this.isDailyTraining});
+      required this.isDailyTraining,
+      required this.profileModel
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -124,13 +128,14 @@ class RoundItemBlock extends StatelessWidget {
                         color: ColorManager.kPurpleColor,
                       )),
                 )
-              : SizedBox(),
+              : const SizedBox(),
+       profileModel.isClient==false?
           InkWell(
               onTap: deleteFunction,
               child: Icon(
                 Icons.delete,
                 color: ColorManager.kRed,
-              )),
+              )):const SizedBox(),
         ],
       ),
     );

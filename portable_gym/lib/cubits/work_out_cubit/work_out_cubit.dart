@@ -669,7 +669,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the category has been edited',
       );
       if (isDailyCategory) {
-        getDailyBodyCategoryCard();
+        getDailyBodyCategoryCard(hasAccess: true);
       } else {
         getBodyCategories();
       }
@@ -739,7 +739,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     });
   }
 
-  getDailyBodyCategoryCard() async {
+  getDailyBodyCategoryCard({required bool hasAccess}) async {
+    if(hasAccess==false) return;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionDailyBodyCategory)
         .where(StringManager.dailyBodyCategoryCardInformation, isEqualTo: true);

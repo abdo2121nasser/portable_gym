@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/round_item_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import '../../../../cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
@@ -15,12 +16,14 @@ class ListTrainingItemsBlock extends StatelessWidget {
   final List<TrainingModel> trainingModels;
   final String bodyCategory;
   final bool isDailyCategory;
+  final ProfileModel profileModel;
 
   const ListTrainingItemsBlock({
     super.key,
     required this.trainingModels,
     required this.bodyCategory,
-    required this.isDailyCategory
+    required this.isDailyCategory,
+    required this.profileModel
   });
 
   @override
@@ -69,11 +72,18 @@ class ListTrainingItemsBlock extends StatelessWidget {
                       }  else {
                         return InkWell(
                           onTap: () {
-                            Get.to(ExerciseScreen(
+                            if(trainingModels[index].isPaid! && (profileModel.isPremium || profileModel.isClient==false)) {
+                              Get.to(ExerciseScreen(
                               trainingModel: trainingModels[index],
                             ));
+                            }
+                            else if(!trainingModels[index].isPaid! ){
+                              Get.to(ExerciseScreen(
+                                trainingModel: trainingModels[index],
+                              ));
+                            }
                           },
-                          onLongPress: () {
+                          onLongPress:(profileModel.isPremium || profileModel.isClient==false)? () {
                             workCubit.clearTrainingAttributes();
                             workCubit.setTrainingAttributes(
                               model: trainingModels[index],
@@ -97,8 +107,10 @@ class ListTrainingItemsBlock extends StatelessWidget {
                                 );
                               },
                             );
-                          },
+                          }
+                          :null,
                           child: RoundItemBlock(
+                            profileModel: profileModel,
                             trainingModel: trainingModels[index],
                             isDailyTraining: isDailyCategory,
                             deleteFunction: () {

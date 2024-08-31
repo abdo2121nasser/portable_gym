@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../generated/l10n.dart';
@@ -17,10 +18,11 @@ class LevelScreen extends StatelessWidget {
   final bool isDailyCategory;
   final WorkOutCubit workCubit;
   final String title;
-
+   final ProfileModel profileModel;
   const LevelScreen(
       {super.key,
       required this.bodyCategory,
+        required this.profileModel,
       this.downloadLink,
       required this.workCubit,
       required this.title,
@@ -46,7 +48,6 @@ class LevelScreen extends StatelessWidget {
         child: BlocConsumer<WorkOutCubit, WorkOutState>(
           listener: (context, state) {},
           builder: (context, state) {
-            // var workCubit=WorkOutCubit.get(context);
             return Scaffold(
               resizeToAvoidBottomInset: false,
               appBar: GeneralAppBarBlock(
@@ -80,13 +81,15 @@ class LevelScreen extends StatelessWidget {
                               )),
                         )
                       : ListTrainingItemsBlock(
+                    profileModel: profileModel,
                           trainingModels: workCubit.trainingModels,
                           bodyCategory: bodyCategory,
                           isDailyCategory: isDailyCategory,
                         ),
                 ],
               ),
-              floatingActionButton: FloatingActionButtonBlock(
+              floatingActionButton:(profileModel.isPremium || profileModel.isClient==false)?
+              FloatingActionButtonBlock(
                 function: () {
                   showAlertTrainingBox(
                       context: context,
@@ -103,10 +106,8 @@ class LevelScreen extends StatelessWidget {
                             isDailyCategory: isDailyCategory);
                       });
                   workCubit.clearTrainingAttributes();
-                  // await pickImage();
-                  //await google.uploadFileToGoogleDrive(imageFile!);
                 },
-              ),
+              ):null,
             );
           },
         ),
