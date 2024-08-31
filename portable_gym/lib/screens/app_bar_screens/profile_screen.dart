@@ -63,8 +63,8 @@ class ProfileScreen extends StatelessWidget {
                             collection: StringManager.collectionUserProfiles,
                             profileModel: profileModel,
                             updateProfileQuestionsAnswersFunction:
-                                (Map<String, dynamic> questionsMap) {
-                              profCubit.editUserQuestionAnswers(
+                                (Map<String, dynamic> questionsMap) async {
+                            await  profCubit.editUserQuestionAnswers(
                                   questionsMap: questionsMap);
                             },
                           ));

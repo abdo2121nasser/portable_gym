@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
-import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
+import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
-
-import '../../../../../cubits/set_up_cubit/set_up_cubit.dart';
-import '../../../../../cubits/set_up_cubit/set_up_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../../../../resourses/blocks/general_blocks/general_button_block.dart';
@@ -16,7 +12,6 @@ import '../../../../../resourses/managers_files/font_manager.dart';
 import '../../../../../resourses/managers_files/string_manager.dart';
 import '../../../../../resourses/managers_files/style_manager.dart';
 import '../../../../../resourses/managers_files/toast_massage_manager.dart';
-import '../../../../../resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import '../../../../../resourses/models/setting_models/question_model.dart';
 
 class AnswerQuestionsScreen extends StatelessWidget {
@@ -25,24 +20,21 @@ class AnswerQuestionsScreen extends StatelessWidget {
   final ProfileModel? profileModel;
   final Function(Map<String, dynamic>)? finishProfileSetupFunction;
   final Function(Map<String, dynamic>)? updateProfileQuestionsAnswersFunction;
-  const AnswerQuestionsScreen(
-      {super.key,
-      required this.userNickName,
-      required this.collection,
-      this.profileModel,
-      this.finishProfileSetupFunction,
-      this.updateProfileQuestionsAnswersFunction});
+  const AnswerQuestionsScreen({
+    super.key,
+    required this.userNickName,
+    required this.collection,
+    this.profileModel,
+    this.finishProfileSetupFunction,
+    this.updateProfileQuestionsAnswersFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getCubit(collection: collection),
       child: BlocConsumer<SettingCubit, SettingState>(
-        listener: (context, state) {
-          if(state is UpdateUserQuestionAnswerSuccessState) {
-            SettingCubit.get(context).changeLoadingButton();
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           var settCubit = SettingCubit.get(context);
           return Scaffold(
@@ -58,24 +50,30 @@ class AnswerQuestionsScreen extends StatelessWidget {
                   collection: collection,
                   isClientView: true,
                 ),
-              settCubit.isLoadingButton?
-                     const CircularProgressIndicator(
-                        color: ColorManager.kPurpleColor,
-                      )
+                settCubit.isLoadingButton
+                    ? Padding(
+                      padding:  EdgeInsets.symmetric(vertical: AppVerticalSize.s12),
+                      child: const CircularProgressIndicator(
+                          color: ColorManager.kPurpleColor,
+                        ),
+                    )
                     : GeneralButtonBlock(
-                        lable:StringManager.collectionUserProfiles ==
-                            collection?S.of(context).edit: S.of(context).create,
+                        lable:
+                            StringManager.collectionUserProfiles == collection
+                                ? S.of(context).edit
+                                : S.of(context).create,
                         function: () async {
                           if (collection ==
                               StringManager.collectionQuestionsOfMealPlan) {
-                            settCubit.createMealPlanRequestProcess(
+                            settCubit.changeLoadingButton();
+                            await settCubit.createMealPlanRequestProcess(
                                 nickName: userNickName, context: context);
                             settCubit.changeLoadingButton();
-                          }
-                          else if (StringManager
+                          } else if (StringManager
                                   .collectionQuestionsOfProfile ==
                               collection) {
                             if (settCubit.validateRequests()) {
+                              settCubit.changeLoadingButton();
                               await finishProfileSetupFunction!(
                                   getQuestionsAnswerMap(
                                       questions: settCubit.questionModels));
@@ -87,15 +85,15 @@ class AnswerQuestionsScreen extends StatelessWidget {
                                       .of(context)
                                       .mealPlanRequestsErrorMassage);
                             }
-                          }
-                          else if (StringManager.collectionUserProfiles ==
+                          } else if (StringManager.collectionUserProfiles ==
                               collection) {
-                            updateProfileQuestionsAnswersFunction!(
+                            settCubit.changeLoadingButton();
+                            await updateProfileQuestionsAnswersFunction!(
                                 getQuestionsAnswerMap(
-                                    questions: settCubit.questionModels));
+                                    questions: settCubit.questionModels)
+                            );
                             settCubit.changeLoadingButton();
                           }
-
                         },
                         backgroundColor: ColorManager.kPurpleColor,
                         textStyle: getMediumStyle(

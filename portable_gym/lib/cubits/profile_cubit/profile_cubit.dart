@@ -239,9 +239,9 @@ class ProfileCubit extends Cubit<ProfileState> {
         .collection(StringManager.collectionUserProfiles)
         .doc(profileModel!.docId)
         .update({StringManager.profileQuestionsAnswer: questionsMap}).then(
-            (value) {
+            (value) async {
       emit(UpdateUserQuestionAnswerSuccessState());
-      getUserData();
+     await getUserData();
     }).catchError((error) {
       emit(UpdateUserQuestionAnswerErrorState());
       debugPrint(error);

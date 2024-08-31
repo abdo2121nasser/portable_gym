@@ -13,9 +13,7 @@ import '../../general_blocks/check_box_block.dart';
 import '../../general_blocks/general_button_block.dart';
 
 class QuestionWithChoicesBlock extends StatelessWidget {
-  // final String title;
-  // final String question;
-  // final List<Answer> answers;
+
   final QuestionModel model;
   final String collection;
   final Function(QuestionModel)? addChoiceFunction;
