@@ -6,6 +6,7 @@ abstract class AuthenticationState {}
 class AuthenticationInitial extends AuthenticationState {}
 class ClearLoginControllers extends AuthenticationState {}
 class ClearRegisterControllers extends AuthenticationState {}
+class ChangePasswordVisibility extends AuthenticationState {}
 
 class LoginLoadingState extends AuthenticationState {}
 class LoginSuccessState extends AuthenticationState {}

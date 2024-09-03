@@ -118,7 +118,7 @@ class ChatScreen extends StatelessWidget {
             ? ColorManager.kBlackColor
             : ColorManager.kBlue,
       ),
-      sendMessageFunction: state is UploadFileLoadingState
+      suffixIconFunction: state is UploadFileLoadingState
           ? null
           : () {
               if (askCubit.messageController.text.isNotEmpty ||
@@ -132,7 +132,7 @@ class ChatScreen extends StatelessWidget {
               Icons.attach_file,
               color: ColorManager.kBlackColor,
             ),
-      selectFileFunction: () {
+      prefixIconFunction: () {
         askCubit.pickFile();
       },
     );

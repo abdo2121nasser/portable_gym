@@ -15,8 +15,9 @@ class GeneralTextFormField extends StatelessWidget {
   final String? hint;
   final Icon? suffixIcon;
   final Icon? prefixIcon;
-  final VoidCallback? sendMessageFunction;
-  final VoidCallback? selectFileFunction;
+  final VoidCallback? suffixIconFunction;
+  final VoidCallback? prefixIconFunction;
+ final bool isVisible;
 
   const GeneralTextFormField({
     super.key,
@@ -26,11 +27,12 @@ class GeneralTextFormField extends StatelessWidget {
     this.multiLine = false,
     this.isArabic = false,
     this.readOnly = false,
+    this.isVisible=true,
     this.hint,
     this.suffixIcon,
     this.prefixIcon,
-    this.sendMessageFunction,
-    this.selectFileFunction,
+    this.suffixIconFunction,
+    this.prefixIconFunction,
   });
 
   @override
@@ -42,12 +44,14 @@ class GeneralTextFormField extends StatelessWidget {
       maxLines: multiLine ? 5 : 1, // Set maxLines to 4 if multiline is enabled
       keyboardType: multiLine ? TextInputType.multiline : null,
       textAlign: isArabic ? TextAlign.end : TextAlign.start,
+      obscureText: !isVisible,
       inputFormatters: <TextInputFormatter>[
         if (onlyInteger)
           FilteringTextInputFormatter.allow(
             RegExp(r'^[\u0660-\u0669\u0030-\u0039]*\.?[\u0660-\u0669\u0030-\u0039]*$'),
           ),
       ],
+
       decoration: InputDecoration(
         fillColor: ColorManager.kWhiteColor,
         filled: true,
@@ -77,7 +81,7 @@ class GeneralTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon != null
             ? InkWell(
           onTap: () {
-            sendMessageFunction!();
+            suffixIconFunction!();
           },
           child: suffixIcon,
         )
@@ -85,7 +89,7 @@ class GeneralTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon != null
             ? InkWell(
           onTap: () {
-            selectFileFunction!();
+            prefixIconFunction!();
           },
           child: prefixIcon,
         )

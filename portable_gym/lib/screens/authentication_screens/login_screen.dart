@@ -70,7 +70,6 @@ class LoginScreen extends StatelessWidget {
                         color: ColorManager.kBlackColor,
                         controller: authCubit.loginEmail,
                         isNormalInput: true,
-
                       ),
                       SizedBox(
                         height: AppVerticalSize.s14,
@@ -80,6 +79,14 @@ class LoginScreen extends StatelessWidget {
                         lable: S.of(context).password,
                         color: ColorManager.kBlackColor,
                         controller: authCubit.loginPassword,
+                        suffixIcon: Icon(authCubit.isVisibleLoginPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        suffixIconFunction: () {
+                          authCubit.changePasswordVisibility(
+                              passwordLable: 'login password');
+                        },
+                        isVisible: authCubit.isVisibleLoginPassword,
                         isNormalInput: true,
                       ),
 
@@ -107,7 +114,8 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                state is LoginLoadingState
+                state is LoginLoadingState ||
+                        state is EmailVerificationLoadingState
                     ? const CircularProgressIndicator()
                     : GeneralButtonBlock(
                         lable: S.of(context).login,

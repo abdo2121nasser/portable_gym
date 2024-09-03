@@ -75,6 +75,14 @@ class SignUpScreen extends StatelessWidget {
                       lable: S.of(context).password,
                       color: ColorManager.kBlackColor,
                       controller: authCubit.registerPassword,
+                      suffixIcon: Icon(authCubit.isVisibleRegisterPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      suffixIconFunction: () {
+                        authCubit.changePasswordVisibility(
+                            passwordLable: 'register password');
+                      },
+                      isVisible: authCubit.isVisibleRegisterPassword,
                       isNormalInput: true,
 
                     ),
@@ -85,6 +93,14 @@ class SignUpScreen extends StatelessWidget {
                       lable: S.of(context).confirmPassword,
                       color: ColorManager.kBlackColor,
                       controller: authCubit.registerConfirmPassword,
+                      suffixIcon: Icon(authCubit.isVisibleRegisterConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      suffixIconFunction: () {
+                        authCubit.changePasswordVisibility(
+                            passwordLable: 'register confirm password');
+                      },
+                      isVisible: authCubit.isVisibleRegisterConfirmPassword,
                       isNormalInput: true,
                     ),
                     SizedBox(
@@ -93,7 +109,10 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              state is RegisterLoadingState?const CircularProgressIndicator():
+              state is RegisterLoadingState ||
+        state is EmailVerificationLoadingState
+
+                  ?const CircularProgressIndicator():
               GeneralButtonBlock(
                 lable: S.of(context).signUp,
                 width: AppHorizontalSize.s178,

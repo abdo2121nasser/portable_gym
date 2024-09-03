@@ -1,15 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:portable_gym/screens/set_up_screen.dart';
-
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
 import '../../screens/authentication_screens/login_screen.dart';
@@ -22,12 +19,36 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   static AuthenticationCubit get(context) => BlocProvider.of(context);
   TextEditingController loginEmail = TextEditingController();
   TextEditingController loginPassword = TextEditingController();
-  TextEditingController registerEmail = TextEditingController();
+  bool isVisibleLoginPassword=true;
+
 
   // TextEditingController registerName = TextEditingController();
+  TextEditingController registerEmail = TextEditingController();
   TextEditingController registerPassword = TextEditingController();
   TextEditingController registerConfirmPassword = TextEditingController();
+  bool isVisibleRegisterPassword=true;
+  bool isVisibleRegisterConfirmPassword=true;
   TextEditingController forgetPasswordEmail = TextEditingController();
+  bool isVisibleForgetPassword=true;
+
+
+  changePasswordVisibility({required String passwordLable}){
+     switch(passwordLable){
+       case 'login password':
+         isVisibleLoginPassword=!isVisibleLoginPassword;
+         break;
+             case 'register password':
+               isVisibleRegisterPassword=!isVisibleRegisterPassword;
+         break;
+             case 'register confirm password':
+               isVisibleRegisterConfirmPassword=!isVisibleRegisterConfirmPassword;
+         break;
+             case 'forget password':
+               isVisibleForgetPassword=!isVisibleForgetPassword;
+         break;
+     }
+    emit(ChangePasswordVisibility());
+  }
 
   String emailValidation({required String email, required context}) {
     if (!email.isNotEmpty) {

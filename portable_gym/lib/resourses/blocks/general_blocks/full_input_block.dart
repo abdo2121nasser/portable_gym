@@ -18,7 +18,10 @@ class FullInputBlock extends StatelessWidget {
   final bool multiLine;
   final bool onlyInteger;
   final bool readOnly;
-
+  final bool isVisible;
+  final Icon? suffixIcon;
+  final VoidCallback? suffixIconFunction;
+  final VoidCallback? prefixIconFunction;
   const FullInputBlock({super.key,
     required this.lable,
     required this.color,
@@ -29,6 +32,10 @@ class FullInputBlock extends StatelessWidget {
     this.isNormalInput = false,
     this.multiLine = false,
     this.onlyInteger = false,
+    this.isVisible=true,
+    this.suffixIcon,
+    this.suffixIconFunction,
+    this.prefixIconFunction,
   });
 
   @override
@@ -66,7 +73,11 @@ class FullInputBlock extends StatelessWidget {
           onlyInteger: onlyInteger,
           isArabic: isArabicTabView,
           readOnly: readOnly,
+          isVisible: isVisible,
           multiLine: multiLine,
+          suffixIcon: suffixIcon,
+prefixIconFunction: prefixIconFunction,
+          suffixIconFunction: suffixIconFunction,
         ),
       ],
     );

@@ -64,6 +64,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                         lable: S.of(context).enterYourEmail,
                         color: ColorManager.kBlackColor,
                         controller: authCubit.forgetPasswordEmail,
+                        suffixIcon: Icon(authCubit.isVisibleForgetPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        suffixIconFunction: () {
+                          authCubit.changePasswordVisibility(
+                              passwordLable: 'forget password');
+                        },
+                        isVisible: authCubit.isVisibleForgetPassword,
                         isNormalInput: true,
                       ),
                     ),
