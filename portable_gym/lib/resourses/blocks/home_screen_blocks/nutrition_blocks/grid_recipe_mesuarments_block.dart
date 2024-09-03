@@ -20,7 +20,7 @@ class GridRecipeMeasurementsBlock extends StatelessWidget {
 
     ];
     List<String> lables=[
-      S.of(context).kCal,
+      S.of(context).kCalPerGram,
       S.of(context).protein,
       S.of(context).carbohydrate,
 
@@ -39,7 +39,7 @@ class GridRecipeMeasurementsBlock extends StatelessWidget {
             crossAxisCount: 2,
             // mainAxisExtent: 140,
             crossAxisSpacing: 0,
-            childAspectRatio: (2.5 / 0.3),
+            childAspectRatio: (3.3 / 0.3),
             mainAxisSpacing: 15),
         itemBuilder: (context, index) => RecordedUnitBlock(
             icon: icons[index], mesuaringUnit: lables[index], unitValue: values[index]),

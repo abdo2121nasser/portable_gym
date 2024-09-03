@@ -14,8 +14,8 @@ class RecordedUnitBlock extends StatelessWidget {
   final IconData icon;
   final String mesuaringUnit, unitValue;
 
-  RecordedUnitBlock(
-      {this.iconColor = ColorManager.kPurpleColor,
+  const RecordedUnitBlock(
+      {super.key, this.iconColor = ColorManager.kPurpleColor,
       this.textColor = ColorManager.kWhiteColor,
       required this.icon,
       required this.mesuaringUnit,

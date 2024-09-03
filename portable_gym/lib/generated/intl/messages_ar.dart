@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "howOldAreYou": MessageLookupByLibrary.simpleMessage("ما هو عمرك؟"),
         "intermediate": MessageLookupByLibrary.simpleMessage("متوسط"),
         "kCal": MessageLookupByLibrary.simpleMessage("سعرات"),
+        "kCalPerGram": MessageLookupByLibrary.simpleMessage("سعرات/100 جم"),
         "kg": MessageLookupByLibrary.simpleMessage("KG"),
         "language": MessageLookupByLibrary.simpleMessage("اذهب الي الانجليزي"),
         "lb": MessageLookupByLibrary.simpleMessage("LB"),

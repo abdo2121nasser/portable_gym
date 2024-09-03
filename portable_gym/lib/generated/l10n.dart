@@ -1010,6 +1010,16 @@ class S {
     );
   }
 
+  /// `KCal/100Gm`
+  String get kCalPerGram {
+    return Intl.message(
+      'KCal/100Gm',
+      name: 'kCalPerGram',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `exercises`
   String get exercises {
     return Intl.message(

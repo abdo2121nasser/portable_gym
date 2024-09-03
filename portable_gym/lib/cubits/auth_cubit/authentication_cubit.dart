@@ -115,23 +115,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         .then((value) async {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      bool hasData = await hasProfile(email: loginEmail.text, context: context);
-      if (hasData) {
-        Get.offAll(const MainNavigationBarScreen());
-      } else {
-        if(value.user!.emailVerified==false)
-        {
-          sendEmailVerification(context);
+      if(value.user!.emailVerified==false &&false)
+      //todo delete the and false
+      {
+        await sendEmailVerification(context);
+      }else {
+        bool hasData = await hasProfile(email: loginEmail.text, context: context);
+        if (hasData) {
+          Get.offAll(const MainNavigationBarScreen());
         }
-        else {
-          Get.to(SetUpScreen(
-          email: loginEmail.text,
-        ));
-        }
+        else
+          {
+            Get.to(SetUpScreen(
+              email: loginEmail.text,
+            ));
+          }
       }
+
     }).catchError((error) {
       emit(LoginErrorState());
-      getToastMessage(message: error.toString().substring(36));
+      getToastMessage(message: S.of(context).somethingWentWrong);
 
       debugPrint(error);
     });
