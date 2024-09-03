@@ -52,9 +52,11 @@ class PortableGym extends StatelessWidget {
 
                                  home: FirebaseAuth.instance.currentUser == null
                                      ? const LoginScreen()
-                                     : const MainNavigationBarScreen(),
+                                     :
+                                 FirebaseAuth.instance.currentUser!.emailVerified?
+                                 const MainNavigationBarScreen():const LoginScreen(),
                                   // home: SetUpScreen(email: 'email'),
-                                //  home: LoginScreen(),
+                                 // home: LoginScreen(),
                                );
                              }
                              else{

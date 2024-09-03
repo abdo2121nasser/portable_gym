@@ -119,9 +119,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       if (hasData) {
         Get.offAll(const MainNavigationBarScreen());
       } else {
-        Get.offAll(SetUpScreen(
+        if(value.user!.emailVerified==false)
+        {
+          sendEmailVerification(context);
+        }
+        else {
+          Get.to(SetUpScreen(
           email: loginEmail.text,
         ));
+        }
       }
     }).catchError((error) {
       emit(LoginErrorState());
@@ -176,15 +182,24 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
-  void registerProcess({required context}) {
+  Future<void> registerProcess({required context}) async {
     if (registerValidation(context: context) == true) {
-      register(context: context);
+      await register(context);
+      if (state is RegisterSuccessState) {
+        await sendEmailVerification(context);
+        // Get.to(SetUpScreen(
+        //   email: registerEmail.text,
+        // ));
+        Get.back();
+      }
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
+    clearRegisterControllers();
+
   }
 
-  register({required context}) async {
+  register(context) async {
     emit(RegisterLoadingState());
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
@@ -192,17 +207,25 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       password: registerPassword.text,
     )
         .then((value) async {
-      getToastMessage(message: S.of(context).success);
       emit(RegisterSuccessState());
-      Get.to(SetUpScreen(
-        email: registerEmail.text,
-      ));
     }).catchError((error) {
-      getToastMessage(message: error.toString().substring(36));
+      getToastMessage(message: S.of(context).somethingWentWrong);
       emit(RegisterErrorState());
       debugPrint(error);
     });
-    clearRegisterControllers();
+  }
+
+  sendEmailVerification(context) async {
+    emit(EmailVerificationLoadingState());
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification().then((value) {
+      getToastMessage(message: S.of(context).emailVerificationMessage);
+      emit(EmailVerificationSuccessState());
+    }).catchError((error) {
+      emit(EmailVerificationErrorState());
+      debugPrint(error.toString());
+     getToastMessage(message: S.of(context).somethingWentWrong);
+
+    });
   }
 
 //------------------------------register----------------------------------------
@@ -245,8 +268,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       debugPrint(error);
     });
   }
+
   deleteAllLocalStoredData() async {
-  await  const FlutterSecureStorage().delete(key: StringManager.userDocId);
+    await const FlutterSecureStorage().delete(key: StringManager.userDocId);
   }
 
 //------------------------------logout------------------------------------------

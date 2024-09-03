@@ -9,6 +9,7 @@
   "email": "البريد الاليكتروني",
   "password": "كلمه السر",
   "forgetPassword":"هل نسيت كلمه السر",
+  "emailVerificationMessage":"تم ارسال بريد تحقق الهويه",
   "loginOtherOptions": "او سجل عن طريق",
   "loginSignUpOption": "ليس لديك حساب ؟",
   "signUp": "انشئ حساب",

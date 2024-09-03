@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `sent email verification`
+  String get emailVerificationMessage {
+    return Intl.message(
+      'sent email verification',
+      name: 'emailVerificationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `or sign up with`
   String get loginOtherOptions {
     return Intl.message(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
@@ -124,7 +125,7 @@ class SignUpScreen extends StatelessWidget {
                           fontFamily: FontFamily.kPoppinsFont)),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     child: Text(' ${S.of(context).login} ',
                         style: getLightStyle(

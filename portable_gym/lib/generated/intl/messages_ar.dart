@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الاليكتروني"),
         "emailFieldPatternIsWrong":
             MessageLookupByLibrary.simpleMessage("نمط البريد الاليكتروني خاطئ"),
+        "emailVerificationMessage":
+            MessageLookupByLibrary.simpleMessage("تم ارسال بريد تحقق الهويه"),
         "englishWord": MessageLookupByLibrary.simpleMessage("اجليش"),
         "enterYourEmail":
             MessageLookupByLibrary.simpleMessage("ادخل بريدك الاليكتروني"),

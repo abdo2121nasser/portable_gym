@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailFieldPatternIsWrong": MessageLookupByLibrary.simpleMessage(
             "email field pattern is wrong"),
+        "emailVerificationMessage":
+            MessageLookupByLibrary.simpleMessage("sent email verification"),
         "englishWord": MessageLookupByLibrary.simpleMessage("English"),
         "enterYourEmail":
             MessageLookupByLibrary.simpleMessage("Enter Your Email Address"),

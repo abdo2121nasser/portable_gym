@@ -7,6 +7,7 @@
   "email": "Email",
   "password": "Password",
   "forgetPassword": "Forget Password",
+  "emailVerificationMessage":"sent email verification",
   "loginOtherOptions": "or sign up with",
   "loginSignUpOption": "Don’t have an account? ",
   "signUp": "SignUp",

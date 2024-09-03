@@ -15,6 +15,10 @@ class RegisterLoadingState extends AuthenticationState {}
 class RegisterSuccessState extends AuthenticationState {}
 class RegisterErrorState extends AuthenticationState {}
 
+class EmailVerificationLoadingState extends AuthenticationState {}
+class EmailVerificationSuccessState extends AuthenticationState {}
+class EmailVerificationErrorState extends AuthenticationState {}
+
 class ForgetPasswordLoadingState extends AuthenticationState {}
 class ForgetPasswordSuccessState extends AuthenticationState {}
 class ForgetPasswordErrorState extends AuthenticationState {}
