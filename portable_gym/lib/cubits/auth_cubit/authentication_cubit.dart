@@ -26,10 +26,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   TextEditingController registerEmail = TextEditingController();
   TextEditingController registerPassword = TextEditingController();
   TextEditingController registerConfirmPassword = TextEditingController();
-  bool isVisibleRegisterPassword=true;
-  bool isVisibleRegisterConfirmPassword=true;
+  bool isVisibleRegisterPassword=false;
+  bool isVisibleRegisterConfirmPassword=false;
   TextEditingController forgetPasswordEmail = TextEditingController();
-  bool isVisibleForgetPassword=true;
+  bool isVisibleForgetPassword=false;
 
 
   changePasswordVisibility({required String passwordLable}){
