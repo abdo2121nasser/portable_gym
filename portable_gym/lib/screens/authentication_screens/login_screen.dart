@@ -45,16 +45,16 @@ class LoginScreen extends StatelessWidget {
                         fontSize: FontSize.s20,
                         color: ColorManager.kWhiteColor,
                         fontFamily: FontFamily.kPoppinsFont)),
-                Flexible(
-                  child: Text(
-                    S.of(context).welcomeDescription,
-                    style: getLightStyle(
-                        fontSize: FontSize.s14,
-                        color: ColorManager.kWhiteColor,
-                        fontFamily: FontFamily.kLeagueSpartanFont),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                // Flexible(
+                //   child: Text(
+                //     S.of(context).welcomeDescription,
+                //     style: getLightStyle(
+                //         fontSize: FontSize.s14,
+                //         color: ColorManager.kWhiteColor,
+                //         fontFamily: FontFamily.kLeagueSpartanFont),
+                //     textAlign: TextAlign.center,
+                //   ),
+                // ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: ColorManager.kLightPurpleColor,

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
 import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
+import 'package:portable_gym/screens/splash_screen.dart';
 
 
 import '../generated/l10n.dart';
@@ -50,14 +51,13 @@ class PortableGym extends StatelessWidget {
                                  // home: MainNavigationBarScreen(),
                                  //home: ProfileScreen(),
 
-                                 home: FirebaseAuth.instance.currentUser == null
-                                     ? const LoginScreen()
-                                     :
-                                 FirebaseAuth.instance.currentUser!.emailVerified ||true ?
-                                 //todo delete the or true
-                                 const MainNavigationBarScreen():const LoginScreen(),
-
-
+                                 // home: FirebaseAuth.instance.currentUser == null
+                                //      ? const LoginScreen()
+                                 //     :
+                                 // FirebaseAuth.instance.currentUser!.emailVerified ||true ?
+                                 // const MainNavigationBarScreen():const LoginScreen(),
+                                 //
+                                  home: SplashScreen(),
                                   // home: SetUpScreen(email: 'email'),
                                  // home: LoginScreen(),
                                );

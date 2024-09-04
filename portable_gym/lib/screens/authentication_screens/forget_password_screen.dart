@@ -39,14 +39,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                       fontSize: FontSize.s20,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kPoppinsFont)),
-              Text(
-                S.of(context).welcomeDescription,
-                style: getLightStyle(
-                    fontSize: FontSize.s14,
-                    color: ColorManager.kWhiteColor,
-                    fontFamily: FontFamily.kLeagueSpartanFont),
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   S.of(context).welcomeDescription,
+              //   style: getLightStyle(
+              //       fontSize: FontSize.s14,
+              //       color: ColorManager.kWhiteColor,
+              //       fontFamily: FontFamily.kLeagueSpartanFont),
+              //   textAlign: TextAlign.center,
+              // ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 //   height: AppVerticalSize.s253,

@@ -44,14 +44,14 @@ class SetUpScreen extends StatelessWidget {
                         fontSize: FontSize.s24,
                         color: ColorManager.kWhiteColor,
                         fontFamily: FontFamily.kPoppinsFont)),
-                Text(
-                  S.of(context).welcomeDescription,
-                  style: getLightStyle(
-                      fontSize: FontSize.s14,
-                      color: ColorManager.kWhiteColor,
-                      fontFamily: FontFamily.kLeagueSpartanFont),
-                  textAlign: TextAlign.center,
-                ),
+                // Text(
+                //   S.of(context).welcomeDescription,
+                //   style: getLightStyle(
+                //       fontSize: FontSize.s14,
+                //       color: ColorManager.kWhiteColor,
+                //       fontFamily: FontFamily.kLeagueSpartanFont),
+                //   textAlign: TextAlign.center,
+                // ),
 
                 setCubit.getPageBody(setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
                     state is CreateProfileLoadingState? const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,):
