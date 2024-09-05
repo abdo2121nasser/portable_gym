@@ -965,14 +965,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  pedometer:
-    dependency: "direct main"
-    description:
-      name: pedometer
-      sha256: "11cfba2de961893d79e65b7773b9462bc53979626b49a86972d63b40217969ee"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -1085,30 +1077,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
-  sensors:
-    dependency: "direct main"
-    description:
-      name: sensors
-      sha256: "69c10fe94a63dd7c6f5e6557366e5329a713bf6c45d885d95a56642dd8722e35"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
-  sensors_plus:
-    dependency: "direct main"
-    description:
-      name: sensors_plus
-      sha256: "3ec8b74d73d72a54baa328beb6fa33df80963f3e5491fc6e714b98b935b65dd9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
-  sensors_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: sensors_plus_platform_interface
-      sha256: bc472d6cfd622acb4f020e726433ee31788b038056691ba433fec80e448a094f
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   shared_preferences:
     dependency: transitive
     description:

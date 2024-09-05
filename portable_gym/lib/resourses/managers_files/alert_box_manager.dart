@@ -88,7 +88,7 @@ class AlertTrainingBox extends StatelessWidget {
   final WorkOutCubit workOutCubit;
   final TabBar tabBar;
   final TabBarView tabBarView;
-  final DateTime trainingPeriod;
+ // final DateTime trainingPeriod;
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
@@ -97,7 +97,7 @@ class AlertTrainingBox extends StatelessWidget {
     required this.workOutCubit,
     required this.tabBar,
     required this.tabBarView,
-    required this.trainingPeriod,
+  //  required this.trainingPeriod,
     required this.buttonFunction,
     required this.title,
     required this.buttonLable,
@@ -476,7 +476,7 @@ showAlertTrainingBox({
   required WorkOutCubit workOutCubit,
   required TabBar tabBar,
   required TabBarView tabBarView,
-  required DateTime trainingPeriod,
+  //required DateTime trainingPeriod,
   required VoidCallback buttonFunction,
   required String title,
   required String buttonLable,
@@ -491,7 +491,7 @@ showAlertTrainingBox({
       buttonFunction: buttonFunction,
       title: title,
       buttonLable: buttonLable,
-      trainingPeriod: trainingPeriod,
+     // trainingPeriod: trainingPeriod,
     ),
   );
 }

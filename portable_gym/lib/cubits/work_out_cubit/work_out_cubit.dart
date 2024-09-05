@@ -28,7 +28,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   BodyCategoryModel? dailyDodyCategoryModel;
   List<TrainingModel> trainingModels = [];
 
-  DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+  // DateTime trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
   DateTime bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
   int currentLevel = 0;
 
@@ -189,10 +189,10 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
   }
 
-  setTrainingPeriod({required DateTime date}) {
-    trainingPeriod = date;
-    emit(SetTrainingPeriod());
-  }
+  // setTrainingPeriod({required DateTime date}) {
+  //   trainingPeriod = date;
+  //   emit(SetTrainingPeriod());
+  // }
 
   setTrainingIsPaid({required bool value}) {
     trainingIsPaid = value;
@@ -251,14 +251,16 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the video link field is empty',
       );
       return false;
-    } else if (trainingPeriod.second == 0 &&
-        trainingPeriod.minute == 0 &&
-        trainingPeriod.hour == 0) {
-      getToastMessage(
-        message: 'the training period is not set',
-      );
-      return false;
-    } else {
+    }
+    // else if (trainingPeriod.second == 0 &&
+    //     trainingPeriod.minute == 0 &&
+    //     trainingPeriod.hour == 0) {
+    //   getToastMessage(
+    //     message: 'the training period is not set',
+    //   );
+    //   return false;
+    // }
+    else {
       return true;
     }
   }
@@ -274,7 +276,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingArabicInstructionController.clear();
     trainingPriorityController.clear();
     trainingVideoLinkController.clear();
-    trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+   // trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
     trainingIsPaid = false;
     emit(ClearTrainingControllersState());
   }
@@ -301,28 +303,30 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
   Map<String, dynamic> getTrainingModelMap({required String bodyCategory}) {
-    return TrainingModel(
-            english: TrainingEnglish(
-                name: trainingEnglishNameController.text,
-                numberOfReputation:
-                    trainingEnglishNumberOfReputationController.text,
-                numberOfRounds: trainingEnglishNumberOfRoundsController.text,
-                instructions: trainingEnglishInstructionController.text),
-            arabic: TrainingArabic(
-                name: trainingArabicNameController.text,
-                numberOfReputation:
-                    trainingArabicNumberOfReputationController.text,
-                numberOfRounds: trainingArabicNumberOfRoundsController.text,
-                instructions: trainingArabicInstructionController.text),
-            level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
-            bodyCategory: bodyCategory,
-            videoLink: trainingVideoLinkController.text,
-            priority: int.parse(trainingPriorityController.text),
-           startPeriod: trainingStartPeriodController.text,
-           endPeriod: trainingEndPeriodController.text,
-            isPaid: trainingIsPaid,
-            docId: '')
+    var map=TrainingModel(
+        english: TrainingEnglish(
+            name: trainingEnglishNameController.text,
+            numberOfReputation:
+            trainingEnglishNumberOfReputationController.text,
+            numberOfRounds: trainingEnglishNumberOfRoundsController.text,
+            instructions: trainingEnglishInstructionController.text),
+        arabic: TrainingArabic(
+            name: trainingArabicNameController.text,
+            numberOfReputation:
+            trainingArabicNumberOfReputationController.text,
+            numberOfRounds: trainingArabicNumberOfRoundsController.text,
+            instructions: trainingArabicInstructionController.text),
+        level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+        bodyCategory: bodyCategory,
+        videoLink: trainingVideoLinkController.text,
+        priority: int.parse(trainingPriorityController.text),
+        startPeriod: trainingStartPeriodController.text,
+        endPeriod: trainingEndPeriodController.text,
+        isPaid: trainingIsPaid,
+        docId: '')
         .toJson();
+    print(map);
+    return  map;
   }
 
   addNewTraining(
@@ -427,7 +431,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     required String bodyCategory,
     bool isDailyCategory = false,
   }) {
-    if (validateAddTraining()) {
+    if (validateAddTraining()||true) {
       addNewTraining(
           bodyCategory: bodyCategory, isDailyCategory: isDailyCategory);
     }
@@ -447,6 +451,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             StringManager.trainingBodyCategory,
             isEqualTo: bodyCategory,
           );
+      print(bodyCategory);
+      print(getBodyCategoryLevelString(currentLevelIndex: currentLevel));
     }
 
     emit(GetTrainingLoadingState());
@@ -457,6 +463,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         .orderBy(StringManager.trainingPriority)
         .get()
         .then((value) {
+          print(value.docs.length);
       value.docs.forEach((element) {
         trainingModels.add(
             TrainingModel.fromJson(json: element.data(), docId: element.id));

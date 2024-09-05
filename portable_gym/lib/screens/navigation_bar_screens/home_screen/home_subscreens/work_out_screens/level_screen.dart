@@ -100,7 +100,7 @@ class LevelScreen extends StatelessWidget {
                       tabBar: trainingTabBar,
                       tabBarView: workCubit.getTrainingTabBarView(
                           workOutCubit: workCubit),
-                      trainingPeriod: workCubit.trainingPeriod,
+                     // trainingPeriod: workCubit.trainingPeriod,
                       buttonFunction: () {
                         workCubit.processOfAddingTraining(
                             bodyCategory: bodyCategory,

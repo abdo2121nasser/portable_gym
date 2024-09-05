@@ -53,7 +53,8 @@ class PeriodPickerBlock extends StatelessWidget {
               TimePickerSpinner(
                 alignment: Alignment.center,
                 locale: Localizations.localeOf(context),
-                time: isTrainingDate? workCubit!.trainingPeriod:workCubit!.bodyCategoryTotalTime,
+                //time: isTrainingDate? workCubit!.trainingPeriod:workCubit!.bodyCategoryTotalTime,
+                time: workCubit.bodyCategoryTotalTime,
                 isShowSeconds: true,
                 itemHeight: AppVerticalSize.s30,
                 normalTextStyle:  TextStyle(
@@ -63,12 +64,13 @@ class PeriodPickerBlock extends StatelessWidget {
                  TextStyle(fontSize: FontSize.s22, color: Colors.blue),
                 isForce2Digits: true,
                 onTimeChange: (time) {
-                 if(isTrainingDate) {
-                   workCubit!.setTrainingPeriod(date: time);
-                 } else
-                   {
-                     workCubit!.setBodyCategoryTotalTime(date: time);
-                   }
+                 // if(isTrainingDate) {
+                 //   workCubit!.setTrainingPeriod(date: time);
+                 // } else
+                 //   {
+                 //     workCubit!.setBodyCategoryTotalTime(date: time);
+                 //   }
+                  workCubit!.setBodyCategoryTotalTime(date: time);
                 },
               ),
             ],

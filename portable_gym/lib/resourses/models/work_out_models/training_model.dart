@@ -59,6 +59,8 @@ class TrainingModel {
       arabic!.numberOfRounds,
       StringManager.trainingArabicInstruction:
       arabic!.instructions,
+    StringManager.trainingLevel:level,
+      StringManager.trainingBodyCategory: bodyCategory,
       StringManager.trainingVideoLink: videoLink,
       StringManager.trainingPriority: priority  ,
       StringManager.trainingIsPaid: isPaid,

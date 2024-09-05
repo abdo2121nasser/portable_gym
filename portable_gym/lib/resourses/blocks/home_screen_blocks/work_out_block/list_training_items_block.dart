@@ -103,8 +103,8 @@ class ListTrainingItemsBlock extends StatelessWidget {
                                               workCubit.getTrainingTabBarView(
                                             workOutCubit: workCubit,
                                           ),
-                                          trainingPeriod:
-                                              workCubit.trainingPeriod,
+                                          // trainingPeriod:
+                                          //     workCubit.trainingPeriod,
                                           buttonFunction: () {
                                             workCubit.editTraining(
                                                 docId: trainingModels[index]
