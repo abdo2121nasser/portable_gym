@@ -35,7 +35,7 @@ class HasMealPlanBlock extends StatelessWidget {
           Expanded(
           child: Column(
             children: [
-              state is GetDailyRecipeCardLoadingState
+              state is GetDailyRecipeCardLoadingState ||nutCubit.dailyRecipeCardModel==null
                   ? SizedBox(
                 height: AppVerticalSize.s5,
               )

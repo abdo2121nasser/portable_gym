@@ -43,7 +43,7 @@ class AdminViewBlock extends StatelessWidget {
       const Center(child: CircularProgressIndicator(color: ColorManager.kPurpleColor,)):
         Column(
           children: [
-            state is GetDailyRecipeCardLoadingState
+            state is GetDailyRecipeCardLoadingState || nutCubit.dailyRecipeCardModel==null
                 ? SizedBox(
               height: AppVerticalSize.s5,
             )
