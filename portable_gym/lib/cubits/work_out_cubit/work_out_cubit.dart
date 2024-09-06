@@ -451,8 +451,6 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             StringManager.trainingBodyCategory,
             isEqualTo: bodyCategory,
           );
-      print(bodyCategory);
-      print(getBodyCategoryLevelString(currentLevelIndex: currentLevel));
     }
 
     emit(GetTrainingLoadingState());
@@ -463,7 +461,6 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         .orderBy(StringManager.trainingPriority)
         .get()
         .then((value) {
-          print(value.docs.length);
       value.docs.forEach((element) {
         trainingModels.add(
             TrainingModel.fromJson(json: element.data(), docId: element.id));
