@@ -291,8 +291,8 @@ class SetUpCubit extends Cubit<SetUpState> {
       Get.to(AnswerQuestionsScreen(
           userNickName: nickName.text,
           collection: StringManager.collectionQuestionsOfProfile,
-          finishProfileSetupFunction: ( Map<String,dynamic> questionsMap)  {
-            createProfile(questionsMap: questionsMap);
+          finishProfileSetupFunction: ( Map<String,dynamic> questionsMap)  async {
+          await  createProfile(questionsMap: questionsMap);
           }));
     } else {
       getToastMessage(message: getValidateError(context: context));

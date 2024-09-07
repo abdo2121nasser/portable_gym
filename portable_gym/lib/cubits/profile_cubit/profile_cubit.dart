@@ -57,7 +57,10 @@ class ProfileCubit extends Cubit<ProfileState> {
           Get.offAll(const LoginScreen());
           return;
         }
-      getUserData();
+      else
+        {
+          getUserData();
+        }
     }).catchError((error) {
       emit(GetUserDocIdErrorState());
       Get.offAll(const LoginScreen());

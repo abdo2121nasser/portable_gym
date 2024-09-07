@@ -13,6 +13,7 @@ import 'package:portable_gym/screens/splash_screen.dart';
 
 import '../generated/l10n.dart';
 import '../resourses/managers_files/string_manager.dart';
+import '../screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 import '../screens/set_up_screen.dart';
 
 
@@ -58,6 +59,13 @@ class PortableGym extends StatelessWidget {
                                  // const MainNavigationBarScreen():const LoginScreen(),
                                  //
                                   home: SplashScreen(),
+                                  // home: AnswerQuestionsScreen(userNickName: '', collection: StringManager.collectionQuestionsOfProfile,
+                                  // finishProfileSetupFunction: (Map<String, dynamic> x){
+                                  //   Future.delayed(Duration(seconds: 6)).then((value) {
+                                  //     print('done');
+                                  //   });
+                                  // },
+                                  // ),
                                   // home: SetUpScreen(email: 'email'),
                                  // home: LoginScreen(),
                                );
