@@ -466,7 +466,7 @@ class NutritionCubit extends Cubit<NutritionState> {
     arabicDailyRecipeCategoryNameController.text =
         dailyRecipeCardModel!.arabic.name!;
     arabicDailyRecipeCategoryCaloriesController.text =
-        dailyRecipeCardModel!.arabic.name!;
+        dailyRecipeCardModel!.arabic.calories!;
     dailyRecipeCategoryImageLinkController.text =
         dailyRecipeCardModel!.imageLink;
     emit(SetDailyRecipeCategoryAttributes());

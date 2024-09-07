@@ -19,16 +19,16 @@ class GridMealTypesBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   SizedBox(
-      height: AppVerticalSize.s150,
+      height: AppVerticalSize.s100,
       child: GridView.builder(
         padding: EdgeInsets.symmetric(
-            horizontal: AppHorizontalSize.s22,
+            horizontal: AppHorizontalSize.s10,
             vertical: AppVerticalSize.s14),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             // mainAxisExtent: 140,
             crossAxisSpacing: 0,
-            childAspectRatio: (1 / 0.3),
+            childAspectRatio: (1.5 / 0.3),
             mainAxisSpacing: 15),
         itemBuilder: (context, index) => CheckBoxBlock(
           value: values[index],
