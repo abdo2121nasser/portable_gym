@@ -37,7 +37,7 @@ class MealPlaneBodyBlock extends StatelessWidget {
               var nutCubit = NutritionCubit.get(context);
               var profCubit = ProfileCubit.get(context);
 
-              return state is GetUserDocIdLoadingState ||
+              return
                   state is GetNutritionUserDocIdLoadingState ||
 
                       profCubit.profileModel == null

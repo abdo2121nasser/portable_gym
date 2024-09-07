@@ -72,8 +72,7 @@ class LevelScreen extends StatelessWidget {
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  state is GetTrainingLoadingState ||
-                          state is GetUserDocIdLoadingState
+                  state is GetTrainingLoadingState
                       ? const Expanded(
                           child: Align(
                               alignment: Alignment.center,

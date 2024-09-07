@@ -4,15 +4,13 @@ import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
 import '../../cubits/profile_cubit/profile_cubit.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 
-
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)  =>  FavouriteCubit()..getUserDocId(),
+      create: (context) => FavouriteCubit()..getUserDocId(),
       child: BlocConsumer<FavouriteCubit, FavouriteState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -21,15 +19,15 @@ class FavouriteScreen extends StatelessWidget {
             children: [
               HorizontalCategoryListBlock(
                   currentLevel: favCubit.currentCategory,
-                  numberOfLevels: favCubit
-                      .getFavouriteCategories(context)
-                      .length,
+                  numberOfLevels:
+                      favCubit.getFavouriteCategories(context).length,
                   lables: favCubit.getFavouriteCategories(context),
                   changeLevel: (index) {
                     favCubit.changeCurrentCategory(index: index);
                   }),
-              state is GetUserDocIdLoadingState ? const Center(child: CircularProgressIndicator()):
-              favCubit.categories[favCubit.currentCategory]
+              state is GetUserDocIdLoadingState
+                  ? const Center(child: CircularProgressIndicator())
+                  : favCubit.categories[favCubit.currentCategory]
             ],
           );
         },

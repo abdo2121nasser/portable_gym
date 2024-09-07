@@ -63,29 +63,29 @@ class RoundItemBlock extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: AppVerticalSize.s16,
-                    width: AppHorizontalSize.s100,
+                    height: AppVerticalSize.s24,
+                    width: AppHorizontalSize.s120,
                     child: Row(
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: AppHorizontalSize.s8),
                             child: Text(
-                              languageModel.name.toString(),
+                             languageModel.name.toString(),
                               style: getMediumStyle(
                                   fontSize: FontSize.s12,
                                   color: ColorManager.kBlackColor,
                                   fontFamily: FontFamily.kPoppinsFont),
+
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: AppVerticalSize.s5,
-                  ),
+
                   SizedBox(
                       width: AppHorizontalSize.s120,
                       child: RecordedUnitBlock(

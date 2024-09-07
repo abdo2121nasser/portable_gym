@@ -52,6 +52,7 @@ class SetUpScreen extends StatelessWidget {
                 //       fontFamily: FontFamily.kLeagueSpartanFont),
                 //   textAlign: TextAlign.center,
                 // ),
+                SizedBox(width: MediaQuery.of(context).size.width,),
 
                 setCubit.getPageBody(setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
                     state is CreateProfileLoadingState? const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,):

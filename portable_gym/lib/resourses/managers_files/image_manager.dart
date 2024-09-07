@@ -2,7 +2,7 @@ class ImageManager
 {
   static const kMaleImage='assets/images/male.png';
   static const kFemaleImage='assets/images/femal.png';
-  static const kSmileManImage='assets/images/smileman.jpg';
+  static const kSmileManImage='assets/images/smileman2.jpg';
   static const kPenIconImage='assets/images/pen_icon.png';
   static const kWeightImage='assets/images/gym.png';
   static const kProgressTrackingImage='assets/images/progress.png';

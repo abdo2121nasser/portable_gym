@@ -20,6 +20,8 @@ import '../../firebase_options.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/profile_blocks/log_out_bottom_sheet_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
+import '../../resourses/managers_files/toast_massage_manager.dart';
+import '../../screens/authentication_screens/login_screen.dart';
 
 part 'profile_state.dart';
 
@@ -45,15 +47,25 @@ class ProfileCubit extends Cubit<ProfileState> {
     await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
-      userDocId = value!;
-      emit(GetUserDocIdSuccessState());
+          if(value!=null) {
+            userDocId = value;
+            emit(GetUserDocIdSuccessState());
+          }
     }).then((value) {
+      if(userDocId==null)
+        {
+          Get.offAll(const LoginScreen());
+          return;
+        }
       getUserData();
     }).catchError((error) {
       emit(GetUserDocIdErrorState());
-      debugPrint(error);
+      Get.offAll(const LoginScreen());
+      debugPrint(error.toString());
+
     });
   }
+
 
   getProfileOptionsLables({
     required context,
