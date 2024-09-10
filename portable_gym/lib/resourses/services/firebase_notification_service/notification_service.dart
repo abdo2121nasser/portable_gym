@@ -35,7 +35,6 @@ class NotificationService {
         'notification': {
           'title': title,
           'body':body,
-          // 'icon':'logo'
         },
       },
     };

@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/google_drive_function_manager.dart';
 import '../../../managers_files/values_manager.dart';
-import '../../general_blocks/general_video_block.dart';
+import '../../general_blocks/general_video_cash_block.dart';
 
 class ExerciseVideoBlock extends StatelessWidget {
   final String videoUrl;
@@ -23,7 +23,7 @@ class ExerciseVideoBlock extends StatelessWidget {
           color: ColorManager.kLightPurpleColor,// Replace with your ColorManager.kLightPurpleColor
           child:  ClipRRect(
           borderRadius: BorderRadius.circular(AppRadiusSize.s20),
-              child: GeneralVideoBlock(videoLink: videoUrl,isViewOnly: false)),
+              child: GeneralVideoCashBlock(videoLink: videoUrl,)),
         ),
       ],
     );

@@ -38,10 +38,12 @@ class ResourceCubit extends Cubit<ResourceState> {
   }
 
   getAllTrainings() {
-    trainingModels.clear();
+    if(trainingModels.isNotEmpty) return;
     emit(GetAllTrainingsLoadingState());
     var data = FirebaseFirestore.instance
-        .collection(StringManager.collectionTrainings);
+        .collection(StringManager.collectionTrainings)
+    .where(StringManager.trainingIsPaid,isEqualTo: false)
+    ;
     data.get().then((value) {
       value.docs.forEach((element) {
         trainingModels.add(
@@ -55,7 +57,7 @@ class ResourceCubit extends Cubit<ResourceState> {
   }
 
   getAllRecipes() {
-    recipeModels.clear();
+    if(recipeModels.isNotEmpty) return;
     emit(GetAllRecipesLoadingState());
     var data =
         FirebaseFirestore.instance.collection(StringManager.collectionRecipes);
