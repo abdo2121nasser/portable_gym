@@ -34,7 +34,8 @@ class NotificationService {
         'token': receiverDeviceToken,
         'notification': {
           'title': title,
-          'body':body
+          'body':body,
+          // 'icon':'logo'
         },
       },
     };

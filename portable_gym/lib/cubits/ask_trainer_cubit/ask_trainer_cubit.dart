@@ -64,8 +64,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     }
     tempProfiles.addAll(profilesWithContact);
     tempProfiles.addAll(profilesWithNoContact);
-    // contactsProfileModels = sortingProfileModel(profileModels);
-    contactsProfileModels = sortingProfileModel(tempProfiles);
+    contactsProfileModels = sortingProfileModel(profileModels);
     return contactsProfileModels;
   }
 
@@ -108,7 +107,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
     FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .where(StringManager.userIsClint, isEqualTo: true)
-    .where(StringManager.userIsPremium,isEqualTo: true)
+    .where(StringManager.userIsPremium, isEqualTo: true)
         .get()
         .then((value) {
       value.docs.forEach((element) {
