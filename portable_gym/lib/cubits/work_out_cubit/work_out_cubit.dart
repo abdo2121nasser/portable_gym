@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
   static WorkOutCubit get(context) => BlocProvider.of(context);
 
-  List<BodyCategoryModel> bodyCategoryModels = [];
+  List<List<BodyCategoryModel>> bodyCategoryModels = List<List<BodyCategoryModel>>.generate(3, (index) => []);
   BodyCategoryModel? dailyDodyCategoryModel;
   List<TrainingModel> trainingModels = [];
 
@@ -723,7 +721,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
   getBodyCategories() async {
-    bodyCategoryModels.clear();
+    if(bodyCategoryModels[currentLevel].isNotEmpty) return;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionBodyCategory)
         .where(StringManager.bodyCategoryLevel,
@@ -733,7 +731,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(GetBodyCategoryLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
-        bodyCategoryModels.add(BodyCategoryModel.fromJson(
+        bodyCategoryModels[currentLevel].add(BodyCategoryModel.fromJson(
             json: element.data(), docId: element.id));
       });
       emit(GetBodyCategorySuccessState());

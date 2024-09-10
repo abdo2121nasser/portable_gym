@@ -146,7 +146,7 @@ class WorkOutScreen extends StatelessWidget {
                             )),
                       )
                     : ListBodyPartBlock(
-                        bodyCategoryModel: workCubit.bodyCategoryModels,
+                        bodyCategoryModel: workCubit.bodyCategoryModels[workCubit.currentLevel],
                   profileModel: profileModel,
                   isSelectedFunction: (model){
                          return progCubit.isActivityOfDay(model: model);
