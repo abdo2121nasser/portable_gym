@@ -23,19 +23,19 @@ class _GeneralImageCacheBlockState extends State<GeneralImageCacheBlock> {
     // Display thumbnail if it's a video, otherwise display the image
     return _thumbnailPath != null
         ? Image.file(
-      File(_thumbnailPath!),
-      fit: BoxFit.cover,
-    )
+            File(_thumbnailPath!),
+            fit: BoxFit.cover,
+          )
         : _imagePath != null
-        ? Image.file(
-      File(_imagePath!),
-      fit: BoxFit.cover,
-    )
-        : const Center(
-      child: CircularProgressIndicator(
-        color: ColorManager.kPurpleColor,
-      ),
-    );
+            ? Image.file(
+                File(_imagePath!),
+                fit: BoxFit.cover,
+              )
+            : const Center(
+                child: CircularProgressIndicator(
+                  color: ColorManager.kPurpleColor,
+                ),
+              );
   }
 
   @override
@@ -84,12 +84,18 @@ class _GeneralImageCacheBlockState extends State<GeneralImageCacheBlock> {
 
   bool _isImageFile(File file) {
     final extension = path.extension(file.path).toLowerCase();
-    return extension == '.jpg' || extension == '.jpeg' || extension == '.png' || extension == '.gif';
+    return extension == '.jpg' ||
+        extension == '.jpeg' ||
+        extension == '.png' ||
+        extension == '.gif' ||
+        extension == '.webp';
   }
 
   bool _isVideoFile(File file) {
     final extension = path.extension(file.path).toLowerCase();
-    return extension == '.mp4' || extension == '.mov' || extension == '.avi'; // Add other video formats if needed
+    return extension == '.mp4' ||
+        extension == '.mov' ||
+        extension == '.avi'; // Add other video formats if needed
   }
 
   @override

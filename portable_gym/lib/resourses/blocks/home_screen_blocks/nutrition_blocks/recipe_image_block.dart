@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../../general_blocks/general_image_cash_block.dart';
+
 
 
 
 class RecipeImageBlock extends StatelessWidget {
         final String image;
 
-        RecipeImageBlock({required this.image});
+        const RecipeImageBlock({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +25,7 @@ class RecipeImageBlock extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(
            AppRadiusSize.s22,),
-        child: Image.network(
-          image,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            } else {
-              return Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppHorizontalSize.s30),
-                  child: CircularProgressIndicator(
-                    color: ColorManager.kBlue,
-                  ),
-                ),
-              );
-            }
-          },
-          fit: BoxFit.fill,
-        ),
+        child: GeneralImageCacheBlock(link: image),
       ),
 
     );
