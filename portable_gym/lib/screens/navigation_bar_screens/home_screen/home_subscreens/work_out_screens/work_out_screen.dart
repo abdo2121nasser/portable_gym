@@ -51,114 +51,119 @@ class WorkOutScreen extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorManager.kBlackColor,
             appBar:GeneralAppBarBlock(title: S.of(context).workOut,),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HorizontalCategoryListBlock(
-                  currentLevel: workCubit.currentLevel,
-                  numberOfLevels: 3,
-                  lables: workCubit.getLevelLabels(context: context),
-                  changeLevel: (index) {
-                    workCubit.changeCurrentLevel(newLevel: index);
-                  },
-                ),
-                (profileModel.isPremium || profileModel.isClient==false)?
-                workCubit.dailyDodyCategoryModel == null
-                    ? Expanded(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.kBlue,
-                            )),
-                      )
-                    : Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(LevelScreen(
-                              profileModel: profileModel,
-                              bodyCategory: '',
-                              title:workCubit.dailyDodyCategoryModel!.getLanguageClass(context).title!,
-                              downloadLink:workCubit.dailyDodyCategoryModel!.downloadFileLink,
-                              isDailyCategory: true,
-                              workCubit: workCubit,
-                            ));
-                          },
-                          onLongPress:( profileModel.isClient==false)?  (){
-                            workCubit.clearBodyCategoryAttributes();
-                            workCubit.setBodyCategoryAttributes(
-                                model: workCubit.dailyDodyCategoryModel!);
-                            showAlertBodyCategoryBox(
-                              context: context,
-                              workOutCubit: workCubit,
-                              title: S.of(context).editBodyCategory,
-                              buttonLable: S.of(context).uploadBodyCategory,
-                              tabBar: bodyCategoryTabBar,
-                              tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit,isDailyBodyCategory: true,),
-                              buttonFunction: () {
-                                workCubit.editBodyCategory(
-                                    docId: workCubit
-                                        .dailyDodyCategoryModel!.docId!,
-                                    isDailyCategory: true);
+            body: SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height*1.1,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HorizontalCategoryListBlock(
+                      currentLevel: workCubit.currentLevel,
+                      numberOfLevels: 3,
+                      lables: workCubit.getLevelLabels(context: context),
+                      changeLevel: (index) {
+                        workCubit.changeCurrentLevel(newLevel: index);
+                      },
+                    ),
+                    (profileModel.isPremium || profileModel.isClient==false)?
+                    workCubit.dailyDodyCategoryModel == null
+                        ? Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(
+                                  color: ColorManager.kBlue,
+                                )),
+                          )
+                        : Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: AppVerticalSize.s20),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(LevelScreen(
+                                  profileModel: profileModel,
+                                  bodyCategory: '',
+                                  title:workCubit.dailyDodyCategoryModel!.getLanguageClass(context).title!,
+                                  downloadLink:workCubit.dailyDodyCategoryModel!.downloadFileLink,
+                                  isDailyCategory: true,
+                                  workCubit: workCubit,
+                                ));
                               },
-                            );
-                          }:null,
-                          child: DailyActivityBlock(
-                            bodyCategoryModel:
-                                workCubit.dailyDodyCategoryModel!,
-                            title: S.of(context).trainingOfDay,
+                              onLongPress:( profileModel.isClient==false)?  (){
+                                workCubit.clearBodyCategoryAttributes();
+                                workCubit.setBodyCategoryAttributes(
+                                    model: workCubit.dailyDodyCategoryModel!);
+                                showAlertBodyCategoryBox(
+                                  context: context,
+                                  workOutCubit: workCubit,
+                                  title: S.of(context).editBodyCategory,
+                                  buttonLable: S.of(context).uploadBodyCategory,
+                                  tabBar: bodyCategoryTabBar,
+                                  tabBarView: workCubit.getBodyCategoryTabBarView(workOutCubit: workCubit,isDailyBodyCategory: true,),
+                                  buttonFunction: () {
+                                    workCubit.editBodyCategory(
+                                        docId: workCubit
+                                            .dailyDodyCategoryModel!.docId!,
+                                        isDailyCategory: true);
+                                  },
+                                );
+                              }:null,
+                              child: DailyActivityBlock(
+                                bodyCategoryModel:
+                                    workCubit.dailyDodyCategoryModel!,
+                                title: S.of(context).trainingOfDay,
+                              ),
+                            ),
+                          )
+                    :SizedBox(height: AppVerticalSize.s14),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${S.of(context).letsGo}${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel, isLable: true, context: context)}',
+                            textAlign: TextAlign.start,
+                            style: getMediumStyle(
+                                fontSize: FontSize.s20,
+                                color: ColorManager.kLimeGreenColor,
+                                fontFamily: FontFamily.kPoppinsFont),
                           ),
-                        ),
-                      )
-                :SizedBox(height: AppVerticalSize.s14),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: AppHorizontalSize.s16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${S.of(context).letsGo}${workCubit.getBodyCategoryLevelString(currentLevelIndex: workCubit.currentLevel, isLable: true, context: context)}',
-                        textAlign: TextAlign.start,
-                        style: getMediumStyle(
-                            fontSize: FontSize.s20,
-                            color: ColorManager.kLimeGreenColor,
-                            fontFamily: FontFamily.kPoppinsFont),
+                          Text(
+                            S.of(context).exploreDifferentWorkoutStyles,
+                            textAlign: TextAlign.start,
+                            style: getRegularStyle(
+                                fontSize: FontSize.s12,
+                                color: ColorManager.kWhiteColor,
+                                fontFamily: FontFamily.kPoppinsFont),
+                          ),
+                        ],
                       ),
-                      Text(
-                        S.of(context).exploreDifferentWorkoutStyles,
-                        textAlign: TextAlign.start,
-                        style: getRegularStyle(
-                            fontSize: FontSize.s12,
-                            color: ColorManager.kWhiteColor,
-                            fontFamily: FontFamily.kPoppinsFont),
-                      ),
-                    ],
-                  ),
+                    ),
+                    state is GetBodyCategoryLoadingState
+                        ? const Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(
+                                  color: ColorManager.kPurpleColor,
+                                )),
+                          )
+                        : ListBodyPartBlock(
+                            bodyCategoryModel: workCubit.bodyCategoryModels[workCubit.currentLevel],
+                      profileModel: profileModel,
+                      isSelectedFunction: (model){
+                             return progCubit.isActivityOfDay(model: model);
+                      },
+                      addToActivityOfDayList: (model){
+                              progCubit.addActivityOfDay(model: model);
+                      },
+                      deleteFromActivityOfDayList: (model){
+                              progCubit.deleteActivityOfDay(model: model);
+                      },
+                          ),
+                  ],
                 ),
-                state is GetBodyCategoryLoadingState
-                    ? const Expanded(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.kPurpleColor,
-                            )),
-                      )
-                    : ListBodyPartBlock(
-                        bodyCategoryModel: workCubit.bodyCategoryModels[workCubit.currentLevel],
-                  profileModel: profileModel,
-                  isSelectedFunction: (model){
-                         return progCubit.isActivityOfDay(model: model);
-                  },
-                  addToActivityOfDayList: (model){
-                          progCubit.addActivityOfDay(model: model);
-                  },
-                  deleteFromActivityOfDayList: (model){
-                          progCubit.deleteActivityOfDay(model: model);
-                  },
-                      ),
-              ],
+              ),
             ),
             floatingActionButton: (profileModel.isClient==false)?
               FloatingActionButtonBlock(
