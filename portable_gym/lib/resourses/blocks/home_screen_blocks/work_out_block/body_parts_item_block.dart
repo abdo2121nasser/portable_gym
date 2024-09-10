@@ -8,6 +8,7 @@ import '../../../managers_files/style_manager.dart';
 import '../../../managers_files/values_manager.dart';
 import '../../../models/profile_models/profile_model.dart';
 import '../../../models/work_out_models/body_category_model.dart';
+import '../../general_blocks/general_image_cash_block.dart';
 import '../../general_blocks/recorded_unit_block.dart';
 import 'package:intl/intl.dart';
 
@@ -108,28 +109,11 @@ class BodyPartItemBlock extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(AppRadiusSize.s36),
                     ),
-                    child: Image.network(
-                      bodyCategoryModel.imageLink!,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppHorizontalSize.s30),
-                              child: CircularProgressIndicator(
-                                color: ColorManager.kBlue,
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      height: constrain.maxHeight,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      fit: BoxFit.cover,
-                    ),
+                    child:
+                      SizedBox(
+                          height: constrain.maxHeight,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: GeneralImageCacheBlock(link:  bodyCategoryModel.imageLink!,))
                   ),
                   Positioned(
                     right: Get.locale!.languageCode.toString() == 'en' ? 0 : null,

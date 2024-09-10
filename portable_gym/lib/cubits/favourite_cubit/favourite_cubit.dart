@@ -34,8 +34,8 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         .then((value) async {
       userDocId = value!;
       emit(FavouriteGetUserDocIdSuccessState());
-    await  getFavouriteRecipes();
-    await  getFavouriteTrainings();
+      getFavouriteRecipes();
+      getFavouriteTrainings();
     }).catchError((error) {
       emit(FavouriteGetUserDocIdErrorState());
       debugPrint(error);
@@ -140,6 +140,8 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         favouriteTrainingModels.add(FavouriteTrainingModel.fromJson(
             json: element.data(), docId: element.id));
       });
+      if(isClosed) return;
+
       emit(GetFavouriteTrainingSuccessState());
     }).catchError((error) {
       emit(GetFavouriteTrainingErrorState());
@@ -230,6 +232,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         favouriteRecipeModels.add(FavouriteRecipeModel.fromJson(
             json: element.data(), docId: element.id));
       });
+    if(isClosed) return;
       emit(GetFavouriteRecipesSuccessState());
     }).catchError((error) {
       emit(GetFavouriteRecipesErrorState());
