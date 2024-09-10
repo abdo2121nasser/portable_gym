@@ -31,7 +31,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
   static NutritionCubit get(context) => BlocProvider.of(context);
 
-  List<RecipeModel> recipeModels = [];
+  List<List<RecipeModel>> recipeModels = List<List<RecipeModel>>.generate(4, (index) => []);
   List<RecipeModel> breakfastMealPlanRecipeModels = [];
   List<RecipeModel> dinnerMealPlanRecipeModels = [];
   List<RecipeModel> lunchMealPlanRecipeModels = [];
@@ -40,7 +40,10 @@ class NutritionCubit extends Cubit<NutritionState> {
   DailyRecipeCardModel? dailyRecipeCardModel;
   List<MealPlanRequestModel> requestsModels = [];
   MealPlanModel? mealPlanModel;
-  List<Widget> planBodies = [const MealPlaneBodyBlock(), MealIdeaBodyBlock()];
+  List<Widget> planBodies = [
+    const MealPlaneBodyBlock(),
+    const MealIdeaBodyBlock()
+  ];
   List<bool> mealTypeCheckBoxes = [
     false,
     false,
@@ -205,6 +208,8 @@ class NutritionCubit extends Cubit<NutritionState> {
     mealTypeCheckBoxes[index] = value;
     emit(ChangeMealTypeCheckBoxesValues());
   }
+
+
 
   List<String> getEnglishMealTypeCheckBoxesLables() {
     return [
@@ -431,7 +436,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
   getFilteredRecipes({bool isDailyRecipe = false}) async {
-    recipeModels.clear();
+   if(recipeModels[currentMealType].isNotEmpty && isDailyRecipe==false )return;
     var data = FirebaseFirestore.instance
         .collection(isDailyRecipe
             ? StringManager.collectionDailyRecipe
@@ -440,8 +445,9 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(GetFilteredRecipesLoadingState());
     await data.get().then((value) {
       value.docs.forEach((element) {
-        recipeModels
+        recipeModels[currentMealType]
             .add(RecipeModel.fromJson(json: element.data(), docId: element.id));
+
       });
 
       emit(GetFilteredRecipesSuccessState());
@@ -499,7 +505,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
 
   getDailyRecipeCategory({required bool hasAccess}) async {
-    if(!hasAccess) return;
+    if (!hasAccess) return;
     emit(GetDailyRecipeCardLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionDailyRecipe)
@@ -780,7 +786,10 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  createMealPlan({required String requestDocId,required String clientDocId,}) async {
+  createMealPlan({
+    required String requestDocId,
+    required String clientDocId,
+  }) async {
     emit(CreateMealPlanLoadingState());
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)

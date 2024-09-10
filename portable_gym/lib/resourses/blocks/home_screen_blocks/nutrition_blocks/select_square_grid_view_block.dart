@@ -28,24 +28,24 @@ class SelectSquareGridViewBlock extends StatelessWidget {
               childAspectRatio: (1 / .8),
               mainAxisSpacing: 15),
           itemBuilder: (context, index) {
-            var model = nutCubit.recipeModels[index].getLanguageClass(context);
+            var model = nutCubit.recipeModels[nutCubit.currentMealType][index].getLanguageClass(context);
             var isSelectedRecipe = nutCubit.isMealPlanRecipeSelected(
-                model: nutCubit.recipeModels[index]);
+                model: nutCubit.recipeModels[nutCubit.currentMealType][index]);
             return InkWell(
                 onTap: () {
                   if (!isSelectedRecipe) {
                     nutCubit.addMealPlanRecipe(
-                        model: nutCubit.recipeModels[index]);
+                        model: nutCubit.recipeModels[nutCubit.currentMealType][index]);
                   }
                   else {
                     nutCubit.deleteMealPlanRecipe(
-                        model: nutCubit.recipeModels[index]);
+                        model: nutCubit.recipeModels[nutCubit.currentMealType][index]);
                   }
                 },
                 child: SquareElementBlock(
                   title: model.name!,
                   subValue: model.calories!,
-                  imageLink: nutCubit.recipeModels[index].imageLink,
+                  imageLink: nutCubit.recipeModels[nutCubit.currentMealType][index].imageLink,
                   canBeDeleted: true,
                   hasFavouriteIcon: false,
                   hasSelectIcon: true,

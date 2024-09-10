@@ -51,7 +51,7 @@ class MealIdeaBodyBlock extends StatelessWidget {
                         :
                     RecipeGridSquareBlock(
                       profileModel: ProfileCubit.get(context).profileModel!,
-                      recipeModels: nutCubit.recipeModels,
+                      recipeModels: nutCubit.recipeModels[nutCubit.currentMealType],
                       editFunction: (docId) {
                         nutCubit.editRecipe(docId: docId);
                       },

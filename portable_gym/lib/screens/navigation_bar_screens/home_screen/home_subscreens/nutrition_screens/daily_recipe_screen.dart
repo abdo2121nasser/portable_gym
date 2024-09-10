@@ -78,7 +78,7 @@ class DailyRecipeScreen extends StatelessWidget {
                 Expanded(
                   child: RecipeGridSquareBlock(
                     profileModel: profileModel,
-                    recipeModels: nutCubit.recipeModels,
+                    recipeModels: nutCubit.recipeModels[nutCubit.currentMealType],
                     editFunction: (docId) {
                       nutCubit.editRecipe(docId: docId,isDailyRecipe: true);
                     },
