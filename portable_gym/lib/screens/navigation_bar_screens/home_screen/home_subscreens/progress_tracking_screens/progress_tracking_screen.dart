@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
-import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/progress_tracking_blocks/full_personal_information_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';
-import '../../../../../resourses/managers_files/font_manager.dart';
-import '../../../../../resourses/managers_files/style_manager.dart';
-import '../../../../../resourses/managers_files/values_manager.dart';
 
 class ProgressTrackingScreen extends StatelessWidget {
   final ProfileCubit profCubit;
