@@ -11,7 +11,7 @@ class RecipeCategoryBodyBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: FavouriteCubit.get(context)..getFavouriteRecipes(),
+      value: FavouriteCubit.get(context),
       child: BlocConsumer<FavouriteCubit, FavouriteState>(
         listener: (context, state) {},
         builder: (context, state) {

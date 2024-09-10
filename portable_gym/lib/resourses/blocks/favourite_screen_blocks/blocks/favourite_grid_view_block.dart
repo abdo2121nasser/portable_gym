@@ -88,7 +88,7 @@ class FavouriteGridViewBlock extends StatelessWidget {
                 isTraining: favouriteTrainingModels!=null,
                 imageLink: favouriteTrainingModels?[index].videoLink ??
                     favouriteRecipeModels![index].imageLink,
-                isVideo: favouriteTrainingModels != null,
+                // isVideo: favouriteTrainingModels != null,
                 deleteFavouriteFunction: () {
                   deleteFavouriteFunction(
                       favouriteTrainingModels?[index].trainingDocId ??

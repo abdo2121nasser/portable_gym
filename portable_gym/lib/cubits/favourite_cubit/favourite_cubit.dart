@@ -31,9 +31,11 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     emit(FavouriteGetUserDocIdLoadingState());
     await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
-        .then((value) {
+        .then((value) async {
       userDocId = value!;
       emit(FavouriteGetUserDocIdSuccessState());
+    await  getFavouriteRecipes();
+    await  getFavouriteTrainings();
     }).catchError((error) {
       emit(FavouriteGetUserDocIdErrorState());
       debugPrint(error);
@@ -126,7 +128,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
   getFavouriteTrainings() async {
-    favouriteTrainingModels.clear();
+    if(favouriteTrainingModels.isNotEmpty)return;
     emit(GetFavouriteTrainingLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
@@ -216,7 +218,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
   getFavouriteRecipes() async {
-    favouriteRecipeModels.clear();
+    if(favouriteRecipeModels.isNotEmpty) return;
     emit(GetFavouriteRecipesLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)

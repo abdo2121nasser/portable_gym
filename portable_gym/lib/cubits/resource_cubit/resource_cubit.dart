@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/resources_blocks/bodies_blocks/nutrition_body_block.dart';

@@ -77,7 +77,7 @@ class GridViewResourcesBlock extends StatelessWidget {
                                 ? model.videoLink!
                                 : model.imageLink,
                             canBeDeleted: true,
-                            isVideo: isTrainingModel,
+                            // isVideo: isTrainingModel,
                             hasFavouriteIcon: true,
                             isFavouriteItem: snapshot.data!,
                             addFavouriteFunction: () {

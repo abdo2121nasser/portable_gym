@@ -25,7 +25,7 @@ class SquareElementBlock extends StatelessWidget {
   final VoidCallback? addFavouriteFunction;
   final bool canBeDeleted;
   final bool isFavouriteItem;
-  final bool isVideo;
+  // final bool isVideo;
   final bool isTraining;
   final bool hasFavouriteIcon;
   final bool hasSelectIcon;
@@ -42,11 +42,11 @@ class SquareElementBlock extends StatelessWidget {
     this.deleteFunction,
     this.deleteFavouriteFunction,
     this.addFavouriteFunction,
-    this.isVideo = false,
+    // this.isVideo = false,
     this.isTraining = false,
-    this.hasFavouriteIcon=true,
-    this.hasSelectIcon=false,
-    this.isSelected=false,
+    this.hasFavouriteIcon = true,
+    this.hasSelectIcon = false,
+    this.isSelected = false,
   });
 
   @override
@@ -65,43 +65,45 @@ class SquareElementBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(AppRadiusSize.s12),
-                      topRight: Radius.circular(AppRadiusSize.s12)),
-                  child: isVideo
-                      ? SizedBox(
-                          width: constrain.maxWidth,
-                          height: constrain.maxHeight * 0.6,
-                          child: GeneralImageCacheBlock(
-                            link: imageLink,
-                            // isViewOnly: true,
-                          ))
-                      : Image.network(
-                          imageLink,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            } else {
-                              return SizedBox(
-                                height: AppVerticalSize.s80,
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AppHorizontalSize.s30),
-                                    child: CircularProgressIndicator(
-                                      color: ColorManager.kBlue,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          height: constrain.maxHeight * 0.57,
-                          width: constrain.maxWidth,
-                          fit: BoxFit.fill,
-                        ),
-                ),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(AppRadiusSize.s12),
+                        topRight: Radius.circular(AppRadiusSize.s12)),
+                    child:
+                        // isVideo
+                        // ?
+                        SizedBox(
+                            width: constrain.maxWidth,
+                            height: constrain.maxHeight * 0.6,
+                            child: GeneralImageCacheBlock(
+                              link: imageLink,
+                              // isViewOnly: true,
+                            ))
+                    // : Image.network(
+                    //     imageLink,
+                    //     loadingBuilder: (BuildContext context, Widget child,
+                    //         ImageChunkEvent? loadingProgress) {
+                    //       if (loadingProgress == null) {
+                    //         return child;
+                    //       } else {
+                    //         return SizedBox(
+                    //           height: AppVerticalSize.s80,
+                    //           child: Center(
+                    //             child: Padding(
+                    //               padding: EdgeInsets.symmetric(
+                    //                   horizontal: AppHorizontalSize.s30),
+                    //               child: CircularProgressIndicator(
+                    //                 color: ColorManager.kBlue,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       }
+                    //     },
+                    //     height: constrain.maxHeight * 0.57,
+                    //     width: constrain.maxWidth,
+                    //     fit: BoxFit.fill,
+                    //   ),
+                    ),
                 SizedBox(
                   height: constrain.maxHeight * 0.4,
                   child: Column(
@@ -155,7 +157,6 @@ class SquareElementBlock extends StatelessWidget {
                 )
               ],
             ),
-
             Positioned(
               right: constrain.maxWidth * 0.08,
               child: Padding(
@@ -166,26 +167,25 @@ class SquareElementBlock extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        hasFavouriteIcon?
-                        InkWell(
-                          onTap: () {
-                            if (isFavouriteItem) {
-                              deleteFavouriteFunction!();
-                            }
-                            else
-                              {
-                                addFavouriteFunction!();
-                              }
-                          },
-                          child: Icon(
-                            isFavouriteItem
-                                ? Icons.star_rounded
-                                : Icons.star_border,
-                            color: isFavouriteItem
-                                ? ColorManager.kLimeGreenColor
-                                : ColorManager.kBlackColor,
-                          ),
-                        ):const SizedBox(),
+                        hasFavouriteIcon
+                            ? InkWell(
+                                onTap: () {
+                                  if (isFavouriteItem) {
+                                    deleteFavouriteFunction!();
+                                  } else {
+                                    addFavouriteFunction!();
+                                  }
+                                },
+                                child: Icon(
+                                  isFavouriteItem
+                                      ? Icons.star_rounded
+                                      : Icons.star_border,
+                                  color: isFavouriteItem
+                                      ? ColorManager.kLimeGreenColor
+                                      : ColorManager.kBlackColor,
+                                ),
+                              )
+                            : const SizedBox(),
                         canBeDeleted
                             ? const SizedBox()
                             : Padding(
@@ -201,15 +201,16 @@ class SquareElementBlock extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                        hasSelectIcon?
-                        Icon(
-                          isSelected?
-                          Icons.check_box_rounded:
-                          Icons.check_box_outline_blank_rounded,
-                          color:  isSelected?
-                               ColorManager.kLimeGreenColor
-                              : ColorManager.kWhiteColor,
-                        ):const SizedBox()
+                        hasSelectIcon
+                            ? Icon(
+                                isSelected
+                                    ? Icons.check_box_rounded
+                                    : Icons.check_box_outline_blank_rounded,
+                                color: isSelected
+                                    ? ColorManager.kLimeGreenColor
+                                    : ColorManager.kWhiteColor,
+                              )
+                            : const SizedBox()
                       ],
                     ),
                   ],
