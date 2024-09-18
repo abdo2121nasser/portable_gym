@@ -129,7 +129,7 @@ class FoodMainElementScreen extends StatelessWidget {
                       )
               ],
             ),
-            floatingActionButton: (profileModel.isPremium ||
+            floatingActionButton: (
                     profileModel.isClient == false)
                 ? FloatingActionButtonBlock(
                     function: () {
