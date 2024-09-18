@@ -721,7 +721,10 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
   getBodyCategories() async {
-    if(bodyCategoryModels[currentLevel].isNotEmpty) return;
+    if(bodyCategoryModels[currentLevel].isNotEmpty) {
+      return;
+    }
+    bodyCategoryModels[currentLevel].clear();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionBodyCategory)
         .where(StringManager.bodyCategoryLevel,
@@ -737,7 +740,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       emit(GetBodyCategorySuccessState());
     }).catchError((error) {
       emit(GetBodyCategoryErrorState());
-      print(error);
+      debugPrint(error.toString());
     });
   }
 

@@ -106,61 +106,72 @@ class BodyPartItemBlock extends StatelessWidget {
                     : Alignment.topLeft,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(AppRadiusSize.s36),
-                    ),
-                    child:
-                      SizedBox(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(AppRadiusSize.s36),
+                      ),
+                      child: SizedBox(
                           height: constrain.maxHeight,
                           width: MediaQuery.of(context).size.width * 0.4,
-                          child: GeneralImageCacheBlock(link:  bodyCategoryModel.imageLink!,))
-                  ),
+                          child: Image.network(
+                            bodyCategoryModel.imageLink!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.broken_image_rounded,
+                                size: constrain.maxHeight,
+                              );
+                            },
+                          )
+                          // GeneralImageCacheBlock(link:  bodyCategoryModel.imageLink!,)
+                          )),
                   Positioned(
-                    right: Get.locale!.languageCode.toString() == 'en' ? 0 : null,
-                    left: Get.locale!.languageCode.toString() == 'en' ? null : 0,
+                    right:
+                        Get.locale!.languageCode.toString() == 'en' ? 0 : null,
+                    left:
+                        Get.locale!.languageCode.toString() == 'en' ? null : 0,
                     top: 0,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        (profileModel.isPremium || profileModel.isClient == false)
+                        (profileModel.isPremium ||
+                                profileModel.isClient == false)
                             ? Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppHorizontalSize.s10,
-                              vertical: AppVerticalSize.s5),
-                          child: InkWell(
-                            onTap: () {
-                              if (isSelected) {
-                                deleteFromActivityOfDayList(
-                                    bodyCategoryModel);
-                              } else {
-                                addToActivityOfDayList(
-                                    bodyCategoryModel);
-                              }
-                            },
-                            child: Icon(
-                              isSelected
-                                  ? Icons.radio_button_checked
-                                  : Icons.radio_button_off_outlined,
-                              color: isSelected
-                                  ? ColorManager.kLimeGreenColor
-                                  : ColorManager.kWhiteColor,
-                            ),
-                          ),
-                        )
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppHorizontalSize.s10,
+                                    vertical: AppVerticalSize.s5),
+                                child: InkWell(
+                                  onTap: () {
+                                    if (isSelected) {
+                                      deleteFromActivityOfDayList(
+                                          bodyCategoryModel);
+                                    } else {
+                                      addToActivityOfDayList(bodyCategoryModel);
+                                    }
+                                  },
+                                  child: Icon(
+                                    isSelected
+                                        ? Icons.radio_button_checked
+                                        : Icons.radio_button_off_outlined,
+                                    color: isSelected
+                                        ? ColorManager.kLimeGreenColor
+                                        : ColorManager.kWhiteColor,
+                                  ),
+                                ),
+                              )
                             : const SizedBox(),
                         !profileModel.isClient
                             ? Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppHorizontalSize.s10,
-                              vertical: AppVerticalSize.s5),
-                          child: InkWell(
-                            onTap: deleteFunction,
-                            child: Icon(
-                              Icons.delete,
-                              color: ColorManager.kRed,
-                            ),
-                          ),
-                        )
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppHorizontalSize.s10,
+                                    vertical: AppVerticalSize.s5),
+                                child: InkWell(
+                                  onTap: deleteFunction,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: ColorManager.kRed,
+                                  ),
+                                ),
+                              )
                             : const SizedBox(),
                       ],
                     ),
