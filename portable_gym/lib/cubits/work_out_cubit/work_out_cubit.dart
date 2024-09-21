@@ -78,8 +78,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
   TextEditingController bodyCategoryEnglishNumberOfExercisesController =
       TextEditingController();
-  TextEditingController bodyCategoryEnglishCaloriesController =
-      TextEditingController();
+  // TextEditingController bodyCategoryEnglishCaloriesController =
+  //     TextEditingController();
   TextEditingController bodyCategoryImageLinkController =
       TextEditingController();
   TextEditingController bodyCategoryDownloadFilesLinkController =
@@ -88,8 +88,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       TextEditingController();
   TextEditingController bodyCategoryArabicNumberOfExercisesController =
       TextEditingController();
-  TextEditingController bodyCategoryArabicCaloriesController =
-      TextEditingController();
+  // TextEditingController bodyCategoryArabicCaloriesController =
+  //     TextEditingController();
 
 //---------------------------------------------------------------------------------------------------
 
@@ -170,7 +170,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<TextEditingController> getEnglishBodyCategoryControllers({bool hasFileDownloadField=false}) {
    return [
       bodyCategoryEnglishTitleController,
-      bodyCategoryEnglishCaloriesController,
+      // bodyCategoryEnglishCaloriesController,
       bodyCategoryEnglishNumberOfExercisesController,
       bodyCategoryImageLinkController,
      if(hasFileDownloadField)
@@ -181,7 +181,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   List<TextEditingController> getArabicBodyCategoryControllers() {
    return  [
       bodyCategoryArabicTitleController,
-      bodyCategoryArabicCaloriesController,
+      // bodyCategoryArabicCaloriesController,
       bodyCategoryArabicNumberOfExercisesController,
     ];
 
@@ -495,12 +495,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the English title field is empty',
       );
       return false;
-    } else if (bodyCategoryEnglishCaloriesController.text.isEmpty) {
-      getToastMessage(
-        message: 'the english calories field is empty',
-      );
-      return false;
-    } else if (bodyCategoryImageLinkController.text.isEmpty) {
+    }
+    // else if (bodyCategoryEnglishCaloriesController.text.isEmpty) {
+    //   getToastMessage(
+    //     message: 'the english calories field is empty',
+    //   );
+    //   return false;
+    // }
+    else if (bodyCategoryImageLinkController.text.isEmpty) {
       getToastMessage(
         message: 'the image link field is empty',
       );
@@ -515,12 +517,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         message: 'the arabic title field is empty',
       );
       return false;
-    } else if (bodyCategoryArabicCaloriesController.text.isEmpty) {
-      getToastMessage(
-        message: 'the arabic calories field is empty',
-      );
-      return false;
-    } else if (bodyCategoryArabicNumberOfExercisesController.text.isEmpty) {
+    }
+    // else if (bodyCategoryArabicCaloriesController.text.isEmpty) {
+    //   getToastMessage(
+    //     message: 'the arabic calories field is empty',
+    //   );
+    //   return false;
+    // }
+    else if (bodyCategoryArabicNumberOfExercisesController.text.isEmpty) {
       getToastMessage(
         message: 'the arabic number of exercises field is empty',
       );
@@ -539,12 +543,12 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   clearBodyCategoryAttributes() {
     bodyCategoryEnglishTitleController.clear();
     bodyCategoryEnglishNumberOfExercisesController.clear();
-    bodyCategoryEnglishCaloriesController.clear();
+    // bodyCategoryEnglishCaloriesController.clear();
     bodyCategoryImageLinkController.clear();
     bodyCategoryDownloadFilesLinkController.clear();
     bodyCategoryArabicTitleController.clear();
     bodyCategoryArabicNumberOfExercisesController.clear();
-    bodyCategoryArabicCaloriesController.clear();
+    // bodyCategoryArabicCaloriesController.clear();
     bodyCategoryTotalTime = DateTime(0, 0, 0, 0, 0, 0);
     emit(ClearBodyCategoryControllersState());
   }
