@@ -33,7 +33,7 @@ import '../../resourses/managers_files/string_manager.dart';
 part 'set_up_state.dart';
 
 class SetUpCubit extends Cubit<SetUpState> {
-  SetUpCubit({required String email}) : super(SetUpInitial()) {
+  SetUpCubit({required String email,required this.isAdmin}) : super(SetUpInitial()) {
     this.email.text = email;
   }
 
@@ -59,6 +59,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   TextEditingController fullName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
+  bool isAdmin;
   //-------------------------------------------------
   //----------------------------------------------
   var pickedFilename;
@@ -313,11 +314,11 @@ class SetUpCubit extends Cubit<SetUpState> {
       StringManager.userAge: age,
       StringManager.userHeight: height,
       StringManager.userWeight: weight,
-      StringManager.userLevel: activityLevels[currentActivityLevel],
-      StringManager.userGoal: getGoals(isStringManager: true)[currentGoal],
+      // StringManager.userLevel: activityLevels[currentActivityLevel],
+      // StringManager.userGoal: getGoals(isStringManager: true)[currentGoal],
       StringManager.userImageLink: imageLink.toString(),
       StringManager.userIsPremium: false,
-      StringManager.userIsClint: true,
+      StringManager.userIsClint: !isAdmin,
       StringManager.profileQuestionsAnswer: questionsMap,
 
     }).then((value) {

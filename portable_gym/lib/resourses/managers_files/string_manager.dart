@@ -3,6 +3,10 @@ class StringManager
   static const String localLanguage='language';
 
 
+  static const String registrationCodeCollection='registration code collection';
+  static const String registrationCode='code';
+
+
   static const String trueWord='true';
   static const String falseWord='false';
   static const String gmailPattern='@gmail.com';
@@ -159,7 +163,7 @@ class StringManager
   static const String userLevel='level';
   static const String userIsPremium ='is premium';
   static const String userIsClint ='is client';
-  static const String userGoal ='is client';
+  static const String userGoal ='goal';
   static const String deviceToken ='device token';
 
   static const String userWeightLoss = "Weight Loss";

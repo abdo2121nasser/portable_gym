@@ -39,7 +39,7 @@ class PortableGym extends StatelessWidget {
                              if(snapshot.hasData ){
                                return    GetMaterialApp(
                                  locale:  Locale(snapshot.data!),
-                                // locale: Locale('en'),
+                                // locale: Locale('ar'),
                                  localizationsDelegates: const [
                                    S.delegate,
                                    GlobalMaterialLocalizations.delegate,

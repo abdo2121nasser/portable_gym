@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewTraining":
             MessageLookupByLibrary.simpleMessage("add new training"),
         "addRecipe": MessageLookupByLibrary.simpleMessage("Add Recipe"),
+        "admin": MessageLookupByLibrary.simpleMessage("admin"),
         "advanced": MessageLookupByLibrary.simpleMessage("Advanced"),
         "advantage": MessageLookupByLibrary.simpleMessage("Advantage"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
@@ -152,6 +153,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("recipe of the day"),
         "recommendations":
             MessageLookupByLibrary.simpleMessage("Recommendations"),
+        "registrationCode":
+            MessageLookupByLibrary.simpleMessage("Registration Code"),
+        "registrationCodeErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "registration code field is empty"),
+        "registrationCodeIsWrong":
+            MessageLookupByLibrary.simpleMessage("registration code is wrong"),
         "reputation": MessageLookupByLibrary.simpleMessage("repetition "),
         "reputationShort": MessageLookupByLibrary.simpleMessage("Rep"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),

@@ -19,34 +19,38 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   static AuthenticationCubit get(context) => BlocProvider.of(context);
   TextEditingController loginEmail = TextEditingController();
   TextEditingController loginPassword = TextEditingController();
-  bool isVisibleLoginPassword=true;
+  bool isVisibleLoginPassword = true;
 
-
-  // TextEditingController registerName = TextEditingController();
   TextEditingController registerEmail = TextEditingController();
   TextEditingController registerPassword = TextEditingController();
   TextEditingController registerConfirmPassword = TextEditingController();
-  bool isVisibleRegisterPassword=false;
-  bool isVisibleRegisterConfirmPassword=false;
+  bool isVisibleRegisterPassword = false;
+  bool isVisibleRegisterConfirmPassword = false;
   TextEditingController forgetPasswordEmail = TextEditingController();
-  bool isVisibleForgetPassword=false;
+  bool isVisibleForgetPassword = false;
+  TextEditingController registrationCodeController = TextEditingController();
+  bool isAdmin = false;
 
+  changeIsAdminValue() {
+    isAdmin = !isAdmin;
+    emit(ChangeIsAdminValue());
+  }
 
-  changePasswordVisibility({required String passwordLable}){
-     switch(passwordLable){
-       case 'login password':
-         isVisibleLoginPassword=!isVisibleLoginPassword;
-         break;
-             case 'register password':
-               isVisibleRegisterPassword=!isVisibleRegisterPassword;
-         break;
-             case 'register confirm password':
-               isVisibleRegisterConfirmPassword=!isVisibleRegisterConfirmPassword;
-         break;
-             case 'forget password':
-               isVisibleForgetPassword=!isVisibleForgetPassword;
-         break;
-     }
+  changePasswordVisibility({required String passwordLable}) {
+    switch (passwordLable) {
+      case 'login password':
+        isVisibleLoginPassword = !isVisibleLoginPassword;
+        break;
+      case 'register password':
+        isVisibleRegisterPassword = !isVisibleRegisterPassword;
+        break;
+      case 'register confirm password':
+        isVisibleRegisterConfirmPassword = !isVisibleRegisterConfirmPassword;
+        break;
+      case 'forget password':
+        isVisibleForgetPassword = !isVisibleForgetPassword;
+        break;
+    }
     emit(ChangePasswordVisibility());
   }
 
@@ -136,23 +140,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         .then((value) async {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      if(value.user!.emailVerified==false && false)
+      if (value.user!.emailVerified == false && false)
       //todo delete the and false
       {
         await sendEmailVerification(context);
-      }else {
-        bool hasData = await hasProfile(email: loginEmail.text, context: context);
+      } else {
+        bool hasData =
+            await hasProfile(email: loginEmail.text, context: context);
         if (hasData) {
           Get.offAll(const MainNavigationBarScreen());
+        } else {
+          Get.to(SetUpScreen(
+            email: loginEmail.text,
+            isAdmin: isAdmin,
+          ));
         }
-        else
-          {
-            Get.to(SetUpScreen(
-              email: loginEmail.text,
-            ));
-          }
       }
-
     }).catchError((error) {
       emit(LoginErrorState());
       getToastMessage(message: S.of(context).somethingWentWrong);
@@ -169,6 +172,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     registerPassword.clear();
     //registerName.clear();
     registerConfirmPassword.clear();
+    registrationCodeController.clear();
     emit(ClearRegisterControllers());
   }
 
@@ -180,6 +184,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         //  nameValidation(name: registerName.text, context: context) ==StringManager.trueWord &&
 
         confirmPasswordValidation(context: context) == StringManager.trueWord) {
+      if (isAdmin) {
+        if (registrationCodeController.text.isNotEmpty) {
+          return true;
+        } else {
+          return false;
+        }
+      }
       return true;
     } else {
       return false;
@@ -201,26 +212,28 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return emailError;
     } else if (passwordError != StringManager.trueWord) {
       return passwordError;
-    } else {
+    } else if (confirmPasswordError != StringManager.trueWord) {
       return confirmPasswordError;
+    } else {
+      return S.of(context).registrationCodeErrorMessage;
     }
   }
 
   Future<void> registerProcess({required context}) async {
     if (registerValidation(context: context) == true) {
-      await register(context);
-      if (state is RegisterSuccessState) {
-        await sendEmailVerification(context);
-        // Get.to(SetUpScreen(
-        //   email: registerEmail.text,
-        // ));
-        Get.back();
+      if (registrationCodeController.text == await getRegistrationCode()) {
+        await register(context);
+        if (state is RegisterSuccessState) {
+          await sendEmailVerification(context);
+          Get.back();
+        }
+      } else {
+        getToastMessage(message: S.of(context).registrationCodeIsWrong);
       }
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
     clearRegisterControllers();
-
   }
 
   register(context) async {
@@ -241,14 +254,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   sendEmailVerification(context) async {
     emit(EmailVerificationLoadingState());
-    await FirebaseAuth.instance.currentUser!.sendEmailVerification().then((value) {
+    await FirebaseAuth.instance.currentUser!
+        .sendEmailVerification()
+        .then((value) {
       getToastMessage(message: S.of(context).emailVerificationMessage);
       emit(EmailVerificationSuccessState());
     }).catchError((error) {
       emit(EmailVerificationErrorState());
       debugPrint(error.toString());
-     getToastMessage(message: S.of(context).somethingWentWrong);
-
+      getToastMessage(message: S.of(context).somethingWentWrong);
     });
   }
 
@@ -321,6 +335,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }).catchError((error) {
       emit(SaveUserDataDocIdErrorState());
       debugPrint(error);
+    });
+  }
+
+  //-----------------------------------registration code----------------------
+ Future<String> getRegistrationCode() async {
+  return  await FirebaseFirestore.instance
+        .collection(StringManager.registrationCodeCollection)
+        .get()
+        .then((value) {
+
+      return value.docs.first[StringManager.registrationCode];
+    }).catchError((error) {
+      debugPrint(error.toString());
     });
   }
 }

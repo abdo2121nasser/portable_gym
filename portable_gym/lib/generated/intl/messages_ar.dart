@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewTraining":
             MessageLookupByLibrary.simpleMessage("اضف تمرين جديد"),
         "addRecipe": MessageLookupByLibrary.simpleMessage("اضف وصفه"),
+        "admin": MessageLookupByLibrary.simpleMessage("ادمن"),
         "advanced": MessageLookupByLibrary.simpleMessage("متقدم"),
         "advantage": MessageLookupByLibrary.simpleMessage("المميزات"),
         "age": MessageLookupByLibrary.simpleMessage("العمر"),
@@ -146,6 +147,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "recipe": MessageLookupByLibrary.simpleMessage("وصفه"),
         "recipeOfDay": MessageLookupByLibrary.simpleMessage("وصفه اليوم"),
         "recommendations": MessageLookupByLibrary.simpleMessage("المقترحات"),
+        "registrationCode": MessageLookupByLibrary.simpleMessage("كود التقديم"),
+        "registrationCodeErrorMessage":
+            MessageLookupByLibrary.simpleMessage("كود التقديم فارغ"),
+        "registrationCodeIsWrong":
+            MessageLookupByLibrary.simpleMessage("كود التقديم خطاء"),
         "reputation": MessageLookupByLibrary.simpleMessage("التكرار "),
         "reputationShort": MessageLookupByLibrary.simpleMessage("عدد"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("غير كلمه السر"),

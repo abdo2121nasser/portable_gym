@@ -9,6 +9,10 @@
   "email": "البريد الاليكتروني",
   "password": "كلمه السر",
   "forgetPassword":"هل نسيت كلمه السر",
+  "registrationCodeErrorMessage": "كود التقديم فارغ",
+  "registrationCodeIsWrong": "كود التقديم خطاء",
+
+
   "emailVerificationMessage":"تم ارسال بريد تحقق الهويه",
   "loginOtherOptions": "او سجل عن طريق",
   "loginSignUpOption": "ليس لديك حساب ؟",
@@ -155,5 +159,9 @@
   "duration": "المده",
 
   "alertDeleteTitle": "امسح العنصر",
-  "alertDeleteContent": "هل تريد مسح هذا العنصر؟"
+  "alertDeleteContent": "هل تريد مسح هذا العنصر؟",
+  "admin": "ادمن",
+  "registrationCode": "كود التقديم"
+
+
 }

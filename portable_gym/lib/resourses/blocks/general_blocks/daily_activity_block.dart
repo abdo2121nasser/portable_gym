@@ -84,7 +84,7 @@ class DailyActivityBlock extends StatelessWidget {
                     height: constrain.maxHeight * 0.25,
                     width: constrain.maxWidth,
                     decoration: BoxDecoration(
-                      color: ColorManager.kTransparantBlackColor,
+                      color: ColorManager.kTransparentBlackColor,
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(AppRadiusSize.s20),
                           bottomLeft: Radius.circular(AppRadiusSize.s20)),

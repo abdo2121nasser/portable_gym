@@ -130,6 +130,26 @@ class S {
     );
   }
 
+  /// `registration code field is empty`
+  String get registrationCodeErrorMessage {
+    return Intl.message(
+      'registration code field is empty',
+      name: 'registrationCodeErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `registration code is wrong`
+  String get registrationCodeIsWrong {
+    return Intl.message(
+      'registration code is wrong',
+      name: 'registrationCodeIsWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `sent email verification`
   String get emailVerificationMessage {
     return Intl.message(
@@ -1365,6 +1385,26 @@ class S {
     return Intl.message(
       'Are you sure you want to delete this item?',
       name: 'alertDeleteContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `admin`
+  String get admin {
+    return Intl.message(
+      'admin',
+      name: 'admin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration Code`
+  String get registrationCode {
+    return Intl.message(
+      'Registration Code',
+      name: 'registrationCode',
       desc: '',
       args: [],
     );

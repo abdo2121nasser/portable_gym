@@ -15,12 +15,13 @@ import '../resourses/managers_files/values_manager.dart';
 
 class SetUpScreen extends StatelessWidget {
   final String email;
+  final bool isAdmin;
 
-  const SetUpScreen({super.key, required this.email});
+  const SetUpScreen({super.key, required this.email,required this.isAdmin});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SetUpCubit(email: email),
+      create: (context) => SetUpCubit(email: email,isAdmin: isAdmin),
       child: BlocConsumer<SetUpCubit, SetUpState>(
         listener: (context, state) {},
         builder: (context, state) {
