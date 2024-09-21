@@ -129,8 +129,7 @@ class FoodMainElementScreen extends StatelessWidget {
                       )
               ],
             ),
-            floatingActionButton: (
-                    profileModel.isClient == false)
+            floatingActionButton: (profileModel.isClient == false)
                 ? FloatingActionButtonBlock(
                     function: () {
                       nutCubit.clearFoodMainElementAttributes();

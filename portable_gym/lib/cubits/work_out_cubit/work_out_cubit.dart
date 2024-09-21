@@ -673,7 +673,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       if (isDailyCategory) {
         getDailyBodyCategoryCard(hasAccess: true);
       } else {
-        getBodyCategories();
+        getBodyCategories(reload: true);
       }
     }).catchError((error) {
       emit(EditBodyCategoryErrorState());
@@ -703,7 +703,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   processOfAddingBodyCategory() {
     if (validateAddBodyCategory()) {
       addNewBodyCategory();
-      getBodyCategories();
+      getBodyCategories(reload: true);
     }
   }
 
@@ -717,11 +717,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
           isDailyTraining: false);
     });
     await deleteBodyCategory(docId: docId);
-    await getBodyCategories();
+    await getBodyCategories(reload: true);
   }
 
-  getBodyCategories() async {
-    if(bodyCategoryModels[currentLevel].isNotEmpty) {
+  getBodyCategories({bool reload=false}) async {
+    if(bodyCategoryModels[currentLevel].isNotEmpty && !reload) {
       return;
     }
     bodyCategoryModels[currentLevel].clear();
