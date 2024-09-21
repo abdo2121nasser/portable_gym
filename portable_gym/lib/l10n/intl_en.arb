@@ -133,6 +133,12 @@
   "hintMessage": "type your message",
   "file": "File",
   "sendFileErrorMessage": "you should choose file first",
-  "duration": "Duration"
+  "duration": "Duration",
+
+  "alertDeleteTitle": "Delete Item",
+  "alertDeleteContent": "Are you sure you want to delete this item?"
+
+
+
 }
 

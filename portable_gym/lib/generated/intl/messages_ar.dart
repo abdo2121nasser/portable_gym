@@ -32,6 +32,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("متقدم"),
         "advantage": MessageLookupByLibrary.simpleMessage("المميزات"),
         "age": MessageLookupByLibrary.simpleMessage("العمر"),
+        "alertDeleteContent":
+            MessageLookupByLibrary.simpleMessage("هل تريد مسح هذا العنصر؟"),
+        "alertDeleteTitle": MessageLookupByLibrary.simpleMessage("امسح العنصر"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("عربي"),

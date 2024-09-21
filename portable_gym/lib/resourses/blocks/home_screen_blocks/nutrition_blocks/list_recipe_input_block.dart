@@ -9,7 +9,7 @@ class ListRecipeInputBlock extends StatelessWidget {
    final List<String> lables;
    final bool  isArabicTabView;
 
-   ListRecipeInputBlock({required this.controllers,required this.lables,this.isArabicTabView=false});
+   const ListRecipeInputBlock({super.key, required this.controllers,required this.lables,this.isArabicTabView=false});
 
   @override
   Widget build(BuildContext context) {

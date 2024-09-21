@@ -32,6 +32,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("Advanced"),
         "advantage": MessageLookupByLibrary.simpleMessage("Advantage"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
+        "alertDeleteContent": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this item?"),
+        "alertDeleteTitle": MessageLookupByLibrary.simpleMessage("Delete Item"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("Arabic"),

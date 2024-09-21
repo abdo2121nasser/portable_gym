@@ -117,10 +117,14 @@ class FoodMainElementScreen extends StatelessWidget {
                                     .description!,
                                 deleteFunction: (profileModel.isClient == false)
                                     ? () {
-                                        nutCubit.deleteFoodMainElement(
-                                            docId: nutCubit
-                                                .foodElementModels[index]
-                                                .docId);
+                                        showAlertDeleteBox(
+                                            context: context,
+                                            deleteFunction: () {
+                                              nutCubit.deleteFoodMainElement(
+                                                  docId: nutCubit
+                                                      .foodElementModels[index]
+                                                      .docId);
+                                            });
                                       }
                                     : null,
                               )),

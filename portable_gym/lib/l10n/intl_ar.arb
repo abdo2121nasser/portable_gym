@@ -152,5 +152,8 @@
   "hintMessage": "اكتب رسالتك",
   "file": "ملف",
   "sendFileErrorMessage": "يجب ان تختار ملفا اولا",
-  "duration": "المده"
+  "duration": "المده",
+
+  "alertDeleteTitle": "امسح العنصر",
+  "alertDeleteContent": "هل تريد مسح هذا العنصر؟"
 }

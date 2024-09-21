@@ -104,7 +104,10 @@ class RecipeGridSquareBlock extends StatelessWidget {
                                     .calories!,
                                 imageLink: recipeModels[index].imageLink,
                                 deleteFunction: () {
-                                  deleteFunction(recipeModels[index].docId);
+                                  showAlertDeleteBox(context: context,deleteFunction: (){
+                                    deleteFunction(recipeModels[index].docId);
+                                  });
+
                                 },
                                 isFavouriteItem: snapshot.data!,
                                 addFavouriteFunction: () {
@@ -161,7 +164,10 @@ class RecipeGridSquareBlock extends StatelessWidget {
                 .calories!,
             imageLink: recipeModels[index].imageLink,
             deleteFunction: () {
-              deleteFunction(recipeModels[index].docId);
+
+              showAlertDeleteBox(context: context,deleteFunction: (){
+                deleteFunction(recipeModels[index].docId);
+              });
             },
             hasFavouriteIcon: false,
           )),

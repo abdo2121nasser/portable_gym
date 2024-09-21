@@ -1349,6 +1349,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete Item`
+  String get alertDeleteTitle {
+    return Intl.message(
+      'Delete Item',
+      name: 'alertDeleteTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this item?`
+  String get alertDeleteContent {
+    return Intl.message(
+      'Are you sure you want to delete this item?',
+      name: 'alertDeleteContent',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

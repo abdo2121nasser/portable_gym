@@ -121,10 +121,13 @@ class ListTrainingItemsBlock extends StatelessWidget {
                                   trainingModel: trainingModels[index],
                                   isDailyTraining: isDailyCategory,
                                   deleteFunction: () {
-                                    workCubit.deleteTraining(
-                                        docId: trainingModels[index].docId!,
-                                        bodyCategory: bodyCategory,
-                                        isDailyTraining: isDailyCategory);
+                                    showAlertDeleteBox(context: context,deleteFunction: (){
+                                      workCubit.deleteTraining(
+                                          docId: trainingModels[index].docId!,
+                                          bodyCategory: bodyCategory,
+                                          isDailyTraining: isDailyCategory);
+                                    });
+
                                   },
                                   addToFavouriteFunction: () async {
                                     favCubit.addFavouritTraining(

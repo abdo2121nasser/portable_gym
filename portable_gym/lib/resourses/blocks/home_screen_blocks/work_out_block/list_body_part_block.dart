@@ -84,10 +84,13 @@ class ListBodyPartBlock extends StatelessWidget {
                     bodyCategoryModel: bodyCategoryModel[index],
                     profileModel: profileModel,
                     deleteFunction: () {
-                      workCubit.processOfDeletingBodyCategory(
-                          docId: bodyCategoryModel[index].docId!,
-                          bodyCategory:
-                              bodyCategoryModel[index].english!.title!);
+                      showAlertDeleteBox(context: context,deleteFunction: (){
+                        workCubit.processOfDeletingBodyCategory(
+                            docId: bodyCategoryModel[index].docId!,
+                            bodyCategory:
+                            bodyCategoryModel[index].english!.title!);
+                      });
+
                     },
                     isSelected: isSelectedFunction(bodyCategoryModel[index]),
                     addToActivityOfDayList: (model){

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
@@ -7,6 +7,7 @@ import 'package:portable_gym/resourses/managers_files/font_manager.dart';
 import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 
+import '../../generated/l10n.dart';
 import '../blocks/home_screen_blocks/work_out_block/from_to_period_block.dart';
 import '../blocks/home_screen_blocks/work_out_block/period_picker_block.dart';
 
@@ -17,7 +18,8 @@ class AlertBodyCategoryBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertBodyCategoryBox({super.key,
+  const AlertBodyCategoryBox({
+    super.key,
     required context,
     required this.workOutCubit,
     required this.tabBar,
@@ -88,16 +90,17 @@ class AlertTrainingBox extends StatelessWidget {
   final WorkOutCubit workOutCubit;
   final TabBar tabBar;
   final TabBarView tabBarView;
- // final DateTime trainingPeriod;
+  // final DateTime trainingPeriod;
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertTrainingBox({super.key,
+  const AlertTrainingBox({
+    super.key,
     required context,
     required this.workOutCubit,
     required this.tabBar,
     required this.tabBarView,
-  //  required this.trainingPeriod,
+    //  required this.trainingPeriod,
     required this.buttonFunction,
     required this.title,
     required this.buttonLable,
@@ -136,7 +139,7 @@ class AlertTrainingBox extends StatelessWidget {
                         height: AppVerticalSize.s10,
                       ),
                       Expanded(child: tabBarView),
-                     // PeriodPickerBlock(workCubit: workOutCubit),
+                      // PeriodPickerBlock(workCubit: workOutCubit),
                       FromToPeriodBlock(workCubit: workOutCubit),
 
                       GeneralButtonBlock(
@@ -165,7 +168,8 @@ class AlertRecipeBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertRecipeBox({super.key,
+  const AlertRecipeBox({
+    super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -193,7 +197,7 @@ class AlertRecipeBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-          
+
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
@@ -234,7 +238,8 @@ class AlertFoodMainElementBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertFoodMainElementBox({super.key,
+  const AlertFoodMainElementBox({
+    super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -303,7 +308,8 @@ class AlertDailyRecipeCategoryBox extends StatelessWidget {
   final VoidCallback buttonFunction;
   final String title;
   final String buttonLable;
-  const AlertDailyRecipeCategoryBox({super.key,
+  const AlertDailyRecipeCategoryBox({
+    super.key,
     required context,
     required this.tabBar,
     required this.tabBarView,
@@ -330,7 +336,6 @@ class AlertDailyRecipeCategoryBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
@@ -361,7 +366,8 @@ class AlertDailyRecipeCategoryBox extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}
 
 class AlertQuestionBox extends StatelessWidget {
   final TabBar tabBar;
@@ -372,17 +378,17 @@ class AlertQuestionBox extends StatelessWidget {
   final String firstButtonLable;
   final String? secondButtonLable;
   final bool isSingleButton;
-  const AlertQuestionBox({super.key,
-    required context,
-    required this.tabBar,
-    required this.tabBarView,
-    required this.firstButtonFunction,
-     this.secondButtonLable,
-    required this.title,
-    required this.firstButtonLable,
-     this.secondButtonFunction,
-    required this.isSingleButton
-  });
+  const AlertQuestionBox(
+      {super.key,
+      required context,
+      required this.tabBar,
+      required this.tabBarView,
+      required this.firstButtonFunction,
+      this.secondButtonLable,
+      required this.title,
+      required this.firstButtonLable,
+      this.secondButtonFunction,
+      required this.isSingleButton});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -402,7 +408,6 @@ class AlertQuestionBox extends StatelessWidget {
           ),
           alignment: Alignment.center,
           scrollable: true,
-
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
@@ -417,7 +422,9 @@ class AlertQuestionBox extends StatelessWidget {
                       ),
                       Expanded(child: tabBarView),
                       Row(
-                        mainAxisAlignment:isSingleButton?MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: isSingleButton
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.spaceEvenly,
                         children: [
                           GeneralButtonBlock(
                               lable: firstButtonLable,
@@ -427,15 +434,18 @@ class AlertQuestionBox extends StatelessWidget {
                                   fontSize: FontSize.s20,
                                   color: ColorManager.kBlackColor,
                                   fontFamily: FontFamily.kLeagueSpartanFont)),
-                      isSingleButton?const SizedBox():
-                          GeneralButtonBlock(
-                              lable: secondButtonLable!,
-                              function: secondButtonFunction!,
-                              backgroundColor: ColorManager.kLightPurpleColor,
-                              textStyle: getSemiBoldStyle(
-                                  fontSize: FontSize.s20,
-                                  color: ColorManager.kBlackColor,
-                                  fontFamily: FontFamily.kLeagueSpartanFont)),
+                          isSingleButton
+                              ? const SizedBox()
+                              : GeneralButtonBlock(
+                                  lable: secondButtonLable!,
+                                  function: secondButtonFunction!,
+                                  backgroundColor:
+                                      ColorManager.kLightPurpleColor,
+                                  textStyle: getSemiBoldStyle(
+                                      fontSize: FontSize.s20,
+                                      color: ColorManager.kBlackColor,
+                                      fontFamily:
+                                          FontFamily.kLeagueSpartanFont)),
                         ],
                       )
                     ],
@@ -447,7 +457,8 @@ class AlertQuestionBox extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}
 
 showAlertBodyCategoryBox({
   required context,
@@ -491,7 +502,7 @@ showAlertTrainingBox({
       buttonFunction: buttonFunction,
       title: title,
       buttonLable: buttonLable,
-     // trainingPeriod: trainingPeriod,
+      // trainingPeriod: trainingPeriod,
     ),
   );
 }
@@ -515,6 +526,7 @@ showAlertRecipeBox({
         buttonLable: buttonLable),
   );
 }
+
 showAlertFoodMainElementBox({
   required context,
   required TabBar tabBar,
@@ -555,29 +567,80 @@ showAlertDailyRecipeCategoryBox({
   );
 }
 
-showAlertQuestionBox({
-  required context,
-  required TabBar tabBar,
-  required TabBarView tabBarView,
-  required VoidCallback firstButtonFunction,
-   VoidCallback? secondButtonFunction,
-  required String title,
-  required String firstButtonLable,
-   String? secondButtonLable,
-  required bool isSingleButton
-}) {
+showAlertQuestionBox(
+    {required context,
+    required TabBar tabBar,
+    required TabBarView tabBarView,
+    required VoidCallback firstButtonFunction,
+    VoidCallback? secondButtonFunction,
+    required String title,
+    required String firstButtonLable,
+    String? secondButtonLable,
+    required bool isSingleButton}) {
   return showDialog(
     context: context,
     builder: (context) => AlertQuestionBox(
-        context: context,
-        tabBar: tabBar,
-        tabBarView: tabBarView,
-        firstButtonFunction: firstButtonFunction,
-        secondButtonFunction: secondButtonFunction,
-        title: title,
-        firstButtonLable: firstButtonLable,
-    secondButtonLable: secondButtonLable,
+      context: context,
+      tabBar: tabBar,
+      tabBarView: tabBarView,
+      firstButtonFunction: firstButtonFunction,
+      secondButtonFunction: secondButtonFunction,
+      title: title,
+      firstButtonLable: firstButtonLable,
+      secondButtonLable: secondButtonLable,
       isSingleButton: isSingleButton,
+    ),
+  );
+}
+
+void showAlertDeleteBox({
+  required BuildContext context,
+  required VoidCallback deleteFunction,
+}) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(S.of(context).alertDeleteTitle,
+          style: getBoldStyle(
+            fontSize: FontSize.s18,
+            color: ColorManager.kBlackColor,
+            fontFamily: FontFamily.kPoppinsFont,
+          )),
+      content: Text(S.of(context).alertDeleteContent,
+          style: getBoldStyle(
+            fontSize: FontSize.s14,
+            color: ColorManager.kBlackColor,
+            fontFamily: FontFamily.kLeagueSpartanFont,
+          )),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.back(); // Close the dialog
+          },
+          child: Text(S.of(context).cancel,
+              style: getMediumStyle(
+                fontSize: FontSize.s14,
+                color: ColorManager.kBlue,
+                fontFamily: FontFamily.kLeagueSpartanFont,
+              )),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            deleteFunction();
+            Get.back();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: ColorManager.kRed,
+          ),
+          child: Text(S.of(context).delete,
+              style: getMediumStyle(
+                fontSize: FontSize.s14,
+                color: ColorManager.kWhiteColor,
+                fontFamily: FontFamily.kLeagueSpartanFont,
+              )),
+        ),
+      ],
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
     ),
   );
 }
