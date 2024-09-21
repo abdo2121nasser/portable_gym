@@ -157,7 +157,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   changeCurrentMealType({required int index, bool isDailyRecipe = false}) {
     currentMealType = index;
     emit(ChangeCurrentMealTypeState());
-    getFilteredRecipes(isDailyRecipe: isDailyRecipe);
+    getFilteredRecipes(isDailyRecipe: isDailyRecipe,reload: true);
   }
 
   List<TextEditingController> getEnglishRecipeControllers() {
@@ -385,7 +385,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       );
       debugPrint(error);
     });
-    getFilteredRecipes();
+    getFilteredRecipes(reload: true);
     clearRecipeAttributes();
     Get.back();
   }
@@ -402,7 +402,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       getToastMessage(
         message: 'edited successfully',
       );
-      getFilteredRecipes();
+      getFilteredRecipes(reload: true);
     }).catchError((error) {
       emit(EditRecipeErrorState());
       getToastMessage(
@@ -421,7 +421,7 @@ class NutritionCubit extends Cubit<NutritionState> {
             : StringManager.collectionRecipes);
     await data.doc(docId).delete().then((value) {
       emit(DeleteRecipeSuccessState());
-      getFilteredRecipes();
+      getFilteredRecipes(reload: true);
 
       getToastMessage(
         message: 'deleted successfully',
@@ -435,8 +435,8 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  getFilteredRecipes({bool isDailyRecipe = false}) async {
-   if(recipeModels[currentMealType].isNotEmpty && isDailyRecipe==false )return;
+  getFilteredRecipes({bool isDailyRecipe = false, bool reload=false}) async {
+   if(recipeModels[currentMealType].isNotEmpty && isDailyRecipe==false && !reload)return;
     var data = FirebaseFirestore.instance
         .collection(isDailyRecipe
             ? StringManager.collectionDailyRecipe
