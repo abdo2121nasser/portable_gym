@@ -28,7 +28,9 @@ class FavouriteScreen extends StatelessWidget {
                   }),
               state is GetUserDocIdLoadingState ||
               state is GetFavouriteTrainingLoadingState ||
-              state is GetFavouriteRecipesLoadingState
+              state is GetFavouriteRecipesLoadingState||
+              state is DeleteFavouriteTrainingLoadingState||
+              state is DeleteFavouriteRecipeLoadingState
 
                   ? const Expanded(child: Center(child: CircularProgressIndicator(
                 color: ColorManager.kPurpleColor,

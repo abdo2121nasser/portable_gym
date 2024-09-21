@@ -93,6 +93,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       StringManager.trainingDocId: trainingModel.docId,
     }).then((value) async {
       emit(AddFavouriteTrainingSuccessState());
+      getFavouriteTrainings(reload: true);
     }).catchError((error) {
       debugPrint(error);
       emit(AddFavouriteTrainingErrorState());
@@ -121,14 +122,15 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         .delete()
         .then((value) {
       emit(DeleteFavouriteTrainingSuccessState());
-      getFavouriteTrainings();
+      getFavouriteTrainings(reload: true);
     }).catchError((error) {
       emit(DeleteFavouriteTrainingErrorState());
       debugPrint(error);
     });
   }
-  getFavouriteTrainings() async {
-    if(favouriteTrainingModels.isNotEmpty)return;
+  getFavouriteTrainings({bool reload=false}) async {
+    if(favouriteTrainingModels.isNotEmpty && !reload)return;
+    favouriteTrainingModels.clear();
     emit(GetFavouriteTrainingLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
@@ -213,14 +215,15 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         .doc(await getFavouriteRecipeDocId(originalRecipeDocId: recipeDocId)).delete()
         .then((value) {
       emit(DeleteFavouriteRecipeSuccessState());
-      getFavouriteRecipes();
+      getFavouriteRecipes(reload: true);
     }).catchError((error) {
       emit(DeleteFavouriteRecipeErrorState());
       debugPrint(error);
     });
   }
-  getFavouriteRecipes() async {
-    if(favouriteRecipeModels.isNotEmpty) return;
+  getFavouriteRecipes({bool reload=false}) async {
+    if(favouriteRecipeModels.isNotEmpty && !reload) return;
+    favouriteRecipeModels.clear();
     emit(GetFavouriteRecipesLoadingState());
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
