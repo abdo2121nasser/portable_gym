@@ -22,7 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
       if (FirebaseAuth.instance.currentUser == null) {
         Get.offAll(() => const LoginScreen(),transition: Transition.fadeIn,duration: const Duration(milliseconds: 1200));
       } else {
-        if (FirebaseAuth.instance.currentUser!.emailVerified||true)  {
+        if (FirebaseAuth.instance.currentUser!.emailVerified
+            ||true
+        )  {
            //todo delete the or true
 
           Get.offAll(() => const MainNavigationBarScreen(),transition: Transition.fadeIn,duration: const Duration(milliseconds: 1200));

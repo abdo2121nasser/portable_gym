@@ -10,7 +10,7 @@ class ProfileModel {
   final String email;
   final String phone;
   final String imageLink;
-  final String level;
+  // final String level;
   final String gender;
   final int weight;
   final int height;
@@ -28,7 +28,7 @@ class ProfileModel {
       required this.email,
       required this.phone,
       required this.imageLink,
-      required this.level,
+      // required this.level,
       required this.gender,
       required this.weight,
       required this.height,
@@ -50,7 +50,7 @@ class ProfileModel {
         email: json[StringManager.userEmail],
         phone: json[StringManager.userPhone],
         imageLink: json[StringManager.userImageLink],
-        level: json[StringManager.userLevel],
+        // level: json[StringManager.userLevel],
         gender: json[StringManager.userGender],
         weight: json[StringManager.userWeight],
         height: json[StringManager.userHeight],

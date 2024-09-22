@@ -160,7 +160,7 @@ class StringManager
   static const String userAge='age';
   static const String userWeight='weight';
   static const String userHeight='height';
-  static const String userLevel='level';
+  // static const String userLevel='level';
   static const String userIsPremium ='is premium';
   static const String userIsClint ='is client';
   static const String userGoal ='goal';
