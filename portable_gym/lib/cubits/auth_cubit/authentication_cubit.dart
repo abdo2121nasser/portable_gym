@@ -140,9 +140,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         .then((value) async {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
-      if (value.user!.emailVerified == false
-          && false
-      )
+      if (value.user!.emailVerified == false && false)
       //todo delete the and false
       {
         await sendEmailVerification(context);
@@ -162,7 +160,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(LoginErrorState());
       getToastMessage(message: S.of(context).somethingWentWrong);
 
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     clearLoginControllers();
   }
@@ -222,20 +220,33 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> registerProcess({required context}) async {
+    print(registerValidation(context: context) == true);
     if (registerValidation(context: context) == true) {
-      if (registrationCodeController.text == await getRegistrationCode()) {
-        await register(context);
-        if (state is RegisterSuccessState) {
-          await sendEmailVerification(context);
-          Get.back();
-        }
+      if (isAdmin) {
+        await adminRegistration(context);
       } else {
-        getToastMessage(message: S.of(context).registrationCodeIsWrong);
+        await clintRegistration(context);
       }
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
-    clearRegisterControllers();
+    // clearRegisterControllers();
+  }
+
+  Future<void> clintRegistration(context) async {
+      await register(context);
+    if (state is RegisterSuccessState) {
+      await sendEmailVerification(context);
+      Get.back();
+    }
+  }
+
+  Future<void> adminRegistration(context) async {
+    if (registrationCodeController.text == await getRegistrationCode()) {
+      await clintRegistration(context);
+    } else {
+      getToastMessage(message: S.of(context).registrationCodeIsWrong);
+    }
   }
 
   register(context) async {
@@ -250,7 +261,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }).catchError((error) {
       getToastMessage(message: S.of(context).somethingWentWrong);
       emit(RegisterErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -291,7 +302,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }).catchError((error) {
       emit(ForgetPasswordErrorState());
       getToastMessage(message: S.of(context).somethingWentWrong);
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     forgetPasswordEmail.clear();
   }
@@ -305,7 +316,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       Get.offAll(const LoginScreen());
     }).catchError((error) {
       getToastMessage(message: S.of(context).somethingWentWrong);
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -336,17 +347,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(SaveUserDataDocIdSuccessState());
     }).catchError((error) {
       emit(SaveUserDataDocIdErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
   //-----------------------------------registration code----------------------
- Future<String> getRegistrationCode() async {
-  return  await FirebaseFirestore.instance
+  Future<String> getRegistrationCode() async {
+    return await FirebaseFirestore.instance
         .collection(StringManager.registrationCodeCollection)
         .get()
         .then((value) {
-
       return value.docs.first[StringManager.registrationCode];
     }).catchError((error) {
       debugPrint(error.toString());
