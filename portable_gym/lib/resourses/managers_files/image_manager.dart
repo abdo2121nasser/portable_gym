@@ -10,5 +10,5 @@ class ImageManager
   static const kAskImage='assets/images/ask.png';
   static const kCrownImage='assets/images/crown.png';
   static const kLockImage='assets/images/lock.png';
-  static const kLogoImage='assets/images/splash_image.svg';
+  static const kLogoImage='assets/images/logo.png';
 }

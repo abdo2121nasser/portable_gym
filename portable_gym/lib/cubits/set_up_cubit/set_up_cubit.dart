@@ -293,14 +293,14 @@ class SetUpCubit extends Cubit<SetUpState> {
           userNickName: nickName.text,
           collection: StringManager.collectionQuestionsOfProfile,
           finishProfileSetupFunction: ( Map<String,dynamic> questionsMap)  async {
-          await  createProfile(questionsMap: questionsMap);
+          await  createProfile(context: context,questionsMap: questionsMap);
           }));
     } else {
       getToastMessage(message: getValidateError(context: context));
     }
   }
 
- Future<void> createProfile({required Map<String,dynamic> questionsMap}) async {
+ Future<void> createProfile({required context,required Map<String,dynamic> questionsMap}) async {
     await uploadImage();
     emit(CreateProfileLoadingState());
     CollectionReference data = FirebaseFirestore.instance
@@ -324,13 +324,13 @@ class SetUpCubit extends Cubit<SetUpState> {
     }).then((value) {
       emit(CreateProfileSuccessState());
       getToastMessage(
-        message: 'successfully Created',
+        message: S.of(context).success,
       );
       saveUserDocId(userDocId: value.id);
       Get.offAll(const MainNavigationBarScreen());
     }).catchError((error) {
       getToastMessage(
-        message: 'an error has happened',
+        message:  S.of(context).somethingWentWrong,
       );
       emit(CreateProfileErrorState());
       debugPrint(error.toString());
