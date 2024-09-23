@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/font_manager.dart';
-import 'package:portable_gym/resourses/managers_files/style_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_button_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/font_manager.dart';
+import 'package:my_coach/resourses/managers_files/style_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../generated/l10n.dart';
 import '../blocks/home_screen_blocks/work_out_block/from_to_period_block.dart';

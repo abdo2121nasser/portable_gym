@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/square_element%20_block.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/square_element%20_block.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
 import '../../managers_files/values_manager.dart';
 import '../../models/nutrition_models/recipe_model.dart';

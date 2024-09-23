@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
-import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/cubits/profile_cubit/profile_cubit.dart';
+import 'package:my_coach/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';

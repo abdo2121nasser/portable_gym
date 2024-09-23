@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/favourite_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/resources_screen.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/screens/navigation_bar_screens/favourite_screen.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_screen.dart';
+import 'package:my_coach/screens/navigation_bar_screens/resources_screen.dart';
 
 part 'main_navigation_bar_state.dart';
 

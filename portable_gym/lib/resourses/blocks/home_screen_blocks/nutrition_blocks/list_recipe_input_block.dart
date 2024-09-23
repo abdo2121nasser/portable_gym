@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/full_input_block.dart';
 
 import '../../../managers_files/color_manager.dart';
 import '../../../managers_files/values_manager.dart';

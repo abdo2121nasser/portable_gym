@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
+import 'package:my_coach/cubits/setting_cubit/setting_cubit.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/alert_box_manager.dart';

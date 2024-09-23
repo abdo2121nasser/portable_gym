@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/services/firebase_notification_service/notification_service.dart';
+import 'package:my_coach/resourses/services/firebase_notification_service/notification_service.dart';
 
 part 'notification_state.dart';
 

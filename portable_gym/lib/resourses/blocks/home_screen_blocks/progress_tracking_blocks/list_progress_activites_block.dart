@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/progress_tracking_blocks/progress_activity_block.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/progress_tracking_blocks/progress_activity_block.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../models/progress_models/activity_model.dart';
 

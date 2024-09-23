@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/full_input_block.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/full_input_block.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
 
 import '../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
 import '../../../../managers_files/color_manager.dart';

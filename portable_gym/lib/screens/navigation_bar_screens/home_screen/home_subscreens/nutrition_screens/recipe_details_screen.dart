@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/recorded_unit_block.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../../../../generated/l10n.dart';

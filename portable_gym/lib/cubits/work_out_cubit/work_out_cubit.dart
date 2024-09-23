@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_body_category_tab_bar_view_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_training_tab_bar_view_block.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
-import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_body_category_tab_bar_view_block.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_training_tab_bar_view_block.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/models/work_out_models/body_category_model.dart';
+import 'package:my_coach/resourses/models/work_out_models/training_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_body_category_tab_bar_view_block.dart';

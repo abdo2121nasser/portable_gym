@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/check_box_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/check_box_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 import '../../../../generated/l10n.dart';

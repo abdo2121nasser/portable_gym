@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:portable_gym/cubits/resource_cubit/resource_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:my_coach/cubits/resource_cubit/resource_cubit.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../resourses/blocks/home_screen_blocks/work_out_block/horizontal_category_list_block.dart';
 

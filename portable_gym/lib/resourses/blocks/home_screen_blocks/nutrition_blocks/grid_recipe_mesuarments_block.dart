@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/recorded_unit_block.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/values_manager.dart';

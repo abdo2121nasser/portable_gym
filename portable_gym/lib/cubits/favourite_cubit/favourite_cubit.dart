@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/recipe_category_body_block.dart';

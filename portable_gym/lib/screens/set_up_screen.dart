@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:my_coach/cubits/set_up_cubit/set_up_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../generated/l10n.dart';
 import '../resourses/blocks/general_blocks/general_button_block.dart';

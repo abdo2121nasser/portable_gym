@@ -1,5 +1,5 @@
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/models/ask_trainer_models/contact_message_model.dart';
 
 import '../setting_models/question_model.dart';
 

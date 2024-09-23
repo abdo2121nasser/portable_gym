@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../cubits/profile_cubit/profile_cubit.dart';

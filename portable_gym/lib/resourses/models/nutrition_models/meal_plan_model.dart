@@ -1,4 +1,4 @@
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
 
 import '../../managers_files/string_manager.dart';
 

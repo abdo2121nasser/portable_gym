@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
 
 class ContactMessageModel {
    String contactDocId;

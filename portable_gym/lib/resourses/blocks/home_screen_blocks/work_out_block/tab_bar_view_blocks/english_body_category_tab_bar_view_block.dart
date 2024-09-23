@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
 
 import '../../../../managers_files/color_manager.dart';
 import '../../../../managers_files/values_manager.dart';

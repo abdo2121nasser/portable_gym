@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:my_coach/cubits/nutrition_cubit/nutrition_cubit.dart';
 
 import '../../../managers_files/values_manager.dart';
 import '../../general_blocks/square_element _block.dart';

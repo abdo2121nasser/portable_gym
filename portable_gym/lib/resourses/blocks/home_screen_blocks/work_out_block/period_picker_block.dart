@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/font_manager.dart';
-import 'package:portable_gym/resourses/managers_files/style_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/font_manager.dart';
+import 'package:my_coach/resourses/managers_files/style_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 import 'package:time_picker_spinner/time_picker_spinner.dart';
 
 import '../../../../generated/l10n.dart';

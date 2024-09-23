@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/food_main_element_screen.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/food_main_element_screen.dart';
 
 class FoodElementModel {
   final EnglishFoodElementModel english;

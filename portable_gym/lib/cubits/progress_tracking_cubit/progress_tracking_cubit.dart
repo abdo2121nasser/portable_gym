@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/models/progress_models/activity_model.dart';
-import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/models/progress_models/activity_model.dart';
+import 'package:my_coach/resourses/models/work_out_models/body_category_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/progress_tracking_blocks/body_block/charts_body_block.dart';

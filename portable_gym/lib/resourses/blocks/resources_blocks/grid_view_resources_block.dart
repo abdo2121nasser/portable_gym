@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/work_out_block/exercise_detail_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
-import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/work_out_block/exercise_detail_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/models/work_out_models/training_model.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/exercise_screen.dart';
 
 import '../../../cubits/favourite_cubit/favourite_cubit.dart';
 import '../../../generated/l10n.dart';

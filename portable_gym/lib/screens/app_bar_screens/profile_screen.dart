@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
+import 'package:my_coach/cubits/profile_cubit/profile_cubit.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/app_bar_blocks/profile_blocks/profile_lower_Block.dart';

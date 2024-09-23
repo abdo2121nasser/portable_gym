@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:my_coach/cubits/favourite_cubit/favourite_cubit.dart';
 
 import '../../../../cubits/resource_cubit/resource_cubit.dart';
 import '../../../managers_files/color_manager.dart';

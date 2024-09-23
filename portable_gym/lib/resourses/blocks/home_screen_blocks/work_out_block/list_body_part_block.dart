@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
-import 'package:portable_gym/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/cubits/work_out_cubit/work_out_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/resourses/models/work_out_models/body_category_model.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/level_screen.dart';
+import 'package:my_coach/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
+import 'package:my_coach/cubits/progress_tracking_cubit/progress_tracking_cubit.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/cubits/work_out_cubit/work_out_cubit.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/models/work_out_models/body_category_model.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/work_out_screens/level_screen.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/alert_box_manager.dart';

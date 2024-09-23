@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/models/work_out_models/training_model.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/resourses/models/work_out_models/training_model.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/managers_files/color_manager.dart';

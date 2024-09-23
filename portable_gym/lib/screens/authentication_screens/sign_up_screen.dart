@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/check_box_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/font_manager.dart';
-import 'package:portable_gym/resourses/managers_files/style_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/check_box_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/font_manager.dart';
+import 'package:my_coach/resourses/managers_files/style_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/full_input_block.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
-import 'package:portable_gym/resourses/blocks/app_bar_blocks/profile_blocks/personal_information_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/profile_photo_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/profile_cubit/profile_cubit.dart';
+import 'package:my_coach/resourses/blocks/app_bar_blocks/profile_blocks/personal_information_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/profile_photo_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../models/profile_models/profile_model.dart';
 

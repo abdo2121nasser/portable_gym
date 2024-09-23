@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:portable_gym/cubits/favourite_cubit/favourite_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/square_element%20_block.dart';
-import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
+import 'package:my_coach/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:my_coach/cubits/favourite_cubit/favourite_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/square_element%20_block.dart';
+import 'package:my_coach/resourses/managers_files/alert_box_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/recipe_details_screen.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../managers_files/color_manager.dart';

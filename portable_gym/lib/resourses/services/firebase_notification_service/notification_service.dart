@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:googleapis_auth/auth.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:portable_gym/resourses/managers_files/secret_api_key_manager.dart';
+import 'package:my_coach/resourses/managers_files/secret_api_key_manager.dart';
 
 class NotificationService {
   static late  AutoRefreshingAuthClient _authClient;

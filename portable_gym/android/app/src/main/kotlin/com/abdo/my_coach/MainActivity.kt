@@ -1,4 +1,4 @@
-package com.abdo.portable_gym
+package com.abdo.my_coach
 
 import io.flutter.embedding.android.FlutterActivity
 

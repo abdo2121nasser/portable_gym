@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_image_cash_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_video_cash_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/recorded_unit_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_image_cash_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_video_cash_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/recorded_unit_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/font_manager.dart';

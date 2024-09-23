@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/managers_files/image_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/managers_files/image_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../cubits/profile_cubit/profile_cubit.dart';
 import '../../managers_files/color_manager.dart';

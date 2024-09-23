@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../../../cubits/set_up_cubit/set_up_cubit.dart';

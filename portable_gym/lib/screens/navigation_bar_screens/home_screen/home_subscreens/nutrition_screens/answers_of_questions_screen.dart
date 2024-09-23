@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_selection_screen.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/nutrition_blocks/question_with_answer_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/resourses/models/setting_models/question_model.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_button_block.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_selection_screen.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/nutrition_blocks/question_with_answer_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/models/setting_models/question_model.dart';
 
 import '../../../../../cubits/nutrition_cubit/nutrition_cubit.dart';
 import '../../../../../generated/l10n.dart';

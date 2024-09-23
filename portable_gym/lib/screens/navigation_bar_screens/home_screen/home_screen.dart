@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/home_cubit/home_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/cubits/home_cubit/home_cubit.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../resourses/blocks/general_blocks/horizontal_square_block.dart';

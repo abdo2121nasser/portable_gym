@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/daily_recipe_card_model.dart';
+import 'package:my_coach/resourses/models/nutrition_models/daily_recipe_card_model.dart';
 
 import '../../../generated/l10n.dart';
 import '../../managers_files/color_manager.dart';

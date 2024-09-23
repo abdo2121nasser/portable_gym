@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/blocks/home_screen_blocks/progress_tracking_blocks/vertical_information_block.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/blocks/home_screen_blocks/progress_tracking_blocks/vertical_information_block.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
 
 import '../../../managers_files/image_manager.dart';
 import '../../../models/profile_models/profile_model.dart';

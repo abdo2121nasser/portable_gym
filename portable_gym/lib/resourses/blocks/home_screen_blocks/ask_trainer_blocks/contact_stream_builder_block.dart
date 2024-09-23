@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
-import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
+import 'package:my_coach/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
+import 'package:my_coach/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
 
 import '../../../../cubits/profile_cubit/profile_cubit.dart';
 import '../../../../screens/navigation_bar_screens/home_screen/home_subscreens/ask_trainer_screens/chat_screen.dart';

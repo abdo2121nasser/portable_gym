@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/setting_cubit/setting_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/values_manager.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/cubits/setting_cubit/setting_cubit.dart';
+import 'package:my_coach/resourses/managers_files/values_manager.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/general_blocks/general_app_bar_block.dart';
 import '../../../../../resourses/blocks/general_blocks/general_button_block.dart';

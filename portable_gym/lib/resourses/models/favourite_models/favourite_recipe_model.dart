@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:portable_gym/resourses/managers_files/google_drive_function_manager.dart';
-import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/models/nutrition_models/recipe_model.dart';
+import 'package:my_coach/resourses/managers_files/google_drive_function_manager.dart';
+import 'package:my_coach/resourses/managers_files/string_manager.dart';
+import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
 
 class FavouriteRecipeModel {
   final EnglishRecipeModel english;

@@ -11,11 +11,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/resourses/managers_files/color_manager.dart';
-import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
+import 'package:my_coach/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:my_coach/resourses/managers_files/color_manager.dart';
+import 'package:my_coach/resourses/managers_files/toast_massage_manager.dart';
+import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
+import 'package:my_coach/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
 
 import '../../generated/l10n.dart';

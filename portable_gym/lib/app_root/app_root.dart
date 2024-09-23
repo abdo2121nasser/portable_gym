@@ -1,20 +1,15 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:portable_gym/resourses/managers_files/theme_manager.dart';
-import 'package:portable_gym/screens/authentication_screens/login_screen.dart';
-import 'package:portable_gym/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
-import 'package:portable_gym/screens/splash_screen.dart';
+import 'package:my_coach/resourses/managers_files/theme_manager.dart';
+import 'package:my_coach/screens/splash_screen.dart';
 
 
 import '../generated/l10n.dart';
 import '../resourses/managers_files/string_manager.dart';
-import '../screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
-import '../screens/set_up_screen.dart';
 
 
 class PortableGym extends StatelessWidget {

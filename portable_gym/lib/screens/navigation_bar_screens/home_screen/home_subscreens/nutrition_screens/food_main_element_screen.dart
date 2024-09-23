@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/floating_action_button_block.dart';
-import 'package:portable_gym/resourses/managers_files/alert_box_manager.dart';
+import 'package:my_coach/cubits/nutrition_cubit/nutrition_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/floating_action_button_block.dart';
+import 'package:my_coach/resourses/managers_files/alert_box_manager.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../resourses/blocks/home_screen_blocks/nutrition_blocks/food_main_element_block.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portable_gym/cubits/set_up_cubit/set_up_cubit.dart';
+import 'package:my_coach/cubits/set_up_cubit/set_up_cubit.dart';
 
 
 import '../../../managers_files/color_manager.dart';

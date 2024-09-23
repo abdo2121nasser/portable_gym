@@ -10,8 +10,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
-import 'package:portable_gym/screens/app_bar_screens/setting_screen/setting_screen.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/screens/app_bar_screens/setting_screen/setting_screen.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/app_bar_blocks/log_out_bottom_sheet_block.dart';

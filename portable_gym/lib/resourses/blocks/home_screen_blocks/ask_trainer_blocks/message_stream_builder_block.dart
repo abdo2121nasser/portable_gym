@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
-import 'package:portable_gym/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
-import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
+import 'package:my_coach/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
+import 'package:my_coach/cubits/ask_trainer_cubit/ask_trainer_cubit.dart';
+import 'package:my_coach/cubits/profile_cubit/profile_cubit.dart';
 
 import '../../../managers_files/values_manager.dart';
 import '../../../models/ask_trainer_models/message_model.dart';

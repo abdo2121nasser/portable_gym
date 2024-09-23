@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_app_bar_block.dart';
+import 'package:my_coach/cubits/auth_cubit/authentication_cubit.dart';
+import 'package:my_coach/resourses/blocks/general_blocks/general_app_bar_block.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/general_blocks/full_input_block.dart';

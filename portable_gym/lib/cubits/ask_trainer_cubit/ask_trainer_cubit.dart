@@ -11,9 +11,9 @@ import 'package:meta/meta.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
-import 'package:portable_gym/resourses/models/ask_trainer_models/contact_message_model.dart';
-import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
+import 'package:my_coach/resourses/managers_files/toast_massage_manager.dart';
+import 'package:my_coach/resourses/models/ask_trainer_models/contact_message_model.dart';
+import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
 
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
