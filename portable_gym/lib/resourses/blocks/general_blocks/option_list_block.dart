@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
-import 'package:portable_gym/resourses/blocks/profile_blocks/log_out_bottom_sheet_block.dart';
 import 'package:portable_gym/resourses/blocks/general_blocks/option_block.dart';
 import 'package:portable_gym/resourses/managers_files/color_manager.dart';
 

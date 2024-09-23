@@ -1,21 +1,16 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
-import 'package:portable_gym/app_root/app_root.dart';
-import 'package:portable_gym/cubits/nutrition_cubit/nutrition_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/resourses/managers_files/toast_massage_manager.dart';
 import 'package:portable_gym/resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/questions_screen.dart';
 import 'package:portable_gym/screens/authentication_screens/forget_password_screen.dart';
-
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/profile_blocks/settings_blocks/setting_tab_bar_views/arabic_question_tab_bar_view.dart';
-import '../../resourses/blocks/profile_blocks/settings_blocks/setting_tab_bar_views/english_question_tab_bar_view.dart';
+import '../../resourses/blocks/app_bar_blocks/settings_blocks/setting_tab_bar_views/arabic_question_tab_bar_view.dart';
+import '../../resourses/blocks/app_bar_blocks/settings_blocks/setting_tab_bar_views/english_question_tab_bar_view.dart';
 import '../../resourses/managers_files/string_manager.dart';
 import '../../resourses/models/setting_models/question_model.dart';
 
@@ -59,6 +54,7 @@ class SettingCubit extends Cubit<SettingState> {
       if (ProfileCubit.get(context).profileModel!.isClient == false)
         S.of(context).changeSetUpQuestions,
       S.of(context).resetPassword,
+
     ];
   }
 
@@ -69,6 +65,7 @@ class SettingCubit extends Cubit<SettingState> {
       if (ProfileCubit.get(context).profileModel!.isClient == false)
         Icons.person_pin,
       Icons.lock_reset_outlined,
+
     ];
   }
 

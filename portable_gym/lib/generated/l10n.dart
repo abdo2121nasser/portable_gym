@@ -680,6 +680,16 @@ class S {
     );
   }
 
+  /// `Unlock The Locks`
+  String get premium {
+    return Intl.message(
+      'Unlock The Locks',
+      name: 'premium',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date of birth`
   String get birthDate {
     return Intl.message(

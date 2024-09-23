@@ -1,25 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
-import 'package:portable_gym/resourses/blocks/general_blocks/general_button_block.dart';
 import 'package:portable_gym/resourses/managers_files/string_manager.dart';
-import 'package:portable_gym/resourses/managers_files/style_manager.dart';
 import 'package:portable_gym/resourses/managers_files/values_manager.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 
 import '../../generated/l10n.dart';
+import '../../resourses/blocks/app_bar_blocks/profile_blocks/profile_lower_Block.dart';
+import '../../resourses/blocks/app_bar_blocks/profile_blocks/profile_training_information_block.dart';
+import '../../resourses/blocks/app_bar_blocks/profile_blocks/profile_upper_block.dart';
 import '../../resourses/blocks/general_blocks/general_app_bar_block.dart';
-import '../../resourses/blocks/profile_blocks/profile_lower_Block.dart';
 import '../../resourses/blocks/general_blocks/option_list_block.dart';
-import '../../resourses/blocks/profile_blocks/profile_training_information_block.dart';
-import '../../resourses/blocks/profile_blocks/profile_upper_block.dart';
 import '../../resourses/managers_files/color_manager.dart';
-import '../../resourses/managers_files/font_manager.dart';
 import '../navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answers_of_questions_screen.dart';
 
 class ProfileScreen extends StatelessWidget {

@@ -141,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "physicalActivityLevel":
             MessageLookupByLibrary.simpleMessage("مستوي التدريب البدني"),
         "pickVideo": MessageLookupByLibrary.simpleMessage("اختر فيديو"),
+        "premium": MessageLookupByLibrary.simpleMessage("افتح الاقفال"),
         "progressTrack": MessageLookupByLibrary.simpleMessage("تتبع  العمل"),
         "protein": MessageLookupByLibrary.simpleMessage("بروتين"),
         "questions": MessageLookupByLibrary.simpleMessage("الاسئله"),

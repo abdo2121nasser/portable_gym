@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 import 'package:portable_gym/cubits/profile_cubit/profile_cubit.dart';
 
-import '../../managers_files/color_manager.dart';
-import '../../managers_files/font_manager.dart';
-import '../../managers_files/style_manager.dart';
+import '../../../managers_files/color_manager.dart';
+import '../../../managers_files/font_manager.dart';
+import '../../../managers_files/style_manager.dart';
 
 
 class PersonalInformationBlock extends StatelessWidget {

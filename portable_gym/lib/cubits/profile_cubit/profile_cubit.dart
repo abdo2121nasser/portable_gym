@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +10,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:portable_gym/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:portable_gym/resourses/models/profile_models/profile_model.dart';
 import 'package:portable_gym/screens/app_bar_screens/setting_screen/setting_screen.dart';
 
-import '../../firebase_options.dart';
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/profile_blocks/log_out_bottom_sheet_block.dart';
+import '../../resourses/blocks/app_bar_blocks/log_out_bottom_sheet_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
-import '../../resourses/managers_files/toast_massage_manager.dart';
 import '../../screens/authentication_screens/login_screen.dart';
 
 part 'profile_state.dart';
