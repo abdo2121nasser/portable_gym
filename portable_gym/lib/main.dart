@@ -26,7 +26,7 @@ Future<void> main() async {
 
   ]);
 
-  runApp(PortableGym());
+  runApp(MyCoachApp());
 }
 //
 // Future<void> initializeFirebaseMessaging() async {
