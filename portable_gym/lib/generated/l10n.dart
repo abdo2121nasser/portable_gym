@@ -1419,6 +1419,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Subscriptions`
+  String get subscriptiosWord {
+    return Intl.message(
+      'Subscriptions',
+      name: 'subscriptiosWord',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

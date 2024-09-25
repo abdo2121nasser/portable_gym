@@ -143,6 +143,8 @@
   "alertDeleteContent": "Are you sure you want to delete this item?",
 
   "admin": "admin",
-  "registrationCode": "Registration Code"
+  "registrationCode": "Registration Code",
+
+  "subscriptiosWord": "Subscriptions"
 }
 

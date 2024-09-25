@@ -162,7 +162,8 @@
   "alertDeleteTitle": "امسح العنصر",
   "alertDeleteContent": "هل تريد مسح هذا العنصر؟",
   "admin": "ادمن",
-  "registrationCode": "كود التقديم"
+  "registrationCode": "كود التقديم",
 
+  "subscriptionsWord": "الاشتراكات"
 
 }

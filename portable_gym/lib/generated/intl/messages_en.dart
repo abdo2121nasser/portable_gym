@@ -178,6 +178,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "subTitle": MessageLookupByLibrary.simpleMessage(
             "It\'s time to challenge your limits."),
+        "subscriptiosWord":
+            MessageLookupByLibrary.simpleMessage("Subscriptions"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "theEmailFieldIsEmpty":
             MessageLookupByLibrary.simpleMessage("the email field is empty!!"),
