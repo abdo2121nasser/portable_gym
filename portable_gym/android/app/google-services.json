@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:417250754596:android:54b38b217d421797a898b1",
+        "mobilesdk_app_id": "1:417250754596:android:564f8333d4b88ffca898b1",
         "android_client_info": {
           "package_name": "com.abdo.my_coach"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyClm92hWD0kGSkPcU-MMitD7QBxom6O9rk"
@@ -20,7 +25,70 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417250754596:android:b9855ee07d407ec6a898b1",
+        "android_client_info": {
+          "package_name": "com.abdo.portable_gym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClm92hWD0kGSkPcU-MMitD7QBxom6O9rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417250754596:android:54b38b217d421797a898b1",
+        "android_client_info": {
+          "package_name": "com.example.portable_gym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClm92hWD0kGSkPcU-MMitD7QBxom6O9rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417250754596-29kolui0ukc4q70upjkp83m3n87sfi5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
