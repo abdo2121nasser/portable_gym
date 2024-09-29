@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path/path.dart' as path;
-import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 
 import '../../managers_files/color_manager.dart';
 
@@ -23,19 +23,19 @@ class _GeneralImageCacheBlockState extends State<GeneralImageCacheBlock> {
     // Display thumbnail if it's a video, otherwise display the image
     return _thumbnailPath != null
         ? Image.file(
-            File(_thumbnailPath!),
-            fit: BoxFit.cover,
-          )
+      File(_thumbnailPath!),
+      fit: BoxFit.cover,
+    )
         : _imagePath != null
-            ? Image.file(
-                File(_imagePath!),
-                fit: BoxFit.cover,
-              )
-            : const Center(
-                child: CircularProgressIndicator(
-                  color: ColorManager.kPurpleColor,
-                ),
-              );
+        ? Image.file(
+      File(_imagePath!),
+      fit: BoxFit.cover,
+    )
+        : const Center(
+      child: CircularProgressIndicator(
+        color: ColorManager.kPurpleColor,
+      ),
+    );
   }
 
   @override
@@ -63,22 +63,26 @@ class _GeneralImageCacheBlockState extends State<GeneralImageCacheBlock> {
         });
       }
     } else if (_isVideoFile(file)) {
-      // If it's a video, generate a thumbnail
-      final thumbnail = await VideoThumbnail.thumbnailFile(
-        video: file.path,
-        imageFormat: ImageFormat.JPEG,
-        maxHeight: 128, // Adjust thumbnail height as needed
-        quality: 75, // Adjust thumbnail quality
-      );
-
-      if (mounted) {
-        setState(() {
-          _thumbnailPath = thumbnail;
-        });
-      }
+      // If it's a video, generate a thumbnail using FFmpeg
+      await _generateVideoThumbnail(file!);
     } else {
       // Handle unsupported file types if needed
       print('Unsupported file type.');
+    }
+  }
+
+  Future<void> _generateVideoThumbnail(File videoFile) async {
+    final thumbnailPath = '${videoFile.path}_thumb.jpg';
+
+    // Execute FFmpeg to generate the thumbnail
+    await FFmpegKit.execute(
+      '-i ${videoFile.path} -ss 00:00:01 -vframes 1 $thumbnailPath',
+    );
+
+    if (mounted) {
+      setState(() {
+        _thumbnailPath = thumbnailPath;
+      });
     }
   }
 

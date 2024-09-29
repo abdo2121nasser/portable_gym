@@ -1,116 +1,302 @@
-import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'In-App Subscription',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SubscriptionPage(),
-    );
-  }
-}
-
-class SubscriptionPage extends StatefulWidget {
-  @override
-  _SubscriptionPageState createState() => _SubscriptionPageState();
-}
-
-class _SubscriptionPageState extends State<SubscriptionPage> {
-  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-  bool _isAvailable = false;
-  bool _purchasePending = false;
-  bool _loading = true;
-  List<ProductDetails> _products = [];
-  List<PurchaseDetails> _purchases = [];
-
-  @override
-  void initState() {
-    final Stream<List<PurchaseDetails>> purchaseUpdated = _inAppPurchase.purchaseStream;
-    purchaseUpdated.listen((purchases) {
-      _listenToPurchaseUpdated(purchases);
-    });
-    _initializeStore();
-    super.initState();
-  }
-
-  Future<void> _initializeStore() async {
-    final bool available = await _inAppPurchase.isAvailable();
-    if (!available) {
-      setState(() {
-        _isAvailable = false;
-        _products = [];
-        _loading = false;
-      });
-      return;
-    }
-
-    const Set<String> _kIds = {'my_coach_100_month'};
-    final ProductDetailsResponse response = await _inAppPurchase.queryProductDetails(_kIds);
-    if (response.error != null) {
-      setState(() {
-        _isAvailable = false;
-        _products = [];
-        _loading = false;
-      });
-      return;
-    }
-
-    setState(() {
-      _isAvailable = true;
-      _products = response.productDetails;
-      _loading = false;
-    });
-  }
-
-  void _buyProduct(ProductDetails productDetails) {
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: productDetails);
-    _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-  }
-
-  void _listenToPurchaseUpdated(List<PurchaseDetails> purchases) {
-    setState(() {
-      _purchases.addAll(purchases);
-    });
-    for (var purchase in purchases) {
-      if (purchase.status == PurchaseStatus.purchased) {
-        // Handle successful purchase here
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_loading) {
-      return Scaffold(
-        appBar: AppBar(title: Text('Subscription')),
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Subscription')),
-      body: _isAvailable
-          ? ListView(
-        children: _products.map((product) {
-          return ListTile(
-            title: Text(product.title),
-            subtitle: Text(product.price),
-            trailing: ElevatedButton(
-              child: Text('Buy'),
-              onPressed: () => _buyProduct(product),
-            ),
-          );
-        }).toList(),
-      )
-          : Center(child: Text('Store not available')),
-    );
-  }
-}
+// // import 'package:example/utils/constants.dart';
+// import 'package:flutter/material.dart';
+// // ignore: depend_on_referenced_packages
+// import 'package:in_app_purchase/in_app_purchase.dart';
+// import 'package:onepref/onepref.dart';
+//
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await OnePref.init();
+//   runApp(const MyApp());
+// }
+//
+// class MyApp extends StatefulWidget {
+//   const MyApp({super.key});
+//
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+//
+// class _MyAppState extends State<MyApp> {
+//   late final List<ProductDetails> _products = <ProductDetails>[];
+//   late final List<PurchaseDetails> _currentPurchaseDetails = <PurchaseDetails>[];
+//
+//   // create a new instance of this class
+//   IApEngine iApEngine = IApEngine();
+//   bool isSubscribed = false;
+//   bool subExisting = false;
+//
+//   // List of subscription products
+//   final List<ProductId> _productsIds = [
+//     ProductId(
+//       id: "my_coach_100_month",
+//       isConsumable: false,
+//       isOneTimePurchase: false,
+//       isSubscription: true,
+//     ),
+//   ];
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     isSubscribed = OnePref.getPremium()!;
+//
+//     iApEngine.inAppPurchase.purchaseStream.listen((purchaseDetailsList) {
+//       // listen to the purchases, it will be called everytime there's a purchase or restore purchase.
+//       if (purchaseDetailsList.isNotEmpty) {
+//         _currentPurchaseDetails.addAll(purchaseDetailsList);
+//         print(_currentPurchaseDetails[0].productID);
+//       }
+//       print(_currentPurchaseDetails.length);
+//
+//       listener(purchaseDetailsList);
+//     }, onDone: () {
+//       print("onDone");
+//     }, onError: (Object error) {
+//       print("onError");
+//     });
+//
+//     // Get subscription products
+//     getProducts();
+//   }
+//
+//   void listener(List<PurchaseDetails> purchaseDetailsList) async {
+//     // Handle subscription purchases and restore
+//     await iApEngine
+//         .purchaseListener(
+//         purchaseDetailsList: purchaseDetailsList, productsIds: _productsIds)
+//         .then((value) {
+//       if (value['purchaseRestore'] || value['purchaseComplete']) {
+//         subExisting = true;
+//         print("Subscription restored or purchased");
+//       }
+//     });
+//   }
+//
+//   void getProducts() async {
+//     // Query subscription products from the store
+//     await iApEngine.getIsAvailable().then((value) async => {
+//       if (value)
+//         {
+//           await iApEngine.queryProducts(_productsIds).then((value) => {
+//             setState(() {
+//               _products.addAll(value.productDetails);
+//             })
+//           })
+//         }
+//     });
+//   }
+//
+//   void updateSubscriptionStatus(String purchasedProductId) {
+//     // Check if the purchased product is a subscription
+//     var productId =
+//         _productsIds.where((element) => element.id == purchasedProductId).first;
+//
+//     if (productId.isSubscription ?? false) {
+//       setState(() {
+//         OnePref.setPremium(true); // Activate the premium subscription
+//         isSubscribed = OnePref.getPremium() ?? false;
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         title: 'Flutter Demo',
+//         theme: ThemeData(
+//           primarySwatch: Colors.blue,
+//         ),
+//         home: Scaffold(
+//           body: SafeArea(
+//             child: Container(
+//               decoration: const BoxDecoration(
+//                 color: Colors.black,
+//               ),
+//               child: Column(
+//                 children: [
+//                   Padding(
+//                     padding: const EdgeInsets.symmetric(
+//                         vertical: 20, horizontal: 20),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         OnClickAnimation(
+//                             onTap: () => {},
+//                             child: const Text(
+//                               "Dismiss",
+//                               style: TextStyle(
+//                                   color: Colors.white,
+//                                   fontWeight: FontWeight.bold),
+//                             )),
+//                         OnClickAnimation(
+//                           onTap: () async => {
+//                             await InAppPurchase.instance
+//                                 .restorePurchases()
+//                                 .then(
+//                                   (value) => {
+//                                 _products.clear(),
+//                                 getProducts(),
+//                               },
+//                             ),
+//                           },
+//                           child: const Text(
+//                             "Restore",
+//                             style: TextStyle(
+//                                 color: Colors.white,
+//                                 fontWeight: FontWeight.bold),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.symmetric(
+//                         horizontal: 50.0, vertical: 25.0),
+//                     child: Row(
+//                       children: [
+//                         Expanded(
+//                           child: Row(
+//                             children: [
+//                               const Text(
+//                                 "{Constants.appName} Go ",
+//                                 style: TextStyle(
+//                                   color: Colors.white,
+//                                   fontSize: 10,
+//                                   fontWeight: FontWeight.bold,
+//                                 ),
+//                               ),
+//                               Container(
+//                                 decoration: BoxDecoration(
+//                                   borderRadius: BorderRadius.circular(10),
+//                                   color: subExisting
+//                                       ? Colors.green
+//                                       : Colors.orange,
+//                                 ),
+//                                 child: const Padding(
+//                                   padding: EdgeInsets.all(8.0),
+//                                   child: Text(
+//                                     "PRO",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                 ),
+//                               )
+//                             ],
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                   // SizedBox(
+//                   //   height: 120,
+//                   //   child: ListView.builder(
+//                   //     itemCount: Constants.benefits.length,
+//                   //     itemBuilder: (context, index) => Benefit(
+//                   //       title: Constants.benefits[index],
+//                   //       icon: Icons.check,
+//                   //       iconBackgroundColor: Colors.orange,
+//                   //       iconColor: Colors.white,
+//                   //       titleStyle: const TextStyle(color: Colors.white),
+//                   //     ),
+//                   //   ),
+//                   // ),
+//                   Visibility(
+//                     visible: !_products.isNotEmpty,
+//                     child: const SizedBox(
+//                       height: 90,
+//                       width: 90,
+//                       child: CircularProgressIndicator(),
+//                     ),
+//                   ),
+//                   Expanded(
+//                     child: Visibility(
+//                       visible: _products.isNotEmpty,
+//                       child: ListView.builder(
+//                         itemBuilder: ((context, index) => Padding(
+//                           padding: const EdgeInsets.symmetric(
+//                               vertical: 5.0, horizontal: 25.0),
+//                           child: Row(
+//                             children: [
+//                               Expanded(
+//                                 child: Container(
+//                                     decoration: BoxDecoration(
+//                                       border: Border.all(
+//                                         color: Colors.orange,
+//                                         width: 0.5,
+//                                       ),
+//                                     ),
+//                                     child: Padding(
+//                                         padding: const EdgeInsets.symmetric(
+//                                           horizontal: 15.0,
+//                                         ),
+//                                         child: ListTile(
+//                                           title: Text(
+//                                             _products[index].price,
+//                                             style: const TextStyle(
+//                                               color: Colors.white,
+//                                             ),
+//                                           ),
+//                                           subtitle: Text(
+//                                             _products[index].description,
+//                                             style: const TextStyle(
+//                                               color: Colors.white,
+//                                             ),
+//                                           ),
+//                                           trailing: OnClickAnimation(
+//                                             onTap: () async {
+//                                               print(_products[index].id);
+//
+//                                               await InAppPurchase.instance
+//                                                   .restorePurchases();
+//                                               if (subExisting &&
+//                                                   _products[index].id !=
+//                                                       _currentPurchaseDetails[
+//                                                       0]
+//                                                           .productID) {
+//                                                 await iApEngine
+//                                                     .upgradeOrDowngradeSubscription(
+//                                                     _currentPurchaseDetails[
+//                                                     0],
+//                                                     _products[index]);
+//                                               } else {
+//                                                 iApEngine.handlePurchase(
+//                                                     _products[index],
+//                                                     _productsIds);
+//                                               }
+//                                             },
+//                                             child: const Text(
+//                                               "Subscribe",
+//                                               style: TextStyle(
+//                                                 color: Colors.white,
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ))),
+//                               ),
+//                             ],
+//                           ),
+//                         )),
+//                         itemCount: _products.length,
+//                       ),
+//                     ),
+//                   ),
+//                   const Padding(
+//                     padding:
+//                     EdgeInsets.symmetric(vertical: 25.0, horizontal: 25.0),
+//                     child: Text(
+//                       "Subscriptions automatically renew monthly until canceled.",
+//                       textAlign: TextAlign.center,
+//                       style: TextStyle(
+//                         fontSize: 14,
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                   )
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ));
+//   }
+// }

@@ -26,24 +26,19 @@ class SubscriptionPage extends StatefulWidget {
 class _SubscriptionPageState extends State<SubscriptionPage> {
   List<Package> availablePackages = [];
   bool isLoading = true;
-
   @override
   void initState() {
     super.initState();
     initRevenueCat();
   }
 
-
   Future<void> initRevenueCat() async {
     // Initialize RevenueCat with the API key
     await Purchases.configure(PurchasesConfiguration("goog_clchvQMblHCiNCFMRioHcptUNRP"));
 
     try {
-      // Fetch available offerings (subscription options)
-
       // Fetch offerings
       Offerings offerings = await Purchases.getOfferings();
-      // print(offerings.all.toString());
       if (offerings.current != null && offerings.current!.availablePackages.isNotEmpty) {
         setState(() {
           availablePackages = offerings.current!.availablePackages;
@@ -63,23 +58,15 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     }
   }
 
-  // Future<void> purchasePackage(Package package) async {
-  //   try {
-  //     // Make a purchase
-  //     CustomerInfo customerInfo = await Purchases.purchasePackage(package);
-  //     bool isProUser = customerInfo.entitlements.all["premium_access"]?.isActive ?? false;
-  //
-  //     if (isProUser) {
-  //       // User has successfully subscribed
-  //       print("Subscription successful!");
-  //     } else {
-  //       // Handle subscription failure
-  //       print("Subscription not active.");
-  //     }
-  //   } catch (e) {
-  //     print("Error making purchase: $e");
-  //   }
-  // }
+  Future<void> purchasePackage(Package package) async {
+    try {
+
+      // Make a purchase
+      await Purchases.purchasePackage(package);
+    } catch (e) {
+      print("Error making purchase: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +86,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             subtitle: Text(package.storeProduct.priceString), // Get the price
             trailing: ElevatedButton(
               onPressed: () {
-                // purchasePackage(package);
+                purchasePackage(package);
               },
               child: Text('Buy'),
             ),

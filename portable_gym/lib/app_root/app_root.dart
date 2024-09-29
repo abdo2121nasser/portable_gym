@@ -19,7 +19,7 @@ class MyCoachApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => SafeArea(
         child: ScreenUtilInit(
             designSize: const Size(393, 852),
