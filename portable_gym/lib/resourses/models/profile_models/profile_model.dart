@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_coach/resourses/managers_files/string_manager.dart';
 import 'package:my_coach/resourses/models/ask_trainer_models/contact_message_model.dart';
 
@@ -15,11 +16,12 @@ class ProfileModel {
   final int weight;
   final int height;
   final int age;
-  final bool isPremium;
+   bool isPremium;
   final bool isClient;
   ContactMessageModel? contactMessageModel;
   List<QuestionModel> questionModels;
   final String deviceToken;
+  DateTime? expireDate;
 
   ProfileModel(
       {required this.docId,
@@ -37,12 +39,17 @@ class ProfileModel {
       required this.isClient,
       required this.questionModels,
         required this.deviceToken,
-      this.contactMessageModel});
+      this.contactMessageModel,
+      this.expireDate
+      });
 
   factory ProfileModel.fromJson(
       {required Map<String, dynamic> json,
       required String docId,
       ContactMessageModel? contact}) {
+    Timestamp? timestamp=json[StringManager.userExpirationDate];
+    DateTime? dateTime=timestamp?.toDate();
+
     return ProfileModel(
         docId: docId,
         fullName: json[StringManager.userFullName],
@@ -63,6 +70,10 @@ class ProfileModel {
             json[StringManager.profileQuestionsAnswer]
                     [StringManager.questionsWithAnswer]
                 .map((x) => QuestionModel.fromJson(json: x,docId: ''))),
-        contactMessageModel: contact);
+        contactMessageModel: contact,
+    expireDate: dateTime
+
+
+    );
   }
 }
