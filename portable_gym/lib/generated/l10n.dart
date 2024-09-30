@@ -1429,6 +1429,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Expire Date: `
+  String get expireDate {
+    return Intl.message(
+      'Expire Date: ',
+      name: 'expireDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

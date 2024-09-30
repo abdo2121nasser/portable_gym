@@ -164,6 +164,8 @@
   "admin": "ادمن",
   "registrationCode": "كود التقديم",
 
-  "subscriptionsWord": "الاشتراكات"
+  "subscriptionsWord": "الاشتراكات",
+  "expireDate": "تاريخ الانتهاء:  "
+
 
 }

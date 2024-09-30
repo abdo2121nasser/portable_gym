@@ -145,6 +145,7 @@
   "admin": "admin",
   "registrationCode": "Registration Code",
 
-  "subscriptiosWord": "Subscriptions"
+  "subscriptiosWord": "Subscriptions",
+  "expireDate": "Expire Date: "
 }
 

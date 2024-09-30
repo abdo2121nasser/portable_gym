@@ -85,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterYourWeight":
             MessageLookupByLibrary.simpleMessage("Enter Your Weight in KG"),
         "exercises": MessageLookupByLibrary.simpleMessage("exercises"),
+        "expireDate": MessageLookupByLibrary.simpleMessage("Expire Date: "),
         "exploreDifferentWorkoutStyles": MessageLookupByLibrary.simpleMessage(
             "Explore Different Workout Styles"),
         "file": MessageLookupByLibrary.simpleMessage("File"),
