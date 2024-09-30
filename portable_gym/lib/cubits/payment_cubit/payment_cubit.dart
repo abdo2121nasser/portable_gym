@@ -42,42 +42,42 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(PresentPayWallLoadingState());
       await RevenueCatUI.presentPaywallIfNeeded(entitlementString);
       emit(PresentPayWallSuccessState());
-      isProCustomer();
+      await _isProCustomer();
     } catch (error) {
       emit(PresentPayWallErrorState());
       debugPrint(error.toString());
     }
   }
 
-  isProCustomer() {
-    Purchases.addCustomerInfoUpdateListener((customerInfo) {
+  _isProCustomer() {
+    Purchases.addCustomerInfoUpdateListener((customerInfo) async {
       EntitlementInfo? entitlementInfo =
           customerInfo.entitlements.all[entitlementString];
-      print(entitlementInfo!.expirationDate);
-      print(entitlementInfo!.store.toString());
-      print(entitlementInfo!.unsubscribeDetectedAt);
-      print(entitlementInfo!.toJson());
-      if (   !profileModel.isPremium  &&  (entitlementInfo?.isActive ?? false)) {
-        updateProfileExpireDateProcess( info: entitlementInfo!);
+      debugPrint(profileModel.isPremium.toString());
+      debugPrint(entitlementInfo!.isActive.toString());
+      if (!profileModel.isPremium && (entitlementInfo?.isActive ?? false)) {
+        await _updateProfileExpireDate(info: entitlementInfo!);
       }
     });
   }
 
-  updateProfileExpireDateProcess({required EntitlementInfo info}) async {
-    profileModel.isPremium = true;
-
+  _updateProfileExpireDate({required EntitlementInfo info}) async {
+    emit(UpdateProfileExpireDateState());
+    debugPrint('in updating profie expire date ------------------');
     DateTime dateTime = DateTime.parse(info.expirationDate!);
-    DateTime dateOnly = DateTime(dateTime.year, dateTime.month, dateTime.day);
-    profileModel.expireDate = dateOnly;
-print(DateFormat('d/M/yyyy').format(dateOnly));
+    // DateTime dateOnly = DateTime(dateTime.year, dateTime.month, dateTime.day);
+    // print(dateOnly);
+    print(dateTime.toLocal());
+    // print(dateTime);
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(profileModel.docId)
         .update({
-      StringManager.userExpirationDate: Timestamp.fromDate(dateOnly),
+      StringManager.userExpirationDate: Timestamp.fromDate(dateTime.toLocal()),
       StringManager.userIsPremium: true,
     }).then((onValue) {
-      Get.offAll(const SplashScreen());
+      debugPrint('success--------------------');
+      Get.offAll(() => const SplashScreen());
     }).catchError((error) {
       debugPrint(error.toString());
     });

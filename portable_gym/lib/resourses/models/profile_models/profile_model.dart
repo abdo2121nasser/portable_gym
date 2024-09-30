@@ -16,12 +16,12 @@ class ProfileModel {
   final int weight;
   final int height;
   final int age;
-   bool isPremium;
+  final bool isPremium;
   final bool isClient;
   ContactMessageModel? contactMessageModel;
   List<QuestionModel> questionModels;
   final String deviceToken;
-  DateTime? expireDate;
+ final DateTime? expireDate;
 
   ProfileModel(
       {required this.docId,

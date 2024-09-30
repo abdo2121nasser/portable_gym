@@ -13,7 +13,7 @@ import '../../../models/profile_models/profile_model.dart';
 class PremiumBlock extends StatelessWidget {
   ProfileModel profileModel;
 
-   PremiumBlock({super.key,required this.profileModel});
+  PremiumBlock({super.key, required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,9 @@ class PremiumBlock extends StatelessWidget {
       child: BlocConsumer<PaymentCubit, PaymentState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return state is InitRevenueCatWithApiLoadingState
+          return state is InitRevenueCatWithApiLoadingState ||
+                  state is PresentPayWallLoadingState ||
+                  state is InitRevenueCatWithApiSuccessState
               ? const SizedBox.shrink()
               : Padding(
                   padding: EdgeInsets.symmetric(

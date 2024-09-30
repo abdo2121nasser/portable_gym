@@ -42,28 +42,23 @@ class ProfileCubit extends Cubit<ProfileState> {
     await const FlutterSecureStorage()
         .read(key: StringManager.userDocId)
         .then((value) {
-          if(value!=null) {
-            userDocId = value;
-            emit(GetUserDocIdSuccessState());
-          }
+      if (value != null) {
+        userDocId = value;
+        emit(GetUserDocIdSuccessState());
+      }
     }).then((value) {
-      if(userDocId==null)
-        {
-          Get.offAll(const LoginScreen());
-          return;
-        }
-      else
-        {
-          getUserData();
-        }
+      if (userDocId == null) {
+        Get.offAll(const LoginScreen());
+        return;
+      } else {
+        getUserData();
+      }
     }).catchError((error) {
       emit(GetUserDocIdErrorState());
       Get.offAll(const LoginScreen());
       debugPrint(error.toString());
-
     });
   }
-
 
   getProfileOptionsLables({
     required context,
@@ -199,21 +194,28 @@ class ProfileCubit extends Cubit<ProfileState> {
         .get()
         .then((value) async {
       String? currentDeviceToken = await FirebaseMessaging.instance.getToken();
-      String? profileDeviceToken=value.data()![StringManager.deviceToken]??'';
-      if ( profileDeviceToken  != currentDeviceToken) {
-        await updateDeviceToken(userDocId: value.id,deviceToken: currentDeviceToken!);
-        value.data()![StringManager.deviceToken]=currentDeviceToken;
+      String? profileDeviceToken =
+          value.data()![StringManager.deviceToken] ?? '';
+      if (profileDeviceToken != currentDeviceToken) {
+        await updateDeviceToken(
+            userDocId: value.id, deviceToken: currentDeviceToken!);
+        value.data()![StringManager.deviceToken] = currentDeviceToken;
       }
       profileModel =
           ProfileModel.fromJson(json: value.data()!, docId: value.id);
-
       emit(GetUserDataSuccessState());
       setProfileControllers(tempModel: profileModel!);
+      if (profileModel!.isPremium &&
+          profileModel!.expireDate != null &&
+          (profileModel!.expireDate?.isBefore(DateTime.now()) ?? false)) {
+        await checkExpireDate();
+      }
     }).catchError((error) {
       emit(GetUserDataErrorState());
       debugPrint(error.toString());
     });
   }
+
 
   Future<void> editUserData() async {
     emit(UpdateUserDataLoadingState());
@@ -235,7 +237,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       imageFile = null;
       imageLink = '';
       emit(UpdateUserDataSuccessState());
-     await getUserData();
+      await getUserData();
     }).catchError((error) {
       emit(UpdateUserDataErrorState());
       debugPrint(error);
@@ -251,22 +253,37 @@ class ProfileCubit extends Cubit<ProfileState> {
         .update({StringManager.profileQuestionsAnswer: questionsMap}).then(
             (value) async {
       emit(UpdateUserQuestionAnswerSuccessState());
-     await getUserData();
+      await getUserData();
     }).catchError((error) {
       emit(UpdateUserQuestionAnswerErrorState());
       debugPrint(error);
     });
   }
 
-  Future<void> updateDeviceToken({required String userDocId,required String deviceToken}) async {
+  Future<void> updateDeviceToken(
+      {required String userDocId, required String deviceToken}) async {
     await FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .doc(userDocId)
         .update({StringManager.deviceToken: deviceToken})
-        .then((value) {
-    })
+        .then((value) {})
         .catchError((error) {
           debugPrint(error);
         });
   }
+  Future<void> checkExpireDate() async {
+    debugPrint('in expire date ----------------------------------');
+    await FirebaseFirestore.instance
+        .collection(StringManager.collectionUserProfiles)
+        .doc(userDocId)
+        .update({
+      StringManager.userExpirationDate: null,
+      StringManager.userIsPremium: false
+    }).then((value) async {
+      await getUserData();
+    }).catchError((error) {
+      debugPrint(error.toString());
+    });
+  }
+
 }

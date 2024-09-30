@@ -8,6 +8,8 @@ class InitRevenueCatWithApiLoadingState extends PaymentState {}
 class InitRevenueCatWithApiSuccessState extends PaymentState {}
 class InitRevenueCatWithApiErrorState extends PaymentState {}
 
+class UpdateProfileExpireDateState extends PaymentState {}
+
 class FetchOffersLoadingState extends PaymentState {}
 class FetchOffersSuccessState extends PaymentState {}
 class FetchOffersErrorState extends PaymentState {}

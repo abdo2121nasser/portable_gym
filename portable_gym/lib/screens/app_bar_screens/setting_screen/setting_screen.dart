@@ -39,7 +39,7 @@ class SettingScreen extends StatelessWidget {
                               index: index, context: context);
                         },
                       ),
-
+                      if(!profCubit.profileModel!.isPremium)
                        PremiumBlock(profileModel: profCubit.profileModel!,),
 
                       const LanguageSwitchBlock(),
