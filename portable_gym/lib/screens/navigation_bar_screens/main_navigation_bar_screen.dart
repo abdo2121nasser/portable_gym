@@ -70,7 +70,7 @@ class MainNavigationBarScreen extends StatelessWidget {
                                   Flexible(
                                     child: Text(
                                      profCubit.profileModel!.isPremium?
-                                     S.of(context).expireDate+DateFormat('d/M/yyyy').format(profCubit.profileModel!.expireDate!):
+                                     S.of(context).expireDate+DateFormat('d/M/yyyy').format(profCubit.profileModel!.expireDate??DateTime.now()):
                                       S.of(context).subTitle,
                                       style: getMediumStyle(
                                           fontSize: FontSize.s14,

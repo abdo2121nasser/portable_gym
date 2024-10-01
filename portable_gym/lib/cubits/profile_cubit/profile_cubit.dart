@@ -206,8 +206,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(GetUserDataSuccessState());
       setProfileControllers(tempModel: profileModel!);
       if (profileModel!.isPremium &&
-          profileModel!.expireDate != null &&
-          (profileModel!.expireDate?.isBefore(DateTime.now()) ?? false)) {
+          (profileModel!.expireDate?.isBefore(DateTime.now()) ?? true)) {
         await checkExpireDate();
       }
     }).catchError((error) {
@@ -215,7 +214,6 @@ class ProfileCubit extends Cubit<ProfileState> {
       debugPrint(error.toString());
     });
   }
-
 
   Future<void> editUserData() async {
     emit(UpdateUserDataLoadingState());
@@ -271,6 +269,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           debugPrint(error);
         });
   }
+
   Future<void> checkExpireDate() async {
     debugPrint('in expire date ----------------------------------');
     await FirebaseFirestore.instance
@@ -285,5 +284,4 @@ class ProfileCubit extends Cubit<ProfileState> {
       debugPrint(error.toString());
     });
   }
-
 }
