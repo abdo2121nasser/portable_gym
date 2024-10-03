@@ -160,7 +160,10 @@ class NutritionScreen extends StatelessWidget {
                           tabBar: recipeTabBar,
                           tabBarView: nutCubit.getRecipeTabBarViews(
                               nutritionCubit: nutCubit),
-                          buttonFunction: nutCubit.processOfAddRecipes,
+                          buttonFunction:(){
+                            nutCubit
+                          .processOfAddRecipes(context: context);
+                          },
                           title: S.of(context).recipe,
                           buttonLable: S.of(context).addRecipe);
                     })

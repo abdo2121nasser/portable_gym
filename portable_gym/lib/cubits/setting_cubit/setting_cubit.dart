@@ -35,7 +35,7 @@ class SettingCubit extends Cubit<SettingState> {
         .then((value) {
       return value!;
     }).catchError((error) {
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -206,7 +206,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(AddQuestionErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -223,7 +223,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(EditQuestionErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -238,7 +238,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(DeleteQuestionErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -254,7 +254,7 @@ class SettingCubit extends Cubit<SettingState> {
       emit(GetQuestionsSuccessState());
     }).catchError((error) {
       emit(GetQuestionsErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -270,7 +270,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(AddAnswerErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -289,7 +289,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(EditAnswerErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -307,7 +307,7 @@ class SettingCubit extends Cubit<SettingState> {
       getAllQuestions(collection: collection);
     }).catchError((error) {
       emit(DeleteAnswerErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
   //-------------------------------trainer side---------------------------------
@@ -350,10 +350,10 @@ class SettingCubit extends Cubit<SettingState> {
         .add(getMealPlanRequestMap(userDocId: userDocId, nickName: nickName))
         .then((value) {
       emit(CreateMealPlanRequestSuccessState());
-      getToastMessage(message: S.of(context).success);
+      getToastMessage(message: S.of(context).success,);
     }).catchError((error) {
       emit(CreateMealPlanRequestErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     Get.back();
     Get.back();
@@ -363,7 +363,7 @@ class SettingCubit extends Cubit<SettingState> {
     if (validateRequests()) {
     await  createMealPlanRequest(nickName: nickName, context: context);
     } else {
-      getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage);
+      getToastMessage(message: S.of(context).mealPlanRequestsErrorMassage,);
     }
   }
 //-----------------------profile settings-----------------------------------

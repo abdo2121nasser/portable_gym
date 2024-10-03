@@ -53,13 +53,13 @@ class MealIdeaBodyBlock extends StatelessWidget {
                       profileModel: ProfileCubit.get(context).profileModel!,
                       recipeModels: nutCubit.recipeModels[nutCubit.currentMealType],
                       editFunction: (docId) {
-                        nutCubit.editRecipe(docId: docId);
+                        nutCubit.editRecipe(docId: docId,context: context);
                       },
                       setAttributes: (RecipeModel model){
                         nutCubit.setRecipeAttributes(model: model);
                       },
                       deleteFunction: (docId){
-                        nutCubit.deleteRecipe(docId: docId);
+                        nutCubit.deleteRecipe(docId: docId,context: context);
                       },
                       tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
                     ),

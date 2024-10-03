@@ -83,7 +83,7 @@ class AnswerQuestionsScreen extends StatelessWidget {
                               getToastMessage(
                                   message: S
                                       .of(context)
-                                      .mealPlanRequestsErrorMassage);
+                                      .mealPlanRequestsErrorMassage,);
                             }
                           } else if (StringManager.collectionUserProfiles ==
                               collection) {

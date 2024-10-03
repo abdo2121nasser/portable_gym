@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:meta/meta.dart';
 import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
-
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/recipe_category_body_block.dart';
 import '../../resourses/blocks/favourite_screen_blocks/categories_body_blocks/training_category_body_block.dart';
@@ -38,7 +36,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       getFavouriteTrainings();
     }).catchError((error) {
       emit(FavouriteGetUserDocIdErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -95,7 +93,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       emit(AddFavouriteTrainingSuccessState());
       getFavouriteTrainings(reload: true);
     }).catchError((error) {
-      debugPrint(error);
+      debugPrint(error.toString());
       emit(AddFavouriteTrainingErrorState());
     });
   }
@@ -125,7 +123,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       getFavouriteTrainings(reload: true);
     }).catchError((error) {
       emit(DeleteFavouriteTrainingErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
   getFavouriteTrainings({bool reload=false}) async {
@@ -147,7 +145,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       emit(GetFavouriteTrainingSuccessState());
     }).catchError((error) {
       emit(GetFavouriteTrainingErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -177,8 +175,8 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     }).then((value) async {
       emit(AddFavouriteRecipeSuccessState());
     }).catchError((error) {
-      debugPrint(error);
       emit(AddFavouriteRecipeErrorState());
+      debugPrint(error..toString());
     });
   }
 
@@ -218,7 +216,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       getFavouriteRecipes(reload: true);
     }).catchError((error) {
       emit(DeleteFavouriteRecipeErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
   getFavouriteRecipes({bool reload=false}) async {
@@ -239,7 +237,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       emit(GetFavouriteRecipesSuccessState());
     }).catchError((error) {
       emit(GetFavouriteRecipesErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 

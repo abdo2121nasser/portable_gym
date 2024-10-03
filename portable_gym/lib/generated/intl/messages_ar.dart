@@ -38,6 +38,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "alertDeleteTitle": MessageLookupByLibrary.simpleMessage("امسح العنصر"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب ؟"),
+        "arabicAdvantageFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل الميزة العربية فارغ"),
+        "arabicCaloriesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل السعرات الحرارية العربية فارغ"),
+        "arabicCarbohydratesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل الكربوهيدرات العربية فارغ"),
+        "arabicInstructionFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل تعليم اللغة العربية فارغ"),
+        "arabicNameFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل الاسم العربي فارغ"),
+        "arabicNumberOfExercisesIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل عدد التمارين باللغة العربية فارغ"),
+        "arabicNumberReputationFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "حقل الرقم العربي للسمعة فارغ"),
+        "arabicNumberRoundFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "الرقم العربي للحقل الدائري فارغ"),
+        "arabicProteinFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل البروتين العربي فارغ"),
+        "arabicTitleFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل العنوان العربي فارغ"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("عربي"),
         "askTrainer": MessageLookupByLibrary.simpleMessage("اسئل المدرب"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
@@ -46,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "breakfast": MessageLookupByLibrary.simpleMessage("الفطار"),
         "cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("كاربوهايدريت"),
+        "categoryHasBeenDeleted":
+            MessageLookupByLibrary.simpleMessage("لقد تم محو الجدول"),
         "changeMealPlanQuestions":
             MessageLookupByLibrary.simpleMessage("تغيير اسئله خطط الوجبات"),
         "changeSetUpQuestions":
@@ -77,6 +100,29 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("نمط البريد الاليكتروني خاطئ"),
         "emailVerificationMessage":
             MessageLookupByLibrary.simpleMessage("تم ارسال بريد تحقق الهويه"),
+        "englishAdvantageFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل ميزة اللغة الإنجليزية فارغ"),
+        "englishCaloriesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل السعرات الحرارية الإنجليزية فارغ"),
+        "englishCarbohydratesFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "حقل الكربوهيدرات الإنجليزية فارغ"),
+        "englishInstructionFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل تعليم اللغة الإنجليزية فارغ"),
+        "englishNameFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل الاسم الإنجليزي فارغ"),
+        "englishNumberOfExercisesFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "حقل عدد التمارين باللغة الإنجليزية فارغ"),
+        "englishNumberReputationFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "حقل رقم السمعة باللغة الإنجليزية فارغ"),
+        "englishNumberRoundFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "الرقم الإنجليزي للحقل المستدير فارغ"),
+        "englishProteinFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل البروتين الإنجليزي فارغ"),
+        "englishTitleFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل العنوان باللغة الإنجليزية فارغ"),
         "englishWord": MessageLookupByLibrary.simpleMessage("اجليش"),
         "enterYourEmail":
             MessageLookupByLibrary.simpleMessage("ادخل بريدك الاليكتروني"),
@@ -103,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintMessage": MessageLookupByLibrary.simpleMessage("اكتب رسالتك"),
         "hour": MessageLookupByLibrary.simpleMessage("ث"),
         "howOldAreYou": MessageLookupByLibrary.simpleMessage("ما هو عمرك؟"),
+        "imageLinkFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage("حقل ارتباط الصورة فارغ"),
         "intermediate": MessageLookupByLibrary.simpleMessage("متوسط"),
         "kCal": MessageLookupByLibrary.simpleMessage("سعرات"),
         "kCalPerGram": MessageLookupByLibrary.simpleMessage("سعرات/100 جم"),
@@ -124,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mealPlan": MessageLookupByLibrary.simpleMessage("خطط للوجبات"),
         "mealPlanRequestsErrorMassage": MessageLookupByLibrary.simpleMessage(
             "اسف, لكن يجب عليك حل جميع الاسئله"),
+        "mealTypeOptionsAreEmpty": MessageLookupByLibrary.simpleMessage(
+            "يجب أن تختار على الأقل نوع الوجبة"),
         "minute": MessageLookupByLibrary.simpleMessage("د"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("دقيقه"),
         "musclesMassGain": MessageLookupByLibrary.simpleMessage("كسب عضلاط"),
@@ -182,11 +232,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "thePasswordFieldIsEmpty":
             MessageLookupByLibrary.simpleMessage("خانه كلمه السر فارغه"),
         "to": MessageLookupByLibrary.simpleMessage("الي"),
+        "totalTimeIsNotSet":
+            MessageLookupByLibrary.simpleMessage("لم يتم تعيين الوقت الإجمالي"),
         "trainingOfDay": MessageLookupByLibrary.simpleMessage("تمرين اليوم"),
         "trainingTime": MessageLookupByLibrary.simpleMessage("وقت التدريب"),
         "uploadBodyCategory":
             MessageLookupByLibrary.simpleMessage("تحميل تصنيف التمرين"),
         "uploadTraining": MessageLookupByLibrary.simpleMessage("تحميل التمرين"),
+        "videoLinkFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "حقل رقم السمعة باللغة الإنجليزية فارغ"),
         "weeklyChallenge": MessageLookupByLibrary.simpleMessage("تحدي الاسبوع"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن"),
         "weightGain": MessageLookupByLibrary.simpleMessage("زياده وزن"),

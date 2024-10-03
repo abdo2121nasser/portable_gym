@@ -100,6 +100,7 @@ class FoodMainElementScreen extends StatelessWidget {
                                                   nutritionCubit: nutCubit),
                                           buttonFunction: () {
                                             nutCubit.editFoodMainElement(
+                                              context: context,
                                                 docId: nutCubit
                                                     .foodElementModels[index]
                                                     .docId);
@@ -121,6 +122,7 @@ class FoodMainElementScreen extends StatelessWidget {
                                             context: context,
                                             deleteFunction: () {
                                               nutCubit.deleteFoodMainElement(
+                                                context: context,
                                                   docId: nutCubit
                                                       .foodElementModels[index]
                                                       .docId);
@@ -143,7 +145,9 @@ class FoodMainElementScreen extends StatelessWidget {
                           tabBar: foodMainElementTabBar,
                           tabBarView: nutCubit.getFoodMainElementTabBarViews(
                               nutritionCubit: nutCubit),
-                          buttonFunction: nutCubit.addNewFoodMainElement,
+                          buttonFunction:(){
+                            nutCubit.addNewFoodMainElement(context);
+                          } ,
                           title: S.of(context).foodMainElement,
                           buttonLable: S.of(context).add);
                     },

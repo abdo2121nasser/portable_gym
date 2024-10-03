@@ -1,16 +1,15 @@
-import 'package:bloc/bloc.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:my_coach/resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_plane_body_block.dart';
 import 'package:my_coach/resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/english_recipe_tab_bar_block.dart';
 import 'package:my_coach/resourses/managers_files/string_manager.dart';
 import 'package:my_coach/resourses/models/nutrition_models/meal_plan_requests_model.dart';
 import 'package:my_coach/resourses/models/nutrition_models/recipe_model.dart';
-
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/body_block/meal_idea_body_block.dart';
 import '../../resourses/blocks/home_screen_blocks/nutrition_blocks/tab_bar_views/arabic_daily_recipe_category_block.dart';
@@ -31,7 +30,8 @@ class NutritionCubit extends Cubit<NutritionState> {
   }
   static NutritionCubit get(context) => BlocProvider.of(context);
 
-  List<List<RecipeModel>> recipeModels = List<List<RecipeModel>>.generate(4, (index) => []);
+  List<List<RecipeModel>> recipeModels =
+      List<List<RecipeModel>>.generate(4, (index) => []);
   List<RecipeModel> breakfastMealPlanRecipeModels = [];
   List<RecipeModel> dinnerMealPlanRecipeModels = [];
   List<RecipeModel> lunchMealPlanRecipeModels = [];
@@ -98,8 +98,8 @@ class NutritionCubit extends Cubit<NutritionState> {
       getHasMealPlan();
       emit(GetNutritionUserDocIdSuccessState());
     }).catchError((error) {
-      debugPrint(error);
       emit(GetNutritionUserDocIdErrorState());
+      debugPrint(error.toString());
     });
   }
 
@@ -157,7 +157,7 @@ class NutritionCubit extends Cubit<NutritionState> {
   changeCurrentMealType({required int index, bool isDailyRecipe = false}) {
     currentMealType = index;
     emit(ChangeCurrentMealTypeState());
-    getFilteredRecipes(isDailyRecipe: isDailyRecipe,reload: true);
+    getFilteredRecipes(isDailyRecipe: isDailyRecipe, reload: true);
   }
 
   List<TextEditingController> getEnglishRecipeControllers() {
@@ -209,8 +209,6 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(ChangeMealTypeCheckBoxesValues());
   }
 
-
-
   List<String> getEnglishMealTypeCheckBoxesLables() {
     return [
       StringManager.englishBreakFastLable,
@@ -243,66 +241,54 @@ class NutritionCubit extends Cubit<NutritionState> {
     }
   }
 
-  bool isValidRecipe() {
+  bool isValidRecipe(BuildContext context) {
     if (englishNameController.text.isEmpty) {
       getToastMessage(
-        message: 'the english name field is empty',
-      );
+          message: S.of(context).englishNameFieldIsEmpty, );
       return false;
     } else if (arabicNameController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic name field is empty',
-      );
+          message: S.of(context).arabicNameFieldIsEmpty, );
       return false;
     } else if (englishCaloriesController.text.isEmpty) {
       getToastMessage(
-        message: 'the english calories field is empty',
-      );
+          message: S.of(context).englishCaloriesFieldIsEmpty, );
       return false;
     } else if (arabicCaloriesController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic calories field is empty',
-      );
+          message: S.of(context).arabicCaloriesFieldIsEmpty, );
       return false;
     } else if (englishProteinController.text.isEmpty) {
       getToastMessage(
-        message: 'the english protein field is empty',
-      );
+          message: S.of(context).englishProteinFieldIsEmpty, );
       return false;
     } else if (arabicProteinController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic protein field is empty',
-      );
+          message: S.of(context).arabicProteinFieldIsEmpty, );
       return false;
     } else if (englishCarbohydratesController.text.isEmpty) {
       getToastMessage(
-        message: 'the english carbohydrates field is empty',
-      );
+          message: S.of(context).englishCarbohydratesFieldIsEmpty, );
       return false;
     } else if (arabicCarbohydratesController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic carbohydrates field is empty',
-      );
+          message: S.of(context).arabicCarbohydratesFieldIsEmpty, );
       return false;
     } else if (englishAdvantageController.text.isEmpty) {
       getToastMessage(
-        message: 'the english advantage field is empty',
-      );
+          message: S.of(context).englishAdvantageFieldIsEmpty, );
       return false;
     } else if (arabicAdvantageController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic advantage field is empty',
-      );
+          message: S.of(context).arabicAdvantageFieldIsEmpty, );
       return false;
     } else if (imageLinkController.text.isEmpty) {
       getToastMessage(
-        message: 'the image link field is empty',
-      );
+          message: S.of(context).imageLinkFieldIsEmpty, );
       return false;
     } else if (!mealTypeCheckBoxes.contains(true)) {
       getToastMessage(
-        message: 'you should choose at least on type of meal',
-      );
+          message: S.of(context).mealTypeOptionsAreEmpty, );
       return false;
     } else {
       return true;
@@ -367,7 +353,8 @@ class NutritionCubit extends Cubit<NutritionState> {
     ).toJson();
   }
 
-  addNewRecipe({bool isDailyRecipe = false}) async {
+  addNewRecipe(
+      {bool isDailyRecipe = false, required BuildContext context}) async {
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyRecipe
             ? StringManager.collectionDailyRecipe
@@ -375,22 +362,21 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(AddNewRecipeLoadingState());
     await data.add(getRecipeModelMap()).then((value) {
       emit(AddNewRecipeSuccessState());
-      getToastMessage(
-        message: 'added successfully',
-      );
+      getToastMessage(message: S.of(context).success, );
     }).catchError((error) {
       emit(AddNewRecipeErrorState());
-      getToastMessage(
-        message: 'a problem has happened',
-      );
-      debugPrint(error);
+      getToastMessage(message: S.of(context).somethingWentWrong, );
+      debugPrint(error.toString());
     });
     getFilteredRecipes(reload: true);
     clearRecipeAttributes();
     Get.back();
   }
 
-  editRecipe({required String docId, bool isDailyRecipe = false}) async {
+  editRecipe(
+      {required String docId,
+      bool isDailyRecipe = false,
+      required BuildContext context}) async {
     var data = FirebaseFirestore.instance
         .collection(isDailyRecipe
             ? StringManager.collectionDailyRecipe
@@ -399,21 +385,20 @@ class NutritionCubit extends Cubit<NutritionState> {
     emit(EditRecipeLoadingState());
     await data.update(getRecipeModelMap()).then((value) {
       emit(EditRecipeSuccessState());
-      getToastMessage(
-        message: 'edited successfully',
-      );
+      getToastMessage(message: S.of(context).success, );
       getFilteredRecipes(reload: true);
     }).catchError((error) {
       emit(EditRecipeErrorState());
-      getToastMessage(
-        message: 'a problem has happened',
-      );
-      debugPrint(error);
+      getToastMessage(message: S.of(context).somethingWentWrong, );
+      debugPrint(error.toString());
     });
     Get.back();
   }
 
-  deleteRecipe({required String docId, bool isDailyRecipe = false}) async {
+  deleteRecipe(
+      {required String docId,
+      bool isDailyRecipe = false,
+      required BuildContext context}) async {
     emit(DeleteRecipeLoadingState());
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyRecipe
@@ -423,20 +408,18 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(DeleteRecipeSuccessState());
       getFilteredRecipes(reload: true);
 
-      getToastMessage(
-        message: 'deleted successfully',
-      );
+      getToastMessage(message: S.of(context).success, );
     }).catchError((error) {
       emit(DeleteRecipeErrorState());
-      print(error);
-      getToastMessage(
-        message: 'a problem has happened',
-      );
+      debugPrint(error.toString());
+      getToastMessage(message: S.of(context).somethingWentWrong, );
     });
   }
 
-  getFilteredRecipes({bool isDailyRecipe = false, bool reload=false}) async {
-   if(recipeModels[currentMealType].isNotEmpty && isDailyRecipe==false && !reload)return;
+  getFilteredRecipes({bool isDailyRecipe = false, bool reload = false}) async {
+    if (recipeModels[currentMealType].isNotEmpty &&
+        isDailyRecipe == false &&
+        !reload) return;
     var data = FirebaseFirestore.instance
         .collection(isDailyRecipe
             ? StringManager.collectionDailyRecipe
@@ -447,7 +430,6 @@ class NutritionCubit extends Cubit<NutritionState> {
       value.docs.forEach((element) {
         recipeModels[currentMealType]
             .add(RecipeModel.fromJson(json: element.data(), docId: element.id));
-
       });
 
       emit(GetFilteredRecipesSuccessState());
@@ -457,9 +439,10 @@ class NutritionCubit extends Cubit<NutritionState> {
     });
   }
 
-  processOfAddRecipes({bool isDailyRecipe = false}) {
-    if (isValidRecipe()) {
-      addNewRecipe(isDailyRecipe: isDailyRecipe);
+  processOfAddRecipes(
+      {bool isDailyRecipe = false, required BuildContext context}) {
+    if (isValidRecipe(context)) {
+      addNewRecipe(isDailyRecipe: isDailyRecipe, context: context);
     }
   }
 
@@ -500,6 +483,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       getDailyRecipeCategory(hasAccess: true);
     }).catchError((error) {
       emit(EditDailyRecipeCardLoadingState());
+      debugPrint(error.toString());
     });
     Get.back();
   }
@@ -515,7 +499,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(GetDailyRecipeCardSuccessState());
     }).catchError((error) {
       emit(GetDailyRecipeCardErrorState());
-      print(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -549,28 +533,24 @@ class NutritionCubit extends Cubit<NutritionState> {
         .toJson();
   }
 
-  addNewFoodMainElement() async {
+  addNewFoodMainElement(BuildContext context) async {
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionFoodMainElement);
     emit(AddNewFoodMainElementLoadingState());
     await data.add(getFoodMainElementModelMap()).then((value) {
       emit(AddNewFoodMainElementSuccessState());
       getFoodMainElement();
-      getToastMessage(
-        message: 'added successfully',
-      );
+      getToastMessage(message: S.of(context).success, );
     }).catchError((error) {
       emit(AddNewFoodMainElementErrorState());
-      getToastMessage(
-        message: 'a problem has happened',
-      );
-      debugPrint(error);
+      getToastMessage(message: S.of(context).somethingWentWrong, );
+      debugPrint(error.toString());
     });
     clearFoodMainElementAttributes();
     Get.back();
   }
 
-  editFoodMainElement({required String docId}) async {
+  editFoodMainElement({required String docId,required BuildContext context}) async {
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionFoodMainElement)
         .doc(docId);
@@ -579,20 +559,22 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(EditFoodMainElementSuccessState());
       getFoodMainElement();
       getToastMessage(
-        message: 'added successfully',
+          message: S.of(context).success,
+          
       );
     }).catchError((error) {
       emit(EditFoodMainElementErrorState());
       getToastMessage(
-        message: 'a problem has happened',
+          message: S.of(context).somethingWentWrong,
+          
       );
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     clearFoodMainElementAttributes();
     Get.back();
   }
 
-  deleteFoodMainElement({required String docId}) async {
+  deleteFoodMainElement({required String docId,required BuildContext context}) async {
     foodElementModels.clear();
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionFoodMainElement)
@@ -601,14 +583,16 @@ class NutritionCubit extends Cubit<NutritionState> {
     await data.delete().then((value) {
       emit(DeleteFoodMainElementSuccessState());
       getToastMessage(
-        message: 'deleted successfully',
+          message: S.of(context).success,
+          
       );
       getFoodMainElement();
     }).catchError((error) {
       emit(DeleteFoodMainElementErrorState());
       debugPrint(error.toString());
       getToastMessage(
-        message: 'a problem has happened',
+          message: S.of(context).somethingWentWrong,
+          
       );
     });
   }
@@ -675,7 +659,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       }
     }).catchError((error) {
       emit(HasMealPlanErrorState());
-      print(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -782,7 +766,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(GetAllMealPlanRequestsSuccessState());
     }).catchError((error) {
       emit(GetAllMealPlanRequestsErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -801,7 +785,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       Get.back();
     }).catchError((error) {
       emit(CreateMealPlanErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -815,7 +799,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       getAllMealPlanRequests();
     }).catchError((error) {
       emit(DeleteMealPlanRequestErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -829,7 +813,7 @@ class NutritionCubit extends Cubit<NutritionState> {
       emit(GetMealPlanSuccessState());
     }).catchError((error) {
       emit(GetMealPlanErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 }

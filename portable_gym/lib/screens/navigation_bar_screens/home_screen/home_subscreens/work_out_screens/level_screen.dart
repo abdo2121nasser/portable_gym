@@ -102,6 +102,7 @@ class LevelScreen extends StatelessWidget {
                      // trainingPeriod: workCubit.trainingPeriod,
                       buttonFunction: () {
                         workCubit.processOfAddingTraining(
+                          context: context,
                             bodyCategory: bodyCategory,
                             isDailyCategory: isDailyCategory);
                       });

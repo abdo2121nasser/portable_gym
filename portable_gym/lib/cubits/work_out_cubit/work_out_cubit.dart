@@ -1,15 +1,14 @@
-import 'package:bloc/bloc.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:my_coach/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_body_category_tab_bar_view_block.dart';
 import 'package:my_coach/resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/english_training_tab_bar_view_block.dart';
 import 'package:my_coach/resourses/managers_files/string_manager.dart';
 import 'package:my_coach/resourses/models/work_out_models/body_category_model.dart';
 import 'package:my_coach/resourses/models/work_out_models/training_model.dart';
-
 import '../../generated/l10n.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_body_category_tab_bar_view_block.dart';
 import '../../resourses/blocks/home_screen_blocks/work_out_block/tab_bar_view_blocks/arabic_training_tab_bar_view_block.dart';
@@ -22,7 +21,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
   static WorkOutCubit get(context) => BlocProvider.of(context);
 
-  List<List<BodyCategoryModel>> bodyCategoryModels = List<List<BodyCategoryModel>>.generate(3, (index) => []);
+  List<List<BodyCategoryModel>> bodyCategoryModels =
+      List<List<BodyCategoryModel>>.generate(3, (index) => []);
   BodyCategoryModel? dailyDodyCategoryModel;
   List<TrainingModel> trainingModels = [];
 
@@ -93,7 +93,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
 
 //---------------------------------------------------------------------------------------------------
 
-  getBodyCategoryEnglishLables({bool hasFileDownloadField=false}) {
+  getBodyCategoryEnglishLables({bool hasFileDownloadField = false}) {
     return [
       StringManager.bodyCategoryEnglishLableTitle,
       StringManager.bodyCategoryEnglishLableCalories,
@@ -103,7 +103,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ];
   }
 
-  getBodyCategoryArabicLables({bool hasFileDownloadField=false}) {
+  getBodyCategoryArabicLables({bool hasFileDownloadField = false}) {
     return [
       StringManager.bodyCategoryArabicLableTitle,
       StringManager.bodyCategoryArabicLableCalories,
@@ -120,9 +120,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ]);
   }
 
-  TabBarView getBodyCategoryTabBarView({required WorkOutCubit workOutCubit,bool isDailyBodyCategory=false}) {
+  TabBarView getBodyCategoryTabBarView(
+      {required WorkOutCubit workOutCubit, bool isDailyBodyCategory = false}) {
     return TabBarView(children: [
-      EnglishBodyCategoryTabBarViewBlock(workCubit: workOutCubit,isDailyBodyCategory: isDailyBodyCategory),
+      EnglishBodyCategoryTabBarViewBlock(
+          workCubit: workOutCubit, isDailyBodyCategory: isDailyBodyCategory),
       ArabicBodyCategoryTabBarViewBlock(
         workCubit: workOutCubit,
         isDailyBodyCategory: isDailyBodyCategory,
@@ -167,24 +169,23 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     ];
   }
 
-  List<TextEditingController> getEnglishBodyCategoryControllers({bool hasFileDownloadField=false}) {
-   return [
+  List<TextEditingController> getEnglishBodyCategoryControllers(
+      {bool hasFileDownloadField = false}) {
+    return [
       bodyCategoryEnglishTitleController,
       // bodyCategoryEnglishCaloriesController,
       bodyCategoryEnglishNumberOfExercisesController,
       bodyCategoryImageLinkController,
-     if(hasFileDownloadField)
-     bodyCategoryDownloadFilesLinkController
+      if (hasFileDownloadField) bodyCategoryDownloadFilesLinkController
     ];
   }
 
   List<TextEditingController> getArabicBodyCategoryControllers() {
-   return  [
+    return [
       bodyCategoryArabicTitleController,
       // bodyCategoryArabicCaloriesController,
       bodyCategoryArabicNumberOfExercisesController,
     ];
-
   }
 
   // setTrainingPeriod({required DateTime date}) {
@@ -203,51 +204,44 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
 //------------------------------------------------------------------------------
-  bool validateAddTraining() {
+  bool validateAddTraining({required BuildContext context}) {
     if (trainingEnglishNameController.text.isEmpty) {
       getToastMessage(
-        message: 'the english name field is empty',
-      );
+          message: S.of(context).englishNameFieldIsEmpty,);
       return false;
     } else if (trainingArabicNameController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic name field is empty',
-      );
+          message: S.of(context).arabicNameFieldIsEmpty,);
       return false;
     } else if (trainingEnglishNumberOfReputationController.text.isEmpty) {
       getToastMessage(
-        message: 'the english number of reputation field is empty',
-      );
+          message: S.of(context).englishNumberReputationFieldIsEmpty,
+         );
       return false;
     } else if (trainingArabicNumberOfReputationController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic number of reputation field is empty',
-      );
+          message: S.of(context).arabicNumberReputationFieldIsEmpty,
+         );
       return false;
     } else if (trainingEnglishNumberOfRoundsController.text.isEmpty) {
       getToastMessage(
-        message: 'the english number of round field is empty',
-      );
+          message: S.of(context).englishNumberRoundFieldIsEmpty,);
       return false;
     } else if (trainingArabicNumberOfRoundsController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic number of round field is empty',
-      );
+          message: S.of(context).arabicNumberRoundFieldIsEmpty,);
       return false;
     } else if (trainingEnglishInstructionController.text.isEmpty) {
       getToastMessage(
-        message: 'the english instruction field is empty',
-      );
+          message: S.of(context).englishInstructionFieldIsEmpty,);
       return false;
     } else if (trainingArabicInstructionController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic instruction field is empty',
-      );
+          message: S.of(context).arabicInstructionFieldIsEmpty,);
       return false;
     } else if (trainingVideoLinkController.text.isEmpty) {
       getToastMessage(
-        message: 'the video link field is empty',
-      );
+          message: S.of(context).videoLinkFieldIsEmpty,);
       return false;
     }
     // else if (trainingPeriod.second == 0 &&
@@ -274,7 +268,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingArabicInstructionController.clear();
     trainingPriorityController.clear();
     trainingVideoLinkController.clear();
-   // trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
+    // trainingPeriod = DateTime(0, 0, 0, 0, 0, 0);
     trainingIsPaid = false;
     emit(ClearTrainingControllersState());
   }
@@ -294,41 +288,43 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     trainingArabicInstructionController.text = model.arabic!.instructions!;
     trainingPriorityController.text = model.priority.toString();
     trainingVideoLinkController.text = model.videoLink!;
-    trainingEndPeriodController.text=model.endPeriod!;
-    trainingStartPeriodController.text=model.startPeriod!;
+    trainingEndPeriodController.text = model.endPeriod!;
+    trainingStartPeriodController.text = model.startPeriod!;
     trainingIsPaid = model.isPaid!;
     emit(SetTrainingControllersState());
   }
 
   Map<String, dynamic> getTrainingModelMap({required String bodyCategory}) {
-    var map=TrainingModel(
-        english: TrainingEnglish(
-            name: trainingEnglishNameController.text,
-            numberOfReputation:
-            trainingEnglishNumberOfReputationController.text,
-            numberOfRounds: trainingEnglishNumberOfRoundsController.text,
-            instructions: trainingEnglishInstructionController.text),
-        arabic: TrainingArabic(
-            name: trainingArabicNameController.text,
-            numberOfReputation:
-            trainingArabicNumberOfReputationController.text,
-            numberOfRounds: trainingArabicNumberOfRoundsController.text,
-            instructions: trainingArabicInstructionController.text),
-        level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
-        bodyCategory: bodyCategory,
-        videoLink: trainingVideoLinkController.text,
-        priority: int.parse(trainingPriorityController.text),
-        startPeriod: trainingStartPeriodController.text,
-        endPeriod: trainingEndPeriodController.text,
-        isPaid: trainingIsPaid,
-        docId: '')
+    var map = TrainingModel(
+            english: TrainingEnglish(
+                name: trainingEnglishNameController.text,
+                numberOfReputation:
+                    trainingEnglishNumberOfReputationController.text,
+                numberOfRounds: trainingEnglishNumberOfRoundsController.text,
+                instructions: trainingEnglishInstructionController.text),
+            arabic: TrainingArabic(
+                name: trainingArabicNameController.text,
+                numberOfReputation:
+                    trainingArabicNumberOfReputationController.text,
+                numberOfRounds: trainingArabicNumberOfRoundsController.text,
+                instructions: trainingArabicInstructionController.text),
+            level: getBodyCategoryLevelString(currentLevelIndex: currentLevel),
+            bodyCategory: bodyCategory,
+            videoLink: trainingVideoLinkController.text,
+            priority: int.parse(trainingPriorityController.text),
+            startPeriod: trainingStartPeriodController.text,
+            endPeriod: trainingEndPeriodController.text,
+            isPaid: trainingIsPaid,
+            docId: '')
         .toJson();
-    print(map);
-    return  map;
+    debugPrint(map.toString());
+    return map;
   }
 
   addNewTraining(
-      {required String bodyCategory, bool isDailyCategory = false}) async {
+      {required String bodyCategory,
+      bool isDailyCategory = false,
+      required BuildContext context}) async {
     emit(AddNewTrainingLoadingState());
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyCategory
@@ -338,15 +334,11 @@ class WorkOutCubit extends Cubit<WorkOutState> {
         .add(getTrainingModelMap(bodyCategory: bodyCategory))
         .then((value) {
       emit(AddNewTrainingSuccessState());
-      getToastMessage(
-        message: 'added successfully',
-      );
+      getToastMessage(message: S.of(context).success,);
     }).catchError((error) {
       emit(AddNewTrainingErrorState());
-      getToastMessage(
-        message: 'a problem has happened',
-      );
-      print(error);
+      getToastMessage(message: S.of(context).somethingWentWrong,);
+      debugPrint(error.toString());
     });
     getTraining(bodyCategory: bodyCategory);
     Get.back();
@@ -396,7 +388,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       getTraining(bodyCategory: bodyCategory, isDailyCategory: isDailyCategory);
     }).catchError((error) {
       emit(EditTrainingErrorState());
-      print(error.toString());
+      debugPrint(error.toString());
     });
     Get.back();
   }
@@ -404,7 +396,8 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   deleteTraining(
       {required String docId,
       required String bodyCategory,
-      required isDailyTraining}) async {
+      required isDailyTraining,
+      required BuildContext context}) async {
     emit(DeleteTrainingLoadingState());
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyTraining
@@ -412,26 +405,24 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             : StringManager.collectionTrainings);
     await data.doc(docId).delete().then((value) {
       emit(DeleteTrainingSuccessState());
-      getToastMessage(
-        message: 'deleted successfully',
-      );
+      getToastMessage(message: S.of(context).success,);
       getTraining(bodyCategory: bodyCategory);
     }).catchError((error) {
       emit(DeleteTrainingErrorState());
-      print(error);
-      getToastMessage(
-        message: 'a problem has happened',
-      );
+      debugPrint(error.toString());
+      getToastMessage(message: S.of(context).somethingWentWrong,);
     });
   }
 
-  processOfAddingTraining({
-    required String bodyCategory,
-    bool isDailyCategory = false,
-  }) {
-    if (validateAddTraining()||true) {
+  processOfAddingTraining(
+      {required String bodyCategory,
+      bool isDailyCategory = false,
+      required BuildContext context}) {
+    if (validateAddTraining(context: context) || true) {
       addNewTraining(
-          bodyCategory: bodyCategory, isDailyCategory: isDailyCategory);
+          context: context,
+          bodyCategory: bodyCategory,
+          isDailyCategory: isDailyCategory);
     }
   }
 
@@ -466,7 +457,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       emit(GetTrainingSuccessState());
     }).catchError((error) {
       emit(GetTrainingErrorState());
-      print(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -484,15 +475,16 @@ class WorkOutCubit extends Cubit<WorkOutState> {
           TrainingModel.fromJson(json: value.data()!, docId: value.id);
     }).catchError((error) {
       emit(GetTrainingUsingDocIdErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
 //------------------------------------------------------------------------------
-  bool validateAddBodyCategory() {
+  bool validateAddBodyCategory({required BuildContext context}) {
     if (bodyCategoryEnglishTitleController.text.isEmpty) {
       getToastMessage(
-        message: 'the English title field is empty',
+          message:S.of(context).englishTitleFieldIsEmpty,
+
       );
       return false;
     }
@@ -502,20 +494,14 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     //   );
     //   return false;
     // }
-    else if (bodyCategoryImageLinkController.text.isEmpty) {
+    else if (bodyCategoryEnglishNumberOfExercisesController.text.isEmpty) {
       getToastMessage(
-        message: 'the image link field is empty',
-      );
-      return false;
-    } else if (bodyCategoryEnglishNumberOfExercisesController.text.isEmpty) {
-      getToastMessage(
-        message: 'the english number of exercises field is empty',
-      );
+          message: S.of(context).englishNumberOfExercisesFieldIsEmpty,
+         );
       return false;
     } else if (bodyCategoryArabicTitleController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic title field is empty',
-      );
+          message: S.of(context).arabicTitleFieldIsEmpty,);
       return false;
     }
     // else if (bodyCategoryArabicCaloriesController.text.isEmpty) {
@@ -526,18 +512,20 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     // }
     else if (bodyCategoryArabicNumberOfExercisesController.text.isEmpty) {
       getToastMessage(
-        message: 'the arabic number of exercises field is empty',
-      );
+          message: S.of(context).arabicNumberOfExercisesIsEmpty,);
+      return false;
+    } else if (bodyCategoryImageLinkController.text.isEmpty) {
+      getToastMessage(
+          message: S.of(context).imageLinkFieldIsEmpty,);
       return false;
     } else if (bodyCategoryTotalTime.second == 0 &&
         bodyCategoryTotalTime.minute == 0 &&
         bodyCategoryTotalTime.hour == 0) {
-      getToastMessage(
-        message: 'the total time is not set',
-      );
+      getToastMessage(message: S.of(context).totalTimeIsNotSet,);
       return false;
-    } else
+    } else {
       return true;
+    }
   }
 
   clearBodyCategoryAttributes() {
@@ -577,15 +565,15 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     bodyCategoryEnglishTitleController.text = model.english!.title!;
     bodyCategoryEnglishNumberOfExercisesController.text =
         model.english!.numberOfExercises!;
- //   bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
+    //   bodyCategoryEnglishCaloriesController.text = model.english!.calories!;
     bodyCategoryImageLinkController.text = model.imageLink!;
-    if(model.downloadFileLink!=null) {
-      bodyCategoryDownloadFilesLinkController.text=model.downloadFileLink!;
+    if (model.downloadFileLink != null) {
+      bodyCategoryDownloadFilesLinkController.text = model.downloadFileLink!;
     }
     bodyCategoryArabicTitleController.text = model.arabic!.title!;
     bodyCategoryArabicNumberOfExercisesController.text =
         model.arabic!.numberOfExercises!;
-  //  bodyCategoryArabicCaloriesController.text = model.arabic!.calories!;
+    //  bodyCategoryArabicCaloriesController.text = model.arabic!.calories!;
     bodyCategoryTotalTime = DateTime(
       0,
       0,
@@ -597,16 +585,17 @@ class WorkOutCubit extends Cubit<WorkOutState> {
     emit(SetBodyCategoryControllersState());
   }
 
-  Map<String, dynamic> getBodyCategoryMap({required bool isAddFunction,bool isDailyBodyCategory=false}) {
+  Map<String, dynamic> getBodyCategoryMap(
+      {required bool isAddFunction, bool isDailyBodyCategory = false}) {
     return BodyCategoryModel(
             english: BodyCategoryEnglish(
                 title: bodyCategoryEnglishTitleController.text,
-              //  calories: bodyCategoryEnglishCaloriesController.text,
+                //  calories: bodyCategoryEnglishCaloriesController.text,
                 numberOfExercises:
                     bodyCategoryEnglishNumberOfExercisesController.text),
             arabic: BodyCategoryArabic(
                 title: bodyCategoryArabicTitleController.text,
-              //  calories: bodyCategoryArabicCaloriesController.text,
+                //  calories: bodyCategoryArabicCaloriesController.text,
                 numberOfExercises:
                     bodyCategoryArabicNumberOfExercisesController.text),
             imageLink: bodyCategoryImageLinkController.text,
@@ -623,21 +612,23 @@ class WorkOutCubit extends Cubit<WorkOutState> {
                 getBodyCategoryLevelString(currentLevelIndex: currentLevel));
   }
 
-  addNewBodyCategory() async {
+  addNewBodyCategory(context) async {
     emit(AddNewBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionBodyCategory);
     await data.add(getBodyCategoryMap(isAddFunction: true)).then((value) {
       emit(AddNewBodyCategorySuccessState());
       getToastMessage(
-        message: 'successfully added',
+          message:S.of(context).success,
+
       );
     }).catchError((error) {
       getToastMessage(
-        message: 'an error has happened',
+          message:S.of(context).somethingWentWrong,
+
       );
       emit(AddNewBodyCategoryErrorState());
-      print(error.toString());
+      debugPrint(error.toString());
     });
     Get.back();
   }
@@ -660,7 +651,9 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   // StringManager.bodyCategoryTotalTimeHour:   bodyCategoryTotalTime.hour,
   // StringManager.bodyCategoryTotalTimeMinute: bodyCategoryTotalTime.minute,
   // StringManager.bodyCategoryTotalTimeSecond: bodyCategoryTotalTime.second,
-  editBodyCategory({required String docId, bool isDailyCategory = false}) {
+  editBodyCategory({required String docId, bool isDailyCategory = false,
+  required BuildContext context
+  }) {
     emit(EditBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance.collection(
         isDailyCategory
@@ -668,11 +661,13 @@ class WorkOutCubit extends Cubit<WorkOutState> {
             : StringManager.collectionBodyCategory);
     data
         .doc(docId)
-        .update(getBodyCategoryMap(isAddFunction: false,isDailyBodyCategory: isDailyCategory))
+        .update(getBodyCategoryMap(
+            isAddFunction: false, isDailyBodyCategory: isDailyCategory))
         .then((value) {
       emit(EditBodyCategorySuccessState());
       getToastMessage(
-        message: 'the category has been edited',
+          message:S.of(context).success,
+
       );
       if (isDailyCategory) {
         getDailyBodyCategoryCard(hasAccess: true);
@@ -681,51 +676,60 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       }
     }).catchError((error) {
       emit(EditBodyCategoryErrorState());
-      print(error.toString());
+      debugPrint(error.toString());
       getToastMessage(
-        message: 'a problem has happened',
+          message:S.of(context).somethingWentWrong,
+
       );
     });
     Get.back();
   }
 
-  deleteBodyCategory({required String docId}) async {
+  deleteBodyCategory({required String docId,required BuildContext context}) async {
     emit(deleteBodyCategoryLoadingState());
     CollectionReference data = FirebaseFirestore.instance
         .collection(StringManager.collectionBodyCategory);
     await data.doc(docId).delete().then((value) {
       emit(deleteBodyCategorySuccessState());
-      getToastMessage(message: 'the category has been deleted');
+      getToastMessage(
+          message:S.of(context).categoryHasBeenDeleted,
+
+      );
     }).catchError((error) {
       emit(deleteBodyCategoryErrorState());
 
-      print(error);
-      getToastMessage(message: 'an error has happened');
-    });
+      debugPrint(error.toString());
+      getToastMessage(
+          message:S.of(context).somethingWentWrong,
+
+      );    });
   }
 
-  processOfAddingBodyCategory() {
-    if (validateAddBodyCategory()) {
-      addNewBodyCategory();
+  processOfAddingBodyCategory({required BuildContext context}) {
+    if (validateAddBodyCategory(context: context)) {
+      addNewBodyCategory(context);
       getBodyCategories(reload: true);
     }
   }
 
   processOfDeletingBodyCategory(
-      {required String docId, required String bodyCategory}) async {
+      {required String docId, required String bodyCategory,
+      required BuildContext context
+      }) async {
     await getTraining(bodyCategory: bodyCategory);
     trainingModels.forEach((element) async {
       await deleteTraining(
+        context: context,
           docId: element.docId!,
           bodyCategory: bodyCategory,
           isDailyTraining: false);
     });
-    await deleteBodyCategory(docId: docId);
+    await deleteBodyCategory(docId: docId,context: context);
     await getBodyCategories(reload: true);
   }
 
-  getBodyCategories({bool reload=false}) async {
-    if(bodyCategoryModels[currentLevel].isNotEmpty && !reload) {
+  getBodyCategories({bool reload = false}) async {
+    if (bodyCategoryModels[currentLevel].isNotEmpty && !reload) {
       return;
     }
     bodyCategoryModels[currentLevel].clear();
@@ -749,7 +753,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
   }
 
   getDailyBodyCategoryCard({required bool hasAccess}) async {
-    if(hasAccess==false) return;
+    if (hasAccess == false) return;
     var data = FirebaseFirestore.instance
         .collection(StringManager.collectionDailyBodyCategory)
         .where(StringManager.dailyBodyCategoryCardInformation, isEqualTo: true);
@@ -760,7 +764,7 @@ class WorkOutCubit extends Cubit<WorkOutState> {
       emit(GetDailyBodyCategorySuccessState());
     }).catchError((error) {
       emit(GetDailyBodyCategoryErrorState());
-      print(error);
+      debugPrint(error.toString());
     });
   }
 }

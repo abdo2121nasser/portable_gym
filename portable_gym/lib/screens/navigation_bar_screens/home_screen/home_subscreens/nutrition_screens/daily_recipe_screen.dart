@@ -80,13 +80,13 @@ class DailyRecipeScreen extends StatelessWidget {
                     profileModel: profileModel,
                     recipeModels: nutCubit.recipeModels[nutCubit.currentMealType],
                     editFunction: (docId) {
-                      nutCubit.editRecipe(docId: docId,isDailyRecipe: true);
+                      nutCubit.editRecipe(docId: docId,isDailyRecipe: true,context: context);
                     },
                     setAttributes: (RecipeModel model){
                       nutCubit.setRecipeAttributes(model: model);
                     },
                     deleteFunction: (docId){
-                      nutCubit.deleteRecipe(docId: docId,isDailyRecipe: true);
+                      nutCubit.deleteRecipe(docId: docId,isDailyRecipe: true,context: context);
                     },
                     tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
                     hasFavouriteIcon: false,
@@ -103,7 +103,7 @@ class DailyRecipeScreen extends StatelessWidget {
                       tabBar: dailyRecipeTabBar,
                       tabBarView: nutCubit.getRecipeTabBarViews(nutritionCubit: nutCubit),
                       buttonFunction: (){
-                        nutCubit.processOfAddRecipes(isDailyRecipe: true);
+                        nutCubit.processOfAddRecipes(isDailyRecipe: true,context: context);
                       },
                       title: S.of(context).recipe,
                       buttonLable:  S.of(context).addRecipe);

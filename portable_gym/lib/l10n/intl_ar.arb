@@ -165,7 +165,41 @@
   "registrationCode": "كود التقديم",
 
   "subscriptionsWord": "الاشتراكات",
-  "expireDate": "تاريخ الانتهاء:  "
+  "expireDate": "تاريخ الانتهاء:  ",
+
+
+
+  "englishNameFieldIsEmpty":            "حقل الاسم الإنجليزي فارغ" ,
+  "arabicNameFieldIsEmpty":             "حقل الاسم العربي فارغ",
+  "englishCaloriesFieldIsEmpty":        "حقل السعرات الحرارية الإنجليزية فارغ" ,
+  "arabicCaloriesFieldIsEmpty":         "حقل السعرات الحرارية العربية فارغ" ,
+  "englishProteinFieldIsEmpty":         "حقل البروتين الإنجليزي فارغ" ,
+  "arabicProteinFieldIsEmpty":          "حقل البروتين العربي فارغ" ,
+  "englishCarbohydratesFieldIsEmpty":   "حقل الكربوهيدرات الإنجليزية فارغ" ,
+  "arabicCarbohydratesFieldIsEmpty":    "حقل الكربوهيدرات العربية فارغ" ,
+  "englishAdvantageFieldIsEmpty":       "حقل ميزة اللغة الإنجليزية فارغ" ,
+  "arabicAdvantageFieldIsEmpty":        "حقل الميزة العربية فارغ" ,
+  "imageLinkFieldIsEmpty":              "حقل ارتباط الصورة فارغ" ,
+  "mealTypeOptionsAreEmpty":            "يجب أن تختار على الأقل نوع الوجبة",
+
+
+
+  "englishNumberReputationFieldIsEmpty":       "حقل رقم السمعة باللغة الإنجليزية فارغ" ,
+  "arabicNumberReputationFieldIsEmpty":        "حقل الرقم العربي للسمعة فارغ" ,
+  "englishNumberRoundFieldIsEmpty":            "الرقم الإنجليزي للحقل المستدير فارغ" ,
+  "arabicNumberRoundFieldIsEmpty":             "الرقم العربي للحقل الدائري فارغ" ,
+  "englishInstructionFieldIsEmpty":      "حقل تعليم اللغة الإنجليزية فارغ" ,
+  "arabicInstructionFieldIsEmpty":       "حقل تعليم اللغة العربية فارغ" ,
+  "videoLinkFieldIsEmpty":                     "حقل رقم السمعة باللغة الإنجليزية فارغ",
+
+  "englishTitleFieldIsEmpty":             "حقل العنوان باللغة الإنجليزية فارغ" ,
+  "englishNumberOfExercisesFieldIsEmpty": "حقل عدد التمارين باللغة الإنجليزية فارغ" ,
+  "arabicTitleFieldIsEmpty":              "حقل العنوان العربي فارغ",
+  "arabicNumberOfExercisesIsEmpty":       "حقل عدد التمارين باللغة العربية فارغ" ,
+  "totalTimeIsNotSet":                    "لم يتم تعيين الوقت الإجمالي",
+
+  "categoryHasBeenDeleted":   "لقد تم محو الجدول"
+
 
 
 }

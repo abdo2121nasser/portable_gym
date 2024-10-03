@@ -38,6 +38,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "alertDeleteTitle": MessageLookupByLibrary.simpleMessage("Delete Item"),
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "arabicAdvantageFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic advantage field is empty"),
+        "arabicCaloriesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic calories field is empty"),
+        "arabicCarbohydratesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic carbohydrates field is empty"),
+        "arabicInstructionFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic instruction field is empty"),
+        "arabicNameFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic name field is empty"),
+        "arabicNumberOfExercisesIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic number of exercises field is empty"),
+        "arabicNumberReputationFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "the arabic number of reputation field is empty"),
+        "arabicNumberRoundFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic number of round field is empty"),
+        "arabicProteinFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic protein field is empty"),
+        "arabicTitleFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the arabic title field is empty"),
         "arabicWord": MessageLookupByLibrary.simpleMessage("Arabic"),
         "askTrainer": MessageLookupByLibrary.simpleMessage("Ask Trainer"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
@@ -46,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "breakfast": MessageLookupByLibrary.simpleMessage("BreakFast"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "carbohydrate": MessageLookupByLibrary.simpleMessage("carbohydrate"),
+        "categoryHasBeenDeleted":
+            MessageLookupByLibrary.simpleMessage("category has been deleted"),
         "changeMealPlanQuestions":
             MessageLookupByLibrary.simpleMessage("Change Meal Plan Questions"),
         "changeSetUpQuestions":
@@ -77,6 +100,29 @@ class MessageLookup extends MessageLookupByLibrary {
             "email field pattern is wrong"),
         "emailVerificationMessage":
             MessageLookupByLibrary.simpleMessage("sent email verification"),
+        "englishAdvantageFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english advantage field is empty"),
+        "englishCaloriesFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english calories field is empty"),
+        "englishCarbohydratesFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "the english carbohydrates field is empty"),
+        "englishInstructionFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english instruction field is empty"),
+        "englishNameFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english name field is empty"),
+        "englishNumberOfExercisesFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "the english number of exercises field is empty"),
+        "englishNumberReputationFieldIsEmpty":
+            MessageLookupByLibrary.simpleMessage(
+                "the english number of reputation field is empty"),
+        "englishNumberRoundFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english number of round field is empty"),
+        "englishProteinFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english protein field is empty"),
+        "englishTitleFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the english title field is empty"),
         "englishWord": MessageLookupByLibrary.simpleMessage("English"),
         "enterYourEmail":
             MessageLookupByLibrary.simpleMessage("Enter Your Email Address"),
@@ -105,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hour": MessageLookupByLibrary.simpleMessage("H"),
         "howOldAreYou":
             MessageLookupByLibrary.simpleMessage("How Old Are You?"),
+        "imageLinkFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the image link field is empty"),
         "intermediate": MessageLookupByLibrary.simpleMessage("Intermediate"),
         "kCal": MessageLookupByLibrary.simpleMessage("KCal"),
         "kCalPerGram": MessageLookupByLibrary.simpleMessage("KCal/100Gm"),
@@ -126,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mealPlan": MessageLookupByLibrary.simpleMessage("meal plan"),
         "mealPlanRequestsErrorMassage": MessageLookupByLibrary.simpleMessage(
             "sorry, but you should solve all questions"),
+        "mealTypeOptionsAreEmpty": MessageLookupByLibrary.simpleMessage(
+            "you should choose at least on type of meal"),
         "minute": MessageLookupByLibrary.simpleMessage("M"),
         "minuteWord": MessageLookupByLibrary.simpleMessage("minute"),
         "musclesMassGain":
@@ -191,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thePasswordFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
             "the password field is empty!!"),
         "to": MessageLookupByLibrary.simpleMessage("To"),
+        "totalTimeIsNotSet":
+            MessageLookupByLibrary.simpleMessage("the total time is not set"),
         "trainingOfDay":
             MessageLookupByLibrary.simpleMessage("training of the day"),
         "trainingTime": MessageLookupByLibrary.simpleMessage("Training Time"),
@@ -198,6 +250,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Upload body category"),
         "uploadTraining":
             MessageLookupByLibrary.simpleMessage("Upload Training"),
+        "videoLinkFieldIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "the video link field is empty"),
         "weeklyChallenge":
             MessageLookupByLibrary.simpleMessage("Weekly Challenge"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight"),

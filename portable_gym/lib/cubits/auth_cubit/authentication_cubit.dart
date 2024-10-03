@@ -59,8 +59,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return S.of(context).theEmailFieldIsEmpty;
     } else if (email.contains(StringManager.gmailPattern) == false) {
       return S.of(context).emailFieldPatternIsWrong;
-    } else
-      return StringManager.trueWord;
+    } else{
+      return
+        StringManager.trueWord;
+    }
   }
 
   String passwordValidation({required String password, required context}) {
@@ -69,9 +71,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } else if (password.length < 8) {
       // print(password.length);
       return S.of(context).passwordShouldBeAtLeast8NumbersOrCharacters;
-    } else
-      return StringManager.trueWord;
-  }
+    }
+    else{
+    return
+    StringManager.trueWord;
+    }  }
 
   // String nameValidation({required String name, required context}) {
   //   if (!registerName.text.isNotEmpty) {
@@ -202,12 +206,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         emailValidation(email: registerEmail.text, context: context);
     String passwordError =
         passwordValidation(password: registerPassword.text, context: context);
-    // String nameError =nameValidation(name: registerName.text, context: context);
     String confirmPasswordError = confirmPasswordValidation(context: context);
 
-    // if (nameError != StringManager.trueWord) {
-    //   return nameError;
-    // } else
     if (emailError != StringManager.trueWord) {
       return emailError;
     } else if (passwordError != StringManager.trueWord) {
@@ -230,7 +230,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } else {
       getToastMessage(message: getRegisterError(context: context));
     }
-    // clearRegisterControllers();
+    clearRegisterControllers();
   }
 
   Future<void> clintRegistration(context) async {
@@ -327,7 +327,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 //------------------------------logout------------------------------------------
   Future<bool> hasProfile({required String email, required context}) async {
     bool hasProfile = false;
-    var data = await FirebaseFirestore.instance
+    var data = FirebaseFirestore.instance
         .collection(StringManager.collectionUserProfiles)
         .where(StringManager.userEmail, isEqualTo: email);
     await data.get().then((value) async {

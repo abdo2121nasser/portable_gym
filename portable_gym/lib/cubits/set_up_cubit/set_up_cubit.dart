@@ -5,25 +5,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:my_coach/cubits/auth_cubit/authentication_cubit.dart';
 import 'package:my_coach/resourses/managers_files/color_manager.dart';
 import 'package:my_coach/resourses/managers_files/toast_massage_manager.dart';
 import 'package:my_coach/screens/navigation_bar_screens/home_screen/home_subscreens/nutrition_screens/answer_questions_screen.dart';
 import 'package:my_coach/screens/navigation_bar_screens/main_navigation_bar_screen.dart';
 import 'package:vertical_weight_slider/vertical_weight_slider.dart';
-
 import '../../generated/l10n.dart';
-import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/activity_level_set_up_block.dart';
 import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/age_set_up_block.dart';
 import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/fill_profile_set_up_block.dart';
 import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/gender_set_up_block.dart';
-import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/goal_set_up_block.dart';
 import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/height_set_up_block.dart';
 import '../../resourses/blocks/set_up_blocks/set_up_bodies_blocks/weight_set_up_block.dart';
 
@@ -33,7 +28,8 @@ import '../../resourses/managers_files/string_manager.dart';
 part 'set_up_state.dart';
 
 class SetUpCubit extends Cubit<SetUpState> {
-  SetUpCubit({required String email,required this.isAdmin}) : super(SetUpInitial()) {
+  SetUpCubit({required String email, required this.isAdmin})
+      : super(SetUpInitial()) {
     this.email.text = email;
   }
 
@@ -244,7 +240,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       emit(UploadImageFileSuccessState());
     }).catchError((error) {
       emit(UploadImageFileErrorState());
-      // debugPrint(error);
+      debugPrint(error.toString());
     });
   }
   //------------------------profile--------------------------------------------
@@ -281,10 +277,11 @@ class SetUpCubit extends Cubit<SetUpState> {
         nameValidation(name: nickName.text, context: context);
     if (fullNameError != StringManager.trueWord) {
       return fullNameError;
-    } else if (nickNameError != StringManager.trueWord)
+    } else if (nickNameError != StringManager.trueWord) {
       return nickNameError;
-    else
+    } else {
       return S.of(context).youShouldChooseProfilePhoto;
+    }
   }
 
   createProfileProcess({required context}) {
@@ -292,15 +289,17 @@ class SetUpCubit extends Cubit<SetUpState> {
       Get.to(AnswerQuestionsScreen(
           userNickName: nickName.text,
           collection: StringManager.collectionQuestionsOfProfile,
-          finishProfileSetupFunction: ( Map<String,dynamic> questionsMap)  async {
-          await  createProfile(context: context,questionsMap: questionsMap);
+          finishProfileSetupFunction:
+              (Map<String, dynamic> questionsMap) async {
+            await createProfile(context: context, questionsMap: questionsMap);
           }));
     } else {
-      getToastMessage(message: getValidateError(context: context));
+      getToastMessage(message: getValidateError(context: context),);
     }
   }
 
- Future<void> createProfile({required context,required Map<String,dynamic> questionsMap}) async {
+  Future<void> createProfile(
+      {required context, required Map<String, dynamic> questionsMap}) async {
     await uploadImage();
     emit(CreateProfileLoadingState());
     CollectionReference data = FirebaseFirestore.instance
@@ -320,7 +319,6 @@ class SetUpCubit extends Cubit<SetUpState> {
       StringManager.userIsPremium: false,
       StringManager.userIsClint: !isAdmin,
       StringManager.profileQuestionsAnswer: questionsMap,
-
     }).then((value) {
       emit(CreateProfileSuccessState());
       getToastMessage(
@@ -330,7 +328,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       Get.offAll(const MainNavigationBarScreen());
     }).catchError((error) {
       getToastMessage(
-        message:  S.of(context).somethingWentWrong,
+        message: S.of(context).somethingWentWrong,
       );
       emit(CreateProfileErrorState());
       debugPrint(error.toString());
@@ -345,7 +343,7 @@ class SetUpCubit extends Cubit<SetUpState> {
       emit(SaveUserDataDocIdSuccessState());
     }).catchError((error) {
       emit(SaveUserDataDocIdErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 }

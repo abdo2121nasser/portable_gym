@@ -51,7 +51,7 @@ class ResourceCubit extends Cubit<ResourceState> {
       emit(GetAllTrainingsSuccessState());
     }).catchError((error) {
       emit(GetAllTrainingsErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -68,7 +68,7 @@ class ResourceCubit extends Cubit<ResourceState> {
       emit(GetAllRecipesSuccessState());
     }).catchError((error) {
       emit(GetAllRecipesErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 }

@@ -32,7 +32,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       await _presentPayWall();
     } catch (error) {
       emit(InitRevenueCatWithApiErrorState());
-      getToastMessage(message: S.of(context).somethingWentWrong);
+      getToastMessage(message: S.of(context).somethingWentWrong,);
       debugPrint(error.toString());
     }
   }

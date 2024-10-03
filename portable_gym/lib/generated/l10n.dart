@@ -1439,6 +1439,256 @@ class S {
       args: [],
     );
   }
+
+  /// `the english name field is empty`
+  String get englishNameFieldIsEmpty {
+    return Intl.message(
+      'the english name field is empty',
+      name: 'englishNameFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic name field is empty`
+  String get arabicNameFieldIsEmpty {
+    return Intl.message(
+      'the arabic name field is empty',
+      name: 'arabicNameFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english calories field is empty`
+  String get englishCaloriesFieldIsEmpty {
+    return Intl.message(
+      'the english calories field is empty',
+      name: 'englishCaloriesFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic calories field is empty`
+  String get arabicCaloriesFieldIsEmpty {
+    return Intl.message(
+      'the arabic calories field is empty',
+      name: 'arabicCaloriesFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english protein field is empty`
+  String get englishProteinFieldIsEmpty {
+    return Intl.message(
+      'the english protein field is empty',
+      name: 'englishProteinFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic protein field is empty`
+  String get arabicProteinFieldIsEmpty {
+    return Intl.message(
+      'the arabic protein field is empty',
+      name: 'arabicProteinFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english carbohydrates field is empty`
+  String get englishCarbohydratesFieldIsEmpty {
+    return Intl.message(
+      'the english carbohydrates field is empty',
+      name: 'englishCarbohydratesFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic carbohydrates field is empty`
+  String get arabicCarbohydratesFieldIsEmpty {
+    return Intl.message(
+      'the arabic carbohydrates field is empty',
+      name: 'arabicCarbohydratesFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english advantage field is empty`
+  String get englishAdvantageFieldIsEmpty {
+    return Intl.message(
+      'the english advantage field is empty',
+      name: 'englishAdvantageFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic advantage field is empty`
+  String get arabicAdvantageFieldIsEmpty {
+    return Intl.message(
+      'the arabic advantage field is empty',
+      name: 'arabicAdvantageFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the image link field is empty`
+  String get imageLinkFieldIsEmpty {
+    return Intl.message(
+      'the image link field is empty',
+      name: 'imageLinkFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you should choose at least on type of meal`
+  String get mealTypeOptionsAreEmpty {
+    return Intl.message(
+      'you should choose at least on type of meal',
+      name: 'mealTypeOptionsAreEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english number of reputation field is empty`
+  String get englishNumberReputationFieldIsEmpty {
+    return Intl.message(
+      'the english number of reputation field is empty',
+      name: 'englishNumberReputationFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic number of reputation field is empty`
+  String get arabicNumberReputationFieldIsEmpty {
+    return Intl.message(
+      'the arabic number of reputation field is empty',
+      name: 'arabicNumberReputationFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english number of round field is empty`
+  String get englishNumberRoundFieldIsEmpty {
+    return Intl.message(
+      'the english number of round field is empty',
+      name: 'englishNumberRoundFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic number of round field is empty`
+  String get arabicNumberRoundFieldIsEmpty {
+    return Intl.message(
+      'the arabic number of round field is empty',
+      name: 'arabicNumberRoundFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english instruction field is empty`
+  String get englishInstructionFieldIsEmpty {
+    return Intl.message(
+      'the english instruction field is empty',
+      name: 'englishInstructionFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic instruction field is empty`
+  String get arabicInstructionFieldIsEmpty {
+    return Intl.message(
+      'the arabic instruction field is empty',
+      name: 'arabicInstructionFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the video link field is empty`
+  String get videoLinkFieldIsEmpty {
+    return Intl.message(
+      'the video link field is empty',
+      name: 'videoLinkFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english title field is empty`
+  String get englishTitleFieldIsEmpty {
+    return Intl.message(
+      'the english title field is empty',
+      name: 'englishTitleFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the english number of exercises field is empty`
+  String get englishNumberOfExercisesFieldIsEmpty {
+    return Intl.message(
+      'the english number of exercises field is empty',
+      name: 'englishNumberOfExercisesFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic title field is empty`
+  String get arabicTitleFieldIsEmpty {
+    return Intl.message(
+      'the arabic title field is empty',
+      name: 'arabicTitleFieldIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the arabic number of exercises field is empty`
+  String get arabicNumberOfExercisesIsEmpty {
+    return Intl.message(
+      'the arabic number of exercises field is empty',
+      name: 'arabicNumberOfExercisesIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the total time is not set`
+  String get totalTimeIsNotSet {
+    return Intl.message(
+      'the total time is not set',
+      name: 'totalTimeIsNotSet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `category has been deleted`
+  String get categoryHasBeenDeleted {
+    return Intl.message(
+      'category has been deleted',
+      name: 'categoryHasBeenDeleted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

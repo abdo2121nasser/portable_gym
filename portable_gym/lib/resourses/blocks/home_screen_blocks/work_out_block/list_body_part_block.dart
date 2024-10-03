@@ -75,6 +75,7 @@ class ListBodyPartBlock extends StatelessWidget {
                           workOutCubit: workCubit),
                       buttonFunction: () {
                         workCubit.editBodyCategory(
+                          context: context,
                             docId: bodyCategoryModel[index].docId!);
                       },
                     );
@@ -86,6 +87,7 @@ class ListBodyPartBlock extends StatelessWidget {
                     deleteFunction: () {
                       showAlertDeleteBox(context: context,deleteFunction: (){
                         workCubit.processOfDeletingBodyCategory(
+                          context: context,
                             docId: bodyCategoryModel[index].docId!,
                             bodyCategory:
                             bodyCategoryModel[index].english!.title!);

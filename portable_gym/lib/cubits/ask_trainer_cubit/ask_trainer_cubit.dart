@@ -1,20 +1,16 @@
 import 'dart:io';
-
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:my_coach/resourses/managers_files/toast_massage_manager.dart';
 import 'package:my_coach/resourses/models/ask_trainer_models/contact_message_model.dart';
 import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
-
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
 import '../../resourses/models/ask_trainer_models/message_model.dart';
@@ -97,7 +93,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(GetAllAdminsSuccessState());
     }).catchError((error) {
       emit(GetAllAdminsErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -117,7 +113,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(GetAllClientsSuccessState());
     }).catchError((error) {
       emit(GetAllClientsErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -186,7 +182,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       messageController.clear();
     }).catchError((error) {
       emit(SendMessageErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -232,7 +228,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(UploadFileSuccessState());
     }).catchError((error) {
       emit(UploadFileErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -290,7 +286,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       await tempFile.delete(); // Delete the temporary file
     } catch (error) {
       emit(DownloadFileErrorState());
-      debugPrint('Error downloading file: $error');
+      debugPrint('Error downloading file: ${error.toString()}');
       getToastMessage(message: S.of(context).somethingWentWrong);
     }
   }
@@ -315,7 +311,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
         debugPrint('Error opening file: ${result.message}');
       }
     } catch (error) {
-      debugPrint('Error opening file: $error');
+      debugPrint('Error opening file: ${error.toString()}');
     }
   }
 
@@ -364,7 +360,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(UpdateContactSuccessState());
     }).catchError((error) {
       emit(UpdateContactErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -380,7 +376,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(UpdateUnreadContactSuccessState());
     }).catchError((error) {
       emit(UpdateUnreadContactErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -394,7 +390,7 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
       emit(CreateContactSuccessState());
     }).catchError((error) {
       emit(CreateContactErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
     return model;
   }

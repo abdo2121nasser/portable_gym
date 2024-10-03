@@ -116,6 +116,7 @@ class WorkOutScreen extends StatelessWidget {
                                               ),
                                               buttonFunction: () {
                                                 workCubit.editBodyCategory(
+                                                  context: context,
                                                     docId: workCubit
                                                         .dailyDodyCategoryModel!
                                                         .docId!,
@@ -194,8 +195,10 @@ class WorkOutScreen extends StatelessWidget {
                             tabBar: bodyCategoryTabBar,
                             tabBarView: workCubit.getBodyCategoryTabBarView(
                                 workOutCubit: workCubit),
-                            buttonFunction:
-                                workCubit.processOfAddingBodyCategory);
+                            buttonFunction:(){
+                              workCubit.processOfAddingBodyCategory(context: context);
+                            }
+                                );
                       },
                     )
                   : null,

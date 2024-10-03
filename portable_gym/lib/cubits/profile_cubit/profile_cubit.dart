@@ -157,6 +157,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(DeleteImageFileOnCloudSuccessState());
     }).catchError((error) {
       emit(DeleteImageFileOnCloudErrorState());
+      debugPrint(error.toString());
     });
   }
 
@@ -171,7 +172,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(UploadImageFileSuccessState());
     }).catchError((error) {
       emit(UploadImageFileErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -181,7 +182,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }).then((value) async {
       await uploadImage();
     }).catchError((error) {
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -238,7 +239,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       await getUserData();
     }).catchError((error) {
       emit(UpdateUserDataErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -254,7 +255,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       await getUserData();
     }).catchError((error) {
       emit(UpdateUserQuestionAnswerErrorState());
-      debugPrint(error);
+      debugPrint(error.toString());
     });
   }
 
@@ -266,7 +267,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         .update({StringManager.deviceToken: deviceToken})
         .then((value) {})
         .catchError((error) {
-          debugPrint(error);
+          debugPrint(error.toString());
         });
   }
 

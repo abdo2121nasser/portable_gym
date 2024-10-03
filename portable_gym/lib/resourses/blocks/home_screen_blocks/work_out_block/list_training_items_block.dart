@@ -123,6 +123,7 @@ class ListTrainingItemsBlock extends StatelessWidget {
                                   deleteFunction: () {
                                     showAlertDeleteBox(context: context,deleteFunction: (){
                                       workCubit.deleteTraining(
+                                         context: context,
                                           docId: trainingModels[index].docId!,
                                           bodyCategory: bodyCategory,
                                           isDailyTraining: isDailyCategory);
