@@ -8,6 +8,7 @@ import 'package:my_coach/resourses/managers_files/theme_manager.dart';
 import 'package:my_coach/screens/splash_screen.dart';
 import '../generated/l10n.dart';
 import '../resourses/managers_files/string_manager.dart';
+import '../screens/set_up_screen.dart';
 
 class MyCoachApp extends StatelessWidget {
   const MyCoachApp.internalConstructor({super.key});
@@ -19,7 +20,7 @@ class MyCoachApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      enabled: false,
+      enabled: true,
       builder: (context) => SafeArea(
         child: ScreenUtilInit(
             designSize: const Size(393, 852),
@@ -39,6 +40,8 @@ class MyCoachApp extends StatelessWidget {
                       supportedLocales: S.delegate.supportedLocales,
                       debugShowCheckedModeBanner: false,
                       theme: getAppTheme(),
+                      home: SplashScreen(),
+
                       // home: SubscriptionPage(),
                       // home: MainNavigationBarScreen(),
                       //home: ProfileScreen(),
@@ -49,7 +52,6 @@ class MyCoachApp extends StatelessWidget {
                       // FirebaseAuth.instance.currentUser!.emailVerified ||true ?
                       // const MainNavigationBarScreen():const LoginScreen(),
                       //
-                      home: SplashScreen(),
                       // home: AnswerQuestionsScreen(userNickName: '', collection: StringManager.collectionQuestionsOfProfile,
                       // finishProfileSetupFunction: (Map<String, dynamic> x){
                       //   Future.delayed(Duration(seconds: 6)).then((value) {
@@ -57,7 +59,7 @@ class MyCoachApp extends StatelessWidget {
                       //   });
                       // },
                       // ),
-                      // home: SetUpScreen(email: 'email'),
+                      // home: SetUpScreen(email: 'email', isAdmin: true,),
                       // home: LoginScreen(),
                     );
                   } else {

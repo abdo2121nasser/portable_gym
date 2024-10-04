@@ -17,11 +17,11 @@ class SetUpScreen extends StatelessWidget {
   final String email;
   final bool isAdmin;
 
-  const SetUpScreen({super.key, required this.email,required this.isAdmin});
+  const SetUpScreen({super.key, required this.email, required this.isAdmin});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SetUpCubit(email: email,isAdmin: isAdmin),
+      create: (context) => SetUpCubit(email: email, isAdmin: isAdmin),
       child: BlocConsumer<SetUpCubit, SetUpState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -45,29 +45,27 @@ class SetUpScreen extends StatelessWidget {
                         fontSize: FontSize.s24,
                         color: ColorManager.kWhiteColor,
                         fontFamily: FontFamily.kPoppinsFont)),
-                // Text(
-                //   S.of(context).welcomeDescription,
-                //   style: getLightStyle(
-                //       fontSize: FontSize.s14,
-                //       color: ColorManager.kWhiteColor,
-                //       fontFamily: FontFamily.kLeagueSpartanFont),
-                //   textAlign: TextAlign.center,
-                // ),
-                SizedBox(width: MediaQuery.of(context).size.width,),
-
-                setCubit.getPageBody(setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
-                    state is CreateProfileLoadingState? const CircularProgressIndicator(color: ColorManager.kLightPurpleColor,):
-                GeneralButtonBlock(
-                  lable: setCubit.getButtonText(context: context),
-                  function: () {
-                    setCubit.setUpForwardNavigation(context: context);
-                  },
-                  backgroundColor: setCubit.getButtonColor(context: context),
-                  textStyle: getMediumStyle(
-                      fontSize: FontSize.s24,
-                      color: setCubit.getTextColor(context: context),
-                      fontFamily: FontFamily.kLeagueSpartanFont),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
                 ),
+                setCubit.getPageBody(
+                    setUpCubit: setCubit)[setCubit.currentPageBodyIndex],
+                state is CreateProfileLoadingState
+                    ? const CircularProgressIndicator(
+                        color: ColorManager.kLightPurpleColor,
+                      )
+                    : GeneralButtonBlock(
+                        lable: setCubit.getButtonText(context: context),
+                        function: () {
+                          setCubit.setUpForwardNavigation(context: context);
+                        },
+                        backgroundColor:
+                            setCubit.getButtonColor(context: context),
+                        textStyle: getMediumStyle(
+                            fontSize: FontSize.s24,
+                            color: setCubit.getTextColor(context: context),
+                            fontFamily: FontFamily.kLeagueSpartanFont),
+                      ),
               ],
             ),
           );

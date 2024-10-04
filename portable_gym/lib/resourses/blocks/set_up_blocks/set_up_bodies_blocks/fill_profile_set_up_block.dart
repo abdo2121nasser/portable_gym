@@ -15,7 +15,7 @@ import '../../general_blocks/profile_photo_block.dart';
 class FillProfileSetUpBlock extends StatelessWidget {
   final SetUpCubit setCubit;
 
-  FillProfileSetUpBlock({required this.setCubit});
+  const FillProfileSetUpBlock({super.key, required this.setCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -25,55 +25,56 @@ class FillProfileSetUpBlock extends StatelessWidget {
       listener: (context, state) {
       },
       builder: (context, state) {
-    //    var setCubit = SetUpCubit.get(context);
-        return Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s8),
-              width: MediaQuery.of(context).size.width,
-              height: AppVerticalSize.s150,
-              color: ColorManager.kLightPurpleColor,
-              child: InkWell(
-                  onTap: () async {
-                    await setCubit.pickImage();
-                  },
-                  child: ProfilePhotoBlock(
-                    image: setCubit.imageFile == null
-                        ? Image.asset(ImageManager.kSmileManImage).image
-                        : Image.file(File(setCubit.imageFile!.path)).image,
-                  )),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.35,
-              child: ListView.separated(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: AppHorizontalSize.s20,
-                      vertical: AppVerticalSize.s10),
-                  itemBuilder: (context, index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FullInputBlock(
-                            lable: setCubit.getFillProfileInputsLables(
-                                context: context)[index],
-                            color: ColorManager.kPurpleColor,
-                            controller: setCubit.getFillProfileInputControllers(
-                                context: context)[index],
-                            readOnly: index==2,
-                            onlyInteger: index==3,
-                            isNormalInput: true,
+        return Expanded(
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s8),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height*0.2,
+                color: ColorManager.kLightPurpleColor,
+                child: InkWell(
+                    onTap: () async {
+                      await setCubit.pickImage();
+                    },
+                    child: ProfilePhotoBlock(
+                      image: setCubit.imageFile == null
+                          ? Image.asset(ImageManager.kSmileManImage).image
+                          : Image.file(File(setCubit.imageFile!.path)).image,
+                    )),
+              ),
+              Expanded(
+                child: ListView.separated(
+                shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppHorizontalSize.s20,
+                        vertical: AppVerticalSize.s10),
+                    itemBuilder: (context, index) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FullInputBlock(
+                              lable: setCubit.getFillProfileInputsLables(
+                                  context: context)[index],
+                              color: ColorManager.kPurpleColor,
+                              controller: setCubit.getFillProfileInputControllers(
+                                  context: context)[index],
+                              readOnly: index==2,
+                              onlyInteger: index==3,
+                              isNormalInput: true,
 
 
-                          ),
-                        ],
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: AppVerticalSize.s10,
-                      ),
-                  itemCount: setCubit.getFillProfileInputsLables(
-                      context: context).length)
-            ),
-          ],
+                            ),
+                          ],
+                        ),
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: AppVerticalSize.s10,
+                        ),
+                    itemCount: setCubit.getFillProfileInputsLables(
+                        context: context).length),
+              ),
+            ],
+          ),
         );
       },
     ),
