@@ -19,7 +19,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   static AuthenticationCubit get(context) => BlocProvider.of(context);
   TextEditingController loginEmail = TextEditingController();
   TextEditingController loginPassword = TextEditingController();
-  bool isVisibleLoginPassword = true;
+  bool isVisibleLoginPassword = false;
 
   TextEditingController registerEmail = TextEditingController();
   TextEditingController registerPassword = TextEditingController();

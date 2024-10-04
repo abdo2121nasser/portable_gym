@@ -12,7 +12,7 @@ class QuestionWithAnswer extends StatelessWidget {
  final String question;
  final String answer;
 
- QuestionWithAnswer({required this.title,required this.question,required this.answer});
+ const QuestionWithAnswer({super.key, required this.title,required this.question,required this.answer});
 
   @override
   Widget build(BuildContext context) {

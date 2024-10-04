@@ -103,9 +103,11 @@ class QuestionWithChoicesBlock extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               // mainAxisExtent: 140,
-              crossAxisSpacing: 0,
-              childAspectRatio: (2.5 / 0.46),
-              mainAxisSpacing: 15),
+              crossAxisSpacing: 12,
+              // childAspectRatio: (2.5 / 0.46),
+              mainAxisSpacing: 15,
+            mainAxisExtent: 20
+          ),
           itemBuilder: (context, index) => !isClientView &&
                   index == model.getLanguageClass(context).answers.length
               ? Align(
@@ -118,12 +120,14 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                       margin: EdgeInsets.symmetric(
                         horizontal: AppHorizontalSize.s2,
                       ),
+
                       decoration: BoxDecoration(
                           color: ColorManager.kPurpleColor,
                           borderRadius:
                               BorderRadius.circular(AppRadiusSize.s8)),
-                      child: const Icon(
+                      child:  Icon(
                         Icons.add,
+                        size: AppVerticalSize.s26,
                         color: ColorManager.kWhiteColor,
                       ),
                     ),

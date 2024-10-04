@@ -5,6 +5,7 @@ import 'font_manager.dart';
 TextStyle _getTextStyle(
     double fontSize, Color color, String fontFamily, FontWeight fontWeight) {
   return TextStyle(
+        overflow: TextOverflow.ellipsis,
       color: color,
       fontSize: fontSize,
       fontFamily: fontFamily,

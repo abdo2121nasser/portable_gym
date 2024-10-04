@@ -11,7 +11,6 @@ import '../../../resourses/blocks/general_blocks/general_button_block.dart';
 import '../../../resourses/blocks/home_screen_blocks/nutrition_blocks/list_questions_with_choices_block.dart';
 import '../../../resourses/managers_files/color_manager.dart';
 import '../../../resourses/managers_files/font_manager.dart';
-import '../../../resourses/managers_files/string_manager.dart';
 import '../../../resourses/managers_files/style_manager.dart';
 
 class QuestionScreen extends StatelessWidget {
