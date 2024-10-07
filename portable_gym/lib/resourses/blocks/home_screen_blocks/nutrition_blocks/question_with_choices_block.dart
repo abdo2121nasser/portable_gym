@@ -100,13 +100,13 @@ class QuestionWithChoicesBlock extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(vertical: AppVerticalSize.s14),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               // mainAxisExtent: 140,
-              crossAxisSpacing: 12,
+              crossAxisSpacing: AppHorizontalSize.s14,
               // childAspectRatio: (2.5 / 0.46),
-              mainAxisSpacing: 15,
-            mainAxisExtent: 20
+              mainAxisSpacing: AppVerticalSize.s12,
+              mainAxisExtent: AppVerticalSize.s30
           ),
           itemBuilder: (context, index) => !isClientView &&
                   index == model.getLanguageClass(context).answers.length
@@ -141,6 +141,7 @@ class QuestionWithChoicesBlock extends StatelessWidget {
                   lable: model.getLanguageClass(context).answers[index].text,
                   borderColor: ColorManager.kWhiteColor,
                   textStyle: getLightStyle(
+                    textOverflow: true,
                       fontSize: FontSize.s16,
                       color: ColorManager.kWhiteColor,
                       fontFamily: FontFamily.kLeagueSpartanFont),
