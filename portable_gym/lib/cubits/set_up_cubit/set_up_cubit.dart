@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -58,7 +59,7 @@ class SetUpCubit extends Cubit<SetUpState> {
   bool isAdmin;
   //-------------------------------------------------
   //----------------------------------------------
-  var pickedFilename;
+  // var pickedFilename;
   File? imageFile;
   String imageLink = '';
   //------------------------------------------
@@ -220,7 +221,7 @@ class SetUpCubit extends Cubit<SetUpState> {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      pickedFilename = pickedFile.path.split('/').last;
+      // pickedFilename = pickedFile.path.split('/').last;
       imageFile = File(pickedFile.path);
       emit(PickImageSuccessState());
     } else {
@@ -231,9 +232,13 @@ class SetUpCubit extends Cubit<SetUpState> {
 
   uploadImage() async {
     emit(UploadImageFileLoadingState());
+    String fileName=imageFile!.path.split('/').last;
+    String date= DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+
     await FirebaseStorage.instance
         .ref()
-        .child(imageFile!.path)
+    // .child(imageFile!.path)
+        .child("${StringManager.profileImagePathCloud}/$fileName/$date")
         .putFile(imageFile!)
         .then((result) async {
       imageLink = await result.ref.getDownloadURL();

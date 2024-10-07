@@ -26,6 +26,14 @@ class ProfilePhotoBlock extends StatelessWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: image,
+                  onError:  ( Object exception, StackTrace? stackTrace) {
+          // Display a broken window icon when the image fails to load
+        //   return Icon(
+        //   Icons.broken_image,
+        //   size: 50, // You can adjust the size as needed
+        //   color: Colors.grey,
+        // );
+      },
                   // fit: BoxFit.fill,
                 ),
               ),

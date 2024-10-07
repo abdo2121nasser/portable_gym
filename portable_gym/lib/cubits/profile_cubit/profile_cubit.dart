@@ -17,6 +17,7 @@ import '../../generated/l10n.dart';
 import '../../resourses/blocks/app_bar_blocks/log_out_bottom_sheet_block.dart';
 import '../../resourses/managers_files/string_manager.dart';
 import '../../screens/authentication_screens/login_screen.dart';
+import 'package:intl/intl.dart';
 
 part 'profile_state.dart';
 
@@ -32,7 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController ageController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
-  var pickedFilename;
+  // var pickedFilename;
   File? imageFile;
   String imageLink = '';
   ProfileModel? profileModel;
@@ -142,7 +143,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      pickedFilename = pickedFile.path.split('/').last;
+      // pickedFilename = pickedFile.path.split('/').last;
       imageFile = File(pickedFile.path);
       emit(PickImageSuccessState());
     } else {
@@ -163,9 +164,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> uploadImage() async {
     emit(UploadImageFileLoadingState());
+    String fileName=imageFile!.path.split('/').last;
+   String date= DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+
     await FirebaseStorage.instance
         .ref()
-        .child(imageFile!.path)
+        // .child(imageFile!.path)
+        .child("${StringManager.profileImagePathCloud}/$fileName/$date")
         .putFile(imageFile!)
         .then((result) async {
       imageLink = await result.ref.getDownloadURL();

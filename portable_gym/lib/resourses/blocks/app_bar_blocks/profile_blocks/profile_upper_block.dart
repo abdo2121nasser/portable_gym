@@ -48,7 +48,8 @@ class ProfileUpperBlock extends StatelessWidget {
                   child: ProfilePhotoBlock(
                     image:profCubit.imageFile==null?
                     Image.network(
-                    profileModel.imageLink).image:
+                    profileModel.imageLink
+                    ).image:
                         Image.file(profCubit.imageFile!).image
                     ,
                     isEditable: profCubit.isProfileLowerBlock,

@@ -10,6 +10,8 @@ class ColorManager
   static const Color kTransparentBlackColor =Color(0xdd212020);
   static var  kBlue =Colors.blue;
   static var  kRed =Colors.red;
+  static Color kMixedGreyColor = const Color(0x9924252C);
+
 }
 
 
