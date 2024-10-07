@@ -234,6 +234,8 @@ class StringManager
   static const String senderAndReceiverDocId='sender and receiver doc id';
   static const String senderDocId='sender doc id';
   static const String messageDate='date';
+  static const String messageFilesPathCloud='files';
+
 
 
   static const String activityBox='my activity box';

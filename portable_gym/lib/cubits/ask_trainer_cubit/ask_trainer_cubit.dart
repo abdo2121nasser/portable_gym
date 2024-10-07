@@ -14,6 +14,7 @@ import 'package:my_coach/resourses/models/profile_models/profile_model.dart';
 import '../../generated/l10n.dart';
 import '../../resourses/managers_files/string_manager.dart';
 import '../../resourses/models/ask_trainer_models/message_model.dart';
+import 'package:intl/intl.dart';
 
 part 'ask_trainer_state.dart';
 
@@ -218,9 +219,10 @@ class AskTrainerCubit extends Cubit<AskTrainerState> {
 
   uploadFileToCloud() async {
     emit(UploadFileLoadingState());
+    String date= DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
     await FirebaseStorage.instance
         .ref()
-        .child(fileName!)
+        .child('${StringManager.messageFilesPathCloud}/${fileName!}/$date')
         .putFile(messageFile!)
         .then((result) async {
       fileLink = await result.ref.getDownloadURL();
