@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: GeneralAppBarBlock(
               title: S.of(context).myProfile,
               backgroundColor: ColorManager.kLightPurpleColor,

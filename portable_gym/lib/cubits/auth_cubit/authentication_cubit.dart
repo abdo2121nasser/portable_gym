@@ -145,7 +145,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       getToastMessage(message: S.of(context).success);
       emit(LoginSuccessState());
       if (value.user!.emailVerified == false
-          && false
+          // && false
       )
       //todo delete the and false
       {

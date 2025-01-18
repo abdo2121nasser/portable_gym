@@ -20,10 +20,12 @@ class MyCoachApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      enabled: true,
+      enabled: false,
+      //todo change the true to false
       builder: (context) => SafeArea(
         child: ScreenUtilInit(
             designSize: const Size(393, 852),
+            minTextAdapt: true,
             builder: (context, child) => FutureBuilder(
                 future: getLocalLanguage(),
                 builder: (context, snapshot) {
